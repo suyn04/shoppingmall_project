@@ -1,6 +1,6 @@
-import Home from "./components/Home";
-import Header from "./components/Header";
-import Nav from "./components/Nav";
+import Home from "./components/main/Home";
+import Header from "./components/dup/Header";
+import Nav from "./components/dup/Nav";
 import './reset.css'
 import { BrowserRouter } from 'react-router-dom';
 
