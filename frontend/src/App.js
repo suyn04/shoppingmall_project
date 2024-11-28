@@ -1,10 +1,11 @@
+import "./reset.css";
 import Home from "./components/main/Home";
 import Header from "./components/dup/Header";
 import Nav from "./components/dup/Nav";
-import "./reset.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Product from "./Product";
 import Services from "./Services";
+import Footer from './components/dup/Footer'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             </Routes>
             <Product />
             <Services />
+            <Footer/>
         </BrowserRouter>
     );
 }

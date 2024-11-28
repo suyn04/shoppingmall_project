@@ -56,6 +56,9 @@ button{
   color: inherit;
   cursor: pointer;
 }
+textarea{
+  resize: none;
+}
 /* font */
 @font-face {
   font-family: 'NotoSansEN';
