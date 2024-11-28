@@ -5,7 +5,7 @@ import "../../../scss/product/detailRecommend.scss";
 
 const DetailRecommend = () => {
     return (
-        <div className="detail-">
+        <div className="detail-re">
             <div>당신을 위한 추천 상품</div>
             <RecommendSwiper />
         </div>
