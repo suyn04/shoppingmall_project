@@ -3,10 +3,13 @@
 @import '@fortawesome/fontawesome-free/scss/regular';
 @import '@fortawesome/fontawesome-free/scss/brands';
 
+.rwrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .content{
-    width: 100%;
-    display: flex;
+    width: 50%;
 }
 .rimgbox{
     width: 50%;

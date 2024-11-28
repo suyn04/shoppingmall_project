@@ -7,16 +7,21 @@ const Review = () => {
   return (
     <div>
       <div className="rwrapper">
-        <div className="content">
+
           <div className="rimgbox">
             <img src="/imgs/service/reviewimg_1.avif" alt="Product" />
           </div>
 
+
+
+
+
+          <div className="content">
           <div className="text">
             <h2>English Pear & Freesia Cologne</h2>
             <h3>가을의 정수인 배 과수원에서 영감을 얻은 그윽한 프루티 향.</h3>
+ 
           </div>
-
           <form action="" onSubmit={(e) => e.preventDefault()}>
             {/* 별점 평가 */}
             <fieldset className="rating">
@@ -73,7 +78,7 @@ const Review = () => {
             </div>
           </form>
         </div>
-      </div>
+        </div>
     </div>
   );
 };
