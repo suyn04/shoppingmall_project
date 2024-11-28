@@ -1,6 +1,4 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import TopMenu from "./components/service/service/TopMenu";
-import Service from "./components/service/service/Service";
+import { Routes, Route } from "react-router-dom";
 import Faq from './components/service/service/Faq';
 import MyProfile from './components/service/service/MyProfile';
 import MyOrder from './components/service/service/MyOrder';
@@ -23,14 +21,13 @@ function Services() {
     return (
         <Routes>
                 <Route path="/info" element={<Temp />}>
-                    <Route path="/service" element={<Service />} />
-                    <Route path="/faq" element={<Faq />} />
-                    <Route path="/myprofile" element={<MyProfile />} />
-                    <Route path="/myorder" element={<MyOrder />} />
-                    <Route path="/delivery" element={<Delivery />} />
-                    <Route path="/excahngerefund" element={<ExchangeRefund />} />
-                    <Route path="/onlineshopping" element={<OnlineShopping />} />
-                    <Route path="/terms" element={<Terms />} />
+                    <Route path="faq" element={<Faq />} />
+                    <Route path="myprofile" element={<MyProfile />} />
+                    <Route path="myorder" element={<MyOrder />} />
+                    <Route path="delivery" element={<Delivery />} />
+                    <Route path="excahngerefund" element={<ExchangeRefund />} />
+                    <Route path="onlineshopping" element={<OnlineShopping />} />
+                    <Route path="terms" element={<Terms />} />
                 </Route>
                
                {/* Story 관련 라우트 */}
