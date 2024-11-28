@@ -1,0 +1,26 @@
+.use-content-wrap {
+    width: 70%;
+    border: 1px solid #999;
+    margin: 0 auto;
+    display: flex;
+    align-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    .use-content {
+        width: calc(100% / 2);
+        .use-title {
+            text-align: center;
+            font-size: 25px;
+        }
+        .use-text {
+            padding: 30px;
+            p {
+                padding: 10px;
+            }
+        }
+        video {
+            display: block;
+            width: 100%;
+        }
+    }
+}

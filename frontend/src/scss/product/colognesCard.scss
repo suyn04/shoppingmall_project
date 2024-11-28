@@ -1,0 +1,22 @@
+.card-total {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 14px;
+    cursor: pointer;
+    .card {
+        width: calc(100% / 4);
+        .card-content {
+            img {
+                width: 100%;
+            }
+        }
+        button {
+            font-size: 13px;
+            margin: 20px;
+            padding: 10px 20px;
+            border: 1px solid #999;
+        }
+    }
+}
