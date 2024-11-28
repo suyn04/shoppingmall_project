@@ -1,0 +1,169 @@
+body{
+    background-color: #fcf9ee;
+    margin: 50px;
+}
+.imgwrapper{
+    display: flex;
+}
+.stitle , .ctitle{
+    font-size: 24px;
+}
+.cbox1{
+    display: flex;
+    .tbox1{
+        
+        width: 70%;
+    }
+    .cimg1{
+        width: 100%;    
+    }
+    p{
+        line-height: 24px;
+    }
+}
+.sbox1{
+    display: flex;
+    .tbox1{
+        width:100%;
+    }
+    .cimg1{
+        width: 100%;
+    }
+    p{
+        line-height: 24px;
+    }
+    .stitle{
+        margin-bottom: 50px;
+    }
+    padding-bottom: 50px;
+}
+.tbox2{
+    display: flex;
+    line-height: 24px;
+    border-top: 1px solid #ccc;
+    p{
+        margin-left: 30px;
+    }
+    .ctitle{
+        line-height: 30px;
+    }
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+.tbox3{
+    margin-top: 30px;
+    display: flex;
+    line-height: 24px;
+    p{
+        margin-left: 30px;
+    }
+    .ctitle{
+        line-height: 30px;
+        width: calc(100%/3);
+    }
+  
+}
+
+
+.ibox1{
+    display: flex;
+
+    img,div{
+        width: calc(100% / 3);
+    }
+    img{
+        margin:10px
+    }
+    padding-bottom: 30px;
+}
+.uni {
+    font-size: 32px;
+    text-align: center;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+.ibox2{
+    display: flex;
+    .cimg2{
+       justify-content: center;
+    }
+}
+.tbox3{
+    border-top: 1px solid #ccc;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    .ctitle{
+        width: 80%;
+    }
+}
+.tbox4{
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    .ctitle{
+        width: calc(100%/3);
+    }
+    p{
+    width: calc(100%/3);
+    margin-right: 35px;
+    line-height: 24px;
+    }
+}
+.tbox7{
+    border-top: 1px solid #ccc;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    display: flex;
+    
+    .stitle{
+        width: 60%;
+        line-height: 30px;
+    }
+    .ttbox1{
+        width: 90%;
+        margin-right: 30px;
+    }
+    .ttbox2{
+        width: 80%;
+    }
+    p{
+        line-height: 25px;
+    }
+    li{
+        list-style: '-';
+    }
+}
+.simg1{
+    padding-bottom: 40px;
+}
+.pbox1{
+    display: flex;
+    padding-bottom: 30px;
+    .tbox1{
+        width: 60%;
+    }
+    .stitle{
+        padding-bottom: 30px;
+    }
+    .cimg1{
+        width: 90%;
+    }
+    p{
+        line-height: 24px;
+    }
+    
+}
+.iwrapper{
+    margin-right: 20px;   
+    padding-bottom: 70px;
+    a{
+        margin: 10px;
+    }
+}
+.cimg27{
+    margin: 0 auto;
+}

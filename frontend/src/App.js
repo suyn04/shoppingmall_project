@@ -4,6 +4,8 @@ import Nav from "./components/dup/Nav";
 import "./reset.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Product from "./Product";
+import Services from "./Services";
+
 
 function App() {
     return (
@@ -14,6 +16,7 @@ function App() {
                 <Route path="/" element={<Home />} />
             </Routes>
             <Product />
+            <Services />
         </BrowserRouter>
     );
 }

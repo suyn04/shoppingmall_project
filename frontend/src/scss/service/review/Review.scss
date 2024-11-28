@@ -1,0 +1,68 @@
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/brands';
+
+
+.content{
+    width: 100%;
+    display: flex;
+}
+.rimgbox{
+    width: 50%;
+    img{
+        width: 100%;
+    }
+}
+.text{
+    margin-top: 50px;
+}
+.rating .labelbox{
+    display: flex;
+    gap:10px;
+}
+.checkbox i {
+    font-size: 24px;
+    cursor: pointer;
+}
+.fa-regular{
+    color: #ccc;
+}
+.fa-solid {
+    color: #1c1c1c;
+}
+.recommend {
+    margin-top: 20px;
+}
+
+.recommend .button-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .btn {
+    border: 1px solid #333;
+    background: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .btn.active,
+  .btn:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .name {
+    margin-top: 20px;
+  }
+  
+  .name input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+  }

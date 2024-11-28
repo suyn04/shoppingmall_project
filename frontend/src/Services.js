@@ -1,0 +1,53 @@
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import TopMenu from "./components/service/service/TopMenu";
+import Service from "./components/service/service/Service";
+import Faq from './components/service/service/Faq';
+import MyProfile from './components/service/service/MyProfile';
+import MyOrder from './components/service/service/MyOrder';
+import Delivery from './components/service/service/Delivery';
+import ExchangeRefund from './components/service/service/ExchangeRefund';
+import OnlineShopping from './components/service/service/OnlineShopping';
+import Terms from './components/service/service/Terms';
+import Temp from "./components/service/service/Temp";
+
+import StoryMain from "./components/service/story/StoryMain";
+import CharityMission from "./components/service/story/CharityMission";
+import Sustainable from "./components/service/story/Sustainable";
+import PeopleWorkplace from "./components/service/story/PeopleWorkplace";
+
+import OneToOne from"./components/service/IldaeIl/OneToOne"
+
+import Review from"./components/service/review/Review"
+
+function Services() {
+    return (
+        <Routes>
+                <Route path="/info" element={<Temp />}>
+                    <Route path="/service" element={<Service />} />
+                    <Route path="/faq" element={<Faq />} />
+                    <Route path="/myprofile" element={<MyProfile />} />
+                    <Route path="/myorder" element={<MyOrder />} />
+                    <Route path="/delivery" element={<Delivery />} />
+                    <Route path="/excahngerefund" element={<ExchangeRefund />} />
+                    <Route path="/onlineshopping" element={<OnlineShopping />} />
+                    <Route path="/terms" element={<Terms />} />
+                </Route>
+               
+               {/* Story 관련 라우트 */}
+                <Route path="/storymain" element={<StoryMain/>} />
+                <Route path="/chartiymission" element={<CharityMission />} />
+                <Route path="/sustainable" element={<Sustainable />} />
+                <Route path="/peopleworkplace" element={<PeopleWorkplace />} />
+                {/* 일대일문의 */}
+                <Route path="/onetoone" element={<OneToOne />} />
+                
+                
+                {/* 리뷰 */}   
+                <Route path="/review" element={<Review />} />
+               
+               
+            </Routes>
+    );
+}
+
+export default Services;
