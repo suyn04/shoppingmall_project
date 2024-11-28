@@ -1,0 +1,63 @@
+.gray{
+   color: #aaa;
+   text-align: right;
+   margin-bottom: 20px;
+   font-size: 14px;
+}
+.red{
+    color: #f00;
+}
+.inquiry-form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+
+    label{
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 20px;
+    }
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    textarea{
+    min-height: 200px; /* 최소 높이를 설정 */
+    resize: vertical; /* 사용자가 세로 크기만 조절 가능 */
+}
+.button-group {
+    display: flex; /* 버튼을 가로로 배치 */
+    justify-content: center; /* 오른쪽 정렬 */
+    gap: 10px; /* 버튼 사이 간격 */
+}
+    button {
+        padding: 10px 20px;
+        background-color: #1c1c1c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+
+        &:hover {
+            background-color: #ccc;
+        }
+    }
+    .cbutton{
+        padding: 10px 20px;
+        background-color: #fff;
+        color: #1c1c1c;
+        border:none;
+        border-radius: 5px;
+        cursor:pointer;
+        font-size: 16px;
+    }   
+    
+    
+}
