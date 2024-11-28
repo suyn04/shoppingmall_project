@@ -26,7 +26,7 @@ const DetailTop = () => {
                     <div>100ml</div>
                 </div>
                 <div className="button-wrap">
-                    <div>장바구니 담기</div>
+                    <button>장바구니 담기</button>
                 </div>
             </div>
         </div>

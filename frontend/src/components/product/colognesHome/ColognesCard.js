@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../scss/product/colognesCard.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ColognesCard = () => {
     const navigate = useNavigate();

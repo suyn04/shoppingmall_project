@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -14,7 +14,6 @@ import { Pagination, Navigation } from "swiper/modules";
 export default function RecommendSwiper() {
     return (
         <>
-            <div>당신을 위한 추천 상품</div>
             <Swiper
                 slidesPerView={4}
                 spaceBetween={10}

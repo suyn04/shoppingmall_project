@@ -11,5 +11,8 @@
     .content-wrap {
         padding: 50px;
         width: calc(100% / 2);
+        .text-wrap {
+            line-height: 1.5;
+        }
     }
 }

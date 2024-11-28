@@ -3,7 +3,7 @@ import DetailTop from "./DetailTop";
 import DetailAcor from "./DetailAcor";
 import DetailTasting from "./DetailTasting";
 import DetailUse from "./DetailUse";
-import RecommendSwiper from "./RecommendSwiper";
+import DetailRecommend from "./DetailRecommend";
 
 const DetailWrap = () => {
     return (
@@ -12,7 +12,7 @@ const DetailWrap = () => {
             <DetailAcor />
             <DetailTasting />
             <DetailUse />
-            <RecommendSwiper />
+            <DetailRecommend />
         </div>
     );
 };
