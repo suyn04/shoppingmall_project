@@ -9,7 +9,7 @@ const Review = () => {
       <div className="rwrapper">
         <div className="content">
           <div className="rimgbox">
-            <img src="/img/reviewimg_1.avif" alt="Product" />
+            <img src="/imgs/service/reviewimg_1.avif" alt="Product" />
           </div>
 
           <div className="text">

@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../../scss/service/story/Story.scss'
-import { Link, useParams, useNavigate } from "react-router-dom";
+
 
 const CharityMission = () => {
   return (
@@ -17,7 +17,7 @@ const CharityMission = () => {
           <p>현재까지 조 말론 런던은 정신 건강 지원 자선 단체에 350만 달러 이상을 기부했습니다.</p>
         </div>
         <div>
-          <img src="/img/charity_1.avif" alt="" className='cimg1' />
+          <img src="/imgs/service/charity_1.avif" alt="" className='cimg1' />
         </div>
       </div>
       <div className='tbox3'>
@@ -37,8 +37,8 @@ const CharityMission = () => {
 
       <div className='ibox1'>
         <div></div>
-        <img src="/img/charity_2.avif" alt="" className='cimg1' />
-        <img src="/img/charity_3.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/charity_2.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/charity_3.avif" alt="" className='cimg1' />
       </div>
 
 
@@ -63,7 +63,7 @@ const CharityMission = () => {
 
       
       <div className='ibox2'>
-        <img src="/img/charity_4.avif" alt="" className='cimg27' /></div>
+        <img src="/imgs/service/charity_4.avif" alt="" className='cimg27' /></div>
 
 
       <div className='tbox4'>
@@ -88,8 +88,8 @@ const CharityMission = () => {
 
       <div className='ibox1'>
         <div></div>
-        <img src="/img/charity_5.avif" alt="" className='cimg1' />
-        <img src="/img/charity_6.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/charity_5.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/charity_6.avif" alt="" className='cimg1' />
       </div>
 
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link, useParams, useNavigate } from "react-router-dom";
 
 const Sustainable = () => {
   return (
@@ -16,7 +15,7 @@ const Sustainable = () => {
             우리는 지속가능성에 대한 기준이 계속해서 발전해나갈 수 있도록 끊임없이 검토하고 있습니다. 그뿐만 아니라, 자랑스러운 브리티시 헤리티지를 간직한 기업으로서, 우리는 제품 생산 및 성분 선택에 있어서 Made in Britain에 대한 약속을 앞으로도 더욱 굳건하게 지켜나갈 것입니다.</p>
         </div>
         <div>
-          <img src="/img/sustainable_1.avif" alt="" className='cimg1' />
+          <img src="/imgs/service/sustainable_1.avif" alt="" className='cimg1' />
         </div>
       </div>
 
@@ -45,8 +44,8 @@ const Sustainable = () => {
 
       <div className='ibox1'>
         <div></div>
-        <img src="/img/sustainable_2.jpg" alt="" className='cimg1' />
-        <img src="/img/sustainable_3.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/sustainable_2.jpg" alt="" className='cimg1' />
+        <img src="/imgs/service/sustainable_3.avif" alt="" className='cimg1' />
       </div>
 
 
@@ -92,7 +91,7 @@ const Sustainable = () => {
 
 
       <div className='ibox2'>
-        <img src="/img/sustainable_4.avif" alt="" className='cimg27' />
+        <img src="/imgs/service/sustainable_4.avif" alt="" className='cimg27' />
       </div>
 
 
@@ -113,7 +112,7 @@ const Sustainable = () => {
 
 
       <div className='ibox2'>
-        <img src="/img/sustainable_5.jpg" alt="" className='cimg27' />
+        <img src="/imgs/service/sustainable_5.jpg" alt="" className='cimg27' />
       </div>
 
 

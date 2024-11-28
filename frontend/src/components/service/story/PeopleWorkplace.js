@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link, useParams, useNavigate } from "react-router-dom";
 
 const PeopleWorkplace = () => {
   return (
@@ -15,7 +14,7 @@ const PeopleWorkplace = () => {
           </p>
         </div>
         <div>
-          <img src="/img/people_1.avif" alt="" className='cimg1' />
+          <img src="/imgs/service/people_1.avif" alt="" className='cimg1' />
         </div>
       </div>
 
@@ -53,8 +52,8 @@ const PeopleWorkplace = () => {
 
       <div className='ibox1'>
         <div></div>
-        <img src="/img/people_2.avif" alt="" className='cimg1' />
-        <img src="/img/people_3.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/people_2.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/people_3.avif" alt="" className='cimg1' />
       </div>
 
 
@@ -80,7 +79,7 @@ const PeopleWorkplace = () => {
 
 
       <div className='ibox2'>
-        <img src="/img/people_4.avif" alt="" className='cimg27' />
+        <img src="/imgs/service/people_4.avif" alt="" className='cimg27' />
       </div>
 
 

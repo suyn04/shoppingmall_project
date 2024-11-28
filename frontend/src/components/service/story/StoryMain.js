@@ -1,6 +1,6 @@
 import React from "react";
 import '../../../scss/service/story/Story.scss'
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const StoryMain = () => {
@@ -13,7 +13,7 @@ const StoryMain = () => {
       <div className="imgwrapper">
 
         <div className="iwrapper">
-          <img src="/img/mainstory_1.avif" alt="" />
+          <img src="/imgs/service/mainstory_1.avif" alt="" />
           <p className="stitle">우리의 자선활동 미션
           </p>
           <p>
@@ -22,7 +22,7 @@ const StoryMain = () => {
           <Link to="/chartiymission">더 보기</Link>
         </div>
           <div className="iwrapper">
-            <img src="/img/mainstory_2.avif" alt="" />
+            <img src="/imgs/service/mainstory_2.avif" alt="" />
             <p className="stitle">지속가능성을 위한 우리의 활동</p>
             <p>자연은 영원히 조 말론 런던의 뮤즈로서, 보다 지속가능한 미래를 향해 나아가면서 환경 보호에 있어 의미있는 역할을 하고자 합니다.</p>
             <Link to="/sustainable">더 보기</Link>
@@ -32,7 +32,7 @@ const StoryMain = () => {
 
       <div className="iwrapper">
 
-      <img src="/img/mainstory_3.avif" alt="" />
+      <img src="/imgs/service/mainstory_3.avif" alt="" />
     <p className="stitle">우리의 사람 & 우리의 일터</p>
     <p>인재를 육성하고 팀의 안녕을 제고하는 것은 매우 중요한 일입니다. 포용성이 인정되며 누구나 환영받을 수 있는 일터를 만들기 위해 최선을 다하고 있습니다.</p>
     <Link to="/peopleworkplace">더 보기</Link>
