@@ -1,14 +1,13 @@
 import React from "react";
-import HomeTop from "./HomeTop";
 import { Outlet } from "react-router-dom";
-import HomeScentsNav from "./HomeScentsNav";
-import CandleHomeTop from "./CandleHomeTop";
+import BathShowerHomeTop from "./BathShowerHomeTop";
+import BathShowerNav from "./BathShowerNav";
 
 const BathShowerWrap = () => {
     return (
         <div>
-            <CandleHomeTop />
-            <HomeScentsNav />
+            <BathShowerHomeTop />
+            <BathShowerNav />
             <Outlet />
         </div>
     );

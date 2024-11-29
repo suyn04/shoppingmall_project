@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "../../../scss/product/colongnesNav.module.scss";
 
-const HomeScentsNav = () => {
+const BathShowerNav = () => {
     const { id } = useParams();
     console.log(id);
 
@@ -32,4 +32,4 @@ const HomeScentsNav = () => {
     );
 };
 
-export default HomeScentsNav;
+export default BathShowerNav;

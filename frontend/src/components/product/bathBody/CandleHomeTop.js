@@ -9,9 +9,9 @@ const CandleHomeTop = () => {
             <div className={styles.breadCrum}>
                 <Link to="/">홈</Link>
                 <span> &gt; </span>
-                <Link to="/colognes">홈 프레그런스</Link>
+                <Link to="/home-scents">홈 프레그런스</Link>
                 <span> &gt; </span>
-                <Link to="/colognes">캔들</Link>
+                <Link to="/home-scents/candle">캔들</Link>
             </div>
             <div>
                 <div className={styles.title}>캔들</div>
