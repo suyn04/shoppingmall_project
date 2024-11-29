@@ -1,0 +1,84 @@
+/* ViewOrders CSS */
+/* 주문 리스트 컨테이너 */
+.orderlistcontainer {
+    max-width: 1200px; /* 화면 가운데 정렬을 위한 최대 너비 */
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 20px; /* 내부 여백 */
+}
+.block {
+    background-color: #fefcfa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 주문 헤더 */
+.orderheader {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center; /* 가운데 정렬 */
+}
+
+/* 주문 설명 */
+.orderdescription {
+    font-size: 16px;
+    color: #555;
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 30px;
+}
+
+/* 주문 리스트 */
+.orderlist {
+    width: 100%;
+    top: 20px;
+    border-spacing: 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr; /* 비율 조정 */
+    align-items: center;
+    gap: 10px; /* 항목 간 간격 */
+}
+
+/* 주문 리스트 헤더 */
+.orderlistheader,
+.orderlistitem {
+    display: contents; /* 아이템과 헤더를 동일하게 배치 */
+}
+
+/* 주문 리스트 타이틀 스타일 */
+.orderlistheader {
+    font-weight: bold;
+    background-color: #000; /* 타이틀 바 배경 색상 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px 0; /* 상하 여백 조정 */
+    color: #333; /* 텍스트 색상 */
+    margin-top: 20px;
+}
+
+/* 주문 리스트 항목 */
+.orderlistitem {
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    padding: 15px 0; /* 데이터 간 간격 조정 */
+    :hover {
+        background-color: #f9f9f9;
+    }
+}
+/* 링크 스타일 */
+.a1 {
+    color: #007bff;
+    text-decoration: none;
+    :hover {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+}
