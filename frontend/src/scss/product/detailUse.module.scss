@@ -1,4 +1,4 @@
-.use-content-wrap {
+.useContentWrap {
     width: 70%;
     border: 1px solid #999;
     margin: 0 auto;
@@ -6,13 +6,14 @@
     align-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    .use-content {
+    .useContent {
         width: calc(100% / 2);
-        .use-title {
+        .useTitle {
             text-align: center;
             font-size: 25px;
         }
-        .use-text {
+        .useText {
+            font-size: 15px;
             padding: 30px;
             p {
                 padding: 10px;

@@ -1,13 +1,13 @@
 import React from "react";
-import "../../../scss/product/detailUse.scss";
+import styles from "../../../scss/product/detailUse.module.scss";
 
 const DetailUse = () => {
     return (
         <div>
-            <div className="use-content-wrap">
-                <div className="use-content">
-                    <div className="use-title">코롱 사용법</div>
-                    <div className="use-text">
+            <div className={styles.useContentWrap}>
+                <div className={styles.useContent}>
+                    <div className={styles.useTitle}>코롱 사용법</div>
+                    <div className={styles.useText}>
                         <p>
                             코롱에 관한 다양한 에티켓을 살펴보고 프레그런스
                             전문가처럼 향을 입는 방법을 알아보세요.
@@ -19,7 +19,7 @@ const DetailUse = () => {
                         </p>
                     </div>
                 </div>
-                <div className="use-content">
+                <div className={styles.useContent}>
                     <video
                         src="/imgs/product/HowTo_Cologne.mp4"
                         loop={true}

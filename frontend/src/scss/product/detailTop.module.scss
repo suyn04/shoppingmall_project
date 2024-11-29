@@ -1,0 +1,54 @@
+.detailTop {
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+    .imgWrap {
+        width: calc(100% / 2);
+        img {
+            width: 100%;
+        }
+    }
+    .contentWrap {
+        padding: 50px;
+        width: calc(100% / 2);
+        .textWrap {
+            line-height: 1.5;
+            .tag,
+            .prodName,
+            .price {
+                padding: 10px 0 0;
+                text-align: center;
+            }
+            .prodInfo {
+                padding: 20px 0;
+                font-size: 14px;
+            }
+        }
+        .volumeWrap {
+            margin: 20px auto;
+            display: flex;
+            align-content: space-between;
+
+            button {
+                margin: 0 10px;
+                display: block;
+                width: 100px;
+                font-size: 13px;
+                padding: 10px 0;
+                border: 1px solid #999;
+            }
+        }
+        .btnWrap {
+            display: flex;
+            align-content: space-between;
+            button {
+                margin: 0 auto;
+                display: block;
+                width: 200px;
+                font-size: 15px;
+                padding: 10px 0;
+                border: 1px solid #999;
+            }
+        }
+    }
+}

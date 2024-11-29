@@ -1,4 +1,4 @@
-.card-total {
+.cardTotal {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
@@ -7,7 +7,7 @@
     cursor: pointer;
     .card {
         width: calc(100% / 4);
-        .card-content {
+        .cardContent {
             img {
                 width: 100%;
             }

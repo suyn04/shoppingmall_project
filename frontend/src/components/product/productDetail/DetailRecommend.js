@@ -1,12 +1,12 @@
 import React from "react";
 import RecommendSwiper from "./RecommendSwiper";
 
-import "../../../scss/product/detailRecommend.scss";
+import styles from "../../../scss/product/detailRecommend.module.scss";
 
 const DetailRecommend = () => {
     return (
-        <div className="detail-re">
-            <div>당신을 위한 추천 상품</div>
+        <div className={styles.detailRecommend}>
+            <div className={styles.recommendTitle}>당신을 위한 추천 상품</div>
             <RecommendSwiper />
         </div>
     );

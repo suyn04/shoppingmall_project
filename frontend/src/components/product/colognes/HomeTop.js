@@ -5,10 +5,12 @@ import styles from "../../../scss/product/homeTop.module.scss";
 
 const HomeTop = () => {
     return (
-        <div className={styles.home_top}>
-            <Link to="/">홈</Link>
-            <span> &gt; </span>
-            <Link to="/colognes">코롱</Link>
+        <div className={styles.homeTop}>
+            <div className={styles.breadCrum}>
+                <Link to="/">홈</Link>
+                <span> &gt; </span>
+                <Link to="/colognes">코롱</Link>
+            </div>
             <div>
                 <div className={styles.title}>코롱</div>
                 <div className={styles.content}>

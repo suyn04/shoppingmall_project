@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../../scss/product/detailAcor.scss";
+import styles from "../../../scss/product/detailAcor.module.scss";
 
 const DetailAcor = () => {
     const [infoOpen, setInfoOpen] = useState([false, false, false]);
@@ -10,10 +10,10 @@ const DetailAcor = () => {
     };
 
     return (
-        <div className="info">
-            <div className="info-wrap">
+        <div className={styles.infoTotal}>
+            <div className={styles.infoWrap}>
                 <div
-                    className="info-title"
+                    className={styles.infoTitle}
                     onClick={() => {
                         infoOnOff(0);
                     }}
@@ -21,9 +21,11 @@ const DetailAcor = () => {
                     <div>성분</div>
                 </div>
                 <div
-                    className={`${
-                        infoOpen[0] ? "info-content" : "info-content info-none"
-                    }`}
+                    className={
+                        infoOpen[0]
+                            ? `${styles.infoContent}`
+                            : `${styles.infoContent} ${styles.infoNone}`
+                    }
                 >
                     <div>
                         변성알코올, 정제수, 유제놀,
@@ -42,7 +44,7 @@ const DetailAcor = () => {
                     </div>
                 </div>
             </div>
-            <div className="info-wrap">
+            <div className={styles.infoWrap}>
                 <div
                     className="info-title"
                     onClick={() => {
@@ -52,9 +54,11 @@ const DetailAcor = () => {
                     <div>사용할 때의 주의사항</div>
                 </div>
                 <ul
-                    className={`${
-                        infoOpen[1] ? "info-content" : "info-content info-none"
-                    }`}
+                    className={
+                        infoOpen[1]
+                            ? `${styles.infoContent}`
+                            : `${styles.infoContent} ${styles.infoNone}`
+                    }
                 >
                     <li>
                         1. 화장품 사용 시 또는 사용 후 직사광선에 의하여
@@ -68,9 +72,9 @@ const DetailAcor = () => {
                     <li>* 기타 제품 특이적인 주의사항은 제품 포장 참조</li>
                 </ul>
             </div>
-            <div className="info-wrap">
+            <div className={styles.infoWrap}>
                 <div
-                    className="info-title"
+                    className={styles.infoTitle}
                     onClick={() => {
                         infoOnOff(2);
                     }}
@@ -78,9 +82,11 @@ const DetailAcor = () => {
                     <div>추가 정보</div>
                 </div>
                 <ul
-                    className={`${
-                        infoOpen[2] ? "info-content" : "info-content info-none"
-                    }`}
+                    className={
+                        infoOpen[2]
+                            ? `${styles.infoContent}`
+                            : `${styles.infoContent} ${styles.infoNone}`
+                    }
                 >
                     <li>제품 주요 사양 : 모든 피부/성별 사용 가능</li>
                     <li>

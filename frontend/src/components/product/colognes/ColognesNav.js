@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import "../../../scss/product/colongnesNav.scss";
+import styles from "../../../scss/product/colongnesNav.module.scss";
 
 const ColognesNav = () => {
     const { id } = useParams();
     console.log(id);
 
     return (
-        <ul className="colongnes-nav">
+        <ul className={styles.colongnesNav}>
             <li>
                 <Link to={"/colognes"}>전체</Link>
             </li>
