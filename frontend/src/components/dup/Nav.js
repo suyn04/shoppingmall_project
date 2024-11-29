@@ -1,17 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../../scss/dup/nav.module.scss'
+import styles from '../../scss/dup/nav.module.scss';
 
-function Nav(props) {
+function Nav({hamBtn, setHam}) {
   const url = '/imgs/main/'
+  const [subMenu, setSubmenu] = useState([])
+
+  const hideMenu = () => {
+    setHam(false)
+  }
+
+  const toggleSubMenu = (index, e) => {
+    e.stopPropagation()
+    setSubmenu((prevStates) => {
+      const newStates = [...prevStates]
+      newStates[index] = !newStates[index]
+
+      return newStates
+    })
+  }
+
   return (
     <div>
-      <div className={styles.hamBg}></div>
-      <div id={styles.hamMenu}>
+      <div className={styles.hamBg} style={{ display: hamBtn ? "block" : "none" }} onClick={hideMenu}></div>
+      <div id={styles.hamMenu} style={{ display: hamBtn ? "block" : "none" }}>
         <ul className={styles.hMenu}>
           <li>
-            <Link to="">브랜드 소개</Link>
-            <ul className={styles.hSubmenu}>
+            <Link to="" onClick={(e) => toggleSubMenu(0, e)}>브랜드 소개</Link>
+            <ul className={styles.hSubmenu} style={{ display: subMenu[0] ? "block" : "none" }}>
               <li><Link to="">소개</Link></li>
               <li><Link to="">제품전체</Link></li>
               <li><Link to="">베스트셀러</Link></li>
@@ -20,8 +36,8 @@ function Nav(props) {
             </ul>
           </li>
           <li>
-            <Link to="">코롱</Link>
-            <ul className={styles.hSubmenu}>
+            <Link to="" onClick={(e) => toggleSubMenu(1, e)}>코롱</Link>
+            <ul className={styles.hSubmenu} style={{ display: subMenu[1] ? "block" : "none" }}>
               <li>
                 <Link to="">센트패밀리</Link>
                 <ul className={styles.hSubitem}>
@@ -33,8 +49,8 @@ function Nav(props) {
                 </ul>
               </li>
               <li>
-                <Link to="">사이즈</Link>
-                <ul className={styles.hSubitem}>
+                <Link to="" onClick={(e) => toggleSubMenu(2, e)}>사이즈</Link>
+                <ul className={styles.hSubitem} style={{ display: subMenu[2] ? "block" : "none" }}>
                   <li><Link to="">100ml</Link></li>
                   <li><Link to="">50ml</Link></li>
                   <li><Link to="">30ml</Link></li>
@@ -43,8 +59,8 @@ function Nav(props) {
             </ul>
           </li>
           <li>
-            <Link to="">홈 프레그런스</Link>
-            <ul className={styles.hSubmenu}>
+            <Link to="" onClick={(e) => toggleSubMenu(3, e)}>홈 프레그런스</Link>
+            <ul className={styles.hSubmenu} style={{ display: subMenu[3] ? "block" : "none" }}>
               <li>
                 <Link to="">캔들</Link>
               </li>
@@ -54,8 +70,8 @@ function Nav(props) {
             </ul>
           </li>
           <li>
-            <Link to="">배스 앤 바디</Link>
-            <ul className={styles.hSubmenu}>
+            <Link to="" onClick={(e) => toggleSubMenu(4, e)}>배스 앤 바디</Link>
+            <ul className={styles.hSubmenu} style={{ display: subMenu[4] ? "block" : "none" }}>
               <li>
                 <Link to="">배스 앤 샤워</Link>
                 <ul className={styles.hSubitem}>
@@ -65,8 +81,8 @@ function Nav(props) {
                 </ul>
               </li>
               <li>
-                <Link to="">바디 케어</Link>
-                <ul className={styles.hSubitem}>
+                <Link to="" onClick={(e) => toggleSubMenu(5, e)}>바디 케어</Link>
+                <ul className={styles.hSubitem} style={{ display: subMenu[5] ? "block" : "none" }}>
                   <li><Link to="">바디 크림</Link></li>
                   <li><Link to="">바디 앤 핸드 로션</Link></li>
                   <li><Link to="">바디 미스트</Link></li>
@@ -76,8 +92,8 @@ function Nav(props) {
             </ul>
           </li>
           <li>
-            <Link to="">서비스</Link>
-            <ul className={styles.hSubmenu}>
+            <Link to="" onClick={(e) => toggleSubMenu(6, e)}>서비스</Link>
+            <ul className={styles.hSubmenu} style={{ display: subMenu[6] ? "block" : "none" }}>
               <li><Link to="">센트 파인더</Link></li>
               <li><Link to="">고객 서비스</Link></li>
             </ul>

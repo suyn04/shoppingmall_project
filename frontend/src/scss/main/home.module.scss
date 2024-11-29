@@ -64,3 +64,55 @@
     text-decoration: underline;
   }
 }
+
+// 반응형
+@media screen and (max-width: 800px) {
+  .new{
+    width: 100%;
+    >div{
+      width: 100%;
+      content: "";
+      display: block;
+      clear: both;
+    }
+    >img{
+      display: none;
+    }
+  }
+  .newText p,
+  .scent p{
+    font-size: 1.5rem;
+  }
+  .scent img{
+    width: 47%;
+    margin-left: 20px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .scent{
+    width: 90%;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid #ccc;
+    img{
+      width: 100%;
+      margin-left: 0px;
+    }
+    div{
+      width: 80%;
+      padding: 40px;
+      text-align: left;
+    }
+    p{
+      font-size: 2rem;
+    }
+  }
+}
+@media screen and (max-width: 500px) {
+  .new img{
+    width: 100%;
+  }
+  .newText p{
+    font-size: 2rem;
+  }
+}
