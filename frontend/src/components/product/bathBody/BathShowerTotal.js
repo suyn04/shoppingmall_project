@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../../../scss/product/colognesTotal.module.scss";
 import ProductCard from "../ProductCard";
 
-const CandleTotal = () => {
+const BathShowerTotal = () => {
     return (
         <div className={styles.colognesTotal}>
             <div className={styles.content}>
@@ -17,4 +17,4 @@ const CandleTotal = () => {
     );
 };
 
-export default CandleTotal;
+export default BathShowerTotal;

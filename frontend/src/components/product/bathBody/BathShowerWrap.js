@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import HomeScentsNav from "./HomeScentsNav";
 import CandleHomeTop from "./CandleHomeTop";
 
-const CandleHomeWrap = () => {
+const BathShowerWrap = () => {
     return (
         <div>
             <CandleHomeTop />
@@ -14,4 +14,4 @@ const CandleHomeWrap = () => {
     );
 };
 
-export default CandleHomeWrap;
+export default BathShowerWrap;

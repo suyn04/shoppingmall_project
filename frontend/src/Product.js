@@ -19,6 +19,8 @@ import CandleFloral from "./components/product/homeSecnts/CandleFloral";
 import CandleWoody from "./components/product/homeSecnts/CandleWoody";
 import BathBodyTotal from "./components/product/bathBody/BathBodyTotal";
 import BathBodyHomeWrap from "./components/product/bathBody/BathBodyHomeWrap";
+import BathShowerWrap from "./components/product/bathBody/BathShowerWrap";
+import BathShowerTotal from "./components/product/bathBody/BathShowerTotal";
 
 function Product() {
     return (
@@ -47,14 +49,8 @@ function Product() {
             </Route>
             <Route path="/bath-body" element={<BathBodyHomeWrap />}>
                 <Route path="" element={<BathBodyTotal />} />
-                <Route path="candle" element={<CandleHomeWrap />}>
-                    <Route path="" element={<CandleTotal />} />
-                    <Route path="citrus" element={<CandleCitrus />} />
-                    <Route path="fruity" element={<CandleFruity />} />
-                    <Route
-                        path="light-floral"
-                        element={<CandleLightFloral />}
-                    />
+                <Route path="bath-shower" element={<BathShowerWrap />}>
+                    <Route path="" element={<BathShowerTotal />} />
                     <Route path="floral" element={<CandleFloral />} />
                     <Route path="woody" element={<CandleWoody />} />
                 </Route>
