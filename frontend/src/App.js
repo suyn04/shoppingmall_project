@@ -1,4 +1,3 @@
-import "./reset.css";
 import Home from "./components/main/Home";
 import Header from "./components/dup/Header";
 import Nav from "./components/dup/Nav";
