@@ -1,19 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../../scss/dup/header.module.scss'
+import styles from '../../scss/dup/header.module.scss';
 
-function Header(props) {
+function Header({ hamBtn, setHam }) {
 
-  
-
-
+  const showHamMenu = (e) => {
+    e.stopPropagation()
+    setHam(!hamBtn)
+  }
 
   const url = '/imgs/main/'
   return (
     <header>
       <div className={styles.wrap}>
         <div>
-          <div className={styles.hamIcon}>
+          <div className={styles.hamIcon} onClick={showHamMenu}>
             <img src={`${url}menuIcon.svg`} alt=""/>
           </div>
           <div className={styles.searchIcon}>
