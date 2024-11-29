@@ -9,24 +9,20 @@ const BathShowerNav = () => {
     return (
         <ul className={styles.colongnesNav}>
             <li>
-                <Link to={"/home-scents/candle"}>전체</Link>
+                <Link to={"/bath-body/bath-shower"}>전체</Link>
             </li>
             <li>
-                <Link to={"/home-scents/candle/citrus"}>시트러스</Link>
-            </li>
-            <li>
-                <Link to={"/home-scents/candle/fruity"}>프루티</Link>
-            </li>
-            <li>
-                <Link to={"/home-scents/candle/light-floral"}>
-                    라이트 플로랄
+                <Link to={"/bath-body/bath-shower/body-handwash"}>
+                    바디 앤 핸드워시
                 </Link>
             </li>
             <li>
-                <Link to={"/home-scents/candle/floral"}>플로랄</Link>
+                <Link to={"/bath-body/bath-shower/shower-gel-oil"}>
+                    샤워 젤 앤 오일
+                </Link>
             </li>
             <li>
-                <Link to={"/home-scents/candle/woody"}>우디</Link>
+                <Link to={"/bath-body/bath-shower/bath-oil"}>배스 오일</Link>
             </li>
         </ul>
     );

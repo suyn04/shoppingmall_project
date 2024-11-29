@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import ColognesHomeWrap from "./components/product/colognes/ColognesHomeWrap";
 import ColognesTotal from "./components/product/colognes/ColognesTotal";
@@ -8,6 +8,7 @@ import ColognesFruity from "./components/product/colognes/ColognesFruity";
 import ColognesLightFloral from "./components/product/colognes/ColognesLightFloral";
 import ColognesFloral from "./components/product/colognes/ColognesFloral";
 import ColognesWoody from "./components/product/colognes/ColognesWoody";
+
 import HomeSecntsHomeWrap from "./components/product/homeSecnts/HomeSecntsHomeWrap";
 import HomeSecntsTotal from "./components/product/homeSecnts/HomeSecntsTotal";
 import CandleHomeWrap from "./components/product/homeSecnts/CandleHomeWrap";
@@ -17,10 +18,14 @@ import CandleFruity from "./components/product/homeSecnts/CandleFruity";
 import CandleLightFloral from "./components/product/homeSecnts/CandleLightFloral";
 import CandleFloral from "./components/product/homeSecnts/CandleFloral";
 import CandleWoody from "./components/product/homeSecnts/CandleWoody";
+
 import BathBodyTotal from "./components/product/bathBody/BathBodyTotal";
 import BathBodyHomeWrap from "./components/product/bathBody/BathBodyHomeWrap";
 import BathShowerWrap from "./components/product/bathBody/BathShowerWrap";
 import BathShowerTotal from "./components/product/bathBody/BathShowerTotal";
+import BodyHandWash from "./components/product/bathBody/BodyHandWash";
+import ShowerGelOil from "./components/product/bathBody/ShowerGelOil";
+import BathOil from "./components/product/bathBody/BathOil";
 
 function Product() {
     return (
@@ -51,8 +56,9 @@ function Product() {
                 <Route path="" element={<BathBodyTotal />} />
                 <Route path="bath-shower" element={<BathShowerWrap />}>
                     <Route path="" element={<BathShowerTotal />} />
-                    <Route path="floral" element={<CandleFloral />} />
-                    <Route path="woody" element={<CandleWoody />} />
+                    <Route path="body-handwash" element={<BodyHandWash />} />
+                    <Route path="shower-gel-oil" element={<ShowerGelOil />} />
+                    <Route path="bath-oil" element={<BathOil />} />
                 </Route>
             </Route>
             <Route path="/product" element={<DetailWrap />} />

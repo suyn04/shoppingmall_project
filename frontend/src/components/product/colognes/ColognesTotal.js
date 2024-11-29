@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "../../../scss/product/colognesTotal.module.scss";
+import styles from "../../../scss/product/prodTotal.module.scss";
 import ProductCard from "../ProductCard";
 
 const ColognesTotal = () => {
     return (
-        <div className={styles.colognesTotal}>
+        <div className={styles.prodTotal}>
             <div className={styles.content}>
                 <p>우리의 가장 사랑받는 코롱을 만나 보세요.</p>
                 <p>
