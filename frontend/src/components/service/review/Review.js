@@ -8,19 +8,15 @@ const Review = () => {
     <div>
       <div className="rwrapper">
 
-          <div className="rimgbox">
-            <img src="/imgs/service/reviewimg_1.avif" alt="Product" />
-          </div>
+        <div className="rimgbox">
+          <img src="/imgs/service/reviewimg_1.avif" alt="Product" />
+        </div>
 
-
-
-
-
-          <div className="content">
+        <div className="content">
           <div className="text">
             <h2>English Pear & Freesia Cologne</h2>
             <h3>가을의 정수인 배 과수원에서 영감을 얻은 그윽한 프루티 향.</h3>
- 
+
           </div>
           <form action="" onSubmit={(e) => e.preventDefault()}>
             {/* 별점 평가 */}
@@ -37,9 +33,8 @@ const Review = () => {
                     />
                     <span className="checkbox">
                       <i
-                        className={`fa-star ${
-                          value <= rating ? 'fa-solid' : 'fa-regular'
-                        }`}
+                        className={`fa-star ${value <= rating ? 'fa-solid' : 'fa-regular'
+                          }`}
                       ></i>
                     </span>
                   </label>
@@ -76,9 +71,63 @@ const Review = () => {
               </label>
               <input type="text" id="pname" placeholder="예) A람" />
             </div>
+                {/* 제목 입력 */}
+                <div className='rtitle'>
+                    <label for="ptitle">
+                      <span>제목*</span>
+                    </label>
+                    <input type="text" id="ptitle" placeholder='예) 저는 이 상품을 또 구매할 의향이 있습니다.'/>
+                </div>
+
+                {/* 상품후기 입력 */}
+                <div className='rreview'>
+                    <label for="rreview">
+                      <span>상품후기*</span>
+                    </label>
+                    <div className='law'>상품을 이용하는 법 또는 이 상품의 장단점을 기입하여 주세요.
+                    구매자 성함이나 연락처, 이메일 주소와 같은 개인정보를 기재하지 마시고, 제품에 지출한 특정 가격이나 경쟁 업체에 대한 언급은 자제해 주십시오.'</div>
+                </div>
+
+                <div className='plus'>
+                  <span>장점</span>
+                  <button type='button' className='selfplus'>
+                    직접추가 + 
+                  </button>
+                  <div className='plustext'>
+                    <label for="addtext1">
+                      <span>직접 추가 장점</span>
+                    </label>
+                    
+                    <input type="text" className='addtext1'/>
+                    <button className='add' type='button'>추가</button>
+                    <button className='remove' type='button'>취소</button>
+                  </div>
+                </div>
+
+
+                <div className='minus'>
+                  <span>단점</span>
+                  <button type='button' className='selfminus'>
+                    직접추가 + 
+                  </button>
+                  <div className='minustext'>
+                    <label for="addtext2">
+                      <span>직접 추가 단점</span>
+                    </label>
+                    
+                    <input type="text" className='addtext1'/>
+                    <button className='add' type='button'>추가</button>
+                    <button className='remove' type='button'>취소</button>
+                  </div>
+                </div>
+
+
+
+
+
           </form>
         </div>
-        </div>
+      </div>
     </div>
   );
 };
