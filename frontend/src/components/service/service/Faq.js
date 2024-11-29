@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
 import '../../../scss/service/TopMenu.scss'
-import '../../../scss/service/Service.scss'
-import '../../../scss/service/Accordion.scss'
-import { Link, useParams, useNavigate } from "react-router-dom";
+// import '../../../scss/service/Service.scss'
+import styles from '../../../scss/service/Accordion.module.scss'
+
 
 
 
@@ -14,15 +14,17 @@ const Accordion = ({ title, children }) => {
   };
 
   return (
-    <div className={`accordion ${isOpen ? 'open' : ''}`}>
+    // <div className={`accordion ${isOpen ? 'open' : ''}`}>
+      
+ <div className={isOpen ? `${styles.accordion} ${styles.open}` : `${styles.accordion}`}>
       {/* 아코디언 제목 */}
-      <h2 className="accordion-title" onClick={toggleAccordion}>
+      <h2 className={styles["accordion-title"]} onClick={toggleAccordion}>
         {title}
       </h2>
 
       {/* 아코디언 내용 */}
       {isOpen && (
-        <div className="accordion-content">
+        <div className={styles["accordion-content"]}>
           {children}
         </div>
       )}
@@ -35,7 +37,7 @@ const Accordion = ({ title, children }) => {
 
 const Faq = () => {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <h1>자주 묻는 질문</h1>
       <p>주문 취소나 주소 변경 등 신속한 처리가 필요한 사항은 조 말론 런던 온라인 부티크 고객관리지원팀 (1644-3753)로 문의해주세요.
       </p>

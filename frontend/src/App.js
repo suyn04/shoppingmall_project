@@ -1,11 +1,11 @@
-import Home from "./components/main/Home";
-import Header from "./components/dup/Header";
-import Nav from "./components/dup/Nav";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Product from "./Product";
-import Services from "./Services";
-import Footer from './components/dup/Footer'
-
+import Home from './components/main/Home';
+import Header from './components/dup/Header';
+import Nav from './components/dup/Nav';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Product from './Product';
+import Services from './Services';
+import Mypage from './Mypage';
+import Footer from './components/dup/Footer';
 
 function App() {
     return (
@@ -17,7 +17,8 @@ function App() {
             </Routes>
             <Product />
             <Services />
-            <Footer/>
+            <Mypage />
+            <Footer />
         </BrowserRouter>
     );
 }

@@ -12,7 +12,7 @@ const DetailWrap = () => {
             <DetailAcor />
             <DetailTasting />
             <DetailUse />
-            <DetailRecommend />
+            <DetailRecommend/>
         </div>
     );
 };
