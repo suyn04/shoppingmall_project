@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useParams, useNavigate } from "react-router-dom";
-import '../../../scss/service/Accordion.scss';
+import styles from '../../../scss/service/Accordion.module.scss';
 
 const Accordion = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,15 +9,17 @@ const Accordion = ({ title, children }) => {
   };
 
   return (
-    <div className={`accordion ${isOpen ? 'open' : ''}`}>
+    // <div className={`accordion ${isOpen ? 'open' : ''}`}>
+      // <div className={`${styles.accordion} ${isOpen ? styles.open : ''}`}>
+      <div className={isOpen ? `${styles.accordion} ${styles.open}` : `${styles.accordion}`}>
       {/* 아코디언 제목 */}
-      <h2 className="accordion-title" onClick={toggleAccordion}>
+      <h2 className={styles["accordion-title"]} onClick={toggleAccordion}>
         {title}
       </h2>
 
       {/* 아코디언 내용 */}
       {isOpen && (
-        <div className="accordion-content">
+        <div className={styles["accordion-content"]}>
           {children}
         </div>
       )}
@@ -28,7 +29,7 @@ const Accordion = ({ title, children }) => {
 
 const MyProfile = () => {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <h1>나의 프로필</h1>
       <Accordion title="이메일 뉴스레터 구독 취소">
         <div>

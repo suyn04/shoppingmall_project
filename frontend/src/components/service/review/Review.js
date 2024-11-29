@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
-import '../../../scss/service/review/Review.scss'
+import styles from '../../../scss/service/review/Review.module.scss'
 const Review = () => {
   const [rating, setRating] = useState(0); // 별점 상태
   const [recommend, setRecommend] = useState(''); // 추천 여부 상태
 
   return (
     <div>
-      <div className="rwrapper">
+      <div className={styles.rwrapper}>
 
-        <div className="rimgbox">
+        <div className={styles.rimgbox}>
           <img src="/imgs/service/reviewimg_1.avif" alt="Product" />
         </div>
 
-        <div className="content">
-          <div className="text">
+        <div className={styles.content}>
+          <div className={styles.rtext}>
             <h2>English Pear & Freesia Cologne</h2>
             <h3>가을의 정수인 배 과수원에서 영감을 얻은 그윽한 프루티 향.</h3>
-
           </div>
+
           <form action="" onSubmit={(e) => e.preventDefault()}>
             {/* 별점 평가 */}
-            <fieldset className="rating">
+            <fieldset className={styles.rating}>
               <legend>고객 평점*</legend>
-              <div className="labelbox">
+              <div className={styles.labelbox}>
                 {[1, 2, 3, 4, 5].map((value) => (
                   <label key={value} onClick={() => setRating(value)}>
                     <input
@@ -31,10 +31,13 @@ const Review = () => {
                       value={value}
                       style={{ display: 'none' }} // 숨김 처리
                     />
-                    <span className="checkbox">
+                    <span className={styles.checkbox}>
                       <i
-                        className={`fa-star ${value <= rating ? 'fa-solid' : 'fa-regular'
-                          }`}
+                        className={
+                          value <= rating
+                            ? `${styles["fa-star"]} ${styles["fa-solid"]}`
+                            : `${styles["fa-star"]} ${styles["fa-regular"]}`
+                        }
                       ></i>
                     </span>
                   </label>
@@ -43,10 +46,10 @@ const Review = () => {
             </fieldset>
 
             {/* 추천 여부 */}
-            <fieldset className="recommend">
+            <fieldset className={styles.recommend}>
               <legend>이 상품을 추천하시겠습니까?</legend>
               <div>답변을 선택하세요</div>
-              <div className="button-box">
+              <div className={styles["button-box"]}>
                 <button
                   type="button"
                   className={`btn ${recommend === 'yes' ? 'active' : ''}`}
@@ -65,75 +68,135 @@ const Review = () => {
             </fieldset>
 
             {/* 닉네임 입력 */}
-            <div className="name">
-              <label htmlFor="pname">
-                <span>닉네임*</span>
+            <div className={styles.name}>
+              <label htmlFor={styles.pname}>
+                <div>닉네임*</div>
               </label>
               <input type="text" id="pname" placeholder="예) A람" />
             </div>
-                {/* 제목 입력 */}
-                <div className='rtitle'>
-                    <label for="ptitle">
-                      <span>제목*</span>
-                    </label>
-                    <input type="text" id="ptitle" placeholder='예) 저는 이 상품을 또 구매할 의향이 있습니다.'/>
-                </div>
+            {/* 제목 입력 */}
+            <div className={styles.rtitle}>
+              <label for="ptitle">
+                <div>제목*</div>
+              </label>
+              <input type="text" id="ptitle" placeholder='예) 저는 이 상품을 또 구매할 의향이 있습니다.' />
+            </div>
 
-                {/* 상품후기 입력 */}
-                <div className='rreview'>
-                    <label for="rreview">
-                      <span>상품후기*</span>
-                    </label>
-                    <div className='law'>상품을 이용하는 법 또는 이 상품의 장단점을 기입하여 주세요.
-                    구매자 성함이나 연락처, 이메일 주소와 같은 개인정보를 기재하지 마시고, 제품에 지출한 특정 가격이나 경쟁 업체에 대한 언급은 자제해 주십시오.'</div>
-                </div>
-
-                <div className='plus'>
-                  <span>장점</span>
-                  <button type='button' className='selfplus'>
-                    직접추가 + 
-                  </button>
-                  <div className='plustext'>
-                    <label for="addtext1">
-                      <span>직접 추가 장점</span>
-                    </label>
-                    
-                    <input type="text" className='addtext1'/>
-                    <button className='add' type='button'>추가</button>
-                    <button className='remove' type='button'>취소</button>
-                  </div>
-                </div>
-
-
-                <div className='minus'>
-                  <span>단점</span>
-                  <button type='button' className='selfminus'>
-                    직접추가 + 
-                  </button>
-                  <div className='minustext'>
-                    <label for="addtext2">
-                      <span>직접 추가 단점</span>
-                    </label>
-                    
-                    <input type="text" className='addtext1'/>
-                    <button className='add' type='button'>추가</button>
-                    <button className='remove' type='button'>취소</button>
-                  </div>
-                </div>
-
-
-                 {/* 제목 입력 */}
-                 <div className='rtitle'>
-                    <label for="ptitle">
-                      <span>제목*</span>
-                    </label>
-                    <input type="text" id="ptitle" placeholder='예) 저는 이 상품을 또 구매할 의향이 있습니다.'/>
-                </div>
+            {/* 상품후기 입력 */}
+            <div className={styles.rreview}>
+              <label for="rreview">
+                <div>상품후기*</div>
+              </label>
+              <div className={styles.law}>상품을 이용하는 법 또는 이 상품의 장단점을 기입하여 주세요.
+                구매자 성함이나 연락처, 이메일 주소와 같은 <br />개인정보를 기재하지 마시고, 제품에 지출한 특정 가격이나 경쟁 업체에 대한 언급은 자제해 주십시오.'</div>
+              <input type="text" className={styles.linput} />
+            </div>
 
 
 
+            {/* 장단점 */}
+            {/* <div className='plus'>
+              <div>장점</div>
+              <button type='button' className='selfplus'>
+                직접추가 +
+              </button>
+              <div className='plustext'>
+                <label for="addtext1">
+                  <span>직접 추가 장점</span>
+                </label>
+
+                <input type="text" className='addtext1' />
+                <button className='add' type='button'>추가</button>
+                <button className='remove' type='button'>취소</button>
+              </div>
+            </div>
 
 
+            <div className='minus'>
+              <div>단점</div>
+              <button type='button' className='selfminus'>
+                직접추가 +
+              </button>
+              <div className='minustext'>
+                <label for="addtext2">
+                  <div>직접 추가 단점</div>
+                </label>
+
+                <input type="text" className='addtext1' />
+                <button className='add' type='button'>추가</button>
+                <button className='remove' type='button'>취소</button>
+              </div>
+            </div>
+ */}
+
+            {/* 거주지역 입력 */}
+            <div className={styles.seoul}>
+              <label for="ptitle">
+                <div>거주지역*</div>
+              </label>
+              <input type="text" id="ptitle" placeholder='예) 서울' />
+            </div>
+
+            {/* 향수 계열 선택 */}
+            <div className={styles.rtitle}>
+              <label className={styles.type}>
+                <div>평소 사용하는 향수 계열</div>
+              </label>
+              <select className={styles.type}>
+                <option>시트러스</option>
+                <option>프루티</option>
+                <option>라이트 플로럴</option>
+                <option>플로럴</option>
+                <option>스파이시</option>
+                <option>우디</option>
+
+              </select>
+            </div>
+
+            {/* 잘 어울리는 시간대 선택 */}
+            <div className={styles.rtitle}>
+              <label className={styles.time}>
+                <div>이 제품이 잘 어울리는 시간대</div>
+              </label>
+              <select className={styles.time}>
+                <option value disabled selected>선택</option>
+                <option>낮</option>
+                <option>밤</option>
+                <option>낮과 밤</option>
+              </select>
+            </div>
+
+            <div className={styles.rtitle}>
+              <label className={styles.gift}>
+                <div>선물여부</div>
+              </label>
+              <select className={styles.gift}>
+                <option value disabled selected>선택</option>
+                <option>누군가를 위한</option>
+                <option>나를 위한</option>
+              </select>
+            </div>
+
+
+
+            <div className={styles.load}>
+              <label for="imgLoad">
+                <div>이미지 첨부</div>
+              </label>
+              <input type="file" className={styles.imgLoad} />
+              <button type='button' className={styles.imgLoadBtn}>이미지 첨부</button>
+            </div>
+
+
+            <div className={styles.load}>
+              <label for="videoLoad">
+                <div>비디오 첨부</div>
+              </label>
+              <input type="file" className={styles.videoLoad} />
+              <button type='button' className={styles.videoLoadBtn}>비디오 첨부</button>
+            </div>
+
+            <button type='submit' className={styles.btnsubmit}>제출</button>
 
 
           </form>

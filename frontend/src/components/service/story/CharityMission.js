@@ -1,13 +1,13 @@
 import React from 'react'
-import '../../../scss/service/story/Story.scss'
+import styles from '../../../scss/service/story/Story.module.scss'
 
 
 const CharityMission = () => {
   return (
 
     <div>
-      <div className='cbox1'>
-        <div className='tbox1'>
+      <div className={styles.cbox1}>
+        <div className={styles.tbox1}>
           <p className='ctitle'>조 말론 런던의 자선 임무</p>
           <p>정신 건강에 빛을 비추다. 조 말론 런던은 유니세프와 협력하여 아동의 정신 건강을 지원합니다.</p>
           <p>지난 10여년간 조 말론 런던은 정신 건강에 대한 잘못된 인식을 개선하고 영감을 주는 자선 단체를 통해 지원을 제공하며 정신 건강에 대한 인식을 개선하기 위한 노력을 기울여 왔습니다.</p>
@@ -20,8 +20,8 @@ const CharityMission = () => {
           <img src="/imgs/service/charity_1.avif" alt="" className='cimg1' />
         </div>
       </div>
-      <div className='tbox3'>
-        <p className='ctitle'>
+      <div className={styles.tbox3}>
+        <p className={styles.ctitle}>
           조 말론 런던의 글로벌 <br/>자선 파트너- 유니세프
         </p>
         <p>
@@ -35,20 +35,20 @@ const CharityMission = () => {
       </div>
 
 
-      <div className='ibox1'>
+      <div className={styles.ibox1}>
         <div></div>
-        <img src="/imgs/service/charity_2.avif" alt="" className='cimg1' />
-        <img src="/imgs/service/charity_3.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/charity_2.avif" alt="" className={styles.cimg1} />
+        <img src="/imgs/service/charity_3.avif" alt="" className={styles.cimg1} />
       </div>
 
 
 
 
-      <div className='uni'>유니세프의 정신 건강 및 심리사회적 프로그램은
+      <div className={styles.uni}>유니세프의 정신 건강 및 심리사회적 프로그램은
         <br />130개국 4,700만여 명 이상의 어린이와 보호자를 <br />지원합니다.</div>
 
-      <div className='tbox3'>
-        <p className='ctitle'>
+      <div className={styles.tbox3}>
+        <p className={styles.ctitle}>
           조 말론 런던의<br />재정적 약속
         </p>
         <p>
@@ -62,12 +62,12 @@ const CharityMission = () => {
       </div>
 
       
-      <div className='ibox2'>
-        <img src="/imgs/service/charity_4.avif" alt="" className='cimg27' /></div>
+      <div className={styles.ibox2}>
+        <img src="/imgs/service/charity_4.avif" alt="" className={styles.cimg27} /></div>
 
 
-      <div className='tbox4'>
-        <p className='ctitle'>
+      <div className={styles.tbox4}>
+        <p className={styles.ctitle}>
           조 말론 런던의 채리티 캔들
         </p>
         <p>
@@ -86,31 +86,11 @@ const CharityMission = () => {
 
 
 
-      <div className='ibox1'>
+      <div className={styles.ibox1}>
         <div></div>
-        <img src="/imgs/service/charity_5.avif" alt="" className='cimg1' />
-        <img src="/imgs/service/charity_6.avif" alt="" className='cimg1' />
+        <img src="/imgs/service/charity_5.avif" alt="" className={styles.cimg1} />
+        <img src="/imgs/service/charity_6.avif" alt="" className={styles.cimg1} />
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

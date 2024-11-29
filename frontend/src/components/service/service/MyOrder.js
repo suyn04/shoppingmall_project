@@ -1,7 +1,5 @@
 import React ,{useState} from 'react'
-import '../../../scss/service/Service.scss'
-import '../../../scss/service/Accordion.scss'
-import { Link, useParams, useNavigate } from "react-router-dom";
+import styles from '../../../scss/service/Accordion.module.scss'
 
 //Accordion 컴포넌트 : 제목 (title)과 내용 (children)을 받아서 펼치기/접기 구현
 const Accordion = ({ title, children })=>{
@@ -13,15 +11,17 @@ const toggleAccordion = () =>{
 };
 
 return(
-  <div className={`accordion ${isOpen ? 'open' : ''}`}>
+  // <div className={`accordion ${isOpen ? 'open' : ''}`}>
+    // <div className={`${styles.accordion} ${isOpen ? styles.open : ''}`}>
+    <div className={isOpen ? `${styles.accordion} ${styles.open}` : `${styles.accordion}`}>
     {/* 아코디언 제목 */}
-    <h2 className='accordian-title' onClick={toggleAccordion}>
+    <h2 className={styles["accordian-title"]} onClick={toggleAccordion}>
         {title} 
       </h2>
 
       {/* 아코디언 내용 */}
       {isOpen && (
-        <div className='accordion-content'>
+        <div className={styles["accordion-content"]}>
           {children} 
         </div>
       )}
@@ -33,7 +33,7 @@ return(
 
 const MyOrder = () => {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <h1>나의 주문</h1>
       <Accordion title="주문 프로세스">
       <ul>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import '../../../scss/service/Service.scss'
-import '../../../scss/service/Accordion.scss';
-import { Link, useParams, useNavigate } from "react-router-dom";
+import styles from '../../../scss/service/Accordion.module.scss';
+
 
 const Accordion = ({ title, children })=>{
   const [isOpen, setIsOpen]=useState(false);
@@ -12,13 +11,14 @@ const toggleAccordion = () =>{
 };
 
 return(
-  <div className={`accordion ${isOpen ? 'open' : ''}`}>
-    <h2 className='accordion-title' onClick={toggleAccordion}>
+  // <div className={accordion ${isOpen ? 'open' : ''}}>
+  <div className={isOpen ? `${styles.accordion} ${styles.open}` : `${styles.accordion}`}>
+    <h2 className={styles.accordion-title} onClick={toggleAccordion}>
         {title} 
       </h2>
 
       {isOpen && (
-        <div className='accordion-content'>
+        <div className={styles["accordion-content"]}>
           {children} 
         </div>
       )}
@@ -30,7 +30,7 @@ return(
 
 const ExchangeRefund = () => {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <h1>교환 및 환불</h1>
       
       

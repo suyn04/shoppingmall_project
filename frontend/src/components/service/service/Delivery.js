@@ -1,10 +1,9 @@
 import React from 'react'
-import '../../../scss/service/Service.scss'
-import { Link, useParams, useNavigate } from "react-router-dom";
+import styles from '../../../scss/service/Accordion.module.scss';
 
 const Delivery = () => {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <h1>배송 정보</h1>
     <b>배송 지연 안내</b>
   <p>주문하신 제품은 모두 무료로 배송해 드리며, 결제 완료된 시점으로부터 1~3일 이내 출고됩니다.<br/>

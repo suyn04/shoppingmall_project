@@ -16,6 +16,7 @@
   
     .accordion-title {
       font-size: 24px;
+      font-family: 'NanumMyeongjo';
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -29,4 +30,19 @@
       line-height: 1.5;
     }
   }
-  
+  .wrapper{
+    background-color: #fcf9ee;
+    margin: 10px 20px;
+}
+.tterms{
+    font-weight: bold;
+    text-decoration: underline;
+    line-height: 24px;
+    
+}
+.hli{
+    list-style-type: '-';
+}
+p{
+    line-height: 24px;
+}

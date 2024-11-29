@@ -16,6 +16,7 @@ import PeopleWorkplace from "./components/service/story/PeopleWorkplace";
 import OneToOne from"./components/service/IldaeIl/OneToOne"
 
 import Review from"./components/service/review/Review"
+import ReviewList from"./components/service/review/ReviewList"
 
 function Services() {
     return (
@@ -41,6 +42,7 @@ function Services() {
                 
                 {/* 리뷰 */}   
                 <Route path="/review" element={<Review />} />
+                <Route path="/reviewlist" element={<ReviewList />} />
                
                
             </Routes>
