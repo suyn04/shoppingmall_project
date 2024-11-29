@@ -122,6 +122,17 @@ const Review = () => {
                 </div>
 
 
+                 {/* 제목 입력 */}
+                 <div className='rtitle'>
+                    <label for="ptitle">
+                      <span>제목*</span>
+                    </label>
+                    <input type="text" id="ptitle" placeholder='예) 저는 이 상품을 또 구매할 의향이 있습니다.'/>
+                </div>
+
+
+
+
 
 
 
