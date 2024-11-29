@@ -1,17 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import "../../../scss/product/homeTop.scss";
+import styles from "../../../scss/product/homeTop.module.scss";
 
 const HomeTop = () => {
     return (
-        <div className="home-top">
+        <div className={styles.home_top}>
             <Link to="/">홈</Link>
             <span> &gt; </span>
             <Link to="/colognes">코롱</Link>
             <div>
-                <div className="title">코롱</div>
-                <div className="content">
+                <div className={styles.title}>코롱</div>
+                <div className={styles.content}>
                     <p>
                         조 말론 런던의 심플하면서도 우아한 코롱은 엄선된 원료를
                         바탕으로 서로 다른 코롱과 함께 페어링 할 수 있도록
