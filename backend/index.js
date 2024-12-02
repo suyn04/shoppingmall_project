@@ -31,6 +31,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 
+const productRouter = require("./controller/product.js");
+app.use("/product/", productRouter(upload));
+
 app.get("/", (req, res) => {
     console.log("백엔드 서버 진입"); //정상작동 확인
     res.send("백엔드 서버 진입");
