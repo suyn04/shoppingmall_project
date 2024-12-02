@@ -1,8 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/MyInfo.module.scss';
 
-function MyInfo() {
+const MyInfo = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('sessionToken'); // 세션 토큰 확인
+        if (!token) {
+            navigate('/signIn'); // 로그인 페이지로 이동
+        }
+    }, [navigate]);
+
     return (
         <main>
             <div className={styles.sectionContainer}>
@@ -46,6 +55,6 @@ function MyInfo() {
             </div>
         </main>
     );
-}
+};
 
 export default MyInfo;
