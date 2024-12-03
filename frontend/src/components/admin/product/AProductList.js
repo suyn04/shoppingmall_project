@@ -6,7 +6,7 @@ const AProductList = () => {
     const [product, setProduct] = useState([]);
     const productListGetAxios = () => {
         axios
-            .get(`http://localhost:5001/admin/product`)
+            .get(`http://localhost:5001/product/`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProduct(res.data);
@@ -31,7 +31,9 @@ const AProductList = () => {
                     return (
                         <tr>
                             <td>
-                                <Link to={`/admin/product/${st.product_id}`}>
+                                <Link
+                                    to={`/admin/product/detail/${st.product_id}`}
+                                >
                                     {st.product_name_kor}
                                 </Link>
                             </td>

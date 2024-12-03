@@ -1,11 +1,12 @@
 import React from "react";
 
 const AProductDetail = () => {
-    const [product, setProduct] = useState([]);
+    const { product_id } = useParams();
+    const [product, setProduct] = useState(null);
 
     const productListGetAxios = () => {
         axios
-            .get(`http://localhost:5001/admin/product`)
+            .get(`http://localhost:5001/product/admin/detail/${product_id}`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProduct(res.data);
@@ -23,7 +24,7 @@ const AProductDetail = () => {
                 <tr>
                     <td>제품 국문명</td>
                     <td>
-                        <input type="text" />
+                        <input type="text" value={product.product_name_kor} />
                     </td>
                 </tr>
                 <tr>
