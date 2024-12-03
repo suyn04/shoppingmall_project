@@ -11,14 +11,36 @@ function SignIn() {
     const handleSubmit = async e => {
         e.preventDefault(); // 기본 동작 방지
 
-        // 이메일과 비밀번호 형식 간단히 체크
-        if (email && password) {
-            // 이메일과 비밀번호가 비어 있지 않으면 성공 처리
-            sessionStorage.setItem('sessionToken', 'mockSessionToken'); // 세션 토큰 저장
-            sessionStorage.setItem('email', email); // 이메일 저장
-            navigate('/myPage'); // 마이페이지로 이동
-        } else {
-            alert('이메일 또는 비밀번호를 입력해주세요.');
+        // 이메일과 비밀번호 공란이면 얼럿
+        if (!email || !password) {
+            alert('이메일과 비밀번호를 입력해주세요.');
+            return;
+        }
+
+        try {
+            // 로그인 요청을 서버로 전송
+            const res = await fetch('http://localhost:5001/signIn/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }), //email이랑 password를 서버에 전달해야함
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+                // 서버 응답이 오면
+                sessionStorage.setItem('sessionToken', 'mockSessionToken'); // 세션 토큰을 프론트엔드에서 생성 및 저장
+                sessionStorage.setItem('email', email); // 이메일 저장
+                alert('로그인 성공');
+                navigate('/'); // 마이페이지로 이동
+            } else {
+                // 서버 응답이 실패 상태면
+                alert(`${result.message}`);
+            }
+        } catch (err) {
+            // 네트워크 오류 또는 서버 오류 처리
+            console.error('로그인 요청 오류:', err);
+            alert('서버 문제 발생');
         }
     };
 
