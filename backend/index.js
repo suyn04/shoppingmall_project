@@ -36,6 +36,9 @@ app.use("/product/", productRouter(upload));
 const adminProductRouter = require("./controller/adminProduct.js");
 app.use("/admin/product", adminProductRouter(upload));
 
+const orderRouter = require("./controller/order.js");
+app.use("/order/", orderRouter());
+
 //회원가입 라우터
 const signUpRouter = require("./controller/SignUp.js");
 app.use("/signUp", signUpRouter);

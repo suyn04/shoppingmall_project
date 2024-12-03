@@ -7,8 +7,29 @@ import Product from "./Product";
 import Services from "./Services";
 import Mypage from './Mypage';
 import Footer from './components/dup/Footer';
+import Admin from "./components/admin/Admin";
 
 function App() {
+
+    const [hamBtn, setHam] = useState(false)
+
+    
+    return (
+        <BrowserRouter>
+            {/* <Header hamBtn={hamBtn} setHam={setHam}/>
+            <Nav hamBtn={hamBtn} setHam={setHam} />
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+            <Product />
+            <Services />
+            <Mypage />
+            <Footer /> */}
+            <Admin/>
+        </BrowserRouter>
+    );
+}
+function MainLoad() {
 
     const [hamBtn, setHam] = useState(false)
     return (
