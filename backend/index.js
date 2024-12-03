@@ -36,6 +36,14 @@ app.use("/product/", productRouter(upload));
 const adminProductRouter = require("./controller/adminProduct.js");
 app.use("/admin/product", adminProductRouter(upload));
 
+//회원가입 라우터
+const signUpRouter = require("./controller/SignUp.js");
+app.use("/signUp", signUpRouter);
+
+//로그인 라우터
+const signInRouter = require("./controller/SignIn.js");
+app.use("/signIn", signInRouter);
+
 app.get("/", (req, res) => {
     console.log("백엔드 서버 진입"); //정상작동 확인
     res.send("백엔드 서버 진입");

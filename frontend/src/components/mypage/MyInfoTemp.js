@@ -3,12 +3,12 @@ import Navbar from './Navbar';
 import { Outlet } from 'react-router-dom';
 
 function MyInfoTemp(props) {
-  return (
-    <>
-      <Navbar/>
-      <Outlet/>
-    </>
-  );
+    return (
+        <>
+            <Navbar />
+            <Outlet />
+        </>
+    );
 }
 
 export default MyInfoTemp;
