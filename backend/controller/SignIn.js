@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
 const app = express();
 const path = require('path'); // path 모듈 추가
@@ -22,10 +21,7 @@ router.post('/', async (req, res) => {
             return res.status(401).json({ message: '이메일을 확인해주세요' });
         }
 
-        // 비밀번호 맞는지 검증
-        const pwchk = await bcrypt.compare(password, userInfo[0].password);
-
-        if (!pwchk) {
+        if (password !== userInfo[0].password) {
             // 비밀번호가 일치하지 않을 경우
             return res.status(401).json({ message: '비밀번호를 확인해주세요' });
         }
