@@ -14,7 +14,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Header hamBtn={hamBtn} setHam={setHam}/>
+            {/* <Header hamBtn={hamBtn} setHam={setHam}/>
             <Nav hamBtn={hamBtn} setHam={setHam} />
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -22,7 +22,7 @@ function App() {
             <Product />
             <Services />
             <Mypage />
-            <Footer />
+            <Footer /> */}
             <Admin />
         </BrowserRouter>
     );
