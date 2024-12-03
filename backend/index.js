@@ -33,6 +33,9 @@ app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
 const productRouter = require('./controller/product.js');
 app.use('/product/', productRouter(upload));
 
+const orderRouter = require("./controller/order.js");
+app.use("/order/", orderRouter());
+
 //회원가입 라우터
 const signUpRouter = require('./controller/SignUp.js');
 app.use('/signUp', signUpRouter);
