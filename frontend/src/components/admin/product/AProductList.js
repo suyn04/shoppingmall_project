@@ -18,7 +18,7 @@ const AProductList = () => {
 
     useEffect(() => {
         productListGetAxios();
-    });
+    }, []);
     return (
         <div>
             <div>AProductList</div>
