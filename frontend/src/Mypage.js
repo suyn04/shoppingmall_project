@@ -1,27 +1,25 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AddressList from './components/mypage/AddressList';
-import MyInfoTemp from './components/mypage/MyInfoTemp';
-import MyInfo from './components/mypage/MyInfo';
-import MyinfoEdit from './components/mypage/MyinfoEdit';
-import ViewOrders from './components/mypage/ViewOrders';
-import SignIn from './components/mypage/SignIn';
-import SignUp from './components/mypage/SignUp';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import AddressList from "./components/mypage/AddressList";
+import MyInfoTemp from "./components/mypage/MyInfoTemp";
+import MyInfo from "./components/mypage/MyInfo";
+import MyinfoEdit from "./components/mypage/MyinfoEdit";
+import ViewOrders from "./components/mypage/ViewOrders";
+import SignIn from "./components/mypage/SignIn";
+import SignUp from "./components/mypage/SignUp";
 
 function MyPage() {
     return (
-        <>
-            <Routes>
-                <Route path="/signIn" element={<SignIn />} />
-                <Route path="/signUp" element={<SignUp />} />
-                <Route path="/mypage" element={<MyInfoTemp />}>
-                    <Route path="" element={<MyInfo />} />
-                    <Route path="addressList" element={<AddressList />} />
-                    <Route path="myinfoEdit" element={<MyinfoEdit />} />
-                    <Route path="viewOrders" element={<ViewOrders />} />
-                </Route>
-            </Routes>
-        </>
+        <Routes>
+            <Route path="/signIn" element={<SignIn />} />
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/mypage" element={<MyInfoTemp />}>
+                <Route path="" element={<MyInfo />} />
+                <Route path="addressList" element={<AddressList />} />
+                <Route path="myinfoEdit" element={<MyinfoEdit />} />
+                <Route path="viewOrders" element={<ViewOrders />} />
+            </Route>
+        </Routes>
     );
 }
 

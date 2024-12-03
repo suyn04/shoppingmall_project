@@ -22,7 +22,7 @@ const AProductList = () => {
     return (
         <div>
             <div>AProductList</div>
-            <table>
+            <table border="1">
                 <tr>
                     <td>제품명</td>
                     <td>향</td>

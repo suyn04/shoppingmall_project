@@ -14,23 +14,6 @@ function App() {
 
     return (
         <BrowserRouter>
-            {/* <Header hamBtn={hamBtn} setHam={setHam}/>
-            <Nav hamBtn={hamBtn} setHam={setHam} />
-            <Routes>
-                <Route path="/" element={<Home />} />
-            </Routes>
-            // <Product />
-            <Services />
-            <Mypage />
-            <Footer /> */}
-            <Admin />
-        </BrowserRouter>
-    );
-}
-function MainLoad() {
-    const [hamBtn, setHam] = useState(false);
-    return (
-        <BrowserRouter>
             <Header hamBtn={hamBtn} setHam={setHam} />
             <Nav hamBtn={hamBtn} setHam={setHam} />
             <Routes>
@@ -40,8 +23,25 @@ function MainLoad() {
             <Services />
             <Mypage />
             <Footer />
+            <Admin />
         </BrowserRouter>
     );
 }
+// function MainLoad() {
+//     const [hamBtn, setHam] = useState(false);
+//     return (
+//         <BrowserRouter>
+//             <Header hamBtn={hamBtn} setHam={setHam} />
+//             <Nav hamBtn={hamBtn} setHam={setHam} />
+//             <Routes>
+//                 <Route path="/" element={<Home />} />
+//             </Routes>
+//             <Product />
+//             <Services />
+//             <Mypage />
+//             <Footer />
+//         </BrowserRouter>
+//     );
+// }
 
 export default App;

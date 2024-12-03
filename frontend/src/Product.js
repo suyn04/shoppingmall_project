@@ -27,7 +27,7 @@ import AProductList from "./components/admin/product/AProductList";
 function Product() {
     return (
         <Routes>
-            <Route path="/:product_category_one" element={<ColognesHomeWrap />}>
+            <Route path="/colognes" element={<ColognesHomeWrap />}>
                 <Route path="" element={<ColognesTotal />} />
                 <Route path=":product_scent" element={<ColognesCate />} />
             </Route>
@@ -55,11 +55,6 @@ function Product() {
                 </Route>
             </Route>
             <Route path="/product" element={<DetailWrap />} />
-            <Route path="/admin/product" element={<AProductList />} />
-            <Route
-                path="/admin/product/detail/:product_id"
-                element={<AProductList />}
-            />
         </Routes>
     );
 }

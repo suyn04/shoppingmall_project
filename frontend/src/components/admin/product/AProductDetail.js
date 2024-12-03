@@ -19,7 +19,7 @@ const AProductDetail = () => {
     }, []);
     return (
         <div>
-            <table>
+            <table border="1">
                 <tr>
                     <td>제품 국문명</td>
                     <td>
@@ -47,23 +47,33 @@ const AProductDetail = () => {
                 </tr>
                 <tr>
                     <td>제품 스페셜</td>
-                    <td></td>
+                    <td>
+                        <input type="text" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 카테고리1</td>
-                    <td></td>
+                    <td>
+                        <input type="text" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 카테고리2</td>
-                    <td></td>
+                    <td>
+                        <input type="text" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 카테고리3</td>
-                    <td></td>
+                    <td>
+                        <input type="text" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 향</td>
-                    <td></td>
+                    <td>
+                        <input type="text" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 그룹향</td>
