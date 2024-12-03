@@ -15,7 +15,7 @@ module.exports = (upload) => {
             res.status(500).send("db 오류");
         }
     });
-    router.get("/colognes", async (req, res) => {
+    router.get("/productList", async (req, res) => {
         console.log("/colognes 진입 확인");
         try {
             const [ret] = await conn.execute(

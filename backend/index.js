@@ -25,7 +25,6 @@ const upload = multer({
 });
 
 app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,6 +32,9 @@ app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 
 const productRouter = require("./controller/product.js");
 app.use("/product/", productRouter(upload));
+
+const adminProductRouter = require("./controller/adminProduct.js");
+app.use("/admin/product", adminProductRouter(upload));
 
 app.get("/", (req, res) => {
     console.log("백엔드 서버 진입"); //정상작동 확인
