@@ -14,7 +14,7 @@ function MyPage() {
             <Routes>
                 <Route path="/signIn" element={<SignIn />} />
                 <Route path="/signUp" element={<SignUp />} />
-                <Route path="/myPage" element={<MyInfoTemp />}>
+                <Route path="/mypage" element={<MyInfoTemp />}>
                     <Route path="" element={<MyInfo />} />
                     <Route path="addressList" element={<AddressList />} />
                     <Route path="myinfoEdit" element={<MyinfoEdit />} />

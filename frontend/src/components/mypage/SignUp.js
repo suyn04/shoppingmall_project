@@ -1,8 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/SignUp.module.scss';
 
 function SignUp() {
+    const navigator = useNavigate();
+    const [formData, setFormData] = useState({
+        //초기 폼데이터 세팅값
+        name: '',
+        email: '',
+        phone: '',
+        password: '',
+        gender: '',
+        requiredAgree: false,
+        optionalAgree: false,
+    });
+
+    const handleChange = e => {
+        //각 요소 이름, 값, 종류, 체크여부 데이터 저장(폼데이터 바꾸기)
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value,
+        })); //각 요소가 체크박스고 true면 체크표시 그게 아니면 값을 저장
+    };
+
+    //회원가입 시 입력한 정보 백엔드로 넘기기
+    const handleSubmit = async e => {
+        e.preventDefault(); // 기본 동작 방지
+        console.log(formData);
+
+        try {
+            const res = await fetch('http://localhost:5001/signUp/', {
+                //백엔드가 5001번 포트에서 작동하므로 5001번포트에 페치시켜야함
+                method: 'POST', // HTTP 메서드
+                headers: { 'Content-Type': 'application/json' }, // JSON 데이터 전송
+                body: JSON.stringify(formData), // 폼 데이터 전송
+            });
+
+            if (res.ok) {
+                alert('회원가입 성공');
+                navigator('/');
+            } else {
+                const error = await res.json();
+                console.error('회원가입 실패:', error.message);
+            }
+        } catch (err) {
+            console.error('네트워크 오류:', err);
+            console.log(formData);
+        }
+    };
+
     return (
         <div className={styles.wrapper}>
             <section>
@@ -32,29 +79,25 @@ function SignUp() {
                             <div className={styles.or}>또는</div>
 
                             <form className={styles.inform}>
-                                <input type="text" placeholder="*이름" className={styles.input} required />
-                                <input type="email" placeholder="*이메일" className={styles.input} required />
-                                <input type="text" placeholder="*핸드폰 번호" className={styles.input} required />
-                                <input type="password" placeholder="*비밀번호" className={styles.input} required />
+                                <input type="text" name="name" placeholder="*이름" className={styles.input} required onChange={handleChange} />
+                                <input type="email" name="email" placeholder="*이메일" className={styles.input} required onChange={handleChange} />
+                                <input type="text" name="phone" placeholder="*핸드폰 번호" className={styles.input} required onChange={handleChange} />
+                                <input type="password" name="password" placeholder="*비밀번호" className={styles.input} required onChange={handleChange} />
 
-                                <select>
-                                    <option>성별 (선택)</option>
-                                    <option>남자</option>
-                                    <option>여자</option>
+                                <select name="gender" onChange={handleChange} className={styles.input}>
+                                    <option value="">성별 (선택)</option>
+                                    <option value="남자">남자</option>
+                                    <option value="여자">여자</option>
                                 </select>
 
-                                <div className={styles.birthdaygroup}>
-                                    <input type="text" placeholder="년" className={styles.birth} />
-                                    <input type="text" placeholder="월" className={styles.birth} />
-                                    <input type="text" placeholder="일" className={styles.birth} />
-                                </div>
+                                <input type="date" name="birthdate" onChange={handleChange} />
 
                                 <div className={styles.checkboxgroup}>
                                     <label>
-                                        <input type="checkbox" className={styles.chk1} required /> [필수] 이용 약관에 동의하고, 본인은 만 14세 이상입니다.
+                                        <input type="checkbox" name="requiredAgree" className={styles.chk1} required onChange={handleChange} /> [필수] 이용 약관에 동의하고, 본인은 만 14세 이상입니다.
                                     </label>
                                     <label>
-                                        <input type="checkbox" className={styles.chk2} /> [선택] 마케팅 및 홍보 목적의 개인정보 수집에 동의합니다.
+                                        <input type="checkbox" name="optionalAgree" className={styles.chk2} onChange={handleChange} /> [선택] 마케팅 및 홍보 목적의 개인정보 수집에 동의합니다.
                                     </label>
                                 </div>
 
@@ -64,7 +107,7 @@ function SignUp() {
                                     마케팅 목적의 소식 및 특별 혜택 정보를 받아 보실 수 없습니다.
                                 </p>
 
-                                <button type="submit" className={styles.join}>
+                                <button type="submit" className={styles.join} onClick={handleSubmit}>
                                     계정 생성하기
                                 </button>
                             </form>
