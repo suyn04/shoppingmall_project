@@ -22,19 +22,28 @@ const AProductDetail = () => {
             <table>
                 <tr>
                     <td>제품 국문명</td>
-                    <td></td>
+                    <td>
+                        <input type="text" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 영문명</td>
-                    <td></td>
+                    <td>
+                        <input type="text" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 가격</td>
-                    <td></td>
+                    <td>
+                        <input type="number" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 용량</td>
-                    <td></td>
+                    <td>
+                        <input type="number" />
+                        <input type="radio" name="" id="" />
+                    </td>
                 </tr>
                 <tr>
                     <td>제품 스페셜</td>
