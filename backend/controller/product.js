@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const con = require("../db");
+const conn = require("../db");
 const fs = require("fs");
 
 module.exports = (upload) => {

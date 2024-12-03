@@ -14,9 +14,11 @@ import Sustainable from "./components/service/story/Sustainable";
 import PeopleWorkplace from "./components/service/story/PeopleWorkplace";
 
 import OneToOne from"./components/service/IldaeIl/OneToOne"
+import OneToOneList from"./components/admin/service/OneToOneList"
 
 import Review from"./components/service/review/Review"
 import ReviewList from"./components/service/review/ReviewList"
+import AReviewList from"./components/admin/service/AReviewList"
 
 function Services() {
     return (
@@ -38,11 +40,12 @@ function Services() {
                 <Route path="/peopleworkplace" element={<PeopleWorkplace />} />
                 {/* 일대일문의 */}
                 <Route path="/onetoone" element={<OneToOne />} />
-                
+                <Route path="/onetoonelist" element={<OneToOneList />} />
                 
                 {/* 리뷰 */}   
                 <Route path="/review" element={<Review />} />
                 <Route path="/reviewlist" element={<ReviewList />} />
+                <Route path="/areviewlist" element={<AReviewList />} />
                
                
             </Routes>

@@ -34,6 +34,13 @@ app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 const productRouter = require("./controller/product.js");
 app.use("/product/", productRouter(upload));
 
+
+const onetooneRouter = require("./controller/one_to_one.js");
+app.use("/onetoone/", onetooneRouter(upload));
+
+const reviewRouter = require("./controller/review.js");
+app.use("/review/", reviewRouter(upload));
+
 app.get("/", (req, res) => {
     console.log("백엔드 서버 진입"); //정상작동 확인
     res.send("백엔드 서버 진입");
