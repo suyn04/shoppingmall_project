@@ -25,8 +25,6 @@ const AProductList = () => {
             <table>
                 <tr>
                     <td>제품명</td>
-                    <td>용량</td>
-                    <td>가격</td>
                     <td>향</td>
                 </tr>
                 {product.map((st, i) => {
@@ -37,12 +35,10 @@ const AProductList = () => {
                                     {st.product_name_kor}
                                 </Link>
                             </td>
-                            <td>{st.product_volume}</td>
-                            <td>{st.product_price}</td>
                             <td>{st.product_scent}</td>
                         </tr>
                     );
-                })}{" "}
+                })}
             </table>
         </div>
     );
