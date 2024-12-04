@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AProductRegister = () => {
+const AProductModify = () => {
     const [noteOptions, setNoteOptions] = useState([]); // Filtered options for Category 3
-
+    const { product_id } = useParams();
+    const [product, setProduct] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!product_id) {
+            console.log("id 없음");
+            return;
+        }
         axios
-            .get("http://localhost:5001/product/admin/register")
+            .get(`http://localhost:5001/product/admin/modify/${product_id}`)
             .then((res) => {
                 const uniqueNote = [
                     ...new Map(
@@ -22,10 +27,14 @@ const AProductRegister = () => {
                         ])
                     ).values(),
                 ];
+                const curProduct = res.data.product[0];
+                console.log(curProduct);
+
                 setNoteOptions(uniqueNote);
+                setProduct(curProduct);
             })
             .catch((err) => console.error("Error fetching categories:", err));
-    }, []);
+    }, [product_id]);
 
     const submitGo = (me) => {
         me.preventDefault();
@@ -53,6 +62,9 @@ const AProductRegister = () => {
                 console.error("에러발생 ; ", err);
             });
     };
+    if (!product) {
+        return <div>id 없음</div>;
+    }
 
     return (
         <div>
@@ -62,13 +74,21 @@ const AProductRegister = () => {
                     <tr>
                         <td>제품 국문명</td>
                         <td>
-                            <input name="product_name_kor" type="text" />
+                            <input
+                                name="product_name_kor"
+                                type="text"
+                                value={product.product_name_kor}
+                            />
                         </td>
                     </tr>
                     <tr>
                         <td>제품 영문명</td>
                         <td>
-                            <input name="product_name_eng" type="text" />
+                            <input
+                                name="product_name_eng"
+                                type="text"
+                                value={product.product_name_eng}
+                            />
                         </td>
                     </tr>
                     <tr>
@@ -146,7 +166,11 @@ const AProductRegister = () => {
                     <tr>
                         <td>제품 성분</td>
                         <td>
-                            <input name="product_ingredient" type="textarea" />
+                            <input
+                                name="product_ingredient"
+                                type="textarea"
+                                value={product.product_ingredient}
+                            />
                         </td>
                     </tr>
                     <tr>
@@ -197,7 +221,11 @@ const AProductRegister = () => {
                     <tr>
                         <td>제품설명</td>
                         <td>
-                            <input name="product_intro" type="text" />
+                            <input
+                                name="product_intro"
+                                type="text"
+                                value={product.product_intro}
+                            />
                         </td>
                     </tr>
 
@@ -214,4 +242,4 @@ const AProductRegister = () => {
     );
 };
 
-export default AProductRegister;
+export default AProductModify;

@@ -15,7 +15,7 @@ const AProductRegisterOpt = () => {
         }
         axios
             .get(
-                `http://localhost:5001/product/admin/register/option/${product_id}`
+                `http://localhost:5001/product/admin/detail/option/${product_id}`
             )
             .then((res) => {
                 console.log(res.data);

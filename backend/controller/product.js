@@ -100,6 +100,27 @@ module.exports = () => {
             res.status(500).send("db오류");
         }
     });
+
+    router.get("/admin/modify/:product_id", async (req, res) => {
+        console.log("/admin/modify/:product_id 진입 확인");
+        try {
+            const [product] = await conn.execute(
+                "select * from view_product_info where product_id = ?",
+                [req.params.product_id]
+            );
+            const [note] = await conn.execute("select * from  product_note");
+
+            const combinedData = {
+                product,
+                note,
+            };
+            console.log(combinedData);
+            res.json(combinedData);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
     router.get("/admin/register/option/:product_id", async (req, res) => {
         console.log("/admin/register/option/ 진입 확인");
         console.log(req.params.product_id);

@@ -14,6 +14,7 @@ import ReportPage from "./service/ReportPage";
 import AProductDetail from "./product/AProductDetail";
 import AProductRegister from "./product/AProductRegister";
 import AProductRegisterOpt from "./product/AProductRegisterOpt";
+import AProductModify from "./product/AProductModify";
 
 function Admin(props) {
     return (
@@ -22,6 +23,8 @@ function Admin(props) {
                 <Route path="" element={<AdminMain />} />
                 <Route path="order" element={<OrderList />} />
                 <Route path="order/detail/:id" element={<OrderDetail />} />
+
+                {/* product 관련 */}
                 <Route path="product" element={<AProductList />} />
                 <Route
                     path="product/detail/:product_id"
@@ -32,6 +35,11 @@ function Admin(props) {
                     path="product/register/option/:product_id"
                     element={<AProductRegisterOpt />}
                 />
+                <Route
+                    path="product/modify/:product_id"
+                    element={<AProductModify />}
+                />
+
                 {/* 일대일 문의 관련 */}
                 <Route path="onetoone" element={<OneToOneList />} />
                 <Route path="onetoone/:id" element={<OneToOneDetail />} />
