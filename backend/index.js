@@ -31,10 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 
 const productRouter = require("./controller/product.js");
-app.use("/product/", productRouter(upload));
-
-const adminProductRouter = require("./controller/adminProduct.js");
-app.use("/admin/product", adminProductRouter(upload));
+app.use("/product/", productRouter());
 
 const orderRouter = require("./controller/order.js");
 app.use("/order/", orderRouter());

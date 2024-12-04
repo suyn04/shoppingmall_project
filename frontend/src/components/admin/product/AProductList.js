@@ -26,6 +26,7 @@ const AProductList = () => {
                 <tr>
                     <td>제품명</td>
                     <td>향</td>
+                    <td>공개상태</td>
                 </tr>
                 {product.map((st, i) => {
                     return (
@@ -38,10 +39,12 @@ const AProductList = () => {
                                 </Link>
                             </td>
                             <td>{st.product_scent}</td>
+                            <td>{st.product_status}</td>
                         </tr>
                     );
                 })}
             </table>
+            <Link to={`/admin/product/register`}>상품 등록</Link>
         </div>
     );
 };
