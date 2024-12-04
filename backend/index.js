@@ -38,15 +38,17 @@ app.use("/admin/product", adminProductRouter(upload));
 
 const orderRouter = require("./controller/order.js");
 app.use("/order/", orderRouter());
-const productRouter = require("./controller/product.js");
-app.use("/product/", productRouter(upload));
 
-
+// 일대일문의
 const onetooneRouter = require("./controller/one_to_one.js");
 app.use("/onetoone/", onetooneRouter(upload));
-
+//리뷰
 const reviewRouter = require("./controller/review.js");
 app.use("/review/", reviewRouter(upload));
+//게시판
+const reportRouter = require("./controller/report.js");
+app.use("/reports/", reportRouter(upload));
+
 
 //회원가입 라우터
 const signUpRouter = require("./controller/SignUp.js");
