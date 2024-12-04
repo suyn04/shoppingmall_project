@@ -28,7 +28,7 @@ const AProductRegisterOpt = () => {
         me.preventDefault();
         console.log("submitGo 진입");
         const frmData = new FormData(document.myFrm);
-        // console.log(frmData);
+        console.log(frmData);
 
         axios
             .post(
@@ -63,7 +63,14 @@ const AProductRegisterOpt = () => {
                 <table border="1">
                     <tr>
                         <td>제품명</td>
-                        <td colSpan={4}>{product.product_name_kor}</td>
+                        <td colSpan={4}>
+                            <input
+                                type="hidden"
+                                name="product_id"
+                                value={product_id}
+                            />
+                            {product.product_name_kor}
+                        </td>
                     </tr>
                     <tr>
                         <td rowSpan={2}>옵션</td>

@@ -28,6 +28,7 @@ const AProductDetail = () => {
     if (!product) {
         return <div>id 없음</div>;
     }
+
     return (
         <div>
             <div>
@@ -94,15 +95,6 @@ const AProductDetail = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>제품 그룹향</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={product.product_group_scent}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
                         <td>제품 성분</td>
                         <td>
                             <input
@@ -131,12 +123,6 @@ const AProductDetail = () => {
                     </tr>
                     <tr>
                         <td>제품설명</td>
-                        <td>
-                            <input type="text" value={product.product_intro} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>이미지</td>
                         <td>
                             <input type="text" value={product.product_intro} />
                         </td>

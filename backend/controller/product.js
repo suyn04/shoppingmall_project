@@ -67,7 +67,7 @@ module.exports = () => {
         console.log(req.params.product_id);
         try {
             const [ret] = await conn.execute(
-                "select * from product where product_id = ?",
+                "select * from view_product_info_opt where product_id = ?",
                 [req.params.product_id]
             );
             res.json(ret);
@@ -157,7 +157,6 @@ module.exports = () => {
         upload.single("product_upfile"),
         async (req, res) => {
             console.log("/admin/register/option/ 정상진입확인");
-            res.send("백엔드 진입");
             console.log(req.file);
 
             let sql =

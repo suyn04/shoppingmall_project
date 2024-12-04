@@ -29,6 +29,17 @@ const AProductDetailOpt = () => {
     if (!productOpt) {
         return <div>id 없음</div>;
     }
+    function fileGo(file) {
+        if (file) {
+            return (
+                <img
+                    src={`http://localhost:5001/imgs/product/${file}`}
+                    width="100px"
+                />
+            );
+        }
+        return null;
+    }
     return (
         <div>
             <div>
@@ -41,6 +52,8 @@ const AProductDetailOpt = () => {
                                 <input type="text" value={st.product_volume} />
                                 <td>제품 가격</td>
                                 <input type="number" value={st.product_price} />
+                                <td>이미지</td>
+                                <td>{fileGo(st.product_upSystem)}</td>
                             </tr>
                         );
                     })}
