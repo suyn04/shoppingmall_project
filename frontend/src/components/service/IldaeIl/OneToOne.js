@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../../scss/service/IldaeIl/OneToOne.scss'
+import '../../../scss/service/IldaeIl/OneToOne.scss';
 
 const OneToOne = () => {
     //폼 데이터 상태 관리
     const [formData, setFormData] = useState({
-        //userid:'', //회원 아이디
-        category: '',//문의 유형
-        title: '', //제목
-        content: '', //내용
-        file: null, //첨부 파일
+        category: '', // 문의 유형
+        title: '',    // 제목
+        content: '',  // 내용
+        file: null,   // 첨부 파일
     });
 
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
     //입력값 변경 핸들러
     const handleChange = (e) => {
@@ -32,24 +31,52 @@ const navigate = useNavigate();
     };
 
     // 폼 제출 핸들러
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-        alert('문의가 접수되었습니다.');
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+
+        // 서버로 보낼 데이터 준비
+        const data = {
+            post_category: formData.category, // 문의 유형
+            customer_id: '123',              // 회원 ID (임시로 123 고정)
+            post_title: formData.title,      // 제목
+            post_detail: formData.content,   // 내용
+        };
+
+        try {
+            const response = await fetch('http://localhost:5001/onetoone', { // 백엔드 주소와 정확히 일치
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data), // 데이터를 JSON으로 변환하여 보냄
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert('문의가 접수되었습니다!');
+                console.log('등록된 데이터:', result);
+                //navigate(-1); // 이전 페이지로 이동
+
+                navigate('/onetoonelist'); // 목록 페이지로 이동
+            } else {
+                alert(`문의 등록 실패: ${result.error}`);
+            }
+        } catch (err) {
+            console.error('서버 오류 발생:', err);
+            alert('서버와 연결할 수 없습니다.');
+        }
     };
 
-    // 취소 버튼 클릭 핸들러 (뒤로 가기)
-    const handleCancel = ()=>{
-        navigate(-1); //이전 페이지로 이동
-    }
-
+    // 취소 버튼 클릭 핸들러
+    const handleCancel = () => {
+        navigate(-1); // 이전 페이지로 이동
+    };
     return (
         <div>
             <h2>1:1 문의</h2>
             <div className='gray'>※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에 FAQ를 참고 해주세요.
             </div>
 
-            <form className='inquiry-form' onSubmit={{ handleSubmit }}>
+            <form className='inquiry-form' onSubmit={ handleSubmit }>
                 
                 {/* 회원 아이디 */}
                 {/* <div>

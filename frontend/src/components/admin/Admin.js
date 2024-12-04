@@ -5,6 +5,12 @@ import AdminTemp from "./AdminTemp";
 import OrderList from "./orders/OrderList";
 import OrderDetail from "./orders/OrderDetail";
 import AProductList from "./product/AProductList";
+import OneToOneList from "./service/OneToOneList";
+import OneToOneDetail from "./service/OneToOneDetail";
+import AReviewList from "./service/AReviewList";
+import AReviewDetail from "./service/AReviewDetail";
+import ReportPage from "./service/ReportPage";
+
 import AProductDetail from "./product/AProductDetail";
 import AProductRegister from "./product/AProductRegister";
 import AProductRegisterOpt from "./product/AProductRegisterOpt";
@@ -26,6 +32,14 @@ function Admin(props) {
                     path="product/register/option/:product_id"
                     element={<AProductRegisterOpt />}
                 />
+                {/* 일대일 문의 관련 */}
+                <Route path="onetoone" element={<OneToOneList />} />
+                <Route path="onetoone/:id" element={<OneToOneDetail />} />
+
+                {/* 리뷰관련 */}
+                <Route path="areviewlist" element={<AReviewList />} />
+                <Route path="areviewdetail/:id" element={<AReviewDetail />} />
+                <Route path="reports" element={<ReportPage />} />
             </Route>
         </Routes>
     );

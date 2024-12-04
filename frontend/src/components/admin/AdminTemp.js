@@ -8,7 +8,7 @@ function AdminTemp(props) {
         <Link to={`/admin/member`}>회원</Link>
         <Link to={`/admin/product`}>상품</Link>
         <Link to={`/admin/order`}>주문</Link>
-        <Link to={`/admin/notice`}>게시판</Link>
+        <Link to={`/admin/onetoone`}>게시판</Link>
       </div>
       <Outlet/>
     </>
