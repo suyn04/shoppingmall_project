@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AReviewList = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get('http://localhost:5001/review');
-        console.log('응답 데이터:', response.data); // 데이터 확인
+        console.log('응답 데이터:', response.data); // 응답 데이터 확인
         const reviewData = Array.isArray(response.data) ? response.data : [];
         setReviews(reviewData); // 상태 업데이트
       } catch (err) {
@@ -23,7 +25,10 @@ const AReviewList = () => {
 
     fetchReviews();
   }, []);
-
+  const handleDetailClick = (id) => {
+    console.log('전달된 ID:', id); // 클릭한 리뷰의 ID 확인
+    navigate(`/areviewdetail/${id}`); // 상세보기 페이지로 이동
+  };
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p>{error}</p>;
 
@@ -33,14 +38,16 @@ const AReviewList = () => {
       {reviews.length > 0 ? (
         <ul>
           {reviews.map((review) => (
-            <li key={review.id}>
-              <strong>{review.memberName}</strong>: {review.content}
-              {/* 작성일과 별점 추가 */}
-              <p><strong>작성일:</strong> {new Date(review.createdAt).toLocaleDateString()}</p>
-              <p><strong>별점:</strong> {review.rating}</p>
-              <p><strong>추천 여부:</strong> {review.review_recommend === 1 ? '추천' : '비추천'}</p>
-              <p><strong>지역:</strong> {review.review_region}</p>
-              <p><strong>향수 계열:</strong> {review.review_scent}</p>
+          
+               <li key={review.review_no}> {/* key를 review_no로 설정 */}
+              <strong>{review.memberName}</strong> {review.content}
+              <p><strong>작성자 ID:</strong> {review.memberName}</p>
+          
+              <p><strong>닉네임:</strong> {review.review_nick}</p>
+              <p><strong>제목:</strong> {review.review_title}</p>
+             
+              <button onClick={() => handleDetailClick(review.review_no)}>상세보기</button> {/* review_no로 ID 전달 */}
+              <br/><br/>
             </li>
           ))}
         </ul>

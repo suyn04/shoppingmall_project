@@ -19,6 +19,7 @@ import OneToOneList from"./components/admin/service/OneToOneList"
 import Review from"./components/service/review/Review"
 import ReviewList from"./components/service/review/ReviewList"
 import AReviewList from"./components/admin/service/AReviewList"
+import AReviewDetail from"./components/admin/service/AReviewDetail"
 
 function Services() {
     return (
@@ -46,6 +47,7 @@ function Services() {
                 <Route path="/review" element={<Review />} />
                 <Route path="/reviewlist" element={<ReviewList />} />
                 <Route path="/areviewlist" element={<AReviewList />} />
+                <Route path="/areviewdetail/:id" element={<AReviewDetail />} />
                
                
             </Routes>
