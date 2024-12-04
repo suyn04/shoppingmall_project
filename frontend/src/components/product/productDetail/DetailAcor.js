@@ -1,12 +1,27 @@
 import { useState } from "react";
 import styles from "../../../scss/product/detailAcor.module.scss";
+import axios from "axios";
 
 const DetailAcor = () => {
     const [infoOpen, setInfoOpen] = useState([false, false, false]);
+    const [ingredient, setIngredient] = useState(null);
     const infoOnOff = (index) => {
         let tempInfo = [...infoOpen];
         tempInfo[index] = !infoOpen[index];
         setInfoOpen(tempInfo);
+    };
+    const detailGetAxios = () => {
+        axios
+            .get(`http://localhost:5001/product/colognes`)
+            .then((res) => {
+                console.log("서버 다녀옴", res.data);
+                // console.log(data);
+                setIngredient(res.data);
+                // console.log(state);
+            })
+            .catch((err) => {
+                console.error("에러발생 ; ", err);
+            });
     };
 
     return (

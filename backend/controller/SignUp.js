@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
 const app = express();
 const path = require('path'); // path 모듈 추가
@@ -24,9 +23,6 @@ router.post('/', async (req, res) => {
         // 고객번호 생성
         const customerId = generateCustomerId();
 
-        // 비밀번호 암호화
-        const hashedPassword = await bcrypt.hash(password, 10); //해시화
-
         // `customers` 테이블에 데이터 저장
         await db.query(
             `INSERT INTO customers 
@@ -36,7 +32,7 @@ router.post('/', async (req, res) => {
         );
 
         // `auth` 테이블에 데이터 저장
-        await db.query(`INSERT INTO auth (email, password) VALUES (?, ?)`, [email, hashedPassword]);
+        await db.query(`INSERT INTO auth (email, password) VALUES (?, ?)`, [email, password]);
         //가입 시 입력한 이메일과 패스워드는 별도의 테이블에 저장
 
         res.status(201).json({ message: '회원가입 성공!' });

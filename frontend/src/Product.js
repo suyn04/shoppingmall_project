@@ -2,12 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import ColognesHomeWrap from "./components/product/colognes/ColognesHomeWrap";
 import ColognesTotal from "./components/product/colognes/ColognesTotal";
-import ColognesCitrus from "./components/product/colognes/ColognesCitrus";
 import DetailWrap from "./components/product/productDetail/DetailWrap";
-import ColognesFruity from "./components/product/colognes/ColognesFruity";
-import ColognesLightFloral from "./components/product/colognes/ColognesLightFloral";
-import ColognesFloral from "./components/product/colognes/ColognesFloral";
-import ColognesWoody from "./components/product/colognes/ColognesWoody";
 
 import HomeSecntsHomeWrap from "./components/product/homeSecnts/HomeSecntsHomeWrap";
 import HomeSecntsTotal from "./components/product/homeSecnts/HomeSecntsTotal";
@@ -26,17 +21,15 @@ import BathShowerTotal from "./components/product/bathBody/BathShowerTotal";
 import BodyHandWash from "./components/product/bathBody/BodyHandWash";
 import ShowerGelOil from "./components/product/bathBody/ShowerGelOil";
 import BathOil from "./components/product/bathBody/BathOil";
+import ColognesCate from "./components/product/colognes/ColognesCate";
+import AProductList from "./components/admin/product/AProductList";
 
 function Product() {
     return (
         <Routes>
             <Route path="/colognes" element={<ColognesHomeWrap />}>
                 <Route path="" element={<ColognesTotal />} />
-                <Route path="citrus" element={<ColognesCitrus />} />
-                <Route path="fruity" element={<ColognesFruity />} />
-                <Route path="light-floral" element={<ColognesLightFloral />} />
-                <Route path="floral" element={<ColognesFloral />} />
-                <Route path="woody" element={<ColognesWoody />} />
+                <Route path=":product_scent" element={<ColognesCate />} />
             </Route>
             <Route path="/home-scents" element={<HomeSecntsHomeWrap />}>
                 <Route path="" element={<HomeSecntsTotal />} />
