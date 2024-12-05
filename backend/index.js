@@ -44,6 +44,16 @@ app.use('/admin/member/', memberListRouter());
 const memberDetailRouter = require('./controller/MemberDetail.js');
 app.use('/admin/member/detail', memberDetailRouter());
 
+// 일대일문의
+const onetooneRouter = require('./controller/one_to_one.js');
+app.use('/onetoone/', onetooneRouter(upload));
+//리뷰
+const reviewRouter = require('./controller/review.js');
+app.use('/review/', reviewRouter(upload));
+//게시판
+const reportRouter = require('./controller/report.js');
+app.use('/reports/', reportRouter(upload));
+
 //회원가입 라우터
 const signUpRouter = require('./controller/SignUp.js');
 app.use('/signUp', signUpRouter);

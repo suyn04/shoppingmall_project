@@ -6,7 +6,7 @@ const AProductList = () => {
     const [product, setProduct] = useState([]);
     const productListGetAxios = () => {
         axios
-            .get(`http://localhost:5001/admin/product`)
+            .get(`http://localhost:5001/product/`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProduct(res.data);
@@ -26,20 +26,25 @@ const AProductList = () => {
                 <tr>
                     <td>제품명</td>
                     <td>향</td>
+                    <td>공개상태</td>
                 </tr>
                 {product.map((st, i) => {
                     return (
                         <tr>
                             <td>
-                                <Link to={`/admin/product/${st.product_id}`}>
+                                <Link
+                                    to={`/admin/product/detail/${st.product_id}`}
+                                >
                                     {st.product_name_kor}
                                 </Link>
                             </td>
                             <td>{st.product_scent}</td>
+                            <td>{st.product_status}</td>
                         </tr>
                     );
                 })}
             </table>
+            <Link to={`/admin/product/register`}>상품 등록</Link>
         </div>
     );
 };
