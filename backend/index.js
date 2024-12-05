@@ -31,8 +31,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 
 const productRouter = require("./controller/product.js");
-app.use("/product/", productRouter());
+app.use("/product/", productRouter(upload));
 
+const orderRouter = require("./controller/order.js");
+app.use("/order/", orderRouter());
+
+const memberListRouter = require("./controller/MemberList.js");
+app.use("/admin/member/", memberListRouter());
+
+const memberDetailRouter = require("./controller/MemberDetail.js");
+app.use("/admin/member/detail", memberDetailRouter());
 const basketRouter = require("./controller/Basket.js");
 app.use("/basket/", basketRouter());
 
@@ -49,7 +57,6 @@ app.use("/review/", reviewRouter(upload));
 const reportRouter = require("./controller/report.js");
 app.use("/reports/", reportRouter(upload));
 
-
 //회원가입 라우터
 const signUpRouter = require("./controller/SignUp.js");
 app.use("/signUp", signUpRouter);
@@ -57,6 +64,14 @@ app.use("/signUp", signUpRouter);
 //로그인 라우터
 const signInRouter = require("./controller/SignIn.js");
 app.use("/signIn", signInRouter);
+
+//마이페이지 라우터
+const myinfoRouter = require("./controller/MyInfo.js");
+app.use("/myPage/", myinfoRouter());
+
+//회원정보 수정 라우터
+const myinfoeditRouter = require("./controller/MyInfo.js");
+app.use("/myPage/myinfoEdit", myinfoeditRouter());
 
 app.get("/", (req, res) => {
     console.log("백엔드 서버 진입"); //정상작동 확인
