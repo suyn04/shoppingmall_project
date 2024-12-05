@@ -6,6 +6,7 @@ import { useState } from "react";
 import Product from "./Product";
 import Services from "./Services";
 import Mypage from "./Mypage";
+import Order from "./Order";
 import Footer from "./components/dup/Footer";
 import Admin from "./components/admin/Admin";
 
@@ -14,7 +15,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            {/* <Header hamBtn={hamBtn} setHam={setHam}/>
+            <Header hamBtn={hamBtn} setHam={setHam}/>
             <Nav hamBtn={hamBtn} setHam={setHam} />
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -22,7 +23,8 @@ function App() {
             <Product />
             <Services />
             <Mypage />
-            <Footer /> */}
+            <Order />
+            <Footer />
             <Admin />
         </BrowserRouter>
     );
