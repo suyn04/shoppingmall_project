@@ -1,14 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/MyInfo.module.scss';
+import axios from 'axios';
 
 const MyInfo = () => {
     const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState(null); // 사용자 정보
 
     useEffect(() => {
-        const token = sessionStorage.getItem('sessionToken'); // 세션 토큰 확인
-        if (!token) {
-            navigate('/signIn'); // 로그인 페이지로 이동
+        const sessionToken = sessionStorage.getItem('sessionToken');
+
+        if (!sessionToken) {
+            navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
+        } else {
+            // Axios로 사용자 정보 가져오기
+            axios
+                .post(
+                    'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
+                    { email: sessionStorage.getItem('email') }, // 요청 본문
+                    {
+                        headers: {
+                            Authorization: sessionToken, // 세션 토큰 포함
+                        },
+                    }
+                )
+                .then(response => {
+                    setUserInfo(response.data); // 세션토큰 콘솔에서 확인
+                    console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
+                    console.log('이메일 :', sessionStorage.getItem('email'));
+                })
+                .catch(error => {
+                    console.error('세션 토큰 확인불가', error);
+                    navigate('/signIn'); // 실패 시 로그인 페이지로 이동
+                });
         }
     }, [navigate]);
 
@@ -26,11 +50,18 @@ const MyInfo = () => {
                         </div>
                     </div>
                     <div className={styles.infoBlock}>
-                        <p>이름 : 임세훈</p>
-                        <p>이메일 주소 : rkdcjftkrhk123@gmail.com</p>
-                        <p>뉴스레터 : 동의 안함</p>
-                        <p>MMS : 동의 안함</p>
-                        <p>DM : 동의 안함</p>
+                        {/* 불러온 사용자 정보가 있으면 */}
+                        {userInfo ? (
+                            <>
+                                <p>이름: {userInfo.customer_name}</p>
+                                <p>이메일 주소: {userInfo.email}</p>
+                                <p>뉴스레터: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
+                                <p>MMS: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
+                                <p>DM: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
+                            </>
+                        ) : (
+                            <p>사용자 정보 없음</p>
+                        )}
                     </div>
                 </div>
                 <div className={styles.sectionBox}>
