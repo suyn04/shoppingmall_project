@@ -1,12 +1,50 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/MyinfoEdit.module.scss';
+import axios from 'axios';
 
-function MyinfoEdit() {
+const MyinfoEdit = () => {
+    const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState(null); // 사용자 정보
+
+    useEffect(() => {
+        const sessionToken = sessionStorage.getItem('sessionToken');
+
+        if (!sessionToken) {
+            navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
+        } else {
+            // Axios로 사용자 정보 가져오기
+            axios
+                .post(
+                    'http://localhost:5001/myPage/myinfoEdit', //index.js의 라우트경로랑 일치시킴
+                    { email: sessionStorage.getItem('email') }, // 요청 본문
+                    {
+                        headers: {
+                            Authorization: sessionToken, // 세션 토큰 포함
+                        },
+                    }
+                )
+                .then(response => {
+                    setUserInfo(response.data); // 세션토큰 콘솔에서 확인
+                    console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
+                    console.log('이메일 :', sessionStorage.getItem('email'));
+                })
+                .catch(error => {
+                    console.error('세션 토큰 확인불가', error);
+                    navigate('/signIn'); // 실패 시 로그인 페이지로 이동
+                });
+        }
+    }, [navigate]);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
+    // userInfo가 null일 때 로딩 메시지 표시
+    if (!userInfo) {
+        return <p>로딩 중...</p>;
+    }
 
     return (
         <main>
@@ -24,11 +62,11 @@ function MyinfoEdit() {
 
                 <fieldset className={styles.infoinput}>
                     <div className={styles.inputgroup}>
-                        <label>*성, 이름</label>
-                        <input type="text" defaultValue="임세훈" className={styles.inputname} />
+                        <label>*이름</label>
+                        <input type="text" defaultValue={userInfo.customer_name} className={styles.inputname} />
 
                         <label>*이메일 주소</label>
-                        <input type="text" defaultValue="rkdcjftkrhk123@gmail.com" className={styles.inputemail} />
+                        <input type="text" defaultValue={userInfo.email} className={styles.inputemail} />
                     </div>
 
                     {/* 비밀번호 재설정 모달 */}
@@ -162,6 +200,6 @@ function MyinfoEdit() {
             </div>
         </main>
     );
-}
+};
 
 export default MyinfoEdit;

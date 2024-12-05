@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/SignUp.module.scss';
+import axios from 'axios';
 
 function SignUp() {
     const navigator = useNavigate();
@@ -24,29 +25,29 @@ function SignUp() {
         })); //각 요소가 체크박스고 true면 체크표시 그게 아니면 값을 저장
     };
 
-    //회원가입 시 입력한 정보 백엔드로 넘기기
+    // 회원가입 요청 처리 함수
     const handleSubmit = async e => {
         e.preventDefault(); // 기본 동작 방지
         console.log(formData);
 
         try {
-            const res = await fetch('http://localhost:5001/signUp/', {
-                //백엔드가 5001번 포트에서 작동하므로 5001번포트에 페치시켜야함
-                method: 'POST', // HTTP 메서드
-                headers: { 'Content-Type': 'application/json' }, // JSON 데이터 전송
-                body: JSON.stringify(formData), // 폼 데이터 전송
-            });
+            // 회원가입 요청을 서버로 전송
+            const res = await axios.post('http://localhost:5001/signUp/', formData);
 
-            if (res.ok) {
-                alert('회원가입 성공');
-                navigator('/');
-            } else {
-                const error = await res.json();
-                console.error('회원가입 실패:', error.message);
-            }
+            // 서버 응답이 성공일 경우
+            alert('회원가입 성공');
+            navigator('/'); // 홈으로 이동
         } catch (err) {
-            console.error('네트워크 오류:', err);
-            console.log(formData);
+            // 서버 오류 또는 네트워크 오류 처리
+            if (err.res) {
+                // 서버에서 오류 응답을 보낸 경우
+                console.error('회원가입 실패:', err.res.data.message);
+                alert(err.res.data.message);
+            } else {
+                // 네트워크 오류 또는 기타 문제
+                console.error('회원가입 요청 오류:', err);
+                alert('서버 문제 발생');
+            }
         }
     };
 

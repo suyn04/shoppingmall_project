@@ -14,14 +14,14 @@ function Navbar() {
     return (
         <div className={styles.navbar}>
             <div className={styles.leftLinks}>
-                <Link to="/mypage">내 정보</Link>
+                <Link to="/myPage">내 정보</Link>
                 <Link to="/" onClick={Logout}>
                     로그아웃
                 </Link>
             </div>
             <div className={styles.rightLinks}>
-                <Link to="myinfoEdit">회원정보입력</Link>
-                <Link to="addressList">배송주소록</Link>
+                <Link to="myinfoEdit">회원정보 수정</Link>
+                <Link to="addressList">배송 주소록</Link>
                 <Link to="viewOrders">주문내역 보기</Link>
                 <Link to="reorder">1:1 문의</Link>
             </div>

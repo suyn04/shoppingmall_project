@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/SignIn.module.scss';
+import axios from 'axios';
 
 function SignIn() {
     const [email, setEmail] = useState(''); // 이메일 입력값 상태
@@ -19,28 +20,19 @@ function SignIn() {
 
         try {
             // 로그인 요청을 서버로 전송
-            const res = await fetch('http://localhost:5001/signIn/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }), //email이랑 password를 서버에 전달해야함
-            });
+            const res = await axios.post('http://localhost:5001/signIn/', { email, password });
 
-            const result = await res.json();
-
-            if (res.ok) {
-                // 서버 응답이 오면
-                sessionStorage.setItem('sessionToken', 'mockSessionToken'); // 세션 토큰을 프론트엔드에서 생성 및 저장
-                sessionStorage.setItem('email', email); // 이메일 저장
-                alert('로그인 성공');
-                navigate('/'); // 마이페이지로 이동
-            } else {
-                // 서버 응답이 실패 상태면
-                alert(`${result.message}`);
-            }
+            sessionStorage.setItem('sessionToken', 'mockSessionToken'); // 세션 토큰 저장
+            sessionStorage.setItem('email', email); // 이메일 저장
+            alert('로그인 성공');
+            navigate('/'); //홈으로 이동
         } catch (err) {
-            // 네트워크 오류 또는 서버 오류 처리
-            console.error('로그인 요청 오류:', err);
-            alert('서버 문제 발생');
+            if (err) {
+                alert('정확한 정보를 입력해주세요.');
+            } else {
+                console.error('로그인 요청 오류:', err);
+                alert('서버 문제 발생');
+            }
         }
     };
 

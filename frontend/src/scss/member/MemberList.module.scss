@@ -1,0 +1,78 @@
+/* MemberList.module.scss */
+
+.memberlist {
+    .searchbar {
+        margin: 20px 0 20px 40px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        select,
+        input {
+            padding: 5px;
+            font-size: 14px;
+        }
+        .actionButtons {
+            .searchbutton,
+            .resetbutton,
+            .changebutton,
+            .deletebutton {
+                padding: 10px 10px;
+                font-size: 14px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+
+                &.searchbutton {
+                    margin-left: 20px;
+                    background-color: #007bff;
+                    color: white;
+                }
+
+                &.resetbutton {
+                    margin-left: 10px;
+                    background-color: #6c757d;
+                    color: white;
+                }
+
+                &.changebutton {
+                    margin-left: 500px;
+                    background-color: #007bff;
+                    color: white;
+                }
+
+                &.deletebutton {
+                    margin-left: 10px;
+                    background-color: #6c757d;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+
+        thead {
+            th {
+                input[type='checkbox'] {
+                    margin-right: 5px;
+                }
+                background-color: #ddd;
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+
+        tbody {
+            tr {
+                td {
+                    padding: 10px;
+                    border-bottom: 1px solid #ccc;
+                }
+            }
+        }
+    }
+}
