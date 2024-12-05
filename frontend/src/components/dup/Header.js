@@ -4,11 +4,13 @@ import styles from '../../scss/dup/header.module.scss';
 
 function Header({ hamBtn, setHam }) {
     const navigate = useNavigate();
+
     //수정 부분
-    const Loginchk = Boolean(localStorage.getItem('token') || null); // 로그인 상태 확인--초기값 토큰 0
+    const Loginchk = sessionStorage.getItem('sessionToken'); // 세션 스토리지에 있는 토큰 가져와
 
     const Loginbtn = () => {
         if (Loginchk) {
+            console.log(Loginchk);
             navigate('/myPage'); // 로그인 상태면 마이페이지로 이동
         } else {
             navigate('/signIn'); // 아니면 로그인 페이지로 이동

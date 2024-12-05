@@ -9,7 +9,7 @@ function AdminTemp() {
             <div className={styles.sidebar}>
                 <h1>관리자 전용 메뉴</h1>
                 <Link to={`/admin/member`}>회원정보 조회</Link>
-                <Link to={`/admin/unactivemember`}>휴면고객 관리</Link>
+                <Link to={`/admin/member/unactivemember`}>휴면고객 관리</Link>
                 <Link to={`/admin/member`}>탈퇴고객 관리</Link>
                 <Link to={`/admin/product`}>상품</Link>
                 <Link to={`/admin/order`}>주문</Link>

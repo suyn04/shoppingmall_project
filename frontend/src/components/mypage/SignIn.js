@@ -4,7 +4,7 @@ import styles from '../../scss/mypage/SignIn.module.scss';
 import axios from 'axios';
 
 function SignIn() {
-    const [email, setEmail] = useState(''); // 이메일 입력값 상태
+    const [email, setEmail] = useState(''); // 이건 input에 있는 email value
     const [password, setPassword] = useState(''); // 비밀번호 입력값 상태
     const navigate = useNavigate();
 
@@ -19,21 +19,24 @@ function SignIn() {
         }
 
         try {
-            // 이 부분 수정입니다
             // 로그인 요청을 서버로 전송
             const res = await axios.post('http://localhost:5001/signIn/', { email, password });
+            // 서버 응답에서 데이터 추출
+            const { sessionToken, email: returnedEmail, customer_name } = res.data;
 
-            sessionStorage.setItem('sessionToken', 'mockSessionToken'); // 세션 토큰 저장
-            sessionStorage.setItem('email', email); // 이메일 저장
-            alert('로그인 성공');
-            navigate('/'); //홈으로 이동
+            // 세션 저장
+            sessionStorage.setItem('sessionToken', sessionToken); // 세션 토큰 저장
+            sessionStorage.setItem('email', returnedEmail); // 이메일 저장
+            sessionStorage.setItem('customerName', customer_name); // 고객 이름 저장
+
+            // 성공 메시지
+            alert(`${customer_name}님 로그인되었습니다.`);
+
+            // 홈으로 이동
+            navigate('/');
         } catch (err) {
-            if (err) {
-                alert('정확한 정보를 입력해주세요.');
-            } else {
-                console.error('로그인 요청 오류:', err);
-                alert('서버 문제 발생');
-            }
+            console.error('로그인 요청 오류 :', err);
+            alert('정확한 정보를 입력해주세요.');
         }
     };
 
