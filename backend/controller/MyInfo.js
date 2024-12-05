@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const conn = require('../db');
-const fs = require('fs');
+const db = require('../db');
 
 module.exports = () => {
     // 고객 정보 조회 라우트
@@ -17,7 +16,7 @@ module.exports = () => {
 
         try {
             // 이메일로 customer DB 조회
-            const [ret] = await conn.execute(`SELECT * FROM customers WHERE email = ?`, [email]);
+            const [ret] = await db.query(`SELECT * FROM customers WHERE email = ?`, [email]);
             if (ret.length === 0) {
                 // 조회된 결과가 없으면
                 return res.status(404).json({ error: '고객 정보를 찾을 수 없습니다.' });

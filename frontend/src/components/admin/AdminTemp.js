@@ -14,6 +14,9 @@ function AdminTemp() {
                 <Link to={`/admin/product`}>상품</Link>
                 <Link to={`/admin/order`}>주문</Link>
                 <Link to={`/admin/notice`}>게시판</Link>
+                <Link to={`/admin/onetoone`}>1:1문의</Link>
+                <Link to={`/admin/areviewlist`}>리뷰관리</Link>
+                <Link to={`/admin/reports`}>리뷰 신고관리</Link>
             </div>
 
             {/* 메인 콘텐츠 */}
