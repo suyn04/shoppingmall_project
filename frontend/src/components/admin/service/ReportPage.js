@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 function ReportPage() {
     const [reports, setReports] = useState([]); // 신고 데이터 상태
 

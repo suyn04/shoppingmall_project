@@ -2,8 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AdminMain from './AdminMain';
 import AdminTemp from './AdminTemp';
-import OrderList from './orders/OrderList';
-import OrderDetail from './orders/OrderDetail';
+import AOrderList from './orders/AOrderList';
+import AOrderDetail from './orders/AOrderDetail';
 import AProductList from './product/AProductList';
 import OneToOneList from './service/OneToOneList';
 import OneToOneDetail from './service/OneToOneDetail';
@@ -22,8 +22,8 @@ function Admin(props) {
         <Routes>
             <Route path="/admin" element={<AdminTemp />}>
                 <Route path="" element={<AdminMain />} />
-                <Route path="order" element={<OrderList />} />
-                <Route path="order/detail/:id" element={<OrderDetail />} />
+                <Route path="order" element={<AOrderList />} />
+                <Route path="order/detail/:id" element={<AOrderDetail />} />
                 <Route path="member" element={<MemberList />} />
                 <Route path="member/detail/:id" element={<MemberDetail />} />
                 <Route path="unactivemember" element={<UnactiveMember />} />

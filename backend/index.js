@@ -32,8 +32,8 @@ app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
 const productRouter = require('./controller/product.js');
 app.use('/product/', productRouter(upload));
 
-const orderRouter = require('./controller/order.js');
-app.use('/order/', orderRouter());
+const orderRouter = require("./controller/adminOrder.js");
+app.use("/order/", orderRouter());
 
 const memberListRouter = require('./controller/MemberList.js');
 app.use('/admin/member/', memberListRouter());
