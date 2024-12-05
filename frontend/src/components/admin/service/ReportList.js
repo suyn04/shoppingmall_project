@@ -8,6 +8,22 @@ const ReportList = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                const response = await axios.get('http://localhost:5001/reports');
+                console.log('API 응답:', response.data); // 모든 데이터 확인
+                setReports(response.data);
+            } catch (error) {
+                console.error('API 호출 중 오류:', error);
+            }
+        };
+        fetchReports();
+    }, []);
+
+
+
     // 데이터베이스에서 신고 목록 가져오기
     const fetchReports = async () => {
         try {
@@ -29,7 +45,7 @@ const ReportList = () => {
 
     // 상세보기 페이지로 이동
     const handleDetail = (reportno) => {
-        navigate(`/reports/detail/${reportno}`);
+        navigate(`/reports/detail/${reportno}`); 
     };
 
     return (

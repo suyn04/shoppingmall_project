@@ -12,7 +12,7 @@ module.exports = (upload) => {
                     review_reports.review_no,
                     review_management.review_title,
                     review_management.review_nick AS review_author,
-                    review_reports.email AS reporter, -- 이메일 컬럼명 수정
+                    review_reports.email AS reporter, -- 신고자의 이메일
                     review_reports.report_date,
                     review_reports.report_detail,
                     review_reports.check_status
@@ -25,9 +25,16 @@ module.exports = (upload) => {
                 ORDER BY 
                     review_reports.report_date DESC
             `);
-            res.status(200).json(reports); // 데이터를 JSON으로 반환
+
+            // 결과가 비어있는 경우 처리
+            if (reports.length === 0) {
+                return res.status(404).json({ message: 'No reports found' });
+            }
+
+            // 정상 데이터 반환
+            res.status(200).json(reports);
         } catch (error) {
-            console.error('Failed to fetch reports:', error);
+            console.error('Failed to fetch reports:', error.message || error);
             res.status(500).json({ error: 'Failed to fetch reports' });
         }
     });
