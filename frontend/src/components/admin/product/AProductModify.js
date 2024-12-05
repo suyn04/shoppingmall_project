@@ -72,6 +72,31 @@ const AProductModify = () => {
         console.log(product);
     };
 
+    const chkSelectModule = (bname, arr) => {
+        const ret = [];
+        for (let ee of arr) {
+            console.log(ee);
+            ret.push(
+                chkInput(bname, ee.value, ee.title, state[bname] == ee.value)
+            );
+        }
+        return ret;
+    };
+    const chkSelect = (bname, vv, tt, chk = false) => {
+        return (
+            <label>
+                <input
+                    type="radio"
+                    name={bname}
+                    value={vv}
+                    checked={chk}
+                    onChange={(e) => stChange(bname, e.target)}
+                />
+                {tt}
+            </label>
+        );
+    };
+
     return (
         <div>
             <form name="myFrm" onSubmit={submitGo}>
