@@ -3,87 +3,50 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ReportList = () => {
-    const [reports, setReports] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
-
+    const [reports, setReports] = useState([]); // 신고 목록
+    const navigate = useNavigate(); // 이동 함수
 
     useEffect(() => {
-        const fetchReports = async () => {
-            try {
-                const response = await axios.get('http://localhost:5001/reports');
-                console.log('API 응답:', response.data); // 모든 데이터 확인
-                setReports(response.data);
-            } catch (error) {
-                console.error('API 호출 중 오류:', error);
-            }
-        };
-        fetchReports();
+        // 서버에서 신고 목록 가져오기
+        axios.get('http://localhost:5001/reports')
+            .then((res) => {
+                setReports(res.data); // 데이터 저장
+            })
+            .catch((err) => {
+                console.error('목록 오류:', err);
+            });
     }, []);
 
-
-
-    // 데이터베이스에서 신고 목록 가져오기
-    const fetchReports = async () => {
-        try {
-            const response = await axios.get('http://localhost:5001/reports');
-            console.log(response.data);
-            
-            setReports(response.data);
-        } catch (err) {
-            console.error('신고 목록을 불러오는 중 오류가 발생했습니다:', err);
-            setError('데이터를 가져오는 데 실패했습니다.');
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchReports();
-    }, []);
-
-    // 상세보기 페이지로 이동
-    const handleDetail = (reportNo) => {
-        navigate(`/reports/detail/${reportNo}`); 
+    // 상세보기로 이동
+    const handleDetail = (id) => {
+        navigate(`/admin/reports/detail/${id}`); // URL 이동
     };
 
     return (
         <div>
-            <h2>리뷰 신고 목록</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {isLoading ? (
-                <p>로딩 중...</p>
-            ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>신고 번호</th>
-                            <th>리뷰 번호</th>
-                            <th>신고자 이메일</th>
-                            <th>신고 일자</th>
-                            <th>처리 상태</th>
-                            <th>상세보기</th>
+            <h2>신고 목록</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>신고자</th>
+                        <th>신고 일자</th>
+                        <th>상세보기</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {reports.map((report) => (
+                        <tr key={report.report_no}>
+                            <td>{report.report_no}</td>
+                            <td>{report.reporter}</td>
+                            <td>{new Date(report.report_date).toLocaleDateString()}</td>
+                            <td>
+                                <button onClick={() => handleDetail(report.report_no)}>보기</button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {reports.map((report) => (
-                            <tr key={report.report_no}>
-                                <td>{report.report_no}</td>
-                                <td>{report.review_no}</td>
-                                <td>{report.email}</td>
-                                <td>{new Date(report.report_date).toLocaleString()}</td>
-                                <td>{report.check_status === 1 ? '처리 완료' : '처리 대기'}</td>
-                                <td>
-                                    <button onClick={() => handleDetail(report.report_no)}>
-                                        상세보기
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };
