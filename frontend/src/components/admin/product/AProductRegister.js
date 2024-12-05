@@ -1,18 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import AProductRegisterOpt from "./AProductRegisterOpt";
 
 const AProductRegister = () => {
-    const [categories, setCategories] = useState([]); // All category data
-    const [categoryOneOptions, setCategoryOneOptions] = useState([]); // Unique options for Category 1
-    const [categoryTwoOptions, setCategoryTwoOptions] = useState([]); // Filtered options for Category 2
-    const [categoryThreeOptions, setCategoryThreeOptions] = useState([]); // Filtered options for Category 3
     const [noteOptions, setNoteOptions] = useState([]); // Filtered options for Category 3
-
-    const [selectedCategoryOne, setSelectedCategoryOne] = useState(""); // Selected value for Category 1
-    const [selectedCategoryTwo, setSelectedCategoryTwo] = useState(""); // Selected value for Category 2
-    const [selectedCategoryThree, setSelectedCategoryThree] = useState(""); // Selected value for Category 2
 
     const navigate = useNavigate();
 
@@ -212,9 +203,7 @@ const AProductRegister = () => {
 
                     <tr>
                         <td colSpan={2}>
-                            <button onClick={submitGo}>
-                                제품 옵션 추가 관리
-                            </button>
+                            <button onClick={submitGo}>저장</button>
                         </td>
                     </tr>
                 </table>

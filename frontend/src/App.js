@@ -1,13 +1,13 @@
-import Home from './components/main/Home';
-import Header from './components/dup/Header';
-import Nav from './components/dup/Nav';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
-import Product from './Product';
-import Services from './Services';
-import Mypage from './Mypage';
-import Footer from './components/dup/Footer';
-import Admin from './components/admin/Admin';
+import Home from "./components/main/Home";
+import Header from "./components/dup/Header";
+import Nav from "./components/dup/Nav";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import Product from "./Product";
+import Services from "./Services";
+import Mypage from "./Mypage";
+import Footer from "./components/dup/Footer";
+import Admin from "./components/admin/Admin";
 
 function App() {
     const [hamBtn, setHam] = useState(false);
@@ -22,6 +22,7 @@ function App() {
             <Product />
             <Services />
             <Mypage />
+            {/* <Order /> */}
             <Admin />
             <Footer />
         </BrowserRouter>

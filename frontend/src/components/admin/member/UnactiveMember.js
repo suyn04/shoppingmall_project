@@ -14,7 +14,7 @@ function UnactiveMember(props) {
 
     useEffect(() => {
         axios
-            .get('http://localhost:5001/admin/member')
+            .get('http://localhost:5001/admin/member/unactivemember')
             .then(res => {
                 setArr(res.data);
                 setFilteredCustomers(res.data); // 처음에는 전체 데이터 표시
