@@ -33,8 +33,11 @@ app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 const productRouter = require("./controller/product.js");
 app.use("/product/", productRouter());
 
-const orderRouter = require("./controller/order.js");
-app.use("/order/", orderRouter());
+const basketRouter = require("./controller/Basket.js");
+app.use("/basket/", basketRouter());
+
+const adminOrderRouter = require("./controller/adminOrder.js");
+app.use("/admin/order/", adminOrderRouter());
 
 // 일대일문의
 const onetooneRouter = require("./controller/one_to_one.js");
