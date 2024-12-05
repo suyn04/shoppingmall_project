@@ -66,6 +66,12 @@ const AProductModify = () => {
         return <div>id 없음</div>;
     }
 
+    const stChange = (bname, me) => {
+        // console.log("stChange");
+        setProduct({ ...product, [bname]: me.value });
+        console.log(product);
+    };
+
     return (
         <div>
             <form name="myFrm" onSubmit={submitGo}>
@@ -78,6 +84,9 @@ const AProductModify = () => {
                                 name="product_name_kor"
                                 type="text"
                                 value={product.product_name_kor}
+                                onChange={(e) =>
+                                    stChange("product_name_kor", e.target)
+                                }
                             />
                         </td>
                     </tr>
@@ -88,6 +97,9 @@ const AProductModify = () => {
                                 name="product_name_eng"
                                 type="text"
                                 value={product.product_name_eng}
+                                onChange={(e) =>
+                                    stChange("product_name_eng", e.target)
+                                }
                             />
                         </td>
                     </tr>
@@ -170,6 +182,9 @@ const AProductModify = () => {
                                 name="product_ingredient"
                                 type="textarea"
                                 value={product.product_ingredient}
+                                onChange={(e) =>
+                                    stChange("product_name_kor", e.target)
+                                }
                             />
                         </td>
                     </tr>
@@ -225,6 +240,9 @@ const AProductModify = () => {
                                 name="product_intro"
                                 type="text"
                                 value={product.product_intro}
+                                onChange={(e) =>
+                                    stChange("product_name_kor", e.target)
+                                }
                             />
                         </td>
                     </tr>
