@@ -11,7 +11,6 @@ import Admin from './components/admin/Admin';
 
 function App() {
     const [hamBtn, setHam] = useState(false);
-    console.log('ignore 확인');
 
     return (
         <BrowserRouter>
