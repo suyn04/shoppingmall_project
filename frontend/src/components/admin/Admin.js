@@ -15,6 +15,7 @@ import MemberDetail from './member/MemberDetail';
 import AProductDetail from './product/AProductDetail';
 import AProductRegister from './product/AProductRegister';
 import AProductRegisterOpt from './product/AProductRegisterOpt';
+import UnactiveMember from './member/UnactiveMember';
 
 function Admin(props) {
     return (
@@ -25,6 +26,7 @@ function Admin(props) {
                 <Route path="order/detail/:id" element={<OrderDetail />} />
                 <Route path="member" element={<MemberList />} />
                 <Route path="member/detail/:id" element={<MemberDetail />} />
+                <Route path="unactivemember" element={<UnactiveMember />} />
                 <Route path="product" element={<AProductList />} />
                 <Route path="product/detail/:product_id" element={<AProductDetail />} />
                 <Route path="product/register" element={<AProductRegister />} />
