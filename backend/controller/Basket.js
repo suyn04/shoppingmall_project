@@ -9,7 +9,7 @@ module.exports = () => {
     console.log("basket_view_product접근")
 
     try {
-      const [ret] = await con.execute('select bs_id, bs_product_id, product_upSystem, product_name_kor, product_name_eng, product_volume, product_price from view_product_info_opt join basket on basket.bs_product_id = view_product_info_opt.product_opt_id where bs_customer_id =  = ?', [req.params.id])
+      const [ret] = await con.execute('select bs_id, bs_product_id, product_upSystem, product_name_kor, product_name_eng, product_volume, product_price from view_product_info_opt join basket on basket.bs_product_id = view_product_info_opt.product_opt_id where bs_email =  = ?', [req.params.id])
       
       res.json(ret)
     } catch(err){

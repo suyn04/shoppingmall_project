@@ -1,18 +1,27 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import styles from '../../scss/admin/AdminTemp.module.scss';
 
-function AdminTemp(props) {
-  return (
-    <>
-      <div>
-        <Link to={`/admin/member`}>회원</Link>
-        <Link to={`/admin/product`}>상품</Link>
-        <Link to={`/admin/order`}>주문</Link>
-        <Link to={`/admin/onetoone`}>게시판</Link>
-      </div>
-      <Outlet/>
-    </>
-  );
+function AdminTemp() {
+    return (
+        <div className={styles.container}>
+            {/* 사이드바로 뺌 */}
+            <div className={styles.sidebar}>
+                <h1>관리자 전용 메뉴</h1>
+                <Link to={`/admin/member`}>회원정보 조회</Link>
+                <Link to={`/admin/unactivemember`}>휴면고객 관리</Link>
+                <Link to={`/admin/member`}>탈퇴고객 관리</Link>
+                <Link to={`/admin/product`}>상품</Link>
+                <Link to={`/admin/order`}>주문</Link>
+                <Link to={`/admin/notice`}>게시판</Link>
+            </div>
+
+            {/* 메인 콘텐츠 */}
+            <div className={styles.content}>
+                <Outlet />
+            </div>
+        </div>
+    );
 }
 
 export default AdminTemp;

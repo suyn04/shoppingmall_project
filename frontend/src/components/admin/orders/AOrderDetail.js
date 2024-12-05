@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AOrderDetail(props) {
+function OrderDetail(props) {
   return (
     <div>
       orderDetail
@@ -8,4 +8,4 @@ function AOrderDetail(props) {
   );
 }
 
-export default AOrderDetail;
+export default OrderDetail;

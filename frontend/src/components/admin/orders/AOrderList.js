@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 
-function AOrderList(props) {
+function OrderList(props) {
   const [arr, setArr] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:5001/admin/order/')
+    axios.get('http://localhost:5001/order/')
     .then(
       res=>{
         // console.log('갔다옴 : ', res.data)
@@ -47,4 +47,4 @@ function AOrderList(props) {
   );
 }
 
-export default AOrderList;
+export default OrderList;
