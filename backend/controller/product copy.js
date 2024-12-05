@@ -1,0 +1,215 @@
+const express = require("express");
+const router = express.Router();
+const conn = require("../db");
+const fs = require("fs");
+const multer = require("multer");
+const path = require("path");
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, "imgs/product");
+        },
+        filename: (req, file, cb) => {
+            const ext = path.extname(file.originalname);
+            let fName =
+                path.basename(file.originalname, ext) + Date.now() + ext;
+            //한글인코딩
+            let newFName = Buffer.from(fName, "latin1").toString("utf8");
+
+            cb(null, newFName);
+        },
+    }),
+    limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+module.exports = () => {
+    router.get("/", async (req, res) => {
+        console.log(`/ 진입 확인`); //정상작동 확인
+
+        try {
+            const [ret] = await conn.execute("select * from product");
+            res.json(ret);
+        } catch (err) {
+            console.error("sql 실패 : ", err.message);
+            res.status(500).send("db 오류");
+        }
+    });
+    router.get("/colognes", async (req, res) => {
+        console.log("/colognes 진입 확인");
+        try {
+            const [ret] = await conn.execute(
+                "select * from view_product_info_opt where product_category_id = 1 and product_volume = '100ml'"
+            );
+            res.json(ret);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+    router.get("/admin/detail/:product_id", async (req, res) => {
+        console.log("/admin/detail 진입 확인");
+        console.log(req.params.product_id);
+        try {
+            const [ret] = await conn.execute(
+                "select * from view_product_info where product_id = ?",
+                [req.params.product_id]
+            );
+            res.json(ret[0]);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+
+    router.get("/admin/detail/option/:product_id", async (req, res) => {
+        console.log("/admin/detail 진입 확인");
+        console.log(req.params.product_id);
+        try {
+            const [ret] = await conn.execute(
+                "select * from view_product_info_opt where product_id = ?",
+                [req.params.product_id]
+            );
+            res.json(ret);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+
+    router.get("/admin/register", async (req, res) => {
+        console.log("/product/admin/register 진입 확인");
+        try {
+            const [categories] = await conn.execute(
+                "select * from  product_category"
+            );
+            const [gruopScents] = await conn.execute(
+                "select product_group_scent from product"
+            );
+            const [note] = await conn.execute("select * from  product_note");
+
+            const combinedData = {
+                categories,
+                gruopScents,
+                note,
+            };
+            // console.log(combinedData);
+            res.json(combinedData);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+
+    router.get("/admin/modify/:product_id", async (req, res) => {
+        console.log("/admin/modify/:product_id 진입 확인");
+        try {
+            const [product] = await conn.execute(
+                "select * from view_product_info where product_id = ?",
+                [req.params.product_id]
+            );
+            const [note] = await conn.execute("select * from  product_note");
+
+            const combinedData = {
+                product,
+                note,
+            };
+            console.log(combinedData);
+            res.json(combinedData);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+    router.get("/admin/register/option/:product_id", async (req, res) => {
+        console.log("/admin/register/option/ 진입 확인");
+        console.log(req.params.product_id);
+
+        try {
+            const [ret] = await conn.execute(
+                "select * from product where product_id = ?",
+                [req.params.product_id]
+            );
+            console.log(ret[0]);
+            res.json(ret[0]);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+
+    router.post("/admin/register", async (req, res) => {
+        console.log("register 정상진입확인");
+        // console.log(req);
+
+        let sql =
+            "insert into product (product_name_kor,product_name_eng,product_category_id,product_scent,product_ingredient,product_top,product_heart,product_base,product_intro,product_reg_date,product_status)";
+        sql += " values (?,?,?,?,?,?,?,?,?,sysdate(),1)";
+
+        let data = [
+            req.body.product_name_kor,
+            req.body.product_name_eng,
+            req.body.product_category_id,
+            req.body.product_scent,
+            req.body.product_ingredient,
+            req.body.product_top,
+            req.body.product_heart,
+            req.body.product_base,
+            req.body.product_intro,
+        ];
+        console.log(data);
+
+        try {
+            const [ret] = await conn.execute(sql, data);
+            const newId = ret.insertId;
+            console.log(ret);
+            console.log(ret.insertId);
+            console.log(newId);
+            // res.send("쓰기 완료");
+            res.json({ newId });
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+
+    router.post(
+        "/admin/register/option/:product_id",
+        upload.single("product_upfile"),
+        async (req, res) => {
+            console.log("/admin/register/option/ 정상진입확인");
+            console.log(req.file);
+
+            let sql =
+                "insert into product_opt (product_id,product_volume,product_price,product_upSystem,product_upOri)";
+            sql += " values (?,?,?,?,?)";
+
+            let newFName = Buffer.from(
+                req.file.originalname,
+                "latin1"
+            ).toString("utf8");
+
+            let data = [
+                req.body.product_id,
+                req.body.product_volume + req.body.unit,
+                req.body.product_price,
+                req.file.filename,
+                newFName,
+            ];
+            console.log(data);
+
+            try {
+                const ret = await conn.execute(sql, data);
+                const newId = ret.insertId;
+                // console.log("쓰기 완료", ret);
+                // res.send("쓰기 완료");
+                res.json({ newId });
+            } catch (err) {
+                console.error("db 불러오기 실패 : ", err.message);
+                res.status(500).send("db오류");
+            }
+        }
+    );
+
+    return router;
+};

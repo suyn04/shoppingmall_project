@@ -203,9 +203,7 @@ const AProductRegister = () => {
 
                     <tr>
                         <td colSpan={2}>
-                            <button onClick={submitGo}>
-                                제품 옵션 추가 관리
-                            </button>
+                            <button onClick={submitGo}>저장</button>
                         </td>
                     </tr>
                 </table>

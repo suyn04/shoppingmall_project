@@ -22,7 +22,7 @@ function App() {
             <Product />
             <Services />
             <Mypage />
-            <Order />
+            {/* <Order /> */}
             <Admin />
             <Footer />
         </BrowserRouter>

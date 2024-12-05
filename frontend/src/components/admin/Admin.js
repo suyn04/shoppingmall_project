@@ -28,6 +28,8 @@ function Admin(props) {
                 <Route path="member" element={<MemberList />} />
                 <Route path="member/detail/:id" element={<MemberDetail />} />
                 <Route path="unactivemember" element={<UnactiveMember />} />
+
+                {/* 제품 */}
                 <Route path="product" element={<AProductList />} />
                 <Route
                     path="product/detail/:product_id"
@@ -35,8 +37,12 @@ function Admin(props) {
                 />
                 <Route path="product/register" element={<AProductRegister />} />
                 <Route
-                    path="product/register/option/:product_id"
+                    path="product/option/:product_id"
                     element={<AProductRegisterOpt />}
+                />
+                <Route
+                    path="product/modify/:product_id"
+                    element={<AProductModify />}
                 />
                 {/* 일대일 문의 관련 */}
                 <Route path="onetoone" element={<OneToOneList />} />
