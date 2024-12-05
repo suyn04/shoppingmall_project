@@ -1,14 +1,14 @@
 import React, {useState, useEffect}  from 'react';
-// import {Link, useParams} from 'react-router-dom';
 import styles from '../../scss/order/basket.module.scss';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Basket(props) {
   const [prod, setProd] = useState([])
 
-  const memId = 'AA2460962'
+  const memId = 'dkssud@naver.com'
 
-  useEffect(()=>{
+  function dataInit(){
     axios.get(`http://localhost:5001/basket/${memId}`)
     .then((res) => {
       const updatedProd = res.data.map((item) => ({
@@ -21,24 +21,39 @@ function Basket(props) {
         console.error('에러발생 : ', err)
       }
     )
+  }
+  useEffect(()=>{
+    dataInit()
   },[])
   // 수량 변경
   const handleQuantityChange = (id, quantity) => {
     const updatedProd = prod.map((item) =>
-      item.product_opt_id === id
+      item.bs_product_id === id
         ? { ...item, quantity: parseInt(quantity, 10) }
         : item
     )
     setProd(updatedProd)
   }
 
+  const getTotal = () => {
+    console.log(prod)
+    return prod.reduce((sum, product) => sum + product.product_price * product.quantity, 0);
+  }
+
   // 장바구니 정보 삭제
-  function delBasket(){
-    alert('삭제')
+  function delBasket(id){
+    axios.delete(`http://localhost:5001/basket/delete/${id}`)
+    .then(res=>{
+      alert("삭제되었습니다.")
+      dataInit()
+    })
+    .catch(err=>{
+      console.log("삭제오류 : ", err)
+    })
   }
   return (
     <div className={styles.wrap}>
-      <img src="/imgs/order/JML_CheckoutBanner.avif"/>
+      <img src="/imgs/order/JML_CheckoutBanner.avif" alt=''/>
       <div>
       <div className={styles.shoppingHead}>장바구니</div>
         <div className={styles.shoppingHead2}>
@@ -58,7 +73,7 @@ function Basket(props) {
 
         return(
           <div key={i}>
-            <div><img src={`/imgs/product/${pp.product_upSystem}`}/></div>
+            <div><img src={`/imgs/product/${pp.product_upSystem}`} alt=''/></div>
             <div className={styles.prod}>
               <div>{pp.product_name_kor}</div>
               <div>{pp.product_name_eng}</div>
@@ -68,7 +83,7 @@ function Basket(props) {
             <div>
               <select
                 value={pp.quantity}
-                onChange={(e) => handleQuantityChange(pp.product_opt_id, e.target.value)}
+                onChange={(e) => handleQuantityChange(pp.bs_product_id, e.target.value)}
               >
                 {Array.from({ length: 8 }, (_, i) => i + 1).map((qty) => (
                   <option key={qty} value={qty}>
@@ -78,10 +93,18 @@ function Basket(props) {
               </select>
             </div>
             <div>{totalPrice}</div>
-            <button onClick={delBasket}>삭제</button>
+            <button onClick={()=>{delBasket(pp.bs_id)}}>삭제</button>
           </div>
         )
       })}
+      <div>
+        <div>합계</div>
+        <div>{getTotal().toLocaleString()}</div>
+      </div>
+      <div>
+        <Link to='/'>쇼핑 계속하기</Link>
+        <Link to='/payment1'>결제하기</Link>
+      </div>
     </div>
   );
 }

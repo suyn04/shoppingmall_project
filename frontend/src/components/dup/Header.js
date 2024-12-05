@@ -1,6 +1,6 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "../../scss/dup/header.module.scss";
+import React, {setState} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from '../../scss/dup/header.module.scss';
 
 function Header({ hamBtn, setHam }) {
     const navigate = useNavigate();
@@ -110,7 +110,7 @@ function Header({ hamBtn, setHam }) {
                     </div>
                     <div className={styles.basketContainer}>
                         <div className={styles.basketIcon}>
-                            <Link to="/basket">
+                            <Link to={`/basket/${email}`}>
                                 <img src={`${url}basketIcon.svg`} alt="" />
                             </Link>
                         </div>
