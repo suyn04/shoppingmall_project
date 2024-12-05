@@ -4,6 +4,10 @@ import axios from 'axios';
 
 const ReportDetail = () => {
     const { id } = useParams(); // URL에서 id 가져오기
+    console.log('URL에서 가져온 id:', id);
+
+    
+
     const [reportDetail, setReportDetail] = useState(null); // 신고 상세 데이터 저장
     const [loading, setLoading] = useState(true); // 로딩 상태
     const [error, setError] = useState(null); // 에러 상태
@@ -12,6 +16,8 @@ const ReportDetail = () => {
     const fetchReportDetail = async () => {
         try {
             const response = await axios.get(`http://localhost:5001/reports/${id}`);
+           console.log('api 응답 데이터 : ',response.data);
+           
             setReportDetail(response.data); // 데이터 저장
         } catch (error) {
             console.error('신고 상세 정보를 불러오는 중 오류가 발생했습니다:', error);

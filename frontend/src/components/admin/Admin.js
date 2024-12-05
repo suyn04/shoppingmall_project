@@ -1,22 +1,24 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import AdminMain from './AdminMain';
-import AdminTemp from './AdminTemp';
-import AOrderList from './orders/AOrderList';
-import AOrderDetail from './orders/AOrderDetail';
-import AProductList from './product/AProductList';
-import OneToOneList from './service/OneToOneList';
-import OneToOneDetail from './service/OneToOneDetail';
-import AReviewList from './service/AReviewList';
-import AReviewDetail from './service/AReviewDetail';
-import ReportList from './service/ReportList';
-import MemberList from './member/MemberList';
-import MemberDetail from './member/MemberDetail';
-import AProductDetail from './product/AProductDetail';
-import AProductRegister from './product/AProductRegister';
-import AProductRegisterOpt from './product/AProductRegisterOpt';
-import UnactiveMember from './member/UnactiveMember';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import AdminMain from "./AdminMain";
+import AdminTemp from "./AdminTemp";
+import AOrderList from "./orders/AOrderList";
+import AOrderDetail from "./orders/AOrderDetail";
+import AProductList from "./product/AProductList";
+// 일대일 문의
+import OneToOneList from "./service/OneToOneList";
+import OneToOneDetail from "./service/OneToOneDetail";
+// 리뷰관리
+import AReviewList from "./service/AReviewList";
+import AReviewDetail from "./service/AReviewDetail";
+//신고관리
+import ReportList from "./service/ReportList";
 import ReportDetail from "./service/ReportDetail";
+
+
+import AProductDetail from "./product/AProductDetail";
+import AProductRegister from "./product/AProductRegister";
+import AProductRegisterOpt from "./product/AProductRegisterOpt";
 
 function Admin(props) {
     return (
@@ -41,7 +43,7 @@ function Admin(props) {
                 <Route path="areviewdetail/:id" element={<AReviewDetail />} />
                 {/* 리뷰 신고 */}
                 <Route path="reports" element={<ReportList />} />
-                <Route path="reportsdetail/:id" element={<ReportDetail />} />
+                <Route path="reports/detail/:id" element={<ReportDetail />} />
             </Route>
         </Routes>
     );

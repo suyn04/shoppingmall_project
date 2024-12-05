@@ -44,8 +44,8 @@ const ReportList = () => {
     }, []);
 
     // 상세보기 페이지로 이동
-    const handleDetail = (reportno) => {
-        navigate(`/reports/detail/${reportno}`); 
+    const handleDetail = (reportNo) => {
+        navigate(`/reports/detail/${reportNo}`); 
     };
 
     return (

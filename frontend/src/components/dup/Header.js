@@ -5,10 +5,10 @@ import styles from '../../scss/dup/header.module.scss';
 function Header({ hamBtn, setHam }) {
     const navigate = useNavigate();
     //수정 부분
-    const Loginchk = Boolean(localStorage.getItem('token') || null); // 로그인 상태 확인--초기값 토큰 0
+    const Loginchk = Boolean(sessionStorage.getItem('token') || null); // 로그인 상태 확인--초기값 토큰 0
 
     const Loginbtn = () => {
-        if (Loginchk) {
+        if (!Loginchk) {
             navigate('/myPage'); // 로그인 상태면 마이페이지로 이동
         } else {
             navigate('/signIn'); // 아니면 로그인 페이지로 이동

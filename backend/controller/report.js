@@ -39,5 +39,54 @@ module.exports = (upload) => {
         }
     });
 
+    // 특정 리뷰 상세 가져오기
+    router.get('/:id', async (req, res) => {
+        try {
+            const { id } = req.params; // URL에서 id 가져오기
+
+            const [report] = await conn.query(`
+                SELECT 
+                    review_reports.report_no,
+                    review_reports.review_no,
+                    review_management.review_title,
+                    review_management.review_nick AS review_author,
+                    review_reports.email AS reporter,
+                    review_reports.report_date,
+                    review_reports.report_detail,
+                    review_reports.check_detail,
+                    review_reports.check_datetime,
+                    review_reports.check_status
+                FROM 
+                    review_reports
+                INNER JOIN 
+                    review_management
+                ON 
+                    review_reports.review_no = review_management.review_no
+                WHERE 
+                    review_reports.report_no = ?
+            `, [id]);
+
+
+
+            console.log('쿼리 결과 : ', report[0]);
+
+            // 결과가 비어있는 경우 처리
+            if (report.length === 0) {
+                return res.status(404).json({ message: 'Report not found' });
+            }
+
+            
+            // 정상 데이터 반환
+            res.status(200).json(report[0]);
+            
+            
+        } catch (error) {
+            console.error('Failed to fetch report detail:', error.message || error);
+            res.status(500).json({ error: 'Failed to fetch report detail' });
+        }
+        
+        
+    });
+
     return router;
 };
