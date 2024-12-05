@@ -183,7 +183,7 @@ const AProductModify = () => {
                                 type="textarea"
                                 value={product.product_ingredient}
                                 onChange={(e) =>
-                                    stChange("product_name_kor", e.target)
+                                    stChange("product_ingredient", e.target)
                                 }
                             />
                         </td>
@@ -241,7 +241,7 @@ const AProductModify = () => {
                                 type="text"
                                 value={product.product_intro}
                                 onChange={(e) =>
-                                    stChange("product_name_kor", e.target)
+                                    stChange("product_intro", e.target)
                                 }
                             />
                         </td>
