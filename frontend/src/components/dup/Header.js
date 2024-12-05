@@ -4,7 +4,7 @@ import styles from "../../scss/dup/header.module.scss";
 
 function Header({ hamBtn, setHam }) {
     const navigate = useNavigate();
-    const Loginchk = Boolean(sessionStorage.getItem("token") || null); // 로그인 상태 확인—초기값 토큰 0
+    const Loginchk = Boolean(sessionStorage.getItem("token") || null); // 로그인 상태 확인--초기값 토큰 0
 
     const Loginbtn = () => {
         if (Loginchk) {
@@ -107,7 +107,7 @@ function Header({ hamBtn, setHam }) {
                     </div>
                     <div className={styles.basketContainer}>
                         <div className={styles.basketIcon}>
-                            <Link to="/basket">
+                            <Link to="">
                                 <img src={`${url}basketIcon.svg`} alt="" />
                             </Link>
                         </div>

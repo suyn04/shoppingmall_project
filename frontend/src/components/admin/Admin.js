@@ -10,7 +10,8 @@ import OneToOneDetail from "./service/OneToOneDetail";
 import AReviewList from "./service/AReviewList";
 import AReviewDetail from "./service/AReviewDetail";
 import ReportPage from "./service/ReportPage";
-
+import MemberList from "./member/MemberList";
+import MemberDetail from "./member/MemberDetail";
 import AProductDetail from "./product/AProductDetail";
 import AProductRegister from "./product/AProductRegister";
 import AProductRegisterOpt from "./product/AProductRegisterOpt";
@@ -23,8 +24,6 @@ function Admin(props) {
                 <Route path="" element={<AdminMain />} />
                 <Route path="order" element={<OrderList />} />
                 <Route path="order/detail/:id" element={<OrderDetail />} />
-
-                {/* product 관련 */}
                 <Route path="product" element={<AProductList />} />
                 <Route
                     path="product/detail/:product_id"
@@ -35,11 +34,6 @@ function Admin(props) {
                     path="product/register/option/:product_id"
                     element={<AProductRegisterOpt />}
                 />
-                <Route
-                    path="product/modify/:product_id"
-                    element={<AProductModify />}
-                />
-
                 {/* 일대일 문의 관련 */}
                 <Route path="onetoone" element={<OneToOneList />} />
                 <Route path="onetoone/:id" element={<OneToOneDetail />} />
