@@ -19,6 +19,7 @@ function SignIn() {
         }
 
         try {
+            // 이 부분 수정입니다
             // 로그인 요청을 서버로 전송
             const res = await axios.post('http://localhost:5001/signIn/', { email, password });
 

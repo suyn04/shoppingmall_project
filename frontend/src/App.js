@@ -6,7 +6,6 @@ import { useState } from "react";
 import Product from "./Product";
 import Services from "./Services";
 import Mypage from "./Mypage";
-// import Order from "./Order";
 import Footer from "./components/dup/Footer";
 import Admin from "./components/admin/Admin";
 
@@ -23,7 +22,7 @@ function App() {
             <Product />
             <Services />
             <Mypage />
-            {/* <Order /> */}
+            <Order />
             <Admin />
             <Footer />
         </BrowserRouter>
