@@ -9,25 +9,33 @@ const cors = require('cors');
 app.use(cors());
 
 router.post('/', async (req, res) => {
-    const { email, password } = req.body; //프론트에서 보낸 이메일과 비번 정의
+    const { email, password } = req.body; //프론트에서 보낸 이메일과 비번
+    const sessionToken = 'mockSessionToken'; // 임시 토큰
 
     try {
         // 데이터베이스에서 사용자 정보 조회
-        const [userInfo] = await db.query('SELECT * FROM auth WHERE email = ?', [email]);
-        //auth테이블에서 이메일 조건이 일치하는 데이터를 가져와서 배열로 저장
+
+        const [userInfo] = await db.query(
+            `SELECT auth.auth_id, auth.email, customers.customer_name 
+            FROM auth JOIN customers ON auth.email = customers.email
+            WHERE auth.email = ? AND auth.password = ?`,
+            [email, password]
+
+            //auth와 customers의 이메일 기준으로 조인
+            //auth에 email과 password가 있을 것
+            //auth 테이블에서 auth_id, email을 가져오고 customers 테이블에서 customer_name을 가져옴
+        );
 
         if (userInfo.length === 0) {
-            // 조회된 사용자가 없을 경우
-            return res.status(401).json({ message: '이메일을 확인해주세요' });
+            return res.status(401).json({ message: '이메일 또는 비밀번호를 확인해주세요.' });
         }
 
-        if (password !== userInfo[0].password) {
-            // 비밀번호가 일치하지 않을 경우
-            return res.status(401).json({ message: '비밀번호를 확인해주세요' });
-        }
-
-        // 로그인 성공 시 응답
-        res.status(200).json({ message: '로그인 성공' });
+        // 조인한 DB 결과를 보냄 -- 프론트에서 받아서 처리
+        res.status(200).json({
+            sessionToken,
+            email: userInfo[0].email,
+            customer_name: userInfo[0].customer_name,
+        });
     } catch (error) {
         // 서버 오류 처리
         console.error('로그인 오류 :', error);

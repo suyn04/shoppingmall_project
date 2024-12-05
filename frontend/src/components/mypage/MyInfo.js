@@ -9,6 +9,8 @@ const MyInfo = () => {
 
     useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
+        const email = sessionStorage.getItem('email');
+        const customerName = sessionStorage.getItem('customerName');
 
         if (!sessionToken) {
             navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동

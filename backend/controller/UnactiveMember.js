@@ -3,7 +3,7 @@ const router = express.Router();
 const conn = require('../db');
 
 module.exports = () => {
-    router.get('/', async (req, res) => {
+    router.get('/member/', async (req, res) => {
         console.log(`/ 진입 확인`); // 정상작동 확인
 
         try {
