@@ -6,6 +6,7 @@ function Navbar() {
     const navigate = useNavigate();
 
     const Logout = () => {
+        //이 부분도 확인
         sessionStorage.removeItem('sessionToken'); // 세션 토큰 삭제
         sessionStorage.removeItem('email'); // 이메일 삭제
         navigate('/signIn'); // 로그인 페이지로 이동
