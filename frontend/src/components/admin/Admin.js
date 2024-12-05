@@ -9,11 +9,12 @@ import OneToOneList from "./service/OneToOneList";
 import OneToOneDetail from "./service/OneToOneDetail";
 import AReviewList from "./service/AReviewList";
 import AReviewDetail from "./service/AReviewDetail";
-import ReportPage from "./service/ReportPage";
+import ReportList from "./service/ReportList";
 
 import AProductDetail from "./product/AProductDetail";
 import AProductRegister from "./product/AProductRegister";
 import AProductRegisterOpt from "./product/AProductRegisterOpt";
+import ReportDetail from "./service/ReportDetail";
 
 function Admin(props) {
     return (
@@ -39,7 +40,9 @@ function Admin(props) {
                 {/* 리뷰관련 */}
                 <Route path="areviewlist" element={<AReviewList />} />
                 <Route path="areviewdetail/:id" element={<AReviewDetail />} />
-                <Route path="reports" element={<ReportPage />} />
+                {/* 리뷰 신고 */}
+                <Route path="reports" element={<ReportList />} />
+                <Route path="reportsdetail/:id" element={<ReportDetail />} />
             </Route>
         </Routes>
     );

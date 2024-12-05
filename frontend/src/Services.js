@@ -21,6 +21,7 @@ import ReviewList from"./components/service/review/ReviewList"
 import AReviewList from"./components/admin/service/AReviewList"
 import AReviewDetail from"./components/admin/service/AReviewDetail"
 
+
 function Services() {
     return (
         <Routes>
@@ -48,6 +49,8 @@ function Services() {
                 <Route path="/reviewlist" element={<ReviewList />} />
                 <Route path="/areviewlist" element={<AReviewList />} />
                 <Route path="/areviewdetail/:id" element={<AReviewDetail />} />
+
+                
                
                
             </Routes>

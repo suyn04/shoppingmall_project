@@ -12,7 +12,7 @@ module.exports = (upload) => {
                     review_reports.review_no,
                     review_management.review_title,
                     review_management.review_nick AS review_author,
-                    review_reports.customer_id AS reporter,
+                    review_reports.eamil AS reporter,
                     review_reports.report_date,
                     review_reports.report_detail,
                     review_reports.check_status

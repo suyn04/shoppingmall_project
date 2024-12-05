@@ -41,7 +41,7 @@ module.exports = (upload) => {
     router.post('/', async (req, res) => {
         const {
             product_id = null,
-            customer_id = null,
+            email = null,
             review_rate = null,
             review_recommend = null,
             review_nick = null,
@@ -58,7 +58,7 @@ module.exports = (upload) => {
         try {
             const query = `
                 INSERT INTO review_management (
-                    product_id, customer_id, review_date, review_rate, review_recommend,
+                    product_id, email, review_date, review_rate, review_recommend,
                     review_nick, review_title, review_detail, review_region, review_scent,
                     review_time, review_gift, review_status
                 )
@@ -66,7 +66,7 @@ module.exports = (upload) => {
             `;
             const values = [
                 product_id,
-                customer_id,
+                email,
                 new Date(), // 리뷰 작성 날짜
                 review_rate,
                 review_recommend,
