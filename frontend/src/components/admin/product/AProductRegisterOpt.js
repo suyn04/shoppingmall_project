@@ -19,10 +19,12 @@ const AProductRegisterOpt = () => {
             )
             .then((res) => {
                 console.log(res.data);
-                setProduct(res.data);
+                console.log(res.data.option);
+                setOptions(res.data.option);
+                setProduct(res.data.product[0]);
             })
             .catch((err) => console.error("axios 에러", err));
-    }, []);
+    }, [options, product]);
 
     const submitGo = (me) => {
         me.preventDefault();
@@ -45,10 +47,29 @@ const AProductRegisterOpt = () => {
                 alert("옵션추가가 완료되었습니다.");
                 // 옵션 데이터 추가
                 const newOption = Object.fromEntries(frmData);
-                setOptions((prevOptions) => [...prevOptions, newOption]); // 기존 옵션에 새 옵션 추가
+                console.log(newOption);
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
+            });
+    };
+
+    const delGo = () => {
+        console.log("delGo() 진입");
+
+        axios
+            .delete(
+                `http://localhost:5001/product/admin/register/option/${product_id}`,
+                {
+                    data: { delUPfile: options.upSystem },
+                }
+            )
+            .then((res) => {
+                console.log("삭제완료 ", res.data);
+                alert("삭제되었습니다.");
+            })
+            .catch((err) => {
+                console.error("삭제 오류 ", err);
             });
     };
 
@@ -108,8 +129,10 @@ const AProductRegisterOpt = () => {
                 {options.map((opt, index) => (
                     <tr key={index}>
                         <td>{opt.product_volume}</td>
-                        <td>{opt.unit}</td>
                         <td>{opt.product_price} 원</td>
+                        <td>
+                            <button onClick={delGo}>삭제</button>
+                        </td>
                     </tr>
                 ))}
             </table>
@@ -118,7 +141,7 @@ const AProductRegisterOpt = () => {
                     navigate(`/admin/product/detail/${product_id}`);
                 }}
             >
-                제품 등록 완료
+                저장
             </button>
         </div>
     );

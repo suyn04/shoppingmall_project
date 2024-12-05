@@ -126,12 +126,20 @@ module.exports = () => {
         console.log(req.params.product_id);
 
         try {
-            const [ret] = await conn.execute(
+            const [product] = await conn.execute(
                 "select * from product where product_id = ?",
                 [req.params.product_id]
             );
-            console.log(ret[0]);
-            res.json(ret[0]);
+            const [option] = await conn.execute(
+                "select * from product_opt where product_id = ?",
+                [req.params.product_id]
+            );
+            const combinedData = {
+                product,
+                option,
+            };
+            console.log(combinedData);
+            res.json(combinedData);
         } catch (err) {
             console.error("db 불러오기 실패 : ", err.message);
             res.status(500).send("db오류");
@@ -210,6 +218,46 @@ module.exports = () => {
             }
         }
     );
+
+    router.delete("/admin/register/option/:product_id", async (req, res) => {
+        console.log("삭제 진입:" + req.params.product_id);
+        console.log(req.body);
+
+        //파일삭제
+        //파일에 작성한 내용이 있다면
+        if (req.body.delUPfile) {
+            //파일이 존재한다면
+            fs.access(
+                "imgs/product/" + req.body.delUPfile,
+                fs.constants.F_OK,
+                (err) => {
+                    if (!err) {
+                        fs.unlink(
+                            "imgs/product/" + req.body.delUPfile,
+                            (err) => {
+                                if (!err) {
+                                    console.log(req.body.delUPfile + " 삭제");
+                                }
+                            }
+                        );
+                    }
+                }
+            );
+        }
+
+        try {
+            const [ret] = await conn.execute(
+                "delete from product_opt where product_id = ?",
+                [req.params.product_id]
+            );
+
+            console.log("삭제 완료", ret);
+            res.send("삭제 성공:" + req.params.product_id);
+        } catch (err) {
+            console.error("sql 실패 : ", err.message);
+            res.status(500).send("db 오류");
+        }
+    });
 
     return router;
 };
