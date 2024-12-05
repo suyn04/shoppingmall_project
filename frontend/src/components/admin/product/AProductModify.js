@@ -77,7 +77,7 @@ const AProductModify = () => {
         for (let ee of arr) {
             console.log(ee);
             ret.push(
-                chkInput(bname, ee.value, ee.title, state[bname] == ee.value)
+                chkSelect(bname, ee.value, ee.title, product[bname] == ee.value)
             );
         }
         return ret;

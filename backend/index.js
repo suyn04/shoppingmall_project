@@ -33,19 +33,20 @@ app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 const productRouter = require("./controller/product.js");
 app.use("/product/", productRouter(upload));
 
-const orderRouter = require("./controller/order.js");
-app.use("/order/", orderRouter());
+// const orderRouter = require("./controller/order.js");
+// app.use("/order/", orderRouter());
 
 const memberListRouter = require("./controller/MemberList.js");
 app.use("/admin/member/", memberListRouter());
 
 const memberDetailRouter = require("./controller/MemberDetail.js");
 app.use("/admin/member/detail", memberDetailRouter());
-const basketRouter = require("./controller/Basket.js");
-app.use("/basket/", basketRouter());
 
-const adminOrderRouter = require("./controller/adminOrder.js");
-app.use("/admin/order/", adminOrderRouter());
+// const basketRouter = require("./controller/Basket.js");
+// app.use("/basket/", basketRouter());
+
+// const adminOrderRouter = require("./controller/adminOrder.js");
+// app.use("/admin/order/", adminOrderRouter());
 
 // 일대일문의
 const onetooneRouter = require("./controller/one_to_one.js");

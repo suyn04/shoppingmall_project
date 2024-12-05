@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 function ReportPage() {
     const [reports, setReports] = useState([]); // 신고 데이터 상태
 
     // 데이터 가져오기
     useEffect(() => {
-        axios.get("http://localhost:5001/reports")
+        axios
+            .get("http://localhost:5001/reports")
             .then((response) => {
                 setReports(response.data); // 데이터 설정
             })
@@ -50,13 +51,24 @@ function ReportPage() {
                             <td>{report.review_title}</td>
                             <td>{report.review_author}</td>
                             <td>{report.reporter}</td>
-                            <td>{new Date(report.report_date).toLocaleDateString()}</td>
-                            <td>{report.check_status ? '공개' : '비공개'}</td>
+                            <td>
+                                {new Date(
+                                    report.report_date
+                                ).toLocaleDateString()}
+                            </td>
+                            <td>{report.check_status ? "공개" : "비공개"}</td>
                             <td>
                                 <button
-                                    onClick={() => handleStatusChange(report.report_no, report.check_status)}
+                                    onClick={() =>
+                                        handleStatusChange(
+                                            report.report_no,
+                                            report.check_status
+                                        )
+                                    }
                                 >
-                                    {report.check_status ? '비공개로 전환' : '공개로 전환'}
+                                    {report.check_status
+                                        ? "비공개로 전환"
+                                        : "공개로 전환"}
                                 </button>
                             </td>
                         </tr>
