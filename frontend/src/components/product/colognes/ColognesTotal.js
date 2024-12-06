@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "../../../scss/product/prodTotal.module.scss";
-import ProductCard from "../ProductCard";
-import ColognesCard from "./ColognesCard";
 
 const ColognesTotal = () => {
     return (
@@ -13,7 +11,6 @@ const ColognesTotal = () => {
                     있습니다.
                 </p>
             </div>
-            <ColognesCard />
         </div>
     );
 };

@@ -8,14 +8,14 @@ const AProductRegisterOpt = () => {
     const [product, setProduct] = useState(null);
     const [options, setOptions] = useState([]); // 추가된 옵션 리스트
 
-    useEffect(() => {
+    const productAxiosGet = () => {
         if (!product_id) {
             console.log("id 없음");
             return;
         }
         axios
             .get(
-                `http://localhost:5001/product/admin/register/option/${product_id}`
+                `http://localhost:5001/admin/product/register/option/${product_id}`
             )
             .then((res) => {
                 console.log(res.data);
@@ -24,7 +24,11 @@ const AProductRegisterOpt = () => {
                 setProduct(res.data.product[0]);
             })
             .catch((err) => console.error("axios 에러", err));
-    }, [options, product]);
+    };
+
+    useEffect(() => {
+        productAxiosGet();
+    }, []);
 
     const submitGo = (me) => {
         me.preventDefault();
@@ -34,7 +38,7 @@ const AProductRegisterOpt = () => {
 
         axios
             .post(
-                `http://localhost:5001/product/admin/register/option/${product_id}`,
+                `http://localhost:5001/admin/product/register/option/${product_id}`,
                 frmData,
                 {
                     headers: {
@@ -48,6 +52,7 @@ const AProductRegisterOpt = () => {
                 // 옵션 데이터 추가
                 const newOption = Object.fromEntries(frmData);
                 console.log(newOption);
+                productAxiosGet();
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
@@ -59,7 +64,7 @@ const AProductRegisterOpt = () => {
 
         axios
             .delete(
-                `http://localhost:5001/product/admin/register/option/${product_id}`,
+                `http://localhost:5001/admin/product/register/option/${product_id}`,
                 {
                     data: { delUPfile: options.upSystem },
                 }
@@ -67,11 +72,23 @@ const AProductRegisterOpt = () => {
             .then((res) => {
                 console.log("삭제완료 ", res.data);
                 alert("삭제되었습니다.");
+                productAxiosGet();
             })
             .catch((err) => {
                 console.error("삭제 오류 ", err);
             });
     };
+    function fileGo(file) {
+        if (file) {
+            return (
+                <img
+                    src={`http://localhost:5001/imgs/product/${file}`}
+                    width="100px"
+                />
+            );
+        }
+        return null;
+    }
 
     if (!product) {
         return <div>id 없음</div>;
@@ -122,14 +139,16 @@ const AProductRegisterOpt = () => {
             <h3>추가된 옵션</h3>
             <table border="1">
                 <tr>
-                    <td>용량</td>
-                    <td>단위</td>
-                    <td>가격</td>
+                    <td>제품 용량</td>
+                    <td>제품 가격</td>
+                    <td>제품 이미지</td>
+                    <td>구분</td>
                 </tr>
                 {options.map((opt, index) => (
                     <tr key={index}>
                         <td>{opt.product_volume}</td>
                         <td>{opt.product_price} 원</td>
+                        <td>{fileGo(opt.product_upSystem)}</td>
                         <td>
                             <button onClick={delGo}>삭제</button>
                         </td>

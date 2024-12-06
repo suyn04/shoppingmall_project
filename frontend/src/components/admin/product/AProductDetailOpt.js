@@ -9,7 +9,7 @@ const AProductDetailOpt = () => {
     const productListGetAxios = () => {
         axios
             .get(
-                `http://localhost:5001/product/admin/detail/option/${product_id}`
+                `http://localhost:5001/admin/product/detail/option/${product_id}`
             )
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
@@ -49,9 +49,9 @@ const AProductDetailOpt = () => {
                         return (
                             <tr>
                                 <td>제품 용량</td>
-                                <input type="text" value={st.product_volume} />
+                                <td>{st.product_volume}</td>
                                 <td>제품 가격</td>
-                                <input type="number" value={st.product_price} />
+                                <td>{st.product_price}</td>
                                 <td>이미지</td>
                                 <td>{fileGo(st.product_upSystem)}</td>
                             </tr>
