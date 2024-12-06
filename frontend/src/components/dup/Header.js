@@ -4,7 +4,6 @@ import styles from '../../scss/dup/header.module.scss';
 
 function Header({ hamBtn, setHam }) {
     const navigate = useNavigate();
-    const email = 'dkssud@naver.com'
 
     //수정 부분
     //세션토큰 사용
@@ -24,6 +23,8 @@ function Header({ hamBtn, setHam }) {
     };
 
     const url = "/imgs/main/";
+    const email = 'dkssud@naver.com'
+
     return (
         <header>
             <div className={styles.wrap}>

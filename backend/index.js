@@ -40,6 +40,9 @@ app.use("/basket/", basketRouter());
 const payment1Router = require("./controller/Payment1.js");
 app.use("/payment1/", payment1Router());
 
+const payment2Router = require("./controller/Payment2.js");
+app.use("/payment2/", payment2Router());
+
 const adminOrderRouter = require("./controller/adminOrder.js");
 app.use("/admin/order/", adminOrderRouter());
 
