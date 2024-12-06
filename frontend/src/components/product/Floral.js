@@ -1,8 +1,7 @@
 import React from "react";
-import styles from "../../../scss/product/subPageTop.module.scss";
-import ProductCard from "../ProductCard";
+import styles from "../../scss/product/subPageTop.module.scss";
 
-const CandleFloral = () => {
+const Floral = () => {
     return (
         <div className={styles.subPageTop}>
             <div>
@@ -20,9 +19,8 @@ const CandleFloral = () => {
                     <img src="/imgs/product/cologne_floral.jpg" alt="" />
                 </div>
             </div>
-            <ProductCard />
         </div>
     );
 };
 
-export default CandleFloral;
+export default Floral;

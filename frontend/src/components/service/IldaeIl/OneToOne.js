@@ -1,20 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../scss/service/IldaeIl/OneToOne.scss';
+import axios from 'axios';
 
 const OneToOne = () => {
     //폼 데이터 상태 관리
     const [formData, setFormData] = useState({
         category: '', // 문의 유형
-        title: '',    // 제목
-        content: '',  // 내용
-        file: null,   // 첨부 파일
+        title: '', // 제목
+        content: '', // 내용
+        file: null, // 첨부 파일
     });
 
+    const [userInfo, setUserInfo] = useState();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const sessionToken = sessionStorage.getItem('sessionToken');
+
+        if (!sessionToken) {
+            navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
+        } else {
+            // Axios로 사용자 정보 가져오기
+            axios
+                .post(
+                    'http://localhost:5001/myPage', //onetoone에 세션정보가 없어서 마이페이지에서 가져옴
+                    { email: sessionStorage.getItem('email') }, // 요청 본문
+                    {
+                        headers: {
+                            Authorization: sessionToken, // 세션 토큰 포함
+                        },
+                    }
+                )
+                .then(response => {
+                    setUserInfo(response.data); // 세션토큰 콘솔에서 확인
+                    console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
+                    console.log('이메일 :', sessionStorage.getItem('email'));
+                })
+                .catch(error => {
+                    console.error('세션 토큰 확인불가', error);
+                    navigate('/signIn'); // 실패 시 로그인 페이지로 이동
+                });
+        }
+    }, [navigate]);
+
+    // userInfo가 null일 때 로딩 메시지 표시
+    if (!userInfo) {
+        return <p>로딩 중...</p>;
+    }
+
     //입력값 변경 핸들러
-    const handleChange = (e) => {
+    const handleChange = e => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -23,7 +59,7 @@ const OneToOne = () => {
     };
 
     //파일 업로드 핸들러
-    const handleFileChange = (e) => {
+    const handleFileChange = e => {
         setFormData({
             ...formData,
             file: e.target.files[0],
@@ -31,19 +67,20 @@ const OneToOne = () => {
     };
 
     // 폼 제출 핸들러
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
 
         // 서버로 보낼 데이터 준비
         const data = {
             post_category: formData.category, // 문의 유형
-            customer_id: '123',              // 회원 ID (임시로 123 고정)
-            post_title: formData.title,      // 제목
-            post_detail: formData.content,   // 내용
+            customer_id: '123', // 회원 ID (임시로 123 고정)
+            post_title: formData.title, // 제목
+            post_detail: formData.content, // 내용
         };
 
         try {
-            const response = await fetch('http://localhost:5001/onetoone', { // 백엔드 주소와 정확히 일치
+            const response = await fetch('http://localhost:5001/onetoone', {
+                // 백엔드 주소와 정확히 일치
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,14 +107,13 @@ const OneToOne = () => {
     const handleCancel = () => {
         navigate(-1); // 이전 페이지로 이동
     };
+
     return (
         <div>
             <h2>1:1 문의</h2>
-            <div className='gray'>※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에 FAQ를 참고 해주세요.
-            </div>
+            <div className="gray">※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에 FAQ를 참고 해주세요.</div>
 
-            <form className='inquiry-form' onSubmit={ handleSubmit }>
-                
+            <form className="inquiry-form" onSubmit={handleSubmit}>
                 {/* 회원 아이디 */}
                 {/* <div>
                     <label htmlFor="userid">회원 아이디</label>
@@ -89,18 +125,19 @@ const OneToOne = () => {
                         placeholder='아이디를 입력하세요'
                         />
                 </div> */}
-                
-                
-                
-                
+
+                <div>
+                    <span>
+                        작성자 : {userInfo.customer_name}({userInfo.email})
+                    </span>
+                </div>
+
                 {/* 문의 유형 선택 */}
                 <div>
-                    <label htmlFor="category">문의 유형 <span className='red'>*</span></label>
-                    <select
-                        name="category"
-                        id="category"
-                        value={formData.category}
-                        onChange={handleChange}>
+                    <label htmlFor="category">
+                        문의 유형 <span className="red">*</span>
+                    </label>
+                    <select name="category" id="category" value={formData.category} onChange={handleChange}>
                         <option value="">선택하세요</option>
                         <option value="information">회원정보</option>
                         <option value="order">주문/배송</option>
@@ -112,59 +149,37 @@ const OneToOne = () => {
 
                 {/* 제목 입력 */}
                 <div>
-                    <label htmlFor='title'>제목 <span className='red'>*</span></label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        placeholder='제목을 입력하세요'
-                    />
+                    <label htmlFor="title">
+                        제목 <span className="red">*</span>
+                    </label>
+                    <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} placeholder="제목을 입력하세요" />
                 </div>
                 {/* 내용 입력 */}
                 <div>
-                    <label htmlFor="content">문의 내용 <span className='red'>*</span></label>
-                    <textarea
-                        id="content"
-                        name="content"
-                        value={formData.content}
-                        onChange={handleChange}
-                        placeholder='문의 내용을 입력하세요'
-                    />
-                    <p className='gray'>※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의 개인정보 입력은 지양하여 주시기 바랍니다.</p>
+                    <label htmlFor="content">
+                        문의 내용 <span className="red">*</span>
+                    </label>
+                    <textarea id="content" name="content" value={formData.content} onChange={handleChange} placeholder="문의 내용을 입력하세요" />
+                    <p className="gray">※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의 개인정보 입력은 지양하여 주시기 바랍니다.</p>
                 </div>
 
                 {/* 파일 첨부 */}
                 <div>
                     <label htmlFor="file">파일 첨부</label>
-                    <input
-                        type="file"
-                        id="file"
-                        name='file'
-                        onChange={handleFileChange}
-                    />
-                    <p className='red'>※ 10MB 미만의 파일 4개까지 첨부 가능</p>
+                    <input type="file" id="file" name="file" onChange={handleFileChange} />
+                    <p className="red">※ 10MB 미만의 파일 4개까지 첨부 가능</p>
                 </div>
 
-               {/* 버튼 그룹 */}
-               <div className="button-group">
-
-                <button type="submit">문의 접수</button>
-                <button type="button" onClick={handleCancel} className='cbutton'>
+                {/* 버튼 그룹 */}
+                <div className="button-group">
+                    <button type="submit">문의 접수</button>
+                    <button type="button" onClick={handleCancel} className="cbutton">
                         취소
                     </button>
-                    </div>
+                </div>
             </form>
-
-
-
-
-
-
-
         </div>
-    )
-}
+    );
+};
 
-export default OneToOne
+export default OneToOne;

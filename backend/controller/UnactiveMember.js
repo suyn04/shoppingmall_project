@@ -1,31 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const conn = require('../db');
+const db = require('../db');
 
 module.exports = () => {
-    router.get('/member/', async (req, res) => {
-        console.log(`/ 진입 확인`); // 정상작동 확인
-
+    // 휴면 고객 조회
+    router.get('/unactivemember', async (req, res) => {
         try {
-            const [ret] = await conn.execute(`SELECT * FROM customers WHERE status = '휴면'`);
+            const [ret] = await db.query(`SELECT * FROM customers WHERE status = '휴면'`);
             res.json(ret);
         } catch (err) {
-            console.error('SQL 실패 : ', err.message);
+            console.error('SQL 실패:', err.message);
             res.status(500).send('DB 오류');
         }
     });
 
-    // 상태 변경시
+    // 휴면 고객 상태 변경
     router.post('/unactivemember', async (req, res) => {
         const { customer_ids, status } = req.body;
-
         try {
-            const chked_customer = customer_ids.map(() => '?').join(',');
-            const query = `UPDATE customers SET status = ? WHERE customer_id IN (${chked_customer})`;
-            await conn.execute(query, [status, ...customer_ids]);
-            res.status(200).send('정상상태 변경 완료');
+            const placeholders = customer_ids.map(() => '?').join(',');
+            const query = `UPDATE customers SET status = ? WHERE customer_id IN (${placeholders})`;
+            await db.query(query, [status, ...customer_ids]);
+            res.status(200).send('상태 변경 완료');
         } catch (err) {
-            console.error('SQL 실패 : ', err.message);
+            console.error('SQL 실패:', err.message);
             res.status(500).send('DB 오류');
         }
     });

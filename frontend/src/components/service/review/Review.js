@@ -23,7 +23,7 @@ const Review = () => {
   
     let reviewData = {
       product_id: 1, // 필수 값
-      customer_id: 123, // 필수 값
+      email: 123, // 필수 값
       review_rate: rating || 0, // 기본값: 0
       review_recommend: recommend === 'yes' ? 1 : 0, // 기본값: 0
       review_nick: nickname || '익명', // 기본값: '익명'

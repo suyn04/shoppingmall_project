@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/MyinfoEdit.module.scss';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ const MyinfoEdit = () => {
             // Axios로 사용자 정보 가져오기
             axios
                 .post(
-                    'http://localhost:5001/myPage/myinfoEdit', //index.js의 라우트경로랑 일치시킴
+                    'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
                     { email: sessionStorage.getItem('email') }, // 요청 본문
                     {
                         headers: {
@@ -35,11 +35,6 @@ const MyinfoEdit = () => {
                 });
         }
     }, [navigate]);
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
 
     // userInfo가 null일 때 로딩 메시지 표시
     if (!userInfo) {
@@ -63,61 +58,17 @@ const MyinfoEdit = () => {
                 <fieldset className={styles.infoinput}>
                     <div className={styles.inputgroup}>
                         <label>*이름</label>
-                        <input type="text" defaultValue={userInfo.customer_name} className={styles.inputname} />
+                        <input defaultValue={userInfo.customer_name} className={styles.inputname} readOnly />
 
-                        <label>*이메일 주소</label>
-                        <input type="text" defaultValue={userInfo.email} className={styles.inputemail} />
-                    </div>
+                        <label>*이메일</label>
+                        <input defaultValue={userInfo.email} className={styles.inputemail} readOnly />
 
-                    {/* 비밀번호 재설정 모달 */}
-                    {isModalOpen && (
-                        <div className={styles.modal}>
-                            <div className={styles.modalcontent}>
-                                <div className={styles.modalheader}>
-                                    <span>비밀번호를 변경해주세요</span>
-                                    <button className={styles.modalclose} onClick={closeModal}>
-                                        &times;
-                                    </button>
-                                </div>
-                                <div className={styles.modalbody}>
-                                    <input type="password" placeholder="현재 비밀번호" className={styles.modalinput} />
-                                    <input type="password" placeholder="새로운 비밀번호" className={styles.modalinput} />
-                                    <input type="password" placeholder="비밀번호 재확인" className={styles.modalinput} />
-                                </div>
-                                <div className={styles.modalfooter}>
-                                    <button className={styles.modalcancel} onClick={closeModal}>
-                                        취소
-                                    </button>
-                                    <button className={styles.modalconfirm}>확인</button>
-                                </div>
-                            </div>
+                        <label>*휴대전화 번호</label>
+                        <div>
+                            <input defaultValue={userInfo.contact_number} className={styles.inputphone} />
                         </div>
-                    )}
-
-                    <button className={styles.btnopenmodal} onClick={openModal}>
-                        비밀번호 재설정
-                    </button>
+                    </div>
                 </fieldset>
-            </div>
-            <div className={styles.block}>
-                {/* 휴대전화 번호 */}
-                <div className={styles.phonenumber}>
-                    <label>*휴대전화 번호</label>
-                    <div className={styles.phoneinputgroup}>
-                        <select className={styles.phoneselect}>
-                            <option value="010">010</option>
-                        </select>
-                        <span></span>
-                        <input type="text" defaultValue="5796" className={styles.phoneinput} />
-                        <span></span>
-                        <input type="text" defaultValue="6269" className={styles.phoneinput} />
-                        <button className={styles.btnrequestcode}>인증번호 요청</button>
-                    </div>
-                    <div className={styles.authcode}>
-                        <input type="text" placeholder="인증번호" readOnly className={styles.authcodeinput} />
-                        <button className={styles.btnconfirmcode}>확인</button>
-                    </div>
-                </div>
             </div>
             <div className={styles.block}>
                 {/* 뉴스레터 정보 */}
@@ -156,9 +107,7 @@ const MyinfoEdit = () => {
                     <h4>추가정보(선택)</h4>
                     <p>고객님의 생일은 언제입니까?</p>
                     <div className={styles.birthinputgroup}>
-                        <input type="text" placeholder="년" defaultValue="1998" className={styles.birthinput} />
-                        <input type="text" placeholder="월" defaultValue="02" className={styles.birthinput} />
-                        <input type="text" placeholder="일" defaultValue="09" className={styles.birthinput} />
+                        <input type="date" value={userInfo.birthdate} className={styles.birthinput} />
                     </div>
                     <div className={styles.gender}>
                         <label>성별</label>
@@ -172,32 +121,6 @@ const MyinfoEdit = () => {
 
             {/* 확인 버튼 */}
             <button className={styles.btnsubmit}>확인</button>
-
-            <div className={styles.block}>
-                {/* 연동 서비스 관리 */}
-                <div className={styles.sociallinks}>
-                    <h4>연동 서비스 관리</h4>
-                    <p>더 빠르고 쉬운 로그인 방법이 필요하십니까?</p>
-                    <p>소셜 계정 연결 기억해야 할 암호가 하나 적습니다! 페이지에 아무 것도 자동으로 게시해도 걱정하지 마십시오.</p>
-                    <div className={styles.social}>
-                        <div>
-                            <img src="/imgs/kakao.svg" alt="Kakao" />
-                            <button className={styles.btndisconnect}>연결 해제</button>
-                        </div>
-                        <div>
-                            <img src="/imgs/naver.svg" alt="Naver" />
-                            <button className={styles.btndisconnect}>연결 해제</button>
-                        </div>
-                    </div>
-                    <p>
-                        계정 병합과 같은 연결된 계정에 대한 지원이 필요하면 24/7 (16443753)으로 문의하거나{' '}
-                        <Link to="/contact" className="a1">
-                            이메일
-                        </Link>
-                        을 보내주십시오.
-                    </p>
-                </div>
-            </div>
         </main>
     );
 };

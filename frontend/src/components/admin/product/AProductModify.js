@@ -8,13 +8,13 @@ const AProductModify = () => {
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const productGetAxios = () => {
         if (!product_id) {
             console.log("id 없음");
             return;
         }
         axios
-            .get(`http://localhost:5001/product/admin/modify/${product_id}`)
+            .get(`http://localhost:5001/admin/product/modify/${product_id}`)
             .then((res) => {
                 const uniqueNote = [
                     ...new Map(
@@ -28,31 +28,34 @@ const AProductModify = () => {
                     ).values(),
                 ];
                 const curProduct = res.data.product[0];
-                console.log(curProduct);
-                console.log(uniqueNote);
+                // console.log(curProduct);
+                // console.log(uniqueNote);
 
                 setNoteOptions(uniqueNote);
                 setProduct(curProduct);
             })
             .catch((err) => console.error("Error fetching categories:", err));
-    }, [product_id]);
+    };
+
+    useEffect(() => {
+        productGetAxios();
+    }, []);
 
     const submitGo = (me) => {
         me.preventDefault();
         console.log("submitGo 진입");
         const frmData = new FormData(document.myFrm);
-        // console.log(frmData);
+        console.log(frmData);
         const data = Object.fromEntries(frmData);
         console.log(data);
 
         axios
-            .put(`http://localhost:5001/product/admin/modify`, data)
+            .put(`http://localhost:5001/admin/product/modify`, data)
             .then((res) => {
-                console.log("제품 정보 수정 완료했습니다.", res.data.newId);
-                console.log(res.data.newId);
+                console.log("제품 정보 수정 완료했습니다.");
 
                 alert("제품 정보 수정 완료했습니다.");
-                navigate(`admin/product/modify/${product_id}`);
+                productGetAxios();
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
@@ -84,6 +87,31 @@ const AProductModify = () => {
         );
     };
 
+    const chkRadioModule = (bname, arr) => {
+        const ret = [];
+        for (let ee of arr) {
+            // console.log(ee);
+            ret.push(
+                chkRadio(bname, ee.value, ee.title, product[bname] == ee.value)
+            );
+        }
+        return ret;
+    };
+    const chkRadio = (bname, vv, tt, chk = false) => {
+        return (
+            <label>
+                <input
+                    type="radio"
+                    name={bname}
+                    value={vv}
+                    checked={chk}
+                    onChange={(e) => stChange(bname, e.target)}
+                />
+                {tt}
+            </label>
+        );
+    };
+
     return (
         <div>
             <form name="myFrm" onSubmit={submitGo}>
@@ -92,6 +120,11 @@ const AProductModify = () => {
                     <tr>
                         <td>제품 국문명</td>
                         <td>
+                            <input
+                                type="hidden"
+                                name="product_id"
+                                value={product.product_id}
+                            />
                             <input
                                 name="product_name_kor"
                                 type="text"
@@ -122,7 +155,7 @@ const AProductModify = () => {
                                 name="product_special"
                                 id="product_special"
                                 onChange={(e) =>
-                                    stChange("product_name_kor", e.target)
+                                    stChange("product_speical", e.target)
                                 }
                             >
                                 {chkSelectModule("product_special", [
@@ -298,6 +331,15 @@ const AProductModify = () => {
                                     stChange("product_intro", e.target)
                                 }
                             />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>공개여부</td>
+                        <td>
+                            {chkRadioModule("product_status", [
+                                { value: 0, title: "비공개" },
+                                { value: 1, title: "공개" },
+                            ])}
                         </td>
                     </tr>
 

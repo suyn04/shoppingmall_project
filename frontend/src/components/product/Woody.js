@@ -1,8 +1,7 @@
 import React from "react";
-import ColognesCard from "./ColognesCard";
-import styles from "../../../scss/product/subPageTop.module.scss";
+import styles from "../../scss/product/subPageTop.module.scss";
 
-const ColognesWoody = () => {
+const Woody = () => {
     return (
         <div className={styles.subPageTop}>
             <div>
@@ -19,9 +18,8 @@ const ColognesWoody = () => {
                     <img src="/imgs/product/cologne_woody.jpg" alt="" />
                 </div>
             </div>
-            <ColognesCard />
         </div>
     );
 };
 
-export default ColognesWoody;
+export default Woody;
