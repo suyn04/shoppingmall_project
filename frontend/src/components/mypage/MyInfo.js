@@ -36,7 +36,14 @@ const MyInfo = () => {
                     navigate('/signIn'); // 실패 시 로그인 페이지로 이동
                 });
         }
-    }, [navigate]);
+    }, []);
+
+    // 날짜 포맷팅 함수
+    const formatDate = dateString => {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    };
 
     return (
         <main>
@@ -46,8 +53,8 @@ const MyInfo = () => {
                     <div className={styles.sectionHeader}>
                         나의 정보
                         <div>
-                            <Link to="/member-information-input" className={styles.a1}>
-                                정보 보기
+                            <Link to="/myPage/myinfoEdit" className={styles.a1}>
+                                정보 수정하기
                             </Link>
                         </div>
                     </div>
@@ -55,11 +62,11 @@ const MyInfo = () => {
                         {/* 불러온 사용자 정보가 있으면 */}
                         {userInfo ? (
                             <>
-                                <p>이름: {userInfo.customer_name}</p>
-                                <p>이메일 주소: {userInfo.email}</p>
-                                <p>뉴스레터: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
-                                <p>MMS: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
-                                <p>DM: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
+                                <p>이름 : {userInfo.customer_name}</p>
+                                <p>이메일 : {userInfo.email}</p>
+                                <p>연락처 : {userInfo.contact_number}</p>
+                                <p>가입일 : {formatDate(userInfo.join_date)}</p>
+                                <p>개인정보 수집 동의: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
                             </>
                         ) : (
                             <p>사용자 정보 없음</p>
@@ -71,7 +78,7 @@ const MyInfo = () => {
                     <div className={styles.sectionHeader}>
                         주문 내역
                         <div>
-                            <Link to="/ViewOrders" className={styles.a1}>
+                            <Link to="/myPage/viewOrders" className={styles.a1}>
                                 주문 내역 보기
                             </Link>
                         </div>

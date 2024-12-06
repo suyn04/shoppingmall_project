@@ -56,8 +56,8 @@ function ViewOrders() {
 
                 <div className={styles.orderlist}>
                     <div className={styles.orderlistheader}>
-                        <div>주문날짜</div>
                         <div>주문번호</div>
+                        <div>주문날짜</div>
                         <div>주문상태</div>
                         <div>송장번호</div>
                     </div>

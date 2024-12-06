@@ -5,8 +5,6 @@ import axios from 'axios';
 function MemberDetail() {
     const { id } = useParams(); // URL에서 id 추출
     const [mm, setMM] = useState(null);
-    const navigate = useNavigate();
-    const [newStatus, setNewStatus] = useState('정상');
 
     useEffect(() => {
         axios
@@ -19,23 +17,11 @@ function MemberDetail() {
             });
     }, [id]);
 
-    const handleStatusChange = async () => {
-        try {
-            const res = await axios.put(`http://localhost:5001/admin/member/update/${id}`, {
-                newStatus,
-            });
-            if (res.status === 200) {
-                alert(res.data.message); // 성공 메시지 출력
-                if (res.status === '탈퇴') {
-                    navigate('/admin/member'); // 탈퇴 후 목록으로 이동
-                } else {
-                    setMM({ ...mm, status: newStatus }); // 상태 업데이트
-                }
-            }
-        } catch (err) {
-            console.error('상태 업데이트 실패:', err);
-            alert('상태 업데이트 중 오류가 발생했습니다.');
-        }
+    // 날짜 포맷팅 함수
+    const formatDate = dateString => {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
     };
 
     if (!mm) {
@@ -61,18 +47,9 @@ function MemberDetail() {
                     <td>{mm.customer_name}</td>
                     <td>{mm.email}</td>
                     <td>{mm.contact_number}</td>
-                    <td>{mm.join_date}</td>
-                    <td>{mm.last_login_date}</td>
-                    <td>
-                        <select
-                            value={newStatus} // 기존에 'status'로 사용하던 곳을 'newStatus'로 변경
-                            onChange={e => setNewStatus(e.target.value)}
-                        >
-                            <option value="정상">정상</option>
-                            <option value="휴면">휴면</option>
-                            <option value="탈퇴">탈퇴</option>
-                        </select>
-                    </td>
+                    <td>{formatDate(mm.join_date)}</td>
+                    <td>{formatDate(mm.last_login_date)}</td>
+                    <td>{mm.status}</td>
                 </tr>
             </tbody>
         </table>
