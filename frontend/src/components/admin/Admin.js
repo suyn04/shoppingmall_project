@@ -25,7 +25,6 @@ import UnactiveMember from "./member/UnactiveMember";
 import ReportList from "./service/ReportList";
 import ReportDetail from "./service/ReportDetail";
 
-
 function Admin(props) {
     return (
         <Routes>
@@ -33,7 +32,7 @@ function Admin(props) {
                 <Route path="" element={<AdminMain />} />
                 <Route path="order" element={<AOrderList />} />
                 <Route path="order/detail/:id" element={<AOrderDetail />} />
-                {/* <Route path="member" element={<MemberList />} />
+                <Route path="member" element={<MemberList />} />
                 <Route path="member/detail/:id" element={<MemberDetail />} />
                 <Route path="unactivemember" element={<UnactiveMember />} />
                 <Route path="product" element={<AProductList />} />
