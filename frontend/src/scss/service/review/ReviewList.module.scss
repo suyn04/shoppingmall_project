@@ -48,3 +48,19 @@
 
   }     
 }
+.reviewTitle{
+.writeReviewButton {
+  font-size: 13px;
+  margin-left: 10px; /* 제목과 간격 */
+  font-style: italic; /* 기울임 */
+  text-decoration: underline; /* 밑줄 */
+  border: none;
+  background: none;
+  color: #1c1c1c;
+  cursor: pointer;
+
+  &:hover {
+    color: #00f;
+  }
+}
+}

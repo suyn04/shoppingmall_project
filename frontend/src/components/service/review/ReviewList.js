@@ -7,6 +7,7 @@ const ReviewList = () => {
   const [reviews, setReviews] = useState([]); // 리뷰 데이터 상태 관리
   const [expandedReview, setExpandedReview] = useState(null); // "더 보기" 상태 관리
   const navigate = useNavigate();
+
   // 리뷰 데이터 가져오기
   useEffect(() => {
     const fetchReviews = async () => {
@@ -25,16 +26,24 @@ const ReviewList = () => {
   const handleToggle = (reviewId) => {
     setExpandedReview(expandedReview === reviewId ? null : reviewId); // 열려 있으면 닫고, 닫혀 있으면 열기
   };
-
+// 신고하기 페이지 이동
   const handleReport = (reviewId)=>{
     navigate(`report/${reviewId}`);
   };
-
+// 리뷰 작성 페이지 이동
+  const handleWriteReview = () =>{
+    navigate('/review') //  "/review"페이지로 이동
+  };
 
 
   return (
     <div>
-      <div className={styles.reviewTitle}>리뷰</div>
+      <div className={styles.reviewTitle}>
+        리뷰
+        <button className={styles.writeReviewButton} onClick={handleWriteReview}>
+          리뷰 작성하기 
+        </button>
+        </div>
       {reviews.length === 0 ? (
         <p>리뷰가 없습니다.</p>
       ) : (
