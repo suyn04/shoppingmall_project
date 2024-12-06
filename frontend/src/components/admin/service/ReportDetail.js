@@ -17,6 +17,16 @@ const ReportDetail = () => {
             });
     }, [id]);
 
+// 공개/비공개 상태 변경 (프론트에서만 임시로 처리)
+const handleStatusChange = () => {
+    if (report) {
+        const newStatus = report.check_status === 1 ? 0 : 1;
+        setReport((prevReport) => ({
+            ...prevReport,
+            check_status: newStatus,
+        }));
+    }
+};
     if (!report) return <p>로딩 중...</p>; // 데이터 없을 때 표시
 
     return (
