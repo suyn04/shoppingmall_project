@@ -4,8 +4,10 @@ import styles from '../../scss/dup/header.module.scss';
 
 function Header({ hamBtn, setHam }) {
     const navigate = useNavigate();
+    const email = 'dkssud@naver.com'
 
     //수정 부분
+    //세션토큰 사용
     const Loginchk = sessionStorage.getItem("sessionToken"); // 세션 스토리지에 있는 토큰 가져와
 
     const Loginbtn = () => {

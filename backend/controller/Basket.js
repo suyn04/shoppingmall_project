@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const con = require("../db");
-const fs = require("fs");
 
 module.exports = () => {
   router.get('/:id', async (req,res)=>{

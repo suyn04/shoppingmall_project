@@ -1,30 +1,36 @@
-import React from 'react';
-import styles from '../../scss/order/payment1.module.scss'
+import React, {useState, useEffect} from 'react';
+import PayHead from './PayHead';
+import axios from 'axios'
 
 function Payment1(props) {
+
+  const email = 'sooyeon@naver.com'
+  const [ordersData, setOrder] = useState()
+
+  useEffect(()=>{
+    axios.get(`http://localhost:5001/payment1/${email}`)
+    .then((res) => {
+      // console.log(res.data)
+      setOrder(res.data)
+    }).catch(
+      err=>{
+        console.error('에러발생 : ', err)
+      }
+    )
+  },[email])
+
   return (
     <>
-      <div className={styles.stepContainer}>
-        <div className={styles.stepActive}>
-          <div className={styles.circle}></div>
-          <div className={styles.label}>주문서 작성</div>
-        </div>
-
-        <div className={styles.step}>
-          <div className={styles.circle}></div>
-          <div className={styles.label}>주문 검토</div>
-        </div>
-
-        <div className={styles.step}>
-          <div className={styles.circle}></div>
-          <div className={styles.label}>결제</div>
-        </div>
-
-        <div className={styles.step}>
-          <div className={styles.circle}></div>
-          <div className={styles.label}>주문 최종 확인</div>
-        </div>
-      </div>
+      <PayHead/>
+      {ordersData.map((order, i)=>{
+        return (
+          <div key={i}>
+            <div>{order.customer_name}</div>
+            <div>{order.customer_address}</div>
+            <div>{`휴대전화 번호 ${order.contact_number}`}</div>
+          </div>
+        )
+      })}
     </>
   );
 }

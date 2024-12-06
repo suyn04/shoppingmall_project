@@ -1,5 +1,4 @@
 const express = require("express");
-const express = require("express");
 const app = express();
 const db = require("mysql2");
 const multer = require("multer");
@@ -37,6 +36,9 @@ app.use("/product/", productRouter(upload));
 
 const basketRouter = require("./controller/Basket.js");
 app.use("/basket/", basketRouter());
+
+const payment1Router = require("./controller/Payment1.js");
+app.use("/payment1/", payment1Router());
 
 const adminOrderRouter = require("./controller/adminOrder.js");
 app.use("/admin/order/", adminOrderRouter());
