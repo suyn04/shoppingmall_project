@@ -8,8 +8,8 @@ const router = express.Router(); // 라우터 객체 생성
 // 고객번호 생성 함수
 function generateCustomerId() {
     const year = new Date().getFullYear(); //연도 추출
-    const randomNum = Math.floor(10000 + Math.random() * 90000); // 5자리 랜덤 숫자(난수번호)
-    return `AA${year.toString().slice(-2)}${randomNum}`; //알파벳 형태 AA로 시작하는 고객번호 생성
+    const randomNum = Math.floor(100000 + Math.random() * 90000); // 6자리 랜덤 숫자(난수번호)
+    return `${year.toString().slice(-2)}${randomNum}`; // 고객번호 생성
 }
 
 // 회원가입 API

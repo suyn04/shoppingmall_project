@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const conn = require('../db')
+const conn = require('../db');
 
-
-module.exports = (upload) => {
+module.exports = upload => {
     //1:1 문의 목록 조회 (get)
     router.get('/', async (req, res) => {
         console.log('1:1 문의 목록 조회 진입성공');
-
 
         try {
             const [results] = await conn.execute(`
@@ -24,11 +22,10 @@ module.exports = (upload) => {
                 FROM 
                     one_to_one
             `);
-             
-        console.log(results); // 응답 확인: results가 배열인지 확인
-        
-        res.json(results); // 결과 반환
-           
+
+            console.log(results); // 응답 확인: results가 배열인지 확인
+
+            res.json(results); // 결과 반환
         } catch (err) {
             console.error('1:1 문의 목록 조회 실패:', err.message);
             res.status(500).json({ error: 'DB 에러' });
@@ -38,9 +35,9 @@ module.exports = (upload) => {
     router.get('/:id', async (req, res) => {
         console.log('1:1 문의 목록 조회 진입성공');
 
-
         try {
-            const [results] = await conn.execute(`
+            const [results] = await conn.execute(
+                `
                 SELECT 
                     post_no,           -- 게시글 번호
                     post_category,     -- 카테고리
@@ -55,12 +52,13 @@ module.exports = (upload) => {
                     one_to_one
 
                 Where post_no = ?
-            `, [req.params.id]);
-             
-        console.log(results); // 응답 확인: results가 배열인지 확인
-        
-        res.json(results[0]); // 결과 반환
-           
+            `,
+                [req.params.id]
+            );
+
+            console.log(results); // 응답 확인: results가 배열인지 확인
+
+            res.json(results[0]); // 결과 반환
         } catch (err) {
             console.error('1:1 문의 목록 조회 실패:', err.message);
             res.status(500).json({ error: 'DB 에러' });
@@ -72,14 +70,13 @@ module.exports = (upload) => {
         const { post_category, customer_id, post_title, post_detail } = req.body;
 
         // 필수 데이터 검증
-        if (!post_category || typeof post_category !== 'string' || 
-            !customer_id || !post_title || !post_detail) {
+        if (!post_category || typeof post_category !== 'string' || !customer_id || !post_title || !post_detail) {
             return res.status(400).json({ error: '필수 입력 데이터가 누락되었거나 잘못되었습니다.' });
         }
 
         try {
-         // INSERT 쿼리 작성
-         const sql = `
+            // INSERT 쿼리 작성
+            const sql = `
          INSERT INTO one_to_one 
          (post_category, customer_id, post_title, post_detail, post_date, reply_status)
          VALUES (?, ?, ?, ?, NOW(), '대기')
@@ -101,6 +98,32 @@ module.exports = (upload) => {
         }
     });
 
+    // 고객 정보 조회 라우트
+    router.post('/myPage', async (req, res) => {
+        const { email } = req.body; // 바디에서 이메일 가져와서
+        const sessionToken = req.headers['authorization']; // 세션 토큰 확인
+
+        // 세션 토큰 검증
+        if (!sessionToken || sessionToken !== 'mockSessionToken') {
+            // 세션토큰이 없거나 저장된 세션토큰과 일치 하지 않으면
+            return res.status(401).json({ error: '세션 토큰이 유효하지 않습니다.' });
+        }
+
+        try {
+            // 이메일로 customer DB 조회
+            const [ret] = await db.query(`SELECT * FROM customers WHERE email = ?`, [email]);
+            if (ret.length === 0) {
+                // 조회된 결과가 없으면
+                return res.status(404).json({ error: '고객 정보를 찾을 수 없습니다.' });
+            }
+
+            // 조회된 결과가 있다면
+            res.json(ret[0]); // 첫 번째 결과 반환
+        } catch (err) {
+            console.error('DB 조회 실패:', err.message);
+            res.status(500).send('서버 오류');
+        }
+    });
 
     return router;
 };

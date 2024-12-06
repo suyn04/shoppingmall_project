@@ -1,86 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/AddressList.module.scss';
+import axios from 'axios';
 
 function AddressList() {
-    // 주소 데이터를 상태로 관리
-    const [address, setaddress] = useState([
-        {
-            // 추후 db로 연결
-            id: 1, // 주소 고유 ID
-            name: '임세훈', // 이름
-            zip: '21580', // 우편번호
-            address: '인천광역시 남동구 호구포로739번길 37 (구월동) 401', // 주소
-            phone: '010-5796-6269', // 휴대전화 번호
-            homePhone: '02-579-6269', // 집전화 번호
-        },
-    ]);
+    const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState(null); // 사용자 정보
+    const [address, setAddress] = useState([]); // 기본 배송지 데이터
+    const [editAddress, setEditAddress] = useState(null); // 수정할 주소 데이터
+    const [modalOpenChk, setModalOpenChk] = useState(false); // 모달 열림/닫힘 상태
 
-    // 수정 모드에서 편집할 주소 데이터를 관리
-    const [editAddress, seteditAddress] = useState(null);
+    useEffect(() => {
+        const sessionToken = sessionStorage.getItem('sessionToken');
 
-    // 새 주소 입력을 위한 초기 상태
-    const [newAddress, setnewAddress] = useState({
-        name: '',
-        zip: '',
-        address: '',
-        phone: '',
-        homePhone: '',
-    });
-
-    // 모달 열림/닫힘 상태
-    const [modalOpenChk, setmodalOpenChk] = useState(false);
-
-    // 현재 모달이 '수정 모드'인지 '새 주소 추가 모드'인지 확인
-    const [editInfo, seteditInfo] = useState(false);
-
-    // 모달 열기 함수 (수정 모드인지 확인하여 상태를 설정)
-    const openModal = (address = null) => {
-        if (address) {
-            // 주소가 있으면
-            // 수정 모드 : 선택된 주소를 편집 상태로 설정
-            seteditAddress(address);
-            seteditInfo(true); // 수정모드 켜기
+        if (!sessionToken) {
+            navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
         } else {
-            // 새 주소 추가 : 빈 상태로 초기화
-            setnewAddress({
-                name: '',
-                zip: '',
-                address: '',
-                phone: '',
-                homePhone: '',
-            });
-            seteditInfo(false); // 수정모드 끄기 : 수정이 아니라 새로운 주소 추가하는 거니까
+            axios
+                .post(
+                    'http://localhost:5001/myPage', // 세션 토큰을 확인할 수 있는 경로
+                    { email: sessionStorage.getItem('email') },
+                    {
+                        headers: {
+                            Authorization: sessionToken,
+                        },
+                    }
+                )
+                .then(response => {
+                    setUserInfo(response.data); // 사용자 정보 설정
+                    // 주소 데이터 설정
+                    setAddress([
+                        {
+                            id: 1,
+                            customer_name: response.data.customer_name,
+                            zip: response.data.zip,
+                            roadname_address: response.data.roadname_address,
+                            building_name: response.data.building_name,
+                            detail_address: response.data.detail_address,
+                            contact_number: response.data.contact_number,
+                        },
+                    ]);
+                })
+                .catch(error => {
+                    console.error('데이터 가져오기 실패:', error);
+                    navigate('/signIn'); // 실패 시 로그인 페이지로 이동
+                });
         }
-        setmodalOpenChk(true); // 모달 열림 상태로 설정
+    }, [navigate]);
+
+    // 모달 열기 함수 (수정할 데이터를 설정)
+    const openModal = address => {
+        setEditAddress({ ...address }); // 수정할 주소 데이터를 복사하여 상태에 설정
+        setModalOpenChk(true); // 모달 열림 상태로 설정
     };
 
     // 모달 닫기 함수
     const closeModal = () => {
-        seteditAddress(null); // 주소 편집 null값으로
-        seteditInfo(false); // 수정모드 끄기
-        setmodalOpenChk(false); // 모달 오픈상태 false로 바꾸기
+        setEditAddress(null); // 수정 데이터 초기화
+        setModalOpenChk(false); // 모달 닫기
     };
 
-    // 주소 저장 함수 (새 주소 추가 또는 기존 주소 수정)
+    // 주소 저장 함수
     const saveAddress = () => {
-        if (editInfo) {
-            // 정보 변경 : 편집한 주소를 업데이트
-            setaddress(prev => prev.map(addr => (addr.id === editAddress.id ? editAddress : addr)));
-        } else {
-            // 새 주소 추가 : 새로운 주소를 리스트에 추가
-            setaddress(prev => [
-                ...prev,
-                { ...newAddress, id: Date.now() }, // 고유 ID를 현재 시간으로 생성
-            ]);
-        }
-        closeModal(); // 저장 후 모달 닫기
+        const sessionToken = sessionStorage.getItem('sessionToken');
+
+        // 수정된 데이터 서버로 전송
+        axios
+            .post(
+                'http://localhost:5001/myPage/addressList/updateAddress',
+                {
+                    email: sessionStorage.getItem('email'),
+                    zip: editAddress.zip,
+                    roadname_address: editAddress.roadname_address,
+                    building_name: editAddress.building_name,
+                    detail_address: editAddress.detail_address,
+                },
+                {
+                    headers: {
+                        Authorization: sessionToken,
+                    },
+                }
+            )
+            .then(response => {
+                if (response.data.success) {
+                    alert('주소가 수정되었습니다!');
+                    setAddress(prev => prev.map(addr => (addr.id === editAddress.id ? { ...editAddress } : addr)));
+                    closeModal();
+                } else {
+                    alert('수정 실패: ' + response.data.error);
+                }
+            })
+            .catch(error => {
+                console.error('주소 수정 실패:', error);
+                alert('서버 오류로 인해 수정할 수 없습니다.');
+            });
     };
 
-    // 주소 삭제 함수
-    const deleteAddress = id => {
-        // 선택된 주소를 제외한 나머지 주소만 필터링하여 상태 업데이트
-        setaddress(address.filter(address => address.id !== id));
-    };
+    // userInfo가 null일 때 로딩 메시지 표시
+    if (!userInfo) {
+        return <p>로딩 중...</p>;
+    }
 
     return (
         <main>
@@ -93,25 +112,17 @@ function AddressList() {
                         <button className={styles.editmodal} onClick={() => openModal(address)}>
                             수정
                         </button>
-                        <div>|</div>
-                        {/* 삭제 버튼 */}
-                        <button className={styles.deletemodal} onClick={() => deleteAddress(address.id)}>
-                            삭제
-                        </button>
                     </div>
                     {/* 주소 정보 표시 */}
-                    <p className={styles.blockName}>이름 : {address.name}</p>
-                    <p className={styles.blockAd1}>우편번호 : {address.zip}</p>
-                    <p className={styles.blockAd2}>주소 : {address.address}</p>
-                    <p className={styles.blockCall1}>휴대전화 : {address.phone}</p>
-                    <p className={styles.blockCall2}>집전화 : {address.homePhone}</p>
+                    <p className={styles.blockName}>이름 : {address.customer_name}</p>
+                    <p className={styles.blockAd1}>우편번호 : {address.zip ? address.zip : ''}</p>
+                    <p className={styles.blockAd2}>
+                        도로명주소 : {address.roadname_address} {address.building_name}
+                    </p>
+                    <p className={styles.blockAd2}>상세주소 : {address.detail_address}</p>
+                    <p className={styles.blockCall1}>휴대전화 : {address.contact_number}</p>
                 </div>
             ))}
-
-            {/* 새 주소 입력 버튼 */}
-            <button className={styles.modalOpen} onClick={() => openModal()}>
-                배송지 추가
-            </button>
 
             {/* 모달 */}
             {modalOpenChk && (
@@ -119,25 +130,30 @@ function AddressList() {
                     <div id={styles.modalOverF}>
                         <div id={styles.newAddress}>
                             <div className={styles.modalHeader}>
-                                {/* 모달 헤더: 수정/추가에 따라 제목 변경 */}
-                                <h4>{editInfo ? '주소 수정' : '새 배송지 입력'}</h4>
+                                <h4>주소 수정</h4>
                                 {/* 닫기 버튼 */}
                                 <button id={styles.deleteModal} onClick={closeModal}>
                                     &times;
                                 </button>
                             </div>
-                            <div>
-                                {/* 이름 입력 */}
-                                <input className={styles.addInput} type="text" value={editInfo ? editAddress.name : newAddress.name} onChange={e => (editInfo ? seteditAddress({ ...editAddress, name: e.target.value }) : setnewAddress({ ...newAddress, name: e.target.value }))} placeholder="이름" />
-                                {/* 우편번호 입력 */}
-                                <input className={styles.addInput} type="text" value={editInfo ? editAddress.zip : newAddress.zip} onChange={e => (editInfo ? seteditAddress({ ...editAddress, zip: e.target.value }) : setnewAddress({ ...newAddress, zip: e.target.value }))} placeholder="우편번호" />
-                                {/* 주소 입력 */}
-                                <input className={styles.addInput} type="text" value={editInfo ? editAddress.address : newAddress.address} onChange={e => (editInfo ? seteditAddress({ ...editAddress, address: e.target.value }) : setnewAddress({ ...newAddress, address: e.target.value }))} placeholder="주소" />
+                            <div className={styles.modalBody}>
+                                {/* 주소록 수정 */}
+                                <div>
+                                    우편번호 : <input type="text" placeholder="우편번호" value={editAddress.zip} onChange={e => setEditAddress({ ...editAddress, zip: e.target.value })} />
+                                    <button className={styles.searchAddress}>주소 검색</button>
+                                </div>
+                                <div>
+                                    도로명주소 : <input type="text" placeholder="도로명주소" value={editAddress.roadname_address} onChange={e => setEditAddress({ ...editAddress, roadname_address: e.target.value })} />
+                                    <input type="text" placeholder="건물명" value={editAddress.building_name} onChange={e => setEditAddress({ ...editAddress, building_name: e.target.value })} />
+                                </div>
+                                <div>
+                                    상세 주소 : <input type="text" placeholder="상세주소" value={editAddress.detail_address} onChange={e => setEditAddress({ ...editAddress, detail_address: e.target.value })} />
+                                </div>
+
+                                <button className={styles.saveAddress} onClick={saveAddress}>
+                                    저장
+                                </button>
                             </div>
-                            {/* 저장 버튼 */}
-                            <button id={styles.modalOk} onClick={saveAddress}>
-                                확인
-                            </button>
                         </div>
                     </div>
                 </div>
