@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "../../../scss/product/prodTotal.module.scss";
-import HomeTop from "./HomeTop";
 import ProductSwiper from "../ProductSwiper";
 import { Link } from "react-router-dom";
+import HomeScentsHomeTop from "./HomeScentsHomeTop";
 
 const HomeSecntsTotal = () => {
     return (
         <div className={styles.prodTotal}>
-            <HomeTop />
+            <HomeScentsHomeTop />
             <div className={styles.content}>
                 <p>우리의 가장 사랑받는 코롱을 만나 보세요.</p>
                 <p>
@@ -18,12 +18,12 @@ const HomeSecntsTotal = () => {
             <div className={styles.category}>
                 <div className={styles.subTitle}>캔들</div>
                 <ProductSwiper />
-                <Link to="/home-scents/candle">전체보기</Link>
+                <Link to="/home-scents/candles">전체보기</Link>
             </div>
             <div className={styles.category}>
                 <div className={styles.subTitle}>디퓨저</div>
                 <ProductSwiper />
-                <Link to="/home-scents/diffuser">전체보기</Link>
+                <Link to="/home-scents/diffusers">전체보기</Link>
             </div>
         </div>
     );

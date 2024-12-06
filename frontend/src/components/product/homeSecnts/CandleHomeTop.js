@@ -11,7 +11,7 @@ const CandleHomeTop = () => {
                 <span> &gt; </span>
                 <Link to="/home-scents">홈 프레그런스</Link>
                 <span> &gt; </span>
-                <Link to="/home-scents/candle">캔들</Link>
+                <Link to="/home-scents/candles">캔들</Link>
             </div>
             <div>
                 <div className={styles.title}>캔들</div>

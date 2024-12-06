@@ -32,7 +32,10 @@ app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 app.use("/imgs", express.static(path.join(__dirname, "imgs")));
 
 const productRouter = require("./controller/product.js");
-app.use("/product/", productRouter(upload));
+app.use("/admin/product", productRouter());
+
+const productHomeRouter = require("./controller/productHome.js");
+app.use("/product/", productHomeRouter());
 
 const basketRouter = require("./controller/Basket.js");
 app.use("/basket/", basketRouter());

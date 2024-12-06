@@ -15,7 +15,7 @@ const AProductRegisterOpt = () => {
         }
         axios
             .get(
-                `http://localhost:5001/product/admin/detail/option/${product_id}`
+                `http://localhost:5001/admin/product/detail/option/${product_id}`
             )
             .then((res) => {
                 console.log(res.data);
@@ -32,7 +32,7 @@ const AProductRegisterOpt = () => {
 
         axios
             .post(
-                `http://localhost:5001/product/admin/register/option/${product_id}`,
+                `http://localhost:5001/admin/product/register/option/${product_id}`,
                 frmData,
                 {
                     headers: {
@@ -102,8 +102,8 @@ const AProductRegisterOpt = () => {
             <table border="1">
                 <tr>
                     <td>용량</td>
-                    <td>단위</td>
                     <td>가격</td>
+                    <td>구분</td>
                 </tr>
                 {options.map((opt, index) => (
                     <tr key={index}>

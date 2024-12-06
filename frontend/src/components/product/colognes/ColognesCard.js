@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "../../../scss/product/productCard.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const ColognesCard = () => {
@@ -8,14 +8,35 @@ const ColognesCard = () => {
     const naviGo = (route) => {
         navigate(route);
     };
+    const { product_scent } = useParams();
+    const curPath = window.location.pathname;
     const [colognes, setColognes] = useState([]);
 
     const colognesGetAxios = () => {
         axios
             .get(`http://localhost:5001/product/colognes`)
             .then((res) => {
-                console.log("서버 다녀옴", res.data);
-                setColognes(res.data);
+                // console.log("서버 다녀옴", res.data);
+                // console.log(product_scent);
+                console.log(curPath); // "/path"
+
+                // console.log(
+                //     res.data.filter((item) => {
+                //         item.product_volume == "100ml";
+                //         item.product_scent == `${product_scent}`;
+                //     })
+                // );
+                let curProduct = res.data.filter(
+                    (item) => item.product_volume == "100ml"
+                );
+                if (product_scent) {
+                    curProduct = res.data.filter(
+                        (item) =>
+                            item.product_volume == "100ml" &&
+                            item.product_scent == `${product_scent}`
+                    );
+                }
+                setColognes(curProduct);
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
@@ -31,29 +52,33 @@ const ColognesCard = () => {
         navigate(`/basket/${id}`);
     };
 
+    const fileGo = (file) => {
+        if (file) {
+            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
+        }
+        return null;
+    };
+
     return (
         <div className={styles.cardTotal}>
-            {colognes.map((st, i) => {
+            {colognes.map((prod, i) => {
                 return (
-                    <div className={styles.card}>
+                    <div className={styles.card} key={prod.product_opt_id}>
                         <div
                             className={styles.cardContent}
                             onClick={() => {
-                                naviGo("/product");
+                                naviGo(`/product/${prod.product_opt_id}`);
                             }}
                         >
-                            <img
-                                src="/imgs/product/blackberry_50ml.jpg"
-                                alt=""
-                            />
+                            {fileGo(prod.product_upSystem)}
                             <div>
-                                <div>{st.product_name_eng}</div>
-                                <div>{st.product_name_kor}</div>
-                                <div>{st.product_volume}</div>
-                                <div>₩ {st.product_price}</div>
+                                <div>{prod.product_name_eng}</div>
+                                <div>{prod.product_name_kor}</div>
+                                <div>{prod.product_volume}</div>
+                                <div>₩ {prod.product_price}</div>
                             </div>
                         </div>
-                        <button onClick={() => basketGo(st.product_id)}>
+                        <button onClick={() => basketGo(prod.product_id)}>
                             장바구니 담기
                         </button>
                     </div>

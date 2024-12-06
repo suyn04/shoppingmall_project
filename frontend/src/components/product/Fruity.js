@@ -1,8 +1,7 @@
 import React from "react";
-import ColognesCard from "./ColognesCard";
-import styles from "../../../scss/product/subPageTop.module.scss";
+import styles from "../../scss/product/subPageTop.module.scss";
 
-const ColognesFruity = () => {
+const Fruity = () => {
     return (
         <div className={styles.subPageTop}>
             <div>
@@ -20,9 +19,8 @@ const ColognesFruity = () => {
                     <img src="/imgs/product/cologne_fruity.jpg" alt="" />
                 </div>
             </div>
-            <ColognesCard />
         </div>
     );
 };
 
-export default ColognesFruity;
+export default Fruity;

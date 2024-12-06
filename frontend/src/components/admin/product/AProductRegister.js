@@ -9,7 +9,7 @@ const AProductRegister = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:5001/product/admin/register")
+            .get("http://localhost:5001/admin/product/register")
             .then((res) => {
                 const uniqueNote = [
                     ...new Map(
@@ -35,8 +35,14 @@ const AProductRegister = () => {
         const data = Object.fromEntries(frmData);
         console.log(data);
 
+        Object.keys(data).forEach((key) => {
+            if (data[key] === "") {
+                data[key] = null;
+            }
+        });
+
         axios
-            .post(`http://localhost:5001/product/admin/register`, data)
+            .post(`http://localhost:5001/admin/product/register`, data)
             .then((res) => {
                 console.log(
                     "제품 등록 완료했습니다. 해당 제품의 옵션을 등록해주세요.",
@@ -47,7 +53,7 @@ const AProductRegister = () => {
                 alert(
                     "제품 등록 완료했습니다. 해당 제품의 옵션을 등록해주세요."
                 );
-                navigate(`/admin/product/register/option/${res.data.newId}`);
+                navigate(`/admin/product/option/${res.data.newId}`);
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);

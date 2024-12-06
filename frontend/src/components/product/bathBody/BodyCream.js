@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "../../../scss/product/subPageTop.module.scss";
 
-const BathOil = () => {
+const BodyCream = () => {
     return (
         <div className={styles.subPageTop}>
             <div>
-                <div className={styles.title}>배스 오일</div>
+                <div className={styles.title}>바디 크림</div>
                 <div className={styles.content}>
                     <p>
-                        풍요로운 배스 타임을 위한 트리트먼트 당신의 피부를
-                        향기롭게 가꾸어 줍니다
+                        피부에 수분과 영양을 공급하는 동시에 시그니처 향을 온 몸
+                        가득히 남깁니다
                     </p>
                 </div>
             </div>
@@ -17,4 +17,4 @@ const BathOil = () => {
     );
 };
 
-export default BathOil;
+export default BodyCream;

@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CandleHomeTop from "./CandleHomeTop";
 import ProductNav from "../ProductNav";
 import axios from "axios";
 import ProductCard from "../ProductCard";
-import CandleTotal from "./CandleTotal";
+import DiffuserHomeTop from "./DiffuserHomeTop";
 import Citrus from "../Citrus";
 import Floral from "../Floral";
 import Fruity from "../Fruity";
 import LightFloral from "../LightFloral";
 import Woody from "../Woody";
+import DiffuserTotal from "./DiffuserTotal";
 
-const CandleHomeWrap = () => {
+const DiffuserHomeWrap = () => {
     const { product_scent } = useParams();
     const curPath = window.location.pathname;
 
     const [comp, setComp] = useState(null);
-    const [candles, setCandles] = useState([]);
+    const [diffusers, setDiffusers] = useState([]);
 
     const colognesGetAxios = () => {
         console.log("product_scent : ", product_scent);
 
         axios
-            .get(`http://localhost:5001/product/home-scents/candles`)
+            .get(`http://localhost:5001/product/home-scents/diffusers`)
             .then((res) => {
                 // console.log("서버 다녀옴", res.data);
                 // console.log(product_scent);
@@ -42,23 +42,23 @@ const CandleHomeWrap = () => {
                         (item) => item.product_scent == `${product_scent}`
                     );
                 }
-                setCandles(curProduct);
+                setDiffusers(curProduct);
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
             });
     };
     useEffect(() => {
-        document.title = "캔들";
+        document.title = "디퓨저";
         colognesGetAxios();
-        console.log(candles);
+        console.log(diffusers);
     }, [product_scent]);
 
     console.log(product_scent);
     useEffect(() => {
         console.log(comp);
         if (!product_scent) {
-            setComp(<CandleTotal />);
+            setComp(<DiffuserTotal />);
         }
         if (product_scent == `citrus`) {
             setComp(<Citrus />);
@@ -78,24 +78,24 @@ const CandleHomeWrap = () => {
     }, [product_scent]);
     return (
         <div>
-            <CandleHomeTop />
+            <DiffuserHomeTop />
             <ProductNav
                 navInfo={[
-                    { url: "/home-scents/candles", title: "전체" },
-                    { url: "/home-scents/candles/citrus", title: "시트러스" },
-                    { url: "/home-scents/candles/fruity", title: "프루티" },
+                    { url: "/home-scents/diffusers", title: "전체" },
+                    { url: "/home-scents/diffusers/citrus", title: "시트러스" },
+                    { url: "/home-scents/diffusers/fruity", title: "프루티" },
                     {
-                        url: "/home-scents/candles/light-floral",
+                        url: "/home-scents/diffusers/light-floral",
                         title: "라이트 플로랄",
                     },
-                    { url: "/home-scents/candles/floral", title: "플로랄" },
-                    { url: "/home-scents/candles/woody", title: "우디" },
+                    { url: "/home-scents/diffusers/floral", title: "플로랄" },
+                    { url: "/home-scents/diffusers/woody", title: "우디" },
                 ]}
             />
             {comp}
-            <ProductCard product={candles} />
+            <ProductCard product={diffusers} />
         </div>
     );
 };
 
-export default CandleHomeWrap;
+export default DiffuserHomeWrap;

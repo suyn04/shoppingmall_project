@@ -16,7 +16,7 @@ const AProductRegister = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:5001/product/admin/register")
+            .get("http://localhost:5001/admin/product/register")
             .then((res) => {
                 setCategories(res.data.categories);
                 // console.log(res.data.categories);
@@ -95,7 +95,7 @@ const AProductRegister = () => {
         console.log(data);
 
         axios
-            .post(`http://localhost:5001/product/admin/register`, data)
+            .post(`http://localhost:5001/admin/product/register`, data)
             .then((res) => {
                 console.log(
                     "제품 등록 완료했습니다. 해당 제품의 옵션을 등록해주세요.",
@@ -268,9 +268,7 @@ const AProductRegister = () => {
 
                     <tr>
                         <td colSpan={2}>
-                            <button onClick={submitGo}>
-                                제품 옵션 추가 관리
-                            </button>
+                            <button onClick={submitGo}>저장</button>
                         </td>
                     </tr>
                 </table>

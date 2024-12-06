@@ -35,19 +35,7 @@ module.exports = () => {
             res.status(500).send("db 오류");
         }
     });
-    router.get("/colognes", async (req, res) => {
-        console.log("/colognes 진입 확인");
-        try {
-            const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_category_id = 1 and product_volume = '100ml'"
-            );
-            res.json(ret);
-        } catch (err) {
-            console.error("db 불러오기 실패 : ", err.message);
-            res.status(500).send("db오류");
-        }
-    });
-    router.get("/admin/detail/:product_id", async (req, res) => {
+    router.get("/detail/:product_id", async (req, res) => {
         console.log("/admin/detail 진입 확인");
         console.log(req.params.product_id);
         try {
@@ -62,7 +50,7 @@ module.exports = () => {
         }
     });
 
-    router.get("/admin/detail/option/:product_id", async (req, res) => {
+    router.get("/detail/option/:product_id", async (req, res) => {
         console.log("/admin/detail 진입 확인");
         console.log(req.params.product_id);
         try {
@@ -77,7 +65,7 @@ module.exports = () => {
         }
     });
 
-    router.get("/admin/register", async (req, res) => {
+    router.get("/register", async (req, res) => {
         console.log("/product/admin/register 진입 확인");
         try {
             const [categories] = await conn.execute(
@@ -101,7 +89,7 @@ module.exports = () => {
         }
     });
 
-    router.get("/admin/modify/:product_id", async (req, res) => {
+    router.get("/modify/:product_id", async (req, res) => {
         console.log("/admin/modify/:product_id 진입 확인");
         try {
             const [product] = await conn.execute(
@@ -114,14 +102,14 @@ module.exports = () => {
                 product,
                 note,
             };
-            console.log(combinedData);
+            // console.log(combinedData);
             res.json(combinedData);
         } catch (err) {
             console.error("db 불러오기 실패 : ", err.message);
             res.status(500).send("db오류");
         }
     });
-    router.get("/admin/register/option/:product_id", async (req, res) => {
+    router.get("/register/option/:product_id", async (req, res) => {
         console.log("/admin/register/option/ 진입 확인");
         console.log(req.params.product_id);
 
@@ -146,7 +134,7 @@ module.exports = () => {
         }
     });
 
-    router.post("/admin/register", async (req, res) => {
+    router.post("/register", async (req, res) => {
         console.log("register 정상진입확인");
         // console.log(req);
 
@@ -182,7 +170,7 @@ module.exports = () => {
     });
 
     router.post(
-        "/admin/register/option/:product_id",
+        "/register/option/:product_id",
         upload.single("product_upfile"),
         async (req, res) => {
             console.log("/admin/register/option/ 정상진입확인");
@@ -219,7 +207,7 @@ module.exports = () => {
         }
     );
 
-    router.delete("/admin/register/option/:product_id", async (req, res) => {
+    router.delete("/register/option/:product_id", async (req, res) => {
         console.log("삭제 진입:" + req.params.product_id);
         console.log(req.body);
 
@@ -256,6 +244,37 @@ module.exports = () => {
         } catch (err) {
             console.error("sql 실패 : ", err.message);
             res.status(500).send("db 오류");
+        }
+    });
+
+    router.put("/modify", async (req, res) => {
+        // console.log(req.body);
+        let data = [
+            req.body.product_name_kor,
+            req.body.product_name_eng,
+            req.body.product_special,
+            parseInt(req.body.product_category_id),
+            req.body.product_scent,
+            req.body.product_ingredient,
+            parseInt(req.body.product_top),
+            parseInt(req.body.product_heart),
+            parseInt(req.body.product_base),
+            req.body.product_intro,
+            parseInt(req.body.product_status),
+            parseInt(req.body.product_id),
+        ];
+        console.log(data);
+
+        try {
+            const [ret] = await conn.execute(
+                "update product set product_name_kor=?, product_name_eng=?,product_special=?, product_category_id=?, product_scent=?, product_ingredient=?,  product_top=?, product_heart=?, product_base=?, product_intro=?, product_status=? where product_id = ?",
+                data
+            );
+            console.log("수정완료", ret);
+            res.send("수정 성공");
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
         }
     });
 

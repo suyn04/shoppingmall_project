@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "../../../scss/product/homeTop.module.scss";
 
@@ -9,9 +9,9 @@ const BathShowerHomeTop = () => {
             <div className={styles.breadCrum}>
                 <Link to="/">홈</Link>
                 <span> &gt; </span>
-                <Link to="/bath-body">배스 앤 바디</Link>
+                <Link to="/home-scents">배스 앤 바디</Link>
                 <span> &gt; </span>
-                <Link to="/bath-body/bath-shower">배스 앤 샤워</Link>
+                <Link to="/home-scents/candles">배스 앤 샤워</Link>
             </div>
             <div>
                 <div className={styles.title}>배스 앤 샤워</div>
@@ -27,7 +27,6 @@ const BathShowerHomeTop = () => {
                         되찾아보세요.
                     </p>
                 </div>
-                <img src="/imgs/product/candle_total.jpg" alt="" />
             </div>
         </div>
     );

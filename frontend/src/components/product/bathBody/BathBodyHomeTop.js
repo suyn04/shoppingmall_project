@@ -1,15 +1,15 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "../../../scss/product/homeTop.module.scss";
 
-const HomeTop = () => {
+const BathBodyHomeTop = () => {
     return (
         <div className={styles.homeTop}>
             <div className={styles.breadCrum}>
                 <Link to="/">홈</Link>
                 <span> &gt; </span>
-                <Link to="/bath-body">배스 앤 바디</Link>
+                <Link to="/home-scents">배스 앤 바디</Link>
             </div>
             <div>
                 <div className={styles.title}>배스 앤 바디</div>
@@ -21,7 +21,7 @@ const HomeTop = () => {
                     <p>
                         기분을 고조시키는 바디 앤 핸드 워시부터 호화로운 배스
                         오일까지, 조 말론 런던의 가장 기분 좋은 향들을 한번에
-                        만나보세요.{" "}
+                        만나보세요.
                     </p>
                 </div>
                 <img src="/imgs/product/bath_body_total.jpg" alt="" />
@@ -30,4 +30,4 @@ const HomeTop = () => {
     );
 };
 
-export default HomeTop;
+export default BathBodyHomeTop;

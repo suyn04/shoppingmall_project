@@ -1,8 +1,7 @@
 import React from "react";
-import styles from "../../../scss/product/subPageTop.module.scss";
-import ProductCard from "../ProductCard";
+import styles from "../../scss/product/subPageTop.module.scss";
 
-const CandleCitrus = () => {
+const Citrus = () => {
     return (
         <div className={styles.subPageTop}>
             <div>
@@ -19,9 +18,8 @@ const CandleCitrus = () => {
                     <img src="/imgs/product/cologne_citrus.jpg" alt="" />
                 </div>
             </div>
-            <ProductCard />
         </div>
     );
 };
 
-export default CandleCitrus;
+export default Citrus;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import styles from "../../../scss/product/homeTop.module.scss";
 
-const HomeTop = () => {
+const ColognesHomeTop = () => {
     return (
         <div className={styles.homeTop}>
             <div className={styles.breadCrum}>
@@ -27,4 +27,4 @@ const HomeTop = () => {
     );
 };
 
-export default HomeTop;
+export default ColognesHomeTop;
