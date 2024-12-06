@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/service/review/ReviewList.module.scss';
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState([]); // 리뷰 데이터 상태 관리
   const [expandedReview, setExpandedReview] = useState(null); // "더 보기" 상태 관리
-
+  const navigate = useNavigate();
   // 리뷰 데이터 가져오기
   useEffect(() => {
     const fetchReviews = async () => {
@@ -24,6 +25,12 @@ const ReviewList = () => {
   const handleToggle = (reviewId) => {
     setExpandedReview(expandedReview === reviewId ? null : reviewId); // 열려 있으면 닫고, 닫혀 있으면 열기
   };
+
+  const handleReport = (reviewId)=>{
+    navigate(`report/${reviewId}`);
+  };
+
+
 
   return (
     <div>
@@ -51,7 +58,7 @@ const ReviewList = () => {
                 <div>
                   <p>작성일: {new Date(review.review_date).toLocaleDateString()}</p>
                   <p>선물 여부: {review.review_gift ? '선물' : '본인용'}</p>
-                  <button>신고하기</button>
+                  <button onClick={() => handleReport(review.review_no)}>신고하기</button>
                 </div>
               </div>
             )}

@@ -4,6 +4,7 @@ import ColognesHomeWrap from "./components/product/colognes/ColognesHomeWrap";
 import ColognesTotal from "./components/product/colognes/ColognesTotal";
 import DetailWrap from "./components/product/productDetail/DetailWrap";
 
+
 import HomeSecntsHomeWrap from "./components/product/homeSecnts/HomeSecntsHomeWrap";
 import HomeSecntsTotal from "./components/product/homeSecnts/HomeSecntsTotal";
 import CandleHomeWrap from "./components/product/homeSecnts/CandleHomeWrap";
@@ -55,6 +56,8 @@ function Product() {
                 </Route>
             </Route>
             <Route path="/product" element={<DetailWrap />} />
+
+
         </Routes>
     );
 }
