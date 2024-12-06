@@ -26,6 +26,20 @@ const ReportDetail = () => {
             <p><strong>신고자:</strong> {report.reporter}</p>
             <p><strong>신고 일자:</strong> {new Date(report.report_date).toLocaleDateString()}</p>
             <p><strong>내용:</strong> {report.report_detail}</p>
+            <p>
+                                <button
+                                    onClick={() =>
+                                        handleStatusChange(
+                                            report.report_no,
+                                            report.check_status
+                                        )
+                                    }
+                                >
+                                    {report.check_status
+                                        ? "비공개로 전환"
+                                        : "공개로 전환"}
+                                </button>
+                            </p>
         </div>
     );
 };
