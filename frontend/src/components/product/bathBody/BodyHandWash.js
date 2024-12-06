@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../../../scss/product/subPageTop.module.scss";
-import ProductCard from "../ProductCard";
 
 const BodyHandWash = () => {
     return (
@@ -14,7 +13,6 @@ const BodyHandWash = () => {
                     </p>
                 </div>
             </div>
-            <ProductCard />
         </div>
     );
 };

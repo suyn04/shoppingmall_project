@@ -1,13 +1,11 @@
-import React from "react";
-import HomeTop from "./HomeTop";
-import { Outlet } from "react-router-dom";
-import ColognesNav from "./ColognesNav";
+import React, { useEffect, useState } from "react";
+import { Outlet, useParams } from "react-router-dom";
+import ColognesHomeTop from "./ColognesHomeTop";
 
 const ColognesHomeWrap = () => {
     return (
         <div>
-            <HomeTop />
-            <ColognesNav />
+            <ColognesHomeTop />
             <Outlet />
         </div>
     );

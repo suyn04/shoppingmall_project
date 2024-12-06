@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { setState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/dup/header.module.scss';
 
 function Header({ hamBtn, setHam }) {
     const navigate = useNavigate();
+    const email = 'dkssud@naver.com';
 
     //세션토큰 사용
     const Loginchk = sessionStorage.getItem('sessionToken'); // 세션 스토리지에 있는 토큰 가져와
@@ -95,7 +96,7 @@ function Header({ hamBtn, setHam }) {
                     </div>
                     <div className={styles.basketContainer}>
                         <div className={styles.basketIcon}>
-                            <Link to="/basket">
+                            <Link to={`/basket/${email}`}>
                                 <img src={`${url}basketIcon.svg`} alt="" />
                             </Link>
                         </div>

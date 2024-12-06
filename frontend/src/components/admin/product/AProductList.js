@@ -6,7 +6,7 @@ const AProductList = () => {
     const [product, setProduct] = useState([]);
     const productListGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/`)
+            .get(`http://localhost:5001/admin/product/`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProduct(res.data);

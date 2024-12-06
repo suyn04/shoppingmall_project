@@ -28,12 +28,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
+app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
 
 const productRouter = require('./controller/product.js');
-app.use('/product/', productRouter(upload));
+app.use('/admin/product', productRouter());
 
-const orderRouter = require('./controller/adminOrder.js');
-app.use('/order/', orderRouter());
+const productHomeRouter = require('./controller/productHome.js');
+app.use('/product/', productHomeRouter());
+
+const basketRouter = require('./controller/Basket.js');
+app.use('/basket/', basketRouter());
+
+const payment1Router = require('./controller/Payment1.js');
+app.use('/payment1/', payment1Router());
+
+const adminOrderRouter = require('./controller/adminOrder.js');
+app.use('/admin/order/', adminOrderRouter());
 
 const memberListRouter = require('./controller/MemberList.js');
 app.use('/admin/member/', memberListRouter());

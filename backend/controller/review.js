@@ -36,14 +36,14 @@ module.exports = upload => {
 
     // 리뷰 저장하기
     router.post('/', async (req, res) => {
-        const { product_id = null, customer_id = null, review_rate = null, review_recommend = null, review_nick = null, review_title = null, review_detail = null, review_region = null, review_scent = null, review_time = null, review_gift = null } = req.body;
+        const { product_id = null, email = null, review_rate = null, review_recommend = null, review_nick = null, review_title = null, review_detail = null, review_region = null, review_scent = null, review_time = null, review_gift = null } = req.body;
 
         console.log('받은 데이터:', req.body);
 
         try {
             const query = `
                 INSERT INTO review_management (
-                    product_id, customer_id, review_date, review_rate, review_recommend,
+                    product_id, email, review_date, review_rate, review_recommend,
                     review_nick, review_title, review_detail, review_region, review_scent,
                     review_time, review_gift, review_status
                 )
@@ -51,7 +51,7 @@ module.exports = upload => {
             `;
             const values = [
                 product_id,
-                customer_id,
+                email,
                 new Date(), // 리뷰 작성 날짜
                 review_rate,
                 review_recommend,

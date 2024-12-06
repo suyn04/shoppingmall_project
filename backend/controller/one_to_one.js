@@ -12,7 +12,7 @@ module.exports = upload => {
                 SELECT 
                     post_no,           -- 게시글 번호
                     post_category,     -- 카테고리
-                    customer_id,       -- 작성자 ID
+                    email,             -- 작성자 이메일(id)
                     post_date,         -- 작성 날짜
                     post_title,        -- 제목
                     post_detail,       -- 문의 내용
@@ -41,7 +41,7 @@ module.exports = upload => {
                 SELECT 
                     post_no,           -- 게시글 번호
                     post_category,     -- 카테고리
-                    customer_id,       -- 작성자 ID
+                    email,       -- 작성자 ID
                     post_date,         -- 작성 날짜
                     post_title,        -- 제목
                     post_detail,       -- 문의 내용
@@ -67,10 +67,10 @@ module.exports = upload => {
 
     //1:1 문의 등록 (post)
     router.post('/', async (req, res) => {
-        const { post_category, customer_id, post_title, post_detail } = req.body;
+        const { post_category, email, post_title, post_detail } = req.body;
 
         // 필수 데이터 검증
-        if (!post_category || typeof post_category !== 'string' || !customer_id || !post_title || !post_detail) {
+        if (!post_category || typeof post_category !== 'string' || !email || !post_title || !post_detail) {
             return res.status(400).json({ error: '필수 입력 데이터가 누락되었거나 잘못되었습니다.' });
         }
 
@@ -78,16 +78,16 @@ module.exports = upload => {
             // INSERT 쿼리 작성
             const sql = `
          INSERT INTO one_to_one 
-         (post_category, customer_id, post_title, post_detail, post_date, reply_status)
+         (post_category, email, post_title, post_detail, post_date, reply_status)
          VALUES (?, ?, ?, ?, NOW(), '대기')
      `;
-            const [result] = await conn.execute(sql, [post_category, customer_id, post_title, post_detail]);
+            const [result] = await conn.execute(sql, [post_category, email, post_title, post_detail]);
 
             console.log('1:1 문의 등록 성공:', result);
             res.status(201).json({
                 post_no: result.insertId,
                 post_category,
-                customer_id,
+                email,
                 post_title,
                 post_detail,
                 reply_status: '대기',

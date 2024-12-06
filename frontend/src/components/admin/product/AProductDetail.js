@@ -9,7 +9,7 @@ const AProductDetail = () => {
 
     const productListGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/admin/detail/${product_id}`)
+            .get(`http://localhost:5001/admin/product/detail/${product_id}`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProduct(res.data);
@@ -36,96 +36,55 @@ const AProductDetail = () => {
                 <table border="1">
                     <tr>
                         <td>제품 국문명</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={product.product_name_kor}
-                            />
-                        </td>
+                        <td>{product.product_name_kor}</td>
                     </tr>
                     <tr>
                         <td>제품 영문명</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={product.product_name_eng}
-                            />
-                        </td>
+                        <td>{product.product_name_eng}</td>
                     </tr>
                     <tr>
                         <td>제품 스페셜</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={product.product_special}
-                            />
-                        </td>
+                        <td>{product.product_special}</td>
                     </tr>
                     <tr>
                         <td>제품 카테고리1</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={product.product_category_one}
-                            />
-                        </td>
+                        <td>{product.product_category_one}</td>
                     </tr>
                     <tr>
                         <td>제품 카테고리2</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={product.product_category_two}
-                            />
-                        </td>
+                        <td>{product.product_category_two}</td>
                     </tr>
                     <tr>
                         <td>제품 카테고리3</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={product.product_category_three}
-                            />
-                        </td>
+                        <td>{product.product_category_three}</td>
                     </tr>
                     <tr>
                         <td>제품 향</td>
-                        <td>
-                            <input type="text" value={product.product_scent} />
-                        </td>
+                        <td>{product.product_scent}</td>
                     </tr>
                     <tr>
                         <td>제품 성분</td>
-                        <td>
-                            <input
-                                type="textarea"
-                                value={product.product_ingredient}
-                            />
-                        </td>
+                        <td>{product.product_ingredient}</td>
                     </tr>
                     <tr>
                         <td>탑노트</td>
-                        <td>
-                            <input type="text" value={product.nt_name} />
-                        </td>
+                        <td>{product.nt_name} </td>
                     </tr>
                     <tr>
                         <td>하트노트</td>
-                        <td>
-                            <input type="text" value={product.nh_name} />
-                        </td>
+                        <td>{product.nh_name} </td>
                     </tr>
                     <tr>
                         <td>베이스노트</td>
-                        <td>
-                            <input type="text" value={product.nb_name} />
-                        </td>
+                        <td>{product.nb_name} </td>
                     </tr>
                     <tr>
                         <td>제품설명</td>
-                        <td>
-                            <input type="text" value={product.product_intro} />
-                        </td>
+                        <td>{product.product_intro} </td>
+                    </tr>
+                    <tr>
+                        <td>공개여부</td>
+                        <td>{product.product_status} </td>
                     </tr>
                 </table>
             </div>
