@@ -14,7 +14,7 @@ import DiffuserHomeWrap from "./components/product/homeSecnts/DiffuserHomeWrap";
 import BathBodyHomeWrap from "./components/product/bathBody/BathBodyHomeWrap";
 import BathBodyTotal from "./components/product/bathBody/BathBodyTotal";
 import BathShowerHomeWrap from "./components/product/bathBody/BathShowerHomeWrap";
-import BodyCareHomeWrap from "./components/product/bathBody/\bBodyCareHomeWrap";
+import BodyCareHomeWrap from "./components/product/bathBody/BodyCareHomeWrap";
 
 function Product() {
     return (

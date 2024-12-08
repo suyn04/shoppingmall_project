@@ -2,11 +2,12 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/dup/header.module.scss';
 
-function Header({ hamBtn, setHam }) {
+function Header({ ham, setHam }) {
     const navigate = useNavigate();
 
     //세션토큰 사용
     const Loginchk = sessionStorage.getItem('sessionToken'); // 세션 스토리지에 있는 토큰 가져와
+    const email = sessionStorage.getItem('email'); // 세션 스토리지에 있는 토큰 가져와
 
     const Loginbtn = () => {
         if (Loginchk) {
@@ -18,11 +19,10 @@ function Header({ hamBtn, setHam }) {
     };
     const showHamMenu = e => {
         e.stopPropagation();
-        setHam(!hamBtn);
+        setHam(!ham);
     };
 
     const url = "/imgs/main/";
-    const email = 'dkssud@naver.com'
 
     return (
         <header>

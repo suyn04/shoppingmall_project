@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import PayHead from './PayHead';
 import styles from '../../scss/order/payment2.module.scss'
 import axios from 'axios'
@@ -9,10 +9,11 @@ function Payment2(props) {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const email = 'aram@gmail.com'
+  const email = sessionStorage.getItem('email')
   const [ordersData, setOrder] = useState()
   const [data, setData] = useState()
   const [prod, setProd] = useState()
+  const [isLoading, setIsLoading] = useState()
 
   function pageLoad(){
     axios.get(`http://localhost:5001/payment1/${email}`)
@@ -57,6 +58,9 @@ function Payment2(props) {
   if(!prod){
     return <div>로딩중...</div>
   }
+  if(!data){
+    return <div>로딩중...</div>
+  }
 
   const handleQuantityChange = (id, quantity) => {
     const updatedProd = prod.map((item) =>
@@ -72,34 +76,57 @@ function Payment2(props) {
     return prod.reduce((sum, product) => sum + product.product_price * product.quantity, 0);
   }
 
-  // 장바구니 정보 삭제
-  function delBasket(id){
-    axios.delete(`http://localhost:5001/basket/delete/${id}`)
+
+  // 결제 정보 넘기기
+  function orderFin(e){
+    e.preventDefault()
+    const myData = Object.fromEntries(new FormData(document.myFrm))
+
+    const orderPayload = {
+      email: email,
+      pay_to: myData.payment,
+      order_to: ordersData.customer_name,
+      order_total: getTotal(),
+      order_tel: ordersData.contact_number,
+      zip: ordersData.zip,
+      roadname_address: ordersData.roadname_address,
+      building_name: ordersData.building_name,
+      detail_address: ordersData.detail_address,
+      order_msg: data.order_msg || null,
+      products: prod.map((item) => ({
+        product_id: item.bs_product_id,
+        order_cnt: item.quantity,
+        product_price: item.product_price*item.quantity,
+      })),
+      status: "주문완료"
+
+      
+    };
+    console.log(orderPayload)
+    
+    axios.post(`http://localhost:5001/payment2/join/${email}`, orderPayload)
     .then(res=>{
-      alert("삭제되었습니다.")
-      dataInit()
+      alert("결제되었습니다.")
+      // navigate('/payment3')
+      setIsLoading(true)
+      // console.log(res.data)
+
+      setTimeout(() => {
+        setIsLoading(false)
+        navigate('/payment3', {state : {orderId:res.data}})
+      }, 3000)
     })
     .catch(err=>{
       console.log("삭제오류 : ", err)
     })
-  }
 
-  // 결제 정보 넘기기
-  function orderFin(e){
-    // alert('결제끝!')
-    e.preventDefault()
-    const myData = Object.fromEntries(new FormData(document.myFrm))
-
-    console.log(myData)
-
-    // axios.post(`http://localhost:5001/payment2/join/${email}`,)
-    // .then(res=>{
-    //   alert("등록되었습니다.")
-    //   // navigate('/payment3')
-    // })
-    // .catch(err=>{
-    //   console.log("삭제오류 : ", err)
-    // })
+    axios.delete(`http://localhost:5001/payment2/delete/${email}`)
+    .then(res=>{
+      
+    })
+    .catch(err=>{
+      console.log("삭제오류 : ", err)
+    })
   }
 
   return (
@@ -129,13 +156,12 @@ function Payment2(props) {
           <div>{ordersData.roadname_address}</div>
           <div>{ordersData.building_name}</div>
           <div>{ordersData.detail_address}</div>
+          <div>{`휴대전화 번호${ordersData.contact_number}`}</div>
         </div>
-        <button><Link to='/payment1'>수정</Link></button>
         <hr/>
         <div>
           <div>배송요청사항</div>
           <div>{data.order_msg}</div>
-          <button><Link to='/payment1'>수정</Link></button>
         </div>
         <div>
           <div className={styles.td}>
@@ -168,7 +194,6 @@ function Payment2(props) {
                   </select>
                 </div>
                 <div>{totalPrice}</div>
-                <button onClick={()=>{delBasket(pp.bs_id)}}>삭제</button>
               </div>
             )
           })}
@@ -177,6 +202,7 @@ function Payment2(props) {
             <div>{getTotal().toLocaleString()}</div>
           </div>
           <input type='submit' onClick={orderFin} value='결제하기'/>
+          {isLoading && <div>로딩중...</div>}
         </div>
       </form>
     </>
