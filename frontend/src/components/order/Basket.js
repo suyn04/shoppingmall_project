@@ -36,7 +36,7 @@ function Basket(props) {
   }
 
   const getTotal = () => {
-    console.log(prod)
+    // console.log(prod)
     return prod.reduce((sum, product) => sum + product.product_price * product.quantity, 0);
   }
 
