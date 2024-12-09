@@ -1,79 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../../scss/mypage/ViewOrders.module.scss';
+import axios from 'axios';
 
 function ViewOrders() {
-    const orders = [
-        {
-            date: '2024/09/12',
-            orderNumber: '1792266802',
-            status: '배송중',
-            trackingNumber: '6078918209416',
-            detailsUrl: '/orderInformation',
-        },
-        {
-            date: '2024/09/12',
-            orderNumber: '1792266802',
-            status: '교환중',
-            trackingNumber: '6078918209416',
-            detailsUrl: '/orderInformation',
-        },
-        {
-            date: '2024/09/12',
-            orderNumber: '1792266802',
-            status: '교환완료',
-            trackingNumber: '6078918209416',
-            detailsUrl: '/orderInformation2',
-        },
-        {
-            date: '2024/09/12',
-            orderNumber: '1792266802',
-            status: '배송완료',
-            trackingNumber: '6078918209416',
-            detailsUrl: '/orderInformation2',
-        },
-        {
-            date: '2024/09/12',
-            orderNumber: '1792266802',
-            status: '반품중',
-            trackingNumber: '6078918209416',
-            detailsUrl: '/orderInformation3',
-        },
-        {
-            date: '2024/09/12',
-            orderNumber: '1792266802',
-            status: '반품완료',
-            trackingNumber: '6078918209416',
-            detailsUrl: '/orderInformation3',
-        },
-    ];
+    const [orders, setOrders] = useState([]); // 주문 목록 상태
+    const [userInfo, setUserInfo] = useState(null); // 사용자 정보 상태
+
+    useEffect(() => {
+        const ViewOrders = async () => {
+            const sessionToken = sessionStorage.getItem('sessionToken');
+            const email = sessionStorage.getItem('email');
+
+            if (!sessionToken || !email) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+
+            try {
+                // 사용자 정보 가져오기 -- 세션토큰은 마이페이지에서
+                const userResponse = await axios.post(`http://localhost:5001/myPage`, { action: 'getUserInfo', email }, { headers: { Authorization: sessionToken } });
+                setUserInfo(userResponse.data.userInfo);
+
+                // 세션토큰 이메일을 기준으로 주문데이터 가져오기
+                const ordersResponse = await axios.post(`http://localhost:5001/myPage`, { action: 'getOrders', email }, { headers: { Authorization: sessionToken } });
+                setOrders(ordersResponse.data.orders);
+            } catch (err) {
+                console.error('데이터 가져오기 오류:', err);
+                alert('데이터를 불러올 수 없습니다.');
+            }
+        };
+
+        ViewOrders();
+    }, []);
+
+    // 날짜 포맷팅 함수
+    const formatDate = dateString => {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    };
 
     return (
         <div className={styles.orderlistcontainer}>
             <div className={styles.block}>
                 <div className={styles.orderheader}>주문 전체 보기</div>
-                <p className={styles.orderdescription}>주문하신 제품의 상세내역을 보시려면 아래 자세히 보기를 클릭해 주세요</p>
+                <p className={styles.orderdescription}>주문하신 제품의 상세내역을 보시려면 아래 자세히 보기를 클릭해 주세요.</p>
 
                 <div className={styles.orderlist}>
                     <div className={styles.orderlistheader}>
                         <div>주문번호</div>
-                        <div>주문날짜</div>
+                        <div>주문일</div>
                         <div>주문상태</div>
-                        <div>송장번호</div>
+                        <div>수령인</div>
                     </div>
-                    {orders.map((order, index) => (
-                        <div className={styles.orderlistitem} key={index}>
-                            <div>{order.date}</div>
-                            <div>
-                                {order.orderNumber}
-                                <Link to={order.detailsUrl} className={styles.a1}>
-                                    자세히 보기
-                                </Link>
+                    {orders.length > 0 ? (
+                        orders.map((order, index) => (
+                            <div className={styles.orderlistitem} key={index}>
+                                <div>
+                                    {order.order_id}
+                                    <Link to={`/myPage/orderDetail/${order.order_id}`} className={styles.a1}>
+                                        자세히 보기
+                                    </Link>
+                                </div>
+                                <div>{formatDate(order.order_date)}</div>
+                                <div>{order.order_status}</div>
+                                <div>{order.order_name}</div>
                             </div>
-                            <div>{order.status}</div>
-                            <div>{order.trackingNumber}</div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p>주문 내역이 없습니다.</p>
+                    )}
                 </div>
             </div>
         </div>
