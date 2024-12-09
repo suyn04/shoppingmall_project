@@ -40,22 +40,20 @@ const DetailWrap = () => {
         console.log(product);
 
         // console.log(product.product_category_id);
-
-        // if (product.product_category_id) {
-        //     setComp(<ColognesUse />);
-        // }
     }, []);
-    // if (!product.product_category_id) {
-    //     console.log("데이터 없음");
-    //     return;
-    // }
+
+    useEffect(() => {
+        if (product && product.product_category_id == 2) {
+            setComp(<ColognesUse />);
+        }
+    }, [product]);
 
     return (
         <div>
             <DetailTop />
             <DetailAcor />
             <DetailTasting />
-            {/* if(product.product_category_id){<ColognesUse />} */}
+            {comp}
             <DetailRecommend />
             <ReviewList />
         </div>
