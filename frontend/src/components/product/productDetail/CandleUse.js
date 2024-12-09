@@ -6,18 +6,10 @@ const CandleUse = () => {
         <div>
             <div className={styles.useContentWrap}>
                 <div className={styles.useContent}>
-                    <div className={styles.useTitle}>
-                        공간을 향기롭게 하는 방법
-                    </div>
+                    <div className={styles.useTitle}>5분 간의 평온한 휴식</div>
                     <div className={styles.useText}>
-                        <p>
-                            분위기를 이끌며 향기로운 추억을 불러일으키는 향을
-                            찾아보세요.
-                        </p>
-                        <p>
-                            조 말론 런던이 당신의 공간에 새로운 영감을 불어
-                            넣어줍니다.
-                        </p>
+                        <p>느긋하고 편안한 밤을 위한 비결.</p>
+                        <p>그 힌트는 바로 향기로운 캔들입니다.</p>
                     </div>
                 </div>
                 <div className={styles.useContent}>

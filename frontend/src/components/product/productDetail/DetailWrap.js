@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import DetailTop from "./DetailTop";
 import DetailAcor from "./DetailAcor";
 import DetailTasting from "./DetailTasting";
-import DetailRecommend from "./DetailRecommend";
 import ReviewList from "../../service/review/ReviewList";
 import ColognesUse from "./ColognesUse";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import CandleUse from "./CandleUse";
+import DiffuserUse from "./abscDiffuserUse";
+import ProductSwiper from "../ProductSwiper";
 
 const DetailWrap = () => {
     const { product_opt_id } = useParams();
@@ -29,8 +31,6 @@ const DetailWrap = () => {
             });
     };
 
-    console.log(product);
-
     useEffect(() => {
         if (!product_opt_id) {
             console.log("데이터 없음");
@@ -43,18 +43,28 @@ const DetailWrap = () => {
     }, []);
 
     useEffect(() => {
-        if (product && product.product_category_id == 2) {
-            setComp(<ColognesUse />);
+        if (product && product.product_category_id == 1) {
+            setComp(
+                <>
+                    <DetailTasting /> <ColognesUse />
+                </>
+            );
+            console.log(product);
+        } else if (product && product.product_category_id == 2) {
+            setComp(<CandleUse />);
+        } else {
+            setComp(<DiffuserUse />);
         }
     }, [product]);
+
+    console.log(comp);
 
     return (
         <div>
             <DetailTop />
             <DetailAcor />
-            <DetailTasting />
             {comp}
-            <DetailRecommend />
+            <ProductSwiper product={[]} />
             <ReviewList />
         </div>
     );
