@@ -97,7 +97,7 @@ function Header({ ham, setHam }) {
                     </div>
                     <div className={styles.basketContainer}>
                         <div className={styles.basketIcon}>
-                            <Link to={`/basket/${email}`}>
+                            <Link to="/basket">
                                 <img src={`${url}basketIcon.svg`} alt="" />
                             </Link>
                         </div>

@@ -15,6 +15,10 @@ function Payment2(props) {
   const [prod, setProd] = useState()
   const [isLoading, setIsLoading] = useState()
 
+  if(!email){
+    navigate('/signIn')
+  }
+
   function pageLoad(){
     axios.get(`http://localhost:5001/payment1/${email}`)
     .then((res) => {

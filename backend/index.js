@@ -28,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
-app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
 
 const productRouter = require('./controller/product.js');
 app.use('/admin/product', productRouter());
@@ -46,7 +45,7 @@ const payment2Router = require("./controller/Payment2.js");
 app.use("/payment2/", payment2Router());
 
 const adminOrderRouter = require('./controller/adminOrder.js');
-app.use('/admin/order/', adminOrderRouter());
+app.use('/admin/order', adminOrderRouter());
 
 const memberListRouter = require('./controller/MemberList.js');
 app.use('/admin/member/', memberListRouter());

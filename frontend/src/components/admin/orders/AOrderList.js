@@ -6,7 +6,7 @@ function OrderList(props) {
   const [arr, setArr] = useState([])
 
   useEffect(()=>{
-    axios.get('http://localhost:5001/order/')
+    axios.get('http://localhost:5001/admin/order/')
     .then(
       res=>{
         // console.log('갔다옴 : ', res.data)
@@ -18,11 +18,15 @@ function OrderList(props) {
         console.error('에러발생 : ', err)
       }
     )
-  })
+  },[])
+
+  if(!arr){
+    return <div>로딩중...</div>
+  }
+
   return (
     <table border="1">
       <tr>
-        <td>번호</td>
         <td>주문id</td>
         <td>주문일시</td>
         <td>주문상태</td>
@@ -32,14 +36,13 @@ function OrderList(props) {
       </tr>
       {arr.map((mm, i)=>{
         return <tr key={i}>
-                  <td>{i+1}</td>
                   <td>
                     <Link to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
                   </td>
                   <td>{mm.order_date}</td>
                   <td>{mm.order_status}</td>
                   <td>{mm.pay_to}</td>
-                  <td>{mm.order_to}</td>
+                  <td>{mm.order_name}</td>
                   <td>{mm.order_total}</td>
                 </tr>
       })}

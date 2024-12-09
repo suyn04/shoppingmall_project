@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const con = require("../db");
-const fs = require("fs");
 
 module.exports = () => {
     router.get("/", async (req, res) => {
-        // console.log("order 진입"); //정상작동 확인
+        console.log("order 진입"); //정상작동 확인
         try {
             const [ret] = await con.execute('select * from orders')
+            // console.log(ret)
             res.json(ret)
         } catch(err){
             console.log('sql 실패 : ', err.message)

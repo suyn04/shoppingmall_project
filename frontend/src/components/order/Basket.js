@@ -8,7 +8,9 @@ function Basket(props) {
   const navigate = useNavigate()
 
   const email = sessionStorage.getItem('email')
-  // console.log(`basket-email:${email}`)
+
+  
+  console.log(`basket-email:${email}`)
 
   // 해당 고객의 장바구니 내역 불러오기
   function dataInit(){

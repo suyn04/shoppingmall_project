@@ -22,7 +22,7 @@ function App() {
             <Nav ham={ham} setHam={setHam} />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/basket/:id" element={<Basket />} />
+                <Route path="/basket" element={<Basket />} />
                 <Route path="/payment1" element={<Payment1/>} />
                 <Route path="/payment2"  element={<Payment2/>} />
                 <Route path="/payment3"  element={<Payment3/>} />

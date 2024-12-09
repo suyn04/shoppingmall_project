@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useLocation} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import styles from '../../scss/order/payment3.module.scss'
 
 function Payment3(props) {
 
   const location = useLocation()
   const [data, setData] = useState()
+  const navigate = useNavigate()
+  const email = sessionStorage.getItem('email')
+
+  if(!email){
+    navigate('/signIn')
+  }
 
 
   useEffect(()=>{

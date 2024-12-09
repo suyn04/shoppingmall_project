@@ -11,6 +11,10 @@ function Payment1(props) {
   const [isModal, setModal] = useState(false)
   const navigate = useNavigate()
 
+  if(!email){
+    navigate('/signIn')
+  }
+
   function pageLoad(){
     axios.get(`http://localhost:5001/payment1/${email}`)
     .then((res) => {
