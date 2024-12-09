@@ -160,5 +160,26 @@ module.exports = () => {
         }
     });
 
+    router.post('/cancelOrder/:orderId', async (req, res) => {
+        const { orderId } = req.params;
+    
+        try {
+            // 주문 상태를 '취소됨'으로 업데이트
+            const [result] = await db.execute(
+                'UPDATE orders SET order_status = ? WHERE order_id = ?',
+                ['취소', orderId]
+            );
+    
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ message: '주문을 찾을 수 없습니다.' });
+            }
+    
+            res.status(200).json({ message: '주문이 취소되었습니다.' });
+        } catch (err) {
+            console.error('주문 취소 실패:', err);
+            res.status(500).json({ message: '서버 오류로 주문을 취소할 수 없습니다.' });
+        }
+    });
+
     return router;
 };

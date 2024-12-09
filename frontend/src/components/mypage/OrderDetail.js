@@ -37,6 +37,22 @@ function OrderDetail() {
         return date.toISOString().split('T')[0];
     };
 
+    // 주문 취소하기
+    const handleCancelOrder = (orderId) => {
+        if (window.confirm('주문을 취소하시겠습니까?')) {
+            axios.post(`http://localhost:5001/myPage/cancelOrder/${orderId}`)
+                .then(() => {
+                    alert('주문이 취소되었습니다.');
+                    // 상태를 갱신하거나 페이지를 새로고침
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    console.error('주문 취소 실패:', err);
+                    alert('주문 취소에 실패했습니다.');
+                });
+        }
+    };
+
     return (
         <div className={styles.orderlistcontainer}>
             <div className={styles.block}>
@@ -60,6 +76,8 @@ function OrderDetail() {
                                 <div>{od[0].order_total}</div>
                                 <div>{od[0].order_status}</div>
                                 <div>{od[0].invoice}</div>
+                                {od[0].order_status === '주문완료' && (<button className={styles.cancelButton} onClick={() => handleCancelOrder(od[0].order_id)}>취소하기</button>
+)}
                             </div>
                         ))
                     ) : (
