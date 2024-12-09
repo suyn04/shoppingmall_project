@@ -49,7 +49,6 @@ const CandleHomeWrap = () => {
             });
     };
     useEffect(() => {
-        document.title = "캔들";
         colognesGetAxios();
         console.log(candles);
     }, [product_scent]);

@@ -36,12 +36,44 @@ module.exports = () => {
             res.status(500).send("db 오류");
         }
     });
+    router.get("/detail/:product_opt_id", async (req, res) => {
+        console.log(`/:product_opt_id`); //정상작동 확인
+        console.log(req.query.product_opt_id);
+
+        try {
+            const [ret] = await conn.execute(
+                "select * from view_product_info_opt where product_opt_id = ?",
+                [req.params.product_opt_id]
+            );
+            res.json(ret[0]);
+        } catch (err) {
+            console.error("sql 실패 : ", err.message);
+            res.status(500).send("db 오류");
+        }
+    });
+    router.get("/volume/:product_id", async (req, res) => {
+        console.log(`/ 진입 확인`); //정상작동 확인
+        console.log(req.query.product_id);
+
+        try {
+            const [ret] = await conn.execute(
+                "select * from view_product_info_opt where product_id = ?",
+                [req.params.product_id]
+            );
+            res.json(ret);
+        } catch (err) {
+            console.error("sql 실패 : ", err.message);
+            res.status(500).send("db 오류");
+        }
+    });
     router.get("/colognes", async (req, res) => {
         console.log("/colognes 진입 확인");
         try {
             const [ret] = await conn.execute(
                 "select * from view_product_info_opt where product_category_id = 1"
             );
+            console.log(ret);
+
             res.json(ret);
         } catch (err) {
             console.error("db 불러오기 실패 : ", err.message);

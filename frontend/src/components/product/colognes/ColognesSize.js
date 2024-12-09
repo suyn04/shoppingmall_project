@@ -39,7 +39,6 @@ const ColognesSize = () => {
             });
     };
     useEffect(() => {
-        document.title = "코롱";
         colognesGetAxios();
     }, [product_volume]);
     return (

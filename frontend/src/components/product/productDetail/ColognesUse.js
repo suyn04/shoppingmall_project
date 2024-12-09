@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../../scss/product/detailUse.module.scss";
 
-const DetailUse = () => {
+const ColognesUse = () => {
     return (
         <div>
             <div className={styles.useContentWrap}>
@@ -32,4 +32,4 @@ const DetailUse = () => {
     );
 };
 
-export default DetailUse;
+export default ColognesUse;

@@ -311,7 +311,7 @@ function Nav({ hamBtn, setHam }) {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/home-scents/diffuser">
+                                <Link to="/home-scents/diffusers">
                                     <img src={`${url}nav05.avif`} alt="" />
                                     <span>디퓨저</span>
                                 </Link>
