@@ -43,7 +43,6 @@ const ColognesCard = () => {
             });
     };
     useEffect(() => {
-        document.title = "코롱";
         colognesGetAxios();
     }, []);
 

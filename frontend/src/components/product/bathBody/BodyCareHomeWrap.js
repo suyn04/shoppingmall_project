@@ -50,7 +50,6 @@ const BodyCareHomeWrap = () => {
             });
     };
     useEffect(() => {
-        document.title = "디퓨저";
         colognesGetAxios();
         console.log(bodyCare);
     }, [product_category_thr]);
