@@ -4,6 +4,7 @@ const conn = require("../db");
 const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
+const { log } = require("console");
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -95,36 +96,39 @@ module.exports = () => {
             res.status(500).send("db오류");
         }
     });
-    router.post("/areviewlist", async (req, res) => {
-        const { email } = req.body; // 바디에서 이메일 가져와서
-        const sessionToken = req.headers["authorization"]; // 세션 토큰 확인
-
-        // 세션 토큰 검증
-        if (!sessionToken || sessionToken !== "mockSessionToken") {
-            // 세션토큰이 없거나 저장된 세션토큰과 일치 하지 않으면
-            return res
-                .status(401)
-                .json({ error: "세션 토큰이 유효하지 않습니다." });
-        }
+    router.get("/basket", async (req, res) => {
+        console.log("/product/basket 진입 확인");
+        console.log(req.query.bs_email);
 
         try {
-            // 이메일로 customer DB 조회
-            const [ret] = await db.query(
-                `SELECT * FROM customers WHERE email = ?`,
-                [email]
+            const [ret] = await conn.execute(
+                "select * from basket where bs_email = ?",
+                [req.query.bs_email]
             );
-            if (ret.length === 0) {
-                // 조회된 결과가 없으면
-                return res
-                    .status(404)
-                    .json({ error: "고객 정보를 찾을 수 없습니다." });
-            }
-
-            // 조회된 결과가 있다면
-            res.json(ret[0]); // 첫 번째 결과 반환
+            res.json(ret);
         } catch (err) {
-            console.error("DB 조회 실패:", err.message);
-            res.status(500).send("서버 오류");
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
+        }
+    });
+    router.post("/basket", async (req, res) => {
+        console.log("product/basket 진입 확인");
+        console.log(req.body);
+
+        let sql = "insert into basket (bs_email, bs_product_id)";
+        sql += " values (?,?)";
+
+        let data = [req.body.bs_email, req.body.bs_product_id];
+        console.log(data);
+
+        try {
+            const [ret] = await conn.execute(sql, data);
+            const newId = ret.insertId;
+            // res.send("쓰기 완료");
+            res.json(ret);
+        } catch (err) {
+            console.error("db 불러오기 실패 : ", err.message);
+            res.status(500).send("db오류");
         }
     });
 

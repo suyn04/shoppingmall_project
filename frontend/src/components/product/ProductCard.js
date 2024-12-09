@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../scss/product/productCard.module.scss";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const [curProduct, setCurProduct] = useState([]);
+    const email = sessionStorage.getItem("email");
 
     useEffect(() => {
         console.log("ProductCard 동작");
+
         if (!product) {
             console.log(`상품이 없습니다`);
             return;
@@ -20,9 +23,45 @@ const ProductCard = ({ product }) => {
         navigate(route);
     };
 
-    const basketGo = (id) => {
-        console.log(id);
-        navigate(`/basket/${id}`);
+    const basketGo = (product_opt_id) => {
+        console.log(email);
+        if (!email) {
+            navigate("/signIn");
+        } else {
+            const params = { bs_email: email, bs_product_id: product_opt_id };
+            console.log(params);
+            axios
+                .get(`http://localhost:5001/product/basket`, { params })
+                .then((res) => {
+                    console.log(res.data);
+                    const basketItem = res.data.find(
+                        (item) => item.bs_product_id == product_opt_id
+                    );
+                    console.log(basketItem);
+                    if (basketItem) {
+                        const useConfirm = window.confirm(
+                            "이미 장바구니에 추가된 상품입니다. 장바구니에서 제품을 확인하시겠습니까?"
+                        );
+                        if (useConfirm) {
+                            navigate(`/basket`);
+                        }
+                    } else {
+                        const data = params;
+                        axios
+                            .post(`http://localhost:5001/product/basket`, data)
+
+                            .then((res) => {
+                                console.log("게시물 등록 완료", res.data);
+                                alert("장바구니에 제품이 담겼습니다.");
+                                navigate("/");
+                            })
+                            .catch((err) => {
+                                console.error("에러발생 ; ", err);
+                            });
+                    }
+                })
+                .catch((err) => console.error("axios 에러", err));
+        }
     };
 
     const fileGo = (file) => {
@@ -54,7 +93,7 @@ const ProductCard = ({ product }) => {
                                 <div>₩ {prod.product_price}</div>
                             </div>
                         </div>
-                        <button onClick={() => basketGo(prod.product_id)}>
+                        <button onClick={() => basketGo(prod.product_opt_id)}>
                             장바구니 담기
                         </button>
                     </div>

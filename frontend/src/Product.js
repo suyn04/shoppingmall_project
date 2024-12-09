@@ -50,7 +50,7 @@ function Product() {
                     element={<BodyCareHomeWrap />}
                 />
             </Route>
-            <Route path="/product/:product_id" element={<DetailWrap />} />
+            <Route path="/product/:product_opt_id" element={<DetailWrap />} />
         </Routes>
     );
 }
