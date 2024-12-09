@@ -1,0 +1,84 @@
+.findPwWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fcf9ee;
+}
+
+.findPwForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+
+    input {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #1c1c1c;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #000;
+        }
+    }
+}
+
+.findPwModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modalContent {
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        width: 300px;
+        text-align: center;
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #1c1c1c;
+            border: none;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: #000;
+            }
+        }
+    }
+}

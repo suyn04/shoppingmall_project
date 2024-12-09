@@ -1,12 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 
-import ColognesHomeWrap from "./components/product/colognes/ColognesHomeWrap";
-import DetailWrap from "./components/product/productDetail/DetailWrap";
+import ColognesHomeWrap from './components/product/colognes/ColognesHomeWrap';
+import DetailWrap from './components/product/productDetail/DetailWrap';
 
-
-import HomeSecntsHomeWrap from "./components/product/homeSecnts/HomeSecntsHomeWrap";
-import HomeSecntsTotal from "./components/product/homeSecnts/HomeSecntsTotal";
-import CandleHomeWrap from "./components/product/homeSecnts/CandleHomeWrap";
+import HomeSecntsHomeWrap from './components/product/homeSecnts/HomeSecntsHomeWrap';
+import HomeSecntsTotal from './components/product/homeSecnts/HomeSecntsTotal';
+import CandleHomeWrap from './components/product/homeSecnts/CandleHomeWrap';
 
 import ColognesScent from "./components/product/colognes/ColognesScent";
 import ColognesSize from "./components/product/colognes/ColognesSize";
@@ -28,28 +27,16 @@ function Product() {
             <Route path="/home-scents" element={<HomeSecntsHomeWrap />}>
                 <Route path="" element={<HomeSecntsTotal />} />
                 <Route path="candles" element={<CandleHomeWrap />} />
-                <Route
-                    path="candles/:product_scent"
-                    element={<CandleHomeWrap />}
-                />
+                <Route path="candles/:product_scent" element={<CandleHomeWrap />} />
                 <Route path="diffusers" element={<DiffuserHomeWrap />} />
-                <Route
-                    path="diffusers/:product_scent"
-                    element={<DiffuserHomeWrap />}
-                />
+                <Route path="diffusers/:product_scent" element={<DiffuserHomeWrap />} />
             </Route>
             <Route path="/bath-body" element={<BathBodyHomeWrap />}>
                 <Route path="" element={<BathBodyTotal />} />
                 <Route path="bath-shower" element={<BathShowerHomeWrap />} />
-                <Route
-                    path="bath-shower/:product_category_thr"
-                    element={<BathShowerHomeWrap />}
-                />
+                <Route path="bath-shower/:product_category_thr" element={<BathShowerHomeWrap />} />
                 <Route path="body-care" element={<BodyCareHomeWrap />} />
-                <Route
-                    path="body-care/:product_category_thr"
-                    element={<BodyCareHomeWrap />}
-                />
+                <Route path="body-care/:product_category_thr" element={<BodyCareHomeWrap />} />
             </Route>
             <Route path="/product/:product_id" element={<DetailWrap />} />
         </Routes>
