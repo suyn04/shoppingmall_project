@@ -1,28 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../scss/product/detailAcor.module.scss";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const DetailAcor = () => {
+    const { product_opt_id } = useParams();
     const [infoOpen, setInfoOpen] = useState([false, false, false]);
-    const [ingredient, setIngredient] = useState(null);
+    const [product, setProduct] = useState(null);
     const infoOnOff = (index) => {
         let tempInfo = [...infoOpen];
         tempInfo[index] = !infoOpen[index];
         setInfoOpen(tempInfo);
     };
-    const detailGetAxios = () => {
+    const productGetAxios = () => {
+        if (!product_opt_id) {
+            console.log("데이터 없음");
+            return;
+        }
         axios
-            .get(`http://localhost:5001/product/colognes`)
+            .get(`http://localhost:5001/product/detail/${product_opt_id}`)
             .then((res) => {
-                console.log("서버 다녀옴", res.data);
-                // console.log(data);
-                setIngredient(res.data);
-                // console.log(state);
+                console.log(res.data);
+                setProduct(res.data);
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
             });
     };
+
+    useEffect(() => {
+        productGetAxios();
+    }, [product_opt_id]);
+
+    if (!product) {
+        return <div> id 없음</div>;
+    }
 
     return (
         <div className={styles.infoTotal}>
@@ -42,11 +54,7 @@ const DetailAcor = () => {
                             : `${styles.infoContent} ${styles.infoNone}`
                     }
                 >
-                    <div>
-                        변성알코올, 정제수, 유제놀,
-                        하이드록시이소헥실3-사이클로헥센카복스알데하이드,
-                        리모넨,신나밀알코올, 리날룰 [ILN29015]
-                    </div>
+                    <div>{product.product_ingredient}</div>
                     <div>
                         *제공된 성분은 동일 제품이라도 경우에 따라 변경될 수
                         있습니다. 최신정보는 제품 포장의 성분을 참고하시거나
@@ -61,7 +69,7 @@ const DetailAcor = () => {
             </div>
             <div className={styles.infoWrap}>
                 <div
-                    className="info-title"
+                    className={styles.infoTitle}
                     onClick={() => {
                         infoOnOff(1);
                     }}
@@ -103,7 +111,6 @@ const DetailAcor = () => {
                             : `${styles.infoContent} ${styles.infoNone}`
                     }
                 >
-                    <li>제품 주요 사양 : 모든 피부/성별 사용 가능</li>
                     <li>
                         사용기한 : 제품 별도표기 (출고일 기준 사용기한이 1년
                         이상 남은 제품을 배송해드립니다)

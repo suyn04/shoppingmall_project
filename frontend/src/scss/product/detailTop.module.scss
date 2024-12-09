@@ -25,14 +25,14 @@
             }
         }
         .volumeWrap {
-            margin: 20px auto;
+            margin: 20px 0;
             display: flex;
             align-content: space-between;
 
             button {
-                margin: 0 10px;
+                margin: 0 auto;
                 display: block;
-                width: 100px;
+                width: 150px;
                 font-size: 13px;
                 padding: 10px 0;
                 border: 1px solid #999;
