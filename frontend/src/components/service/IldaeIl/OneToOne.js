@@ -14,8 +14,18 @@ const OneToOne = () => {
 
     const [userInfo, setUserInfo] = useState();
     const navigate = useNavigate();
+    const email = sessionStorage.getItem('email')
 
-    useEffect(() => {
+    if(!email){
+      navigate('/signIn')
+    }
+     useEffect(() => {
+        const email = sessionStorage.getItem('email')
+       
+    
+  if(!email){
+    navigate('/signIn')
+  }
         const sessionToken = sessionStorage.getItem('sessionToken');
 
         if (!sessionToken) {
@@ -73,7 +83,7 @@ const OneToOne = () => {
         // 서버로 보낼 데이터 준비
         const data = {
             post_category: formData.category, // 문의 유형
-            customer_id: '123', // 회원 ID (임시로 123 고정)
+            email: userInfo.email, //email
             post_title: formData.title, // 제목
             post_detail: formData.content, // 내용
         };
@@ -128,7 +138,7 @@ const OneToOne = () => {
 
                 <div>
                     <span>
-                        작성자 : {userInfo.customer_name}({userInfo.email})
+                        작성자: {userInfo.customer_name}({userInfo.email})
                     </span>
                 </div>
 

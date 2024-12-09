@@ -19,7 +19,7 @@ const MyInfo = () => {
             axios
                 .post(
                     'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
-                    { email: sessionStorage.getItem('email') }, // 요청 본문
+                    { action: 'getUserInfo', email: sessionStorage.getItem('email') }, // 요청 본문
                     {
                         headers: {
                             Authorization: sessionToken, // 세션 토큰 포함

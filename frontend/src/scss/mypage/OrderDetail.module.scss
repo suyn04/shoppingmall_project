@@ -39,7 +39,7 @@
     top: 20px;
     border-spacing: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     align-items: center;
     gap: 10px;
 }
@@ -71,14 +71,5 @@
     padding: 15px 0;
     :hover {
         background-color: #f9f9f9;
-    }
-}
-/* 링크 스타일 */
-.a1 {
-    color: #007bff;
-    text-decoration: none;
-    :hover {
-        text-decoration: underline;
-        font-weight: bold;
     }
 }
