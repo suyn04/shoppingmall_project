@@ -20,9 +20,10 @@ module.exports = () => {
         console.log("orders detail 접근")
 
         try {
-            const [ret] = await con.execute('select * from orders where order_id = ?',
-                    [req.params.id])
-            res.json(ret[0])
+            const [ret] = await con.execute('SELECT o.*, od.*, vpo.product_name_kor, vpo.product_name_eng, vpo.product_price AS unit_price, vpo.product_upSystem FROM orders o JOIN orders_detail od ON o.order_id = od.order_id JOIN  view_product_info_opt vpo ON od.product_id = vpo.product_opt_id WHERE o.order_id = ?', [req.params.id])
+
+            // console.log(ret)
+            res.json(ret)
         } catch(err){
             console.log('sql 실패 : ', err.message)
             res.status(500).send('db 오류')
