@@ -32,7 +32,7 @@ const OneToOneList = () => {
         {Array.isArray(onetoone) && onetoone.length > 0 ? (
           onetoone.map((item) => (
             <li key={item.post_no}>
-              {item.post_title} - {item.customer_id}
+              {item.post_title} - {item.email} 
               <button onClick={() => handleDetailClick(item.post_no)}>상세보기</button>
             </li>
           ))
@@ -43,4 +43,5 @@ const OneToOneList = () => {
     </div>
   );
 };
+
 export default OneToOneList;

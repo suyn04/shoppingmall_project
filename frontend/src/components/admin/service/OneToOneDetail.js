@@ -45,8 +45,8 @@ const fetchOnetooneDetail = async () => {
   return (
     <div>
       <h1>1:1 문의 상세 정보</h1>
+      <p><strong>작성자 이메일:</strong> {onetoone.email}</p>
       <p><strong>제목:</strong> {onetoone.post_title}</p>
-      <p><strong>작성자 ID:</strong> {onetoone.customer_id}</p>
       <p><strong>문의 내용:</strong> {onetoone.post_detail}</p>
       <p><strong>작성일:</strong> {new Date(onetoone.post_date).toLocaleDateString()}</p>
       <p><strong>처리 상태:</strong> {onetoone.reply_status === 1 ? '답변 완료' : '미답변'}</p>
