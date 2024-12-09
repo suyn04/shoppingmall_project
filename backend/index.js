@@ -78,8 +78,20 @@ const myinfoeditRouter = require('./controller/MyInfo.js');
 app.use('/myPage/myinfoEdit', myinfoeditRouter());
 
 //배송주소록 라우터
-const addressListRouter = require('./controller/AddressList.js');
-app.use('/myPage', addressListRouter());
+const addressListRouter = require('./controller/MyInfo.js');
+app.use('/myPage/addressList', addressListRouter());
+
+//비밀번호찾기 라우터
+const findPwRouter = require('./controller/FindPw.js');
+app.use('/', findPwRouter);
+
+//주문내역보기 라우터
+const ordersRouter = require('./controller/MyInfo.js');
+app.use('/myPage/viewOrders', ordersRouter());
+
+//주문상세보기 라우터
+const orderDetailRouter = require('./controller/OrderDetail.js');
+app.use('/myPage/orderDetail', orderDetailRouter());
 
 app.get('/', (req, res) => {
     console.log('백엔드 서버 진입'); //정상작동 확인
