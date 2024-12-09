@@ -2,35 +2,161 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
+//회원정보 수정의 경우는 하나의 엔드포인트로 여러 액션을 구분하여 저장과 수정이 가능함.
 module.exports = () => {
-    // 고객 정보 조회 라우트
     router.post('/', async (req, res) => {
-        const { email } = req.body; // 바디에서 이메일 가져와서
-        const sessionToken = req.headers['authorization']; // 세션 토큰 확인
+        const { action, email, optional_agree, gender, contact_number } = req.body;
+        const sessionToken = req.headers['authorization'];
 
         // 세션 토큰 검증
         if (!sessionToken || sessionToken !== 'mockSessionToken') {
-            // 세션토큰이 없거나 저장된 세션토큰과 일치 하지 않으면
             return res.json({ error: '세션 토큰이 유효하지 않습니다.' });
         }
 
-        try {
-            // 이메일로 customer DB 조회
-            const [ret] = await db.query(`SELECT * FROM customers WHERE email = ?`, [email]);
-            if (ret.length === 0) {
-                // 조회된 결과가 없으면
-                return res.json({ error: '고객 정보를 찾을 수 없습니다.' });
+        // 요청 액션에 따라서 같은 post 엔드포인트로 작업 가능
+        if (action === 'getUserInfo') {
+            // 고객 정보 조회
+            if (!email) {
+                return res.json({ error: '이메일이 필요합니다.' });
             }
 
-            // 조회된 결과가 있다면
-            if (ret[0].birthdate) {
-                ret[0].birthdate = ret[0].birthdate.toISOString().split('T')[0];
+            try {
+                //이메일로 고객 조회를 해서 고객정보를 프론트에 보내는 구간
+                const [ret] = await db.query(`SELECT * FROM customers WHERE email = ?`, [email]);
+                if (ret.length === 0) {
+                    return res.json({ error: '고객 정보를 찾을 수 없습니다.' });
+                }
+
+                if (ret[0].birthdate) {
+                    ret[0].birthdate = ret[0].birthdate.toISOString().split('T')[0];
+                }
+
+                console.log('조회된 고객 정보:', ret[0]);
+                return res.json(ret[0]);
+            } catch (err) {
+                console.error('고객 정보 조회 실패:', err.message);
+                return res.json({ error: 'DB 조회 오류' });
             }
-            console.log('응답 데이터:', ret[0]);
-            res.json(ret[0]); // 첫 번째 결과 반환
-        } catch (err) {
-            console.error('DB 조회 실패:', err.message);
-            res.send('서버 오류');
+        } else if (action === 'updateChkbox') {
+            // 고객정보 조회를 한 뒤에 선택동의 체크여부를 확인하고 프론트에 보내는 구간
+            if (!email) {
+                return res.json({ error: '이메일이 필요합니다.' });
+            }
+
+            if (optional_agree !== 0 && optional_agree !== 1) {
+                return res.json({ error: 'optional_agree 값이 유효하지 않습니다.' });
+            }
+
+            try {
+                const [result] = await db.query(
+                    `UPDATE customers SET optional_agree = ?
+                    WHERE email = ?`,
+                    [optional_agree, email]
+                );
+
+                if (result.affectedRows === 0) {
+                    return res.json({ error: '해당 이메일의 사용자를 찾을 수 없습니다.' });
+                }
+
+                console.log(`optional_agree 업데이트 완료: ${email} -> ${optional_agree}`);
+                return res.json({ success: true, message: 'optional_agree가 성공적으로 업데이트되었습니다.' });
+            } catch (err) {
+                console.error('optional_agree 업데이트 실패:', err.message);
+                return res.json({ error: 'DB 업데이트 오류' });
+            }
+        } else if (action === 'updateUserInfo') {
+            //회원정보 수정 후 수정된 정보를 DB에 저장하는 구간
+            const { email, contact_number, optional_agree } = req.body;
+
+            if (!email) return res.json({ error: '이메일이 필요합니다.' });
+
+            try {
+                const [result] = await db.query(
+                    `UPDATE customers SET contact_number = ?, optional_agree = ?
+                    WHERE email = ?`,
+                    [contact_number, optional_agree, email]
+                );
+
+                if (result.affectedRows === 0) {
+                    return res.json({ error: '해당 이메일의 사용자를 찾을 수 없습니다.' });
+                }
+
+                console.log('사용자 정보 업데이트 완료:', { email, contact_number, optional_agree });
+                return res.json({ success: true, message: '사용자 정보가 성공적으로 업데이트되었습니다.' });
+            } catch (err) {
+                console.error('사용자 정보 업데이트 실패:', err.message);
+                return res.json({ error: 'DB 업데이트 오류' });
+            }
+        } else if (action === 'updateGender') {
+            // 성별 업데이트 구간
+            if (!email) {
+                return res.json({ error: '이메일이 필요합니다.' });
+            }
+
+            try {
+                const [result] = await db.query(`UPDATE customers SET gender = ? WHERE email = ?`, [gender, email]);
+
+                if (result.affectedRows === 0) {
+                    return res.json({ error: '해당 이메일의 사용자를 찾을 수 없습니다.' });
+                }
+
+                return res.json({ success: true, message: '성별이 성공적으로 업데이트되었습니다.' });
+            } catch (err) {
+                console.error('성별 업데이트 실패:', err.message);
+                return res.json({ error: 'DB 업데이트 오류' });
+            }
+        } else if (action === 'getAddressInfo') {
+            // 배송지 정보 조회 추가
+            if (!email) {
+                return res.json({ error: '이메일이 필요합니다.' });
+            }
+
+            try {
+                const [address] = await db.query(
+                    `SELECT customer_name, zip, roadname_address, building_name, detail_address, contact_number 
+                    FROM customers WHERE email = ?`,
+                    [email]
+                );
+
+                return res.json(address[0] || { error: '배송지 정보가 없습니다.' });
+            } catch (err) {
+                console.error('배송지 정보 조회 실패:', err.message);
+                return res.json({ error: 'DB 조회 오류' });
+            }
+        } else if (action === 'updateAddressInfo') {
+            // 배송지 정보 수정 추가
+            const { zip, roadname_address, building_name, detail_address } = req.body;
+
+            if (!email || !zip || !roadname_address || !detail_address) {
+                return res.json({ error: '입력된 정보가 유효하지 않습니다.' });
+            }
+
+            try {
+                const [result] = await db.query(
+                    `UPDATE customers SET zip = ?, roadname_address = ?, building_name = ?, detail_address = ?
+                    WHERE email = ?`,
+                    [zip, roadname_address, building_name, detail_address, email]
+                );
+
+                if (result.affectedRows === 0) {
+                    return res.json({ error: '배송지 정보를 찾을 수 없습니다.' });
+                }
+
+                return res.json({ success: true, message: '배송지 정보가 성공적으로 업데이트되었습니다.' });
+            } catch (err) {
+                console.error('배송지 정보 수정 실패:', err.message);
+                return res.json({ error: 'DB 업데이트 오류' });
+            }
+        } else if (action === 'getOrders') {
+            // 주문 데이터 조회
+            const [orders] = await db.query(
+                `SELECT order_id, order_date, order_status, order_name
+                FROM orders WHERE email = ?`,
+                [email]
+            );
+            return res.json({ orders });
+        } else {
+            return res.status(400).json({ error: '유효하지 않은 action 값입니다.' });
         }
     });
 

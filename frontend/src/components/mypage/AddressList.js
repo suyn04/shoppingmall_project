@@ -19,13 +19,14 @@ function AddressList() {
             axios
                 .post(
                     'http://localhost:5001/myPage', // 세션 토큰을 확인할 수 있는 경로
-                    { email: sessionStorage.getItem('email') },
+                    { action: 'getAddressInfo', email: sessionStorage.getItem('email') },
                     {
                         headers: {
                             Authorization: sessionToken,
                         },
                     }
                 )
+
                 .then(response => {
                     setUserInfo(response.data); // 사용자 정보 설정
                     // 주소 데이터 설정
@@ -67,8 +68,9 @@ function AddressList() {
         // 수정된 데이터 서버로 전송
         axios
             .post(
-                'http://localhost:5001/myPage/addressList/updateAddress',
+                'http://localhost:5001/myPage',
                 {
+                    action: 'updateAddressInfo',
                     email: sessionStorage.getItem('email'),
                     zip: editAddress.zip,
                     roadname_address: editAddress.roadname_address,
