@@ -59,9 +59,9 @@ app.use('/onetoone/', onetooneRouter(upload));
 //리뷰
 const reviewRouter = require('./controller/review.js');
 app.use('/review/', reviewRouter(upload));
-//게시판
+//리뷰신고
 const reportRouter = require('./controller/report.js');
-app.use('/reports/', reportRouter(upload));
+app.use('/reports/', reportRouter);
 
 //회원가입 라우터
 const signUpRouter = require('./controller/SignUp.js');
