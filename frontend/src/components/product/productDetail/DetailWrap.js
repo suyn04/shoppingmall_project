@@ -7,8 +7,8 @@ import ColognesUse from "./ColognesUse";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import CandleUse from "./CandleUse";
-import DiffuserUse from "./abscDiffuserUse";
 import ProductSwiper from "../ProductSwiper";
+import DiffuserUse from "./DiffuserUse";
 
 const DetailWrap = () => {
     const { product_opt_id } = useParams();
