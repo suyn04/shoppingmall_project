@@ -20,6 +20,7 @@ import AProductRegister from './product/AProductRegister';
 import AProductRegisterOpt from './product/AProductRegisterOpt';
 import AProductModify from './product/AProductModify';
 import UnactiveMember from './member/UnactiveMember';
+import DeletedMember from './member/DeletedMember';
 
 //신고관리
 import ReportList from './service/ReportList';
@@ -34,7 +35,8 @@ function Admin(props) {
                 <Route path="order/detail/:id" element={<AOrderDetail />} />
                 <Route path="member" element={<MemberList />} />
                 <Route path="member/detail/:id" element={<MemberDetail />} />
-                <Route path="unactivemember" element={<UnactiveMember />} />
+                <Route path="member/unactivemember" element={<UnactiveMember />} />
+                <Route path="member/deletedmember" element={<DeletedMember />} />
                 <Route path="product" element={<AProductList />} />
                 <Route path="product/detail/:product_id" element={<AProductDetail />} />
                 <Route path="product/register" element={<AProductRegister />} />
