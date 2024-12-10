@@ -49,7 +49,6 @@ const DiffuserHomeWrap = () => {
             });
     };
     useEffect(() => {
-        document.title = "디퓨저";
         colognesGetAxios();
         console.log(diffusers);
     }, [product_scent]);

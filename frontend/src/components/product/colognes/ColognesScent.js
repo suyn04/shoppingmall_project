@@ -23,7 +23,7 @@ const ColognesScent = () => {
         axios
             .get(`http://localhost:5001/product/colognes`)
             .then((res) => {
-                // console.log("서버 다녀옴", res.data);
+                console.log("서버 다녀옴", res.data);
                 // console.log(product_scent);
                 // console.log(curPath); // "/path"
 
@@ -33,6 +33,7 @@ const ColognesScent = () => {
                 //         item.product_scent == `${product_scent}`;
                 //     })
                 // );
+
                 let curProduct = res.data.filter(
                     (item) => item.product_volume == "100ml"
                 );
@@ -52,7 +53,6 @@ const ColognesScent = () => {
             });
     };
     useEffect(() => {
-        document.title = "코롱";
         colognesGetAxios();
     }, [product_scent]);
 

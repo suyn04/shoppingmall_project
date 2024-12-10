@@ -45,12 +45,9 @@ app.use('/basket/', basketRouter());
 
 const payment1Router = require('./controller/Payment1.js');
 app.use('/payment1/', payment1Router());
-<<<<<<< Updated upstream
-=======
 
 const payment2Router = require('./controller/Payment2.js');
 app.use('/payment2/', payment2Router());
->>>>>>> Stashed changes
 
 const adminOrderRouter = require('./controller/adminOrder.js');
 app.use('/admin/order/', adminOrderRouter());
@@ -61,9 +58,9 @@ app.use('/onetoone/', onetooneRouter(upload));
 //리뷰
 const reviewRouter = require('./controller/review.js');
 app.use('/review/', reviewRouter(upload));
-//게시판
+//리뷰신고
 const reportRouter = require('./controller/report.js');
-app.use('/reports/', reportRouter(upload));
+app.use('/reports/', reportRouter);
 
 //회원가입 라우터
 const signUpRouter = require('./controller/SignUp.js');

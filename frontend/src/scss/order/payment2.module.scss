@@ -1,0 +1,23 @@
+.payments{
+  display: block;
+  label{
+    display: block;
+  }
+}
+.td {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 0px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+
+  div {
+    flex: 1;
+    &:nth-child(1) {
+      flex: 2;
+    }
+  }
+}

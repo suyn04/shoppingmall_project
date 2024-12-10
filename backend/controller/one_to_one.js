@@ -41,7 +41,7 @@ module.exports = upload => {
                 SELECT 
                     post_no,           -- 게시글 번호
                     post_category,     -- 카테고리
-                    email,       -- 작성자 ID
+                    email,             -- 작성자 이메일
                     post_date,         -- 작성 날짜
                     post_title,        -- 제목
                     post_detail,       -- 문의 내용
@@ -69,39 +69,40 @@ module.exports = upload => {
     router.post('/', async (req, res) => {
         const { post_category, email, post_title, post_detail } = req.body;
 
-        // 필수 데이터 검증
-        if (!post_category || typeof post_category !== 'string' || !email || !post_title || !post_detail) {
-            return res.status(400).json({ error: '필수 입력 데이터가 누락되었거나 잘못되었습니다.' });
-        }
+         // 필수 데이터 검증 (email은 null 허용)
+    if (!post_category || typeof post_category !== 'string' || !post_title || !post_detail) {
+        return res.status(400).json({ error: '필수 입력 데이터가 누락되었거나 잘못되었습니다.' });
+    }
 
-        try {
-            // INSERT 쿼리 작성
-            const sql = `
-         INSERT INTO one_to_one 
-         (post_category, email, post_title, post_detail, post_date, reply_status)
-         VALUES (?, ?, ?, ?, NOW(), '대기')
-     `;
-            const [result] = await conn.execute(sql, [post_category, email, post_title, post_detail]);
+    try {
+        // INSERT 쿼리 작성 (email이 null일 경우를 고려)
+        const sql = `
+            INSERT INTO one_to_one 
+            (post_category, email, post_title, post_detail, post_date, reply_status)
+            VALUES (?, ?, ?, ?, NOW(), '대기')
+        `;
+        const [result] = await conn.execute(sql, [post_category, email || null, post_title, post_detail]);
 
-            console.log('1:1 문의 등록 성공:', result);
-            res.status(201).json({
-                post_no: result.insertId,
-                post_category,
-                email,
-                post_title,
-                post_detail,
-                reply_status: '대기',
-            });
-        } catch (err) {
-            console.error('1:1 문의 등록 실패:', err.message);
-            res.status(500).json({ error: 'DB 삽입 실패' });
-        }
-    });
+        console.log('1:1 문의 등록 성공:', result);
+        res.status(201).json({
+            post_no: result.insertId,
+            post_category,
+            email: email || null,
+            post_title,
+            post_detail,
+            reply_status: '대기',
+        });
+    } catch (err) {
+        console.error('1:1 문의 등록 실패:', err.message);
+        res.status(500).json({ error: 'DB 삽입 실패' });
+    }
+});
 
     // 고객 정보 조회 라우트
     router.post('/myPage', async (req, res) => {
         const { email } = req.body; // 바디에서 이메일 가져와서
         const sessionToken = req.headers['authorization']; // 세션 토큰 확인
+
 
         // 세션 토큰 검증
         if (!sessionToken || sessionToken !== 'mockSessionToken') {

@@ -50,7 +50,6 @@ const BathShowerHomeWrap = () => {
             });
     };
     useEffect(() => {
-        document.title = "배스 앤 샤워";
         colognesGetAxios();
         console.log(bathShower);
     }, [product_category_thr]);

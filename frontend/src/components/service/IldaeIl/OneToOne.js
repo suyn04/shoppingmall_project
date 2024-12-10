@@ -14,9 +14,15 @@ const OneToOne = () => {
 
     const [userInfo, setUserInfo] = useState();
     const navigate = useNavigate();
+    const email = sessionStorage.getItem('email')
 
-    useEffect(() => {
+    if(!email){
+      navigate('/signIn')
+    }
+     useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
+        const email = sessionStorage.getItem('email');
+        const customerName = sessionStorage.getItem('customerName');
 
         if (!sessionToken) {
             navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
@@ -24,8 +30,8 @@ const OneToOne = () => {
             // Axios로 사용자 정보 가져오기
             axios
                 .post(
-                    'http://localhost:5001/myPage', //onetoone에 세션정보가 없어서 마이페이지에서 가져옴
-                    { email: sessionStorage.getItem('email') }, // 요청 본문
+                    'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
+                    { action: 'getUserInfo', email: sessionStorage.getItem('email') }, // 요청 본문
                     {
                         headers: {
                             Authorization: sessionToken, // 세션 토큰 포함
@@ -73,7 +79,7 @@ const OneToOne = () => {
         // 서버로 보낼 데이터 준비
         const data = {
             post_category: formData.category, // 문의 유형
-            customer_id: '123', // 회원 ID (임시로 123 고정)
+            email: userInfo.email, //email
             post_title: formData.title, // 제목
             post_detail: formData.content, // 내용
         };
@@ -128,7 +134,7 @@ const OneToOne = () => {
 
                 <div>
                     <span>
-                        작성자 : {userInfo.customer_name}({userInfo.email})
+                        작성자: {userInfo.customer_name}({userInfo.email})
                     </span>
                 </div>
 
@@ -141,7 +147,7 @@ const OneToOne = () => {
                         <option value="">선택하세요</option>
                         <option value="information">회원정보</option>
                         <option value="order">주문/배송</option>
-                        <option value="refund">반품/환불</option>
+                        <option value="refund">교환/반품/환불</option>
                         <option value="product">제품 문의</option>
                         <option value="etc">기타</option>
                     </select>
