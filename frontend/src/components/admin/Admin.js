@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import AdminMain from './AdminMain';
-import AdminTemp from './AdminTemp';
-import AOrderList from './orders/AOrderList';
-import AOrderDetail from './orders/AOrderDetail';
-import AProductList from './product/AProductList';
-=======
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import AdminMain from "./AdminMain";
@@ -16,7 +7,6 @@ import AOrderDetail from "./orders/AOrderDetail";
 import AOrderStatus from "./orders/AOrderStatus";
 import AOrderStatusList from "./orders/AOrderStatusList";
 import AProductList from "./product/AProductList";
->>>>>>> main
 //일대일 문의
 import OneToOneList from './service/OneToOneList';
 import OneToOneDetail from './service/OneToOneDetail';
