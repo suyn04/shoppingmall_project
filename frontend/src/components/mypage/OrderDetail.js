@@ -38,33 +38,35 @@ function OrderDetail() {
     };
 
     return (
-        <div className={styles.orderlistcontainer}>
-            <div className={styles.block}>
-                <div className={styles.orderheader}>주문 상세 보기</div>
+        <div>
+            <div className={styles.Dorderlistcontainer}>
+                <div className={styles.Dblock}>
+                    <div className={styles.Dorderheader}>주문 상세 보기</div>
 
-                <div className={styles.orderlist}>
-                    <div className={styles.orderlistheader}>
-                        <div>주문번호</div>
-                        <div>주문일</div>
-                        <div>결제수단</div>
-                        <div>결제금액</div>
-                        <div>주문상태</div>
-                        <div>송장번호</div>
+                    <div className={styles.Dorderlist}>
+                        <div className={styles.Dorderlistheader}>
+                            <div className={styles.Dnum}>주문번호</div>
+                            <div className={styles.Ddate}>주문일</div>
+                            <div className={styles.Dpay}>결제수단</div>
+                            <div className={styles.Damount}>결제금액</div>
+                            <div className={styles.Dstatus}>주문상태</div>
+                            <div className={styles.Dinvoice}>송장번호</div>
+                        </div>
+                        {detailorders.length > 0 ? (
+                            detailorders.map((od, index) => (
+                                <div className={styles.Dorderlistitem} key={index}>
+                                    <div>{od[0].order_id}</div>
+                                    <div>{formatDate(od[0].order_date)}</div>
+                                    <div>{od[0].pay_to}</div>
+                                    <div>{od[0].order_total}</div>
+                                    <div>{od[0].order_status}</div>
+                                    <div>{od[0].invoice}</div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>주문 내역이 없습니다.</p>
+                        )}
                     </div>
-                    {detailorders.length > 0 ? (
-                        detailorders.map((od, index) => (
-                            <div className={styles.orderlistitem} key={index}>
-                                <div>{od[0].order_id}</div>
-                                <div>{formatDate(od[0].order_date)}</div>
-                                <div>{od[0].pay_to}</div>
-                                <div>{od[0].order_total}</div>
-                                <div>{od[0].order_status}</div>
-                                <div>{od[0].invoice}</div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>주문 내역이 없습니다.</p>
-                    )}
                 </div>
             </div>
         </div>

@@ -17,12 +17,12 @@ module.exports = () => {
 
     // 상태 변경시
     router.post('/updateStatus', async (req, res) => {
-        const { emails, status } = req.body;
+        const { customer_ids, status } = req.body;
 
         try {
-            const chked_customer = emails.map(() => '?').join(',');
-            const query = `UPDATE customers SET status = ? WHERE email IN (${chked_customer})`;
-            await db.query(query, [status, ...emails]);
+            const chked_customer = customer_ids.map(() => '?').join(',');
+            const query = `UPDATE customers SET status = ? WHERE customer_id IN (${chked_customer})`;
+            await db.query(query, [status, ...customer_ids]);
             res.send('상태 변경 완료');
         } catch (err) {
             console.error('SQL 실패 : ', err.message);
@@ -53,17 +53,18 @@ module.exports = () => {
 
     //탈퇴처리
     router.post('/moveToDeleted', async (req, res) => {
-        const { emails } = req.body;
-        console.log('받은 고객 이메일:', emails);
-
-        if (emails.length === 0) {
-            return res.send('탈퇴처리 할 고객 정보가 없습니다.');
-        }
-        const placeholders = emails.map(() => '?').join(',');
         try {
-            // 고객 정보 이동--탈퇴고객 DB로
+            const { email } = req.body;
+
+            if (!email || email.length === 0) {
+                return res.status(400).send('삭제할 이메일 목록이 없습니다.');
+            }
+
+            const emailPlaceholders = email.map(() => '?').join(',');
+
+            // 고객 정보 이동 -- 탈퇴 고객 DB로
             const insertQuery = `
-        INSERT INTO deleted_customers (
+            INSERT INTO deleted_customers (
             customer_id,
             customer_name,
             email,
@@ -79,26 +80,38 @@ module.exports = () => {
             join_date,
             deleted_date,
             status
-        )
-        SELECT * FROM customers WHERE email IN (${placeholders});
-        `;
+            )
+            SELECT customer_id,
+            customer_name,
+            email,
+            contact_number,
+            gender,
+            birthdate,
+            required_agree,
+            optional_agree,
+            zip,
+            roadname_address,
+            building_name,
+            detail_address,
+            join_date,
+            NOW() as deleted_date,
+            '탈퇴' as status
+            FROM customers
+            WHERE email IN (${emailPlaceholders})`;
+            await db.query(insertQuery, email);
 
-            await db.query(insertQuery, emails);
+            // auth 테이블에서 삭제
+            const deleteAuth = `DELETE FROM auth WHERE email IN (${emailPlaceholders})`;
+            await db.query(deleteAuth, email);
 
-            // 먼저 auth 테이블에서 DB 삭제
-            const deleteAuth = `DELETE FROM auth WHERE email IN (${placeholders})`;
-            await db.query(deleteAuth, emails);
-            res.send('선택된 auth 테이블에서 삭제되었습니다.');
-
-            // customer DB에서 해당 고객이 있는 행 전체 삭제
-            const deleteCustomer = `DELETE FROM customers WHERE email IN (${placeholders})`;
-            await db.query(deleteCustomer, emails);
-            console.log('삭제 성공');
+            // customer 테이블에서 삭제
+            const deleteCustomer = `DELETE FROM customers WHERE email IN (${emailPlaceholders})`;
+            await db.query(deleteCustomer, email);
 
             res.send('선택된 고객이 탈퇴 처리되었습니다.');
         } catch (err) {
             console.error('탈퇴 처리 실패:', err.message);
-            res.send('DB 오류');
+            res.status(500).send('DB 오류');
         }
     });
 

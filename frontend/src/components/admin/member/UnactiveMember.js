@@ -19,12 +19,13 @@ function UnactiveMember() {
             .catch(err => {
                 console.error('에러발생 : ', err);
             });
-    }, [arr]);
+    }, [filteredCustomers]);
 
+    //정상 상태 변경
     const handleUpdateStatus = async status => {
         try {
             const res = await axios.post('http://localhost:5001/admin/member/updateStatus', { customer_ids: selectedCustomers, status });
-            alert(`${status}상태로 변경되었습니다.`);
+            alert(`정상 상태로 변경되었습니다.`);
             setArr(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
 
             setFilteredCustomers(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));

@@ -8,6 +8,7 @@ module.exports = () => {
         console.log(`/ 휴면고객 진입 확인`); // 정상작동 확인
         try {
             const [ret] = await db.query('SELECT * FROM customers WHERE status = ?', ['휴면']);
+            console.log('휴면 고객 데이터:', ret); // 쿼리 결과 확인
             res.json(ret);
         } catch (err) {
             console.error('SQL 실패:', err.message);

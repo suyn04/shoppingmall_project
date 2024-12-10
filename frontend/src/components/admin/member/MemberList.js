@@ -22,31 +22,26 @@ function MemberList(props) {
             .catch(err => {
                 console.error('에러발생 : ', err);
             });
-    }, [arr]);
+    }, []);
 
-    const handleUpdateStatus = async status => {
-        try {
-            console.log('Sending status update request:', { emails: selectedCustomers, status });
-
-            const res = await axios.post('http://localhost:5001/admin/member/updateStatus', { emails: selectedCustomers, status });
-            alert(`휴면으로 상태가 변경되었습니다.`);
-            setArr(user => user.map(member => (selectedCustomers.includes(member.email) ? { ...member, status } : member)));
-            setFilteredCustomers(user => user.map(member => (selectedCustomers.includes(member.email) ? { ...member, status } : member)));
-            setSelectedCustomers([]);
-        } catch (error) {
-            console.error('상태 업데이트 에러: ', error);
-        }
-    };
-
+    //탈퇴처리 핸들러
     const handleMoveToDeleted = async () => {
+        if (!selectedCustomers || selectedCustomers.length === 0) {
+            alert('선택된 고객이 없습니다.');
+            return;
+        }
+
+        const emails = selectedCustomers.map(customer => customer.email); // 이메일 추출
+        const status = '탈퇴';
+
         try {
-            const res = await axios.post('http://localhost:5001/admin/member/moveToDeleted', { emails: selectedCustomers, email });
-            alert('선택된 고객이 탈퇴 처리되었습니다.');
-            setArr(user => user.filter(member => !selectedCustomers.includes(member.email)));
-            setFilteredCustomers(user => user.filter(member => !selectedCustomers.includes(member.email)));
+            const res = await axios.post('http://localhost:5001/admin/member/moveToDeleted', { email: emails });
+            alert(`탈퇴 처리되었습니다.`);
+            setArr(user => user.filter(member => !emails.includes(member.email)));
+            setFilteredCustomers(user => user.filter(member => !emails.includes(member.email)));
             setSelectedCustomers([]);
         } catch (error) {
-            console.error('탈퇴 처리 에러: ', error);
+            console.error('탈퇴 처리 실패:', error);
         }
     };
 
@@ -108,25 +103,25 @@ function MemberList(props) {
     };
 
     // 개별 체크박스
-    const handleSelectEach = Email => {
-        if (selectedCustomers.includes(Email)) {
+    const handleSelectEach = email => {
+        if (selectedCustomers.includes(email)) {
             // 이미 체크가 된 고객이라면
-            setSelectedCustomers(selectedCustomers.filter(id => id !== Email));
+            setSelectedCustomers(selectedCustomers.filter(id => id !== email));
             // 체크박스 재클릭 시 체크 해제
         } else {
             // 선택된 고객이 아니면 체크된고객들에다가 해당 고객번호 추가
-            setSelectedCustomers([...selectedCustomers, Email]);
+            setSelectedCustomers([...selectedCustomers, email]);
         }
     };
 
     // 전체 선택 상태 동기화
     useEffect(() => {
-        if (selectedCustomers.lengtd === filteredCustomers.lengtd && filteredCustomers.lengtd > 0) {
+        if (selectedCustomers.length === filteredCustomers.length && filteredCustomers.length > 0) {
             setSelectAll(true); // 모두 선택된 상태
         } else {
             setSelectAll(false); // 일부만 선택되거나 선택 없음
         }
-    }, [selectedCustomers, filteredCustomers]); // `selectedCustomers`나 `filteredCustomers` 변경 시 실행
+    }, [selectedCustomers, filteredCustomers]); // 의존성 배열 추가 // `selectedCustomers`나 `filteredCustomers` 변경 시 실행
 
     return (
         <div className={styles.memberlist}>
@@ -156,10 +151,7 @@ function MemberList(props) {
                     <button className={styles.resetbutton} onClick={resetSearch}>
                         초기화
                     </button>
-                    <button className={styles.changebutton} disabled={selectedCustomers.lengtd === 0} onClick={() => handleUpdateStatus('휴면')}>
-                        휴면 변경
-                    </button>
-                    <button className={styles.deletebutton} disabled={selectedCustomers.lengtd === 0} onClick={handleMoveToDeleted}>
+                    <button className={styles.deletebutton} disabled={selectedCustomers.length === 0} onClick={() => handleMoveToDeleted('탈퇴')}>
                         탈퇴 처리
                     </button>
                 </div>
