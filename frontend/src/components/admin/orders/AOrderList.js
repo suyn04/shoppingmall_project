@@ -51,12 +51,27 @@ function OrderList(props) {
       .then((res) => {
         alert('수정이 완료되었습니다.')
         setIsEditable(false)
+        window.location.reload()
       })
       .catch((err) => {
         console.error('수정 실패 :', err)
         alert('수정에 실패했습니다.')
       });
   }
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '-';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }); // 한국 로컬 시간대에 맞게 변환
+  };
 
   return (
     <>
@@ -84,7 +99,7 @@ function OrderList(props) {
               <td>
                 <Link to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
               </td>
-              <td>{mm.order_date}</td>
+              <td>{formatDate(mm.order_date)}</td>
               <td>
                 <select
                   value={mm.status}
@@ -93,7 +108,9 @@ function OrderList(props) {
                 >
                   <option value="주문 완료">주문 완료</option>
                   <option value="배송중">배송중</option>
-                  <option value="배송 완료">배송 완료</option>
+                  <option value="배송완료">배송완료</option>
+                  <option value="반품접수">반품접수</option>
+                  <option value="환불접수">환불접수</option>
                 </select>
               </td>
               <td>{mm.pay_to}</td>

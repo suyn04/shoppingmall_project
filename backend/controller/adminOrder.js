@@ -49,7 +49,7 @@ module.exports = () => {
         try {
         for (let order of orders) {
             await con.execute(
-            `UPDATE orders SET order_status = ?, invoice = ? WHERE order_id = ?`,
+            `UPDATE orders SET order_status = ?, invoice = ?, status_date = SYSDATE() WHERE order_id = ?`,
             [order.status, order.invoice, order.order_id]
             );
         }

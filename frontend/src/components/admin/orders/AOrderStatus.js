@@ -45,6 +45,20 @@ function AOrderStatus(props) {
         alert('수정에 실패했습니다.')
       });
   }
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }); // 한국 로컬 시간대에 맞게 변환
+  };
   return (
     <>
       <div>
@@ -71,8 +85,8 @@ function AOrderStatus(props) {
               <td>
                 <Link to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
               </td>
-              <td>{mm.order_date}</td>
-              <td>{mm.status_date}</td>
+              <td>{formatDate(mm.order_date)}</td>
+              <td>{formatDate(mm.status_date)}</td>
               <td>
                 <select
                   value={mm.status}

@@ -147,7 +147,7 @@ const OneToOne = () => {
                         <option value="">선택하세요</option>
                         <option value="information">회원정보</option>
                         <option value="order">주문/배송</option>
-                        <option value="refund">교환/반품/환불</option>
+                        <option value="refund">반품/환불</option>
                         <option value="product">제품 문의</option>
                         <option value="etc">기타</option>
                     </select>

@@ -27,6 +27,8 @@ import UnactiveMember from "./member/UnactiveMember";
 import ReportList from "./service/ReportList";
 import ReportDetail from "./service/ReportDetail";
 
+import Analysis from "./analysis/Analysis";
+
 function Admin(props) {
     return (
         <Routes>
@@ -63,6 +65,8 @@ function Admin(props) {
                 {/* 리뷰 신고 */}
                 <Route path="reports" element={<ReportList />} />
                 <Route path="reports/detail/:id" element={<ReportDetail />} />
+                {/* 매출 분석 */}
+                <Route path="analysis" element={<Analysis />} />
             </Route>
         </Routes>
     );
