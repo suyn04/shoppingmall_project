@@ -3,9 +3,44 @@ const router = express.Router();
 const conn = require('../db');
 
 module.exports = upload => {
+    
+    router.get('/',async(req,res)=>{
+        const {product_opt_id} =req.query; //prodcut_id를 쿼리 파라미터로 받기
+        try{
+            let query = `
+                SELECT review_management.*, view_product_info_opt.*
+                FROM review_management
+                LEFT OUTER JOIN view_product_info_opt on review_management.product_id = view_product_info_opt.product_id
+            `;
+            // const values =[];
+            // if(product_opt_id){
+            //     query += 'WHERE review_management.product_id = ?';
+            //     values.push(product_opt_id)
+            // }
+            const [rows]= await conn.execute(query);
+            // rows.forEach(ee => {
+            //     if(product_opt_id = ee.product_opt_id){
+            //         query += 'WHERE review_management.product_id = ?';
+            //         values.push(ee)
+            //     }
+            //     console.log();
+                
+            // });
+            // console.log(rows);
+            
+            res.json(rows);
+        }catch(err){
+            console.error('리뷰 목록 조회 실패:',err.message);
+            res.status(500).send('DB 오류')
+        }
+    })
+
+
+
     // 리뷰 목록 가져오기
     router.get('/', async (req, res) => {
-        console.log('리뷰 목록 요청');
+        
+        // console.log('리뷰 목록 요청');
         try {
             const [rows] = await conn.execute('SELECT * FROM review_management');
             console.log('리뷰 목록:', rows); // 디버깅용 로그
@@ -36,21 +71,21 @@ module.exports = upload => {
 
     // 리뷰 저장하기
     router.post('/', async (req, res) => {
-        const { product_id = null, email = null, review_rate = null, review_recommend = null, review_nick = null, review_title = null, review_detail = null, review_region = null, review_scent = null, review_time = null, review_gift = null } = req.body;
+        const { product_opt_id = null, email = null, review_rate = null, review_recommend = null, review_nick = null, review_title = null, review_detail = null, review_region = null, review_scent = null, review_time = null, review_gift = null } = req.body;
 
         console.log('받은 데이터:', req.body);
 
         try {
             const query = `
                 INSERT INTO review_management (
-                    product_id, email, review_date, review_rate, review_recommend,
+                    product_opt_id, email, review_date, review_rate, review_recommend,
                     review_nick, review_title, review_detail, review_region, review_scent,
                     review_time, review_gift, review_status
                 )
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
             const values = [
-                product_id,
+                product_opt_id,
                 email,
                 new Date(), // 리뷰 작성 날짜
                 review_rate,
