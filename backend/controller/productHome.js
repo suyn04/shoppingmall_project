@@ -29,7 +29,9 @@ module.exports = () => {
         console.log(`/ 진입 확인`); //정상작동 확인
 
         try {
-            const [ret] = await conn.execute("select * from product");
+            const [ret] = await conn.execute(
+                "select * from view_product_info_opt"
+            );
             res.json(ret);
         } catch (err) {
             console.error("sql 실패 : ", err.message);

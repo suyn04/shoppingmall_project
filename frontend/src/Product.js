@@ -15,6 +15,7 @@ import BathBodyTotal from "./components/product/bathBody/BathBodyTotal";
 import BathShowerHomeWrap from "./components/product/bathBody/BathShowerHomeWrap";
 import BodyCareHomeWrap from "./components/product/bathBody/BodyCareHomeWrap";
 import Search from "./components/dup/Search";
+import BestSeller from "./components/product/BestSeller";
 
 function Product() {
     return (
@@ -53,6 +54,7 @@ function Product() {
             </Route>
             <Route path="/product/:product_opt_id" element={<DetailWrap />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/best-seller" element={<BestSeller />} />
         </Routes>
     );
 }
