@@ -11,7 +11,7 @@ import "../../scss/product/swiperStyles.css";
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
 
-export default function ProductSwiper() {
+export default function ProductSwiper({ product }) {
     return (
         <>
             <Swiper
