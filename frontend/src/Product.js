@@ -14,6 +14,7 @@ import BathBodyHomeWrap from "./components/product/bathBody/BathBodyHomeWrap";
 import BathBodyTotal from "./components/product/bathBody/BathBodyTotal";
 import BathShowerHomeWrap from "./components/product/bathBody/BathShowerHomeWrap";
 import BodyCareHomeWrap from "./components/product/bathBody/BodyCareHomeWrap";
+import Search from "./components/dup/Search";
 
 function Product() {
     return (
@@ -51,6 +52,7 @@ function Product() {
                 />
             </Route>
             <Route path="/product/:product_opt_id" element={<DetailWrap />} />
+            <Route path="/search" element={<Search />} />
         </Routes>
     );
 }
