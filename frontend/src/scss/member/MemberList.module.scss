@@ -49,29 +49,39 @@
             }
         }
     }
+    .chgstatus {
+        padding: 10px 10px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        background-color: #007bff;
+        color: white;
+    }
 
     table {
         width: 100%;
         border-collapse: collapse;
         text-align: center;
 
-        thead {
-            th {
-                input[type='checkbox'] {
-                    margin-right: 5px;
-                }
-                background-color: #ddd;
-                height: 30px;
-                line-height: 30px;
+        tr:nth-child(1) {
+            input[type='checkbox'] {
+                margin-right: 5px;
             }
+            background-color: #ddd;
+            height: 20px;
+            line-height: 20px;
         }
+    }
 
-        tbody {
-            tr {
-                td {
-                    padding: 10px;
-                    border-bottom: 1px solid #ccc;
-                }
+    tr {
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            .link {
+                color: #007bff;
             }
         }
     }

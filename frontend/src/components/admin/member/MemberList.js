@@ -24,27 +24,24 @@ function MemberList(props) {
             });
     }, []);
 
-    const handleUpdateStatus = async status => {
-        try {
-            const res = await axios.post('http://localhost:5001/admin/member/updateStatus', { customer_ids: selectedCustomers, status });
-            alert(`휴면으로 상태가 변경되었습니다.`);
-            setArr(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
-            setFilteredCustomers(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
-            setSelectedCustomers([]);
-        } catch (error) {
-            console.error('상태 업데이트 에러: ', error);
-        }
-    };
-
+    //탈퇴처리 핸들러
     const handleMoveToDeleted = async () => {
+        if (!selectedCustomers || selectedCustomers.length === 0) {
+            alert('선택된 고객이 없습니다.');
+            return;
+        }
+
+        const emails = selectedCustomers.map(customer => customer.email); // 이메일 추출
+        const status = '탈퇴';
+
         try {
-            const res = await axios.post('http://localhost:5001/admin/member/moveToDeleted', { customer_ids: selectedCustomers });
-            alert('선택된 고객이 탈퇴 처리되었습니다.');
-            setArr(prev => prev.filter(member => !selectedCustomers.includes(member.customer_id)));
-            setFilteredCustomers(prev => prev.filter(member => !selectedCustomers.includes(member.customer_id)));
+            const res = await axios.post('http://localhost:5001/admin/member/moveToDeleted', { email: emails });
+            alert(`탈퇴 처리되었습니다.`);
+            setArr(user => user.filter(member => !emails.includes(member.email)));
+            setFilteredCustomers(user => user.filter(member => !emails.includes(member.email)));
             setSelectedCustomers([]);
         } catch (error) {
-            console.error('탈퇴 처리 에러: ', error);
+            console.error('탈퇴 처리 실패:', error);
         }
     };
 
@@ -98,7 +95,7 @@ function MemberList(props) {
 
         if (!selectAll) {
             // 전체 선택: 모든 고객이 체크가 됨
-            setSelectedCustomers(filteredCustomers.map(member => member.customer_id));
+            setSelectedCustomers(filteredCustomers.map(member => member.email));
         } else {
             // 전체선택 해제 : 초기화 (아무것도 선택되지 않은 상태)
             setSelectedCustomers([]);
@@ -106,14 +103,14 @@ function MemberList(props) {
     };
 
     // 개별 체크박스
-    const handleSelectEach = customerId => {
-        if (selectedCustomers.includes(customerId)) {
+    const handleSelectEach = email => {
+        if (selectedCustomers.includes(email)) {
             // 이미 체크가 된 고객이라면
-            setSelectedCustomers(selectedCustomers.filter(id => id !== customerId));
+            setSelectedCustomers(selectedCustomers.filter(id => id !== email));
             // 체크박스 재클릭 시 체크 해제
         } else {
             // 선택된 고객이 아니면 체크된고객들에다가 해당 고객번호 추가
-            setSelectedCustomers([...selectedCustomers, customerId]);
+            setSelectedCustomers([...selectedCustomers, email]);
         }
     };
 
@@ -124,7 +121,7 @@ function MemberList(props) {
         } else {
             setSelectAll(false); // 일부만 선택되거나 선택 없음
         }
-    }, [selectedCustomers, filteredCustomers]); // `selectedCustomers`나 `filteredCustomers` 변경 시 실행
+    }, [selectedCustomers, filteredCustomers]); // 의존성 배열 추가 // `selectedCustomers`나 `filteredCustomers` 변경 시 실행
 
     return (
         <div className={styles.memberlist}>
@@ -154,56 +151,51 @@ function MemberList(props) {
                     <button className={styles.resetbutton} onClick={resetSearch}>
                         초기화
                     </button>
-                    <button className={styles.changebutton} disabled={selectedCustomers.length === 0} onClick={() => handleUpdateStatus('휴면')}>
-                        휴면 변경
-                    </button>
-                    <button className={styles.deletebutton} disabled={selectedCustomers.length === 0} onClick={handleMoveToDeleted}>
+                    <button className={styles.deletebutton} disabled={selectedCustomers.length === 0} onClick={() => handleMoveToDeleted('탈퇴')}>
                         탈퇴 처리
                     </button>
                 </div>
             </div>
             <table>
-                <thead>
-                    <tr>
-                        <th>
+                <tr>
+                    <td>
+                        <input
+                            type="checkbox"
+                            checked={selectAll} // selectAll 초기값 false
+                            onChange={handleSelectAll} // 전체선택 함수로 작동해라
+                        />
+                        전체 선택
+                    </td>
+                    <td>고객번호</td>
+                    <td>고객명</td>
+                    <td>연락처</td>
+                    <td>이메일</td>
+                    <td>가입일</td>
+                    <td>마지막 접속일</td>
+                    <td>상태</td>
+                </tr>
+                {filteredCustomers.map(mm => (
+                    <tr key={mm.customer_id}>
+                        <td>
                             <input
                                 type="checkbox"
-                                checked={selectAll} // selectAll 초기값 false
-                                onChange={handleSelectAll} // 전체선택 함수로 작동해라
+                                checked={selectedCustomers.includes(mm.customer_id)} // 선택된 고객을 넣어라
+                                onChange={() => handleSelectEach(mm.customer_id)} // 체크 상태에 따라 handleSelectEach 작동
                             />
-                            전체 선택
-                        </th>
-                        <th>고객번호</th>
-                        <th>고객명</th>
-                        <th>연락처</th>
-                        <th>이메일</th>
-                        <th>가입일</th>
-                        <th>마지막 접속일</th>
-                        <th>상태</th>
+                        </td>
+                        <td>
+                            <Link className={styles.link} to={`/admin/member/detail/${mm.customer_id}`}>
+                                {mm.customer_id}
+                            </Link>
+                        </td>
+                        <td>{mm.customer_name}</td>
+                        <td>{mm.contact_number}</td>
+                        <td>{mm.email}</td>
+                        <td>{formatDate(mm.join_date)}</td>
+                        <td>{formatDate(mm.last_login_date)}</td>
+                        <td>{mm.status}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {filteredCustomers.map(mm => (
-                        <tr key={mm.customer_id}>
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedCustomers.includes(mm.customer_id)} // 선택된 고객을 넣어라
-                                    onChange={() => handleSelectEach(mm.customer_id)} // 체크 상태에 따라 handleSelectEach 작동
-                                />
-                            </td>
-                            <td>
-                                <Link to={`/admin/member/detail/${mm.customer_id}`}>{mm.customer_id}</Link>
-                            </td>
-                            <td>{mm.customer_name}</td>
-                            <td>{mm.contact_number}</td>
-                            <td>{mm.email}</td>
-                            <td>{formatDate(mm.join_date)}</td>
-                            <td>{formatDate(mm.last_login_date)}</td>
-                            <td>{mm.status}</td>
-                        </tr>
-                    ))}
-                </tbody>
+                ))}
             </table>
         </div>
     );

@@ -3,81 +3,103 @@ import axios from 'axios';
 import styles from '../../../scss/member/MemberList.module.scss';
 
 function UnactiveMember() {
-    const [customers, setCustomers] = useState([]); // 고객 데이터
-    const [selectedCustomers, setSelectedCustomers] = useState([]); // 선택된 고객 ID
+    const [arr, setArr] = useState([]);
+    const [filteredCustomers, setFilteredCustomers] = useState([]); // 필터링된 고객 데이터
+    const [selectAll, setSelectAll] = useState(false); // 전체 선택 체크 여부 (전체 선택 체크박스 false상태)
+    const [selectedCustomers, setSelectedCustomers] = useState([]); // 개별 체크박스
 
     // 데이터 가져오기
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await axios.get('http://localhost:5001/admin/member/unactivemember');
-                setCustomers(data);
-            } catch (err) {
-                console.error('데이터 로드 실패:', err);
-            }
-        };
-        fetchData();
-    }, []);
-
-    // 상태 변경 요청
-    const handleUpdateStatus = async () => {
-        try {
-            await axios.post('http://localhost:5001/admin/member/unactivemember', {
-                customer_ids: selectedCustomers,
-                status: '정상',
+        axios
+            .get('http://localhost:5001/admin/member/unactivemember')
+            .then(res => {
+                setArr(res.data);
+                setFilteredCustomers(res.data); // 처음에는 전체 데이터 표시
+            })
+            .catch(err => {
+                console.error('에러발생 : ', err);
             });
-            alert('선택된 고객을 정상 상태로 변경했습니다.');
-            setCustomers(prev => prev.map(customer => (selectedCustomers.includes(customer.customer_id) ? { ...customer, status: '정상' } : customer)));
-            setSelectedCustomers([]);
-        } catch (err) {
-            console.error('상태 업데이트 실패:', err);
+    }, [filteredCustomers]);
+
+    //정상 상태 변경
+    const handleUpdateStatus = async status => {
+        try {
+            const res = await axios.post('http://localhost:5001/admin/member/updateStatus', { customer_ids: selectedCustomers, status });
+            alert(`정상 상태로 변경되었습니다.`);
+            setArr(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
+
+            setFilteredCustomers(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
+
+            setSelectedCustomers([]); // 선택 초기화
+        } catch (error) {
+            console.error('상태 업데이트 에러: ', error);
         }
     };
 
-    // 전체 선택/해제
-    const toggleSelectAll = () => {
-        setSelectedCustomers(customers.length === selectedCustomers.length ? [] : customers.map(c => c.customer_id));
+    // 체크박스 전체 선택
+    const handleSelectAll = () => {
+        setSelectAll(!selectAll);
+
+        if (!selectAll) {
+            // 전체 선택: 모든 고객이 체크가 됨
+            setSelectedCustomers(filteredCustomers.map(member => member.customer_id));
+        } else {
+            // 전체선택 해제 : 초기화 (아무것도 선택되지 않은 상태)
+            setSelectedCustomers([]);
+        }
     };
 
-    // 개별 선택/해제
-    const toggleSelectCustomer = id => {
-        setSelectedCustomers(prev => (prev.includes(id) ? prev.filter(cid => cid !== id) : [...prev, id]));
+    // 개별 체크박스
+    const handleSelectEach = customerId => {
+        if (selectedCustomers.includes(customerId)) {
+            // 이미 체크가 된 고객이라면
+            setSelectedCustomers(selectedCustomers.filter(id => id !== customerId));
+            // 체크박스 재클릭 시 체크 해제
+        } else {
+            // 선택된 고객이 아니면 체크된고객들에다가 해당 고객번호 추가
+            setSelectedCustomers([...selectedCustomers, customerId]);
+        }
     };
 
     return (
         <div className={styles.memberlist}>
             <div className={styles.actionButtons}>
-                <button onClick={handleUpdateStatus} disabled={selectedCustomers.length === 0}>
-                    정상 상태로 변경
+                <button className={styles.chgstatus} onClick={() => handleUpdateStatus('정상')} disabled={selectedCustomers.length === 0}>
+                    선택고객 정상 변경
                 </button>
             </div>
             <table>
-                <thead>
-                    <tr>
-                        <th>
-                            <input type="checkbox" checked={selectedCustomers.length === customers.length && customers.length > 0} onChange={toggleSelectAll} />
-                        </th>
-                        <th>고객번호</th>
-                        <th>고객명</th>
-                        <th>연락처</th>
-                        <th>이메일</th>
-                        <th>상태</th>
+                <tr>
+                    <td>
+                        <input
+                            type="checkbox"
+                            checked={selectAll} // selectAll 초기값 false
+                            onChange={handleSelectAll} // 전체선택 함수로 작동해라
+                        />
+                        전체 선택
+                    </td>
+                    <td>고객번호</td>
+                    <td>고객명</td>
+                    <td>연락처</td>
+                    <td>이메일</td>
+                    <td>상태</td>
+                </tr>
+                {filteredCustomers.map(customer => (
+                    <tr key={customer.customer_id}>
+                        <td>
+                            <input
+                                type="checkbox"
+                                checked={selectedCustomers.includes(customer.customer_id)} // 선택된 고객을 넣어라
+                                onChange={() => handleSelectEach(customer.customer_id)} // 체크 상태에 따라 handleSelectEach 작동
+                            />
+                        </td>
+                        <td>{customer.customer_id}</td>
+                        <td>{customer.customer_name}</td>
+                        <td>{customer.contact_number}</td>
+                        <td>{customer.email}</td>
+                        <td>{customer.status}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {customers.map(customer => (
-                        <tr key={customer.customer_id}>
-                            <td>
-                                <input type="checkbox" checked={selectedCustomers.includes(customer.customer_id)} onChange={() => toggleSelectCustomer(customer.customer_id)} />
-                            </td>
-                            <td>{customer.customer_id}</td>
-                            <td>{customer.customer_name}</td>
-                            <td>{customer.contact_number}</td>
-                            <td>{customer.email}</td>
-                            <td>{customer.status}</td>
-                        </tr>
-                    ))}
-                </tbody>
+                ))}
             </table>
         </div>
     );
