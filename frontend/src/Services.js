@@ -45,8 +45,8 @@ function Services() {
                 <Route path="/onetoonelist" element={<OneToOneList />} />
                 
                 {/* 리뷰 */}   
-                <Route path="/review" element={<Review />} />
-                <Route path="/reviewlist" element={<ReviewList />} />
+                <Route path="/review/:product_opt_id" element={<Review />} />
+                <Route path="/review/:product_opt_id" element={<ReviewList />} />
                 <Route path="/areviewlist" element={<AReviewList />} />
                 <Route path="/areviewdetail/:id" element={<AReviewDetail />} />
                 <Route path="/report/:id" element={<Report />} /> {/* 신고 페이지 */}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Modal from './Modal';
 import styles from '../../../scss/service/review/ReviewList.module.scss';
@@ -11,20 +11,45 @@ const ReviewList = () => {
   const [selectedReview, setSelectedReview] = useState(null);
   const [reportReason, setReportReason] = useState('');
   const [reportContent, setReportContent] = useState('');
+  const [product_id, setProduct_id] = useState('')
   const navigate = useNavigate();
+  const { product_opt_id } = useParams();
+  console.log('product_opt_id:', product_opt_id);
+  console.log(`product_id : `, product_id);
 
   // 리뷰 데이터 가져오기
   useEffect(() => {
+    const findProduct = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5001/review?product_opt_id=${product_opt_id}`);
+        console.log(response.data);
+        let data = response.data.filter((items) => {
+          items.product_opt_id = product_opt_id
+        })
+        
+        setProduct_id(data);
+      } catch (err) {
+        console.error('API 호출 실패:', err);
+      }
+    }
+    
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/review');
-        setReviews(Array.isArray(response.data) ? response.data : []);
+        const response = await axios.get(`http://localhost:5001/review?product_opt_id=${product_opt_id}`);
+        console.log(response.data);
+        // const data = response.data
+
+        // data.filter((items) => {
+        //   items.
+        // })
+        
+        // setReviews(Array.isArray(response.data) ? response.data : []);
       } catch (err) {
         console.error('API 호출 실패:', err);
       }
     };
     fetchReviews();
-  }, []);
+  }, [product_opt_id]);
 
   // "더 보기" 토글
   const handleToggle = (reviewId) => {
@@ -46,68 +71,26 @@ const ReviewList = () => {
   };
 
   // 신고 제출 함수
-  // const handleReportSubmit = async () => {
-  //   try {
-  //     const reportData = {
-  //       review_no: parseInt(selectedReview.review_no,10),//review_no를 숫자로 변환
-  //       email: 'aram@gmail.com',
-  //       report_detail: `${reportReason} : ${reportContent}`, //신고 사유와 내용을 결합
-  //       // reason: reportReason,
-  //       // content: reportContent,
-  //     };
-  //     console.log('보내는 데이터 : ', reportData) //데이터 확인
-
-  //     await axios.post('http://localhost:5001/reports', reportData);
-  //     alert('신고가 접수되었습니다.');
-  //     handleCloseModal();
-  //   } catch (error) {
-  //     console.error('신고 제출 실패:', error);
-  //     alert('신고 제출에 실패했습니다.');
-  //   }
-  // };
-   
-  // const handleReportSubmit = async () => {
-  //   try {
-  //     console.log('reportReason:', reportReason);
-  //     console.log('reportContent:', reportContent);
-  
-  //     const reportData = {
-  //       review_no: parseInt(selectedReview.review_no, 10),
-  //       reason: reportReason,
-  //       content: reportContent,
-  //     };
-  
-  //     console.log('보내는 데이터:', reportData);
-  
-  //     await axios.post('http://localhost:5001/reports', reportData);
-  //     alert('신고가 접수되었습니다.');
-  //     handleCloseModal();
-  //   } catch (error) {
-  //     console.error('신고 제출 실패:', error);
-  //     alert('신고 제출에 실패했습니다.');
-  //   }
-  // };
-  
   const handleReportSubmit = async () => {
     if (!reportReason) {
       alert('신고 사유를 선택해 주세요.');
       return;
     }
-  
+
     if (!reportContent) {
       alert('신고 내용을 입력해 주세요.');
       return;
     }
-  
+
     try {
       const reportData = {
         review_no: parseInt(selectedReview.review_no, 10),
         reason: reportReason,
         content: reportContent,
       };
-  
+
       console.log('보내는 데이터:', reportData);
-  
+
       await axios.post('http://localhost:5001/reports', reportData);
       alert('신고가 접수되었습니다.');
       handleCloseModal();
@@ -116,15 +99,14 @@ const ReviewList = () => {
       alert('신고 제출에 실패했습니다.');
     }
   };
-  
-
-
-
-
 
   // 리뷰 작성 페이지 이동
   const handleWriteReview = () => {
-    navigate('/review');
+    if (!product_opt_id) {
+      console.error('product_opt_id가 없습니다.');
+      return;
+    }
+    navigate(`/review/${product_opt_id}`);
   };
 
   return (
@@ -144,6 +126,16 @@ const ReviewList = () => {
             <h2>{review.review_rate}/5</h2>
             <h3>{review.review_title}</h3>
             <p>{review.review_detail}</p>
+
+            {/* 제품 이미지 표시 */}
+            {review.product_upSystem && (
+              <img
+                src={review.product_upSystem}
+                alt="Product"
+                style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+              />
+            )}
+
             <button onClick={() => handleToggle(review.review_no)}>
               {expandedReview === review.review_no ? '닫기' : '더 보기'}
             </button>
