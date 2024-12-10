@@ -28,7 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
-app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
+
+//관리자페이지 - 회원정보조회
+const memberListRouter = require('./controller/MemberList.js');
+app.use('/admin/member', memberListRouter());
 
 const productRouter = require('./controller/product.js');
 app.use('/admin/product', productRouter());
@@ -39,20 +42,14 @@ app.use('/product/', productHomeRouter());
 const basketRouter = require('./controller/Basket.js');
 app.use('/basket/', basketRouter());
 
-const payment1Router = require("./controller/Payment1.js");
-app.use("/payment1/", payment1Router());
+const payment1Router = require('./controller/Payment1.js');
+app.use('/payment1/', payment1Router());
 
-const payment2Router = require("./controller/Payment2.js");
-app.use("/payment2/", payment2Router());
+const payment2Router = require('./controller/Payment2.js');
+app.use('/payment2/', payment2Router());
 
 const adminOrderRouter = require('./controller/adminOrder.js');
-app.use('/admin/order/', adminOrderRouter());
-
-const memberListRouter = require('./controller/MemberList.js');
-app.use('/admin/member/', memberListRouter());
-
-const memberDetailRouter = require('./controller/MemberDetail.js');
-app.use('/admin/member/detail', memberDetailRouter());
+app.use('/admin/order', adminOrderRouter());
 
 // 일대일문의
 const onetooneRouter = require('./controller/one_to_one.js');

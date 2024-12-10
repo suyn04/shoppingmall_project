@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const conn = require('../db');
+const db = require('../db');
 
 module.exports = () => {
     router.get('/', async (req, res) => {
         console.log(`/ 진입 확인`); // 정상작동 확인
 
         try {
-            const [ret] = await conn.execute('SELECT * FROM customers');
+            const [ret] = await db.query('SELECT * FROM customers');
             res.json(ret);
         } catch (err) {
             console.error('SQL 실패 : ', err.message);
-            res.status(500).send('DB 오류');
+            res.send('DB 오류');
         }
     });
 
@@ -22,43 +22,120 @@ module.exports = () => {
         try {
             const chked_customer = customer_ids.map(() => '?').join(',');
             const query = `UPDATE customers SET status = ? WHERE customer_id IN (${chked_customer})`;
-            await conn.execute(query, [status, ...customer_ids]);
-            res.status(200).send('휴면상태 변경 완료');
+            await db.query(query, [status, ...customer_ids]);
+            res.send('상태 변경 완료');
         } catch (err) {
             console.error('SQL 실패 : ', err.message);
+            res.send('DB 오류');
+        }
+    });
+
+    //상세 보기
+    router.get('/detail/:id', async (req, res) => {
+        console.log('/member detail 진입 확인');
+        console.log('요청된 ID:', req.params.id);
+
+        try {
+            const [rows] = await db.query('SELECT * FROM customers WHERE customer_id = ?', [req.params.id]);
+            console.log([rows]);
+
+            if (rows.length === 0) {
+                console.log('해당 ID로 고객을 찾을 수 없습니다:', req.params.id);
+                return res.json({ message: '회원 정보를 찾을 수 없습니다.' });
+            }
+
+            res.json(rows);
+        } catch (err) {
+            console.error('SQL 실패:', err.message);
+            res.json({ message: '서버 오류가 발생했습니다.' });
+        }
+    });
+
+    //탈퇴처리
+    router.post('/moveToDeleted', async (req, res) => {
+        try {
+            const { email } = req.body;
+
+            if (!email || email.length === 0) {
+                return res.status(400).send('삭제할 이메일 목록이 없습니다.');
+            }
+
+            const emailPlaceholders = email.map(() => '?').join(',');
+
+            // 고객 정보 이동 -- 탈퇴 고객 DB로
+            const insertQuery = `
+            INSERT INTO deleted_customers (
+            customer_id,
+            customer_name,
+            email,
+            contact_number,
+            gender,
+            birthdate,
+            required_agree,
+            optional_agree,
+            zip,
+            roadname_address,
+            building_name,
+            detail_address,
+            join_date,
+            deleted_date,
+            status
+            )
+            SELECT customer_id,
+            customer_name,
+            email,
+            contact_number,
+            gender,
+            birthdate,
+            required_agree,
+            optional_agree,
+            zip,
+            roadname_address,
+            building_name,
+            detail_address,
+            join_date,
+            NOW() as deleted_date,
+            '탈퇴' as status
+            FROM customers
+            WHERE email IN (${emailPlaceholders})`;
+            await db.query(insertQuery, email);
+
+            // auth 테이블에서 삭제
+            const deleteAuth = `DELETE FROM auth WHERE email IN (${emailPlaceholders})`;
+            await db.query(deleteAuth, email);
+
+            // customer 테이블에서 삭제
+            const deleteCustomer = `DELETE FROM customers WHERE email IN (${emailPlaceholders})`;
+            await db.query(deleteCustomer, email);
+
+            res.send('선택된 고객이 탈퇴 처리되었습니다.');
+        } catch (err) {
+            console.error('탈퇴 처리 실패:', err.message);
             res.status(500).send('DB 오류');
         }
     });
 
-    // 탈퇴 처리
-    router.post('/moveToDeleted', async (req, res) => {
-        const { customer_ids } = req.body;
-
-        if (!Array.isArray(customer_ids)) {
-            return res.status(400).send('잘못된 요청 형식입니다.');
-        }
-
+    // 휴면 고객 조회
+    router.get('/unactivemember', async (req, res) => {
+        console.log(`/ 휴면고객 진입 확인`); // 정상작동 확인
         try {
-            const placeholders = customer_ids.map(() => '?').join(',');
-
-            // 선택된 고객 데이터 가져오기
-            const [customers] = await conn.execute(`SELECT * FROM customers WHERE customer_id IN (${placeholders})`, customer_ids);
-
-            // `deleted_customers` 테이블로 데이터 이동
-            const insertQuery = `
-                INSERT INTO deleted_customers (customer_id, customer_name, contact_number, email, join_date, last_login_date, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?)`;
-            for (const customer of customers) {
-                await conn.execute(insertQuery, [customer.customer_id, customer.customer_name, customer.contact_number, customer.email, customer.join_date, customer.last_login_date, '탈퇴']);
-            }
-
-            // `customers` 테이블에서 데이터 삭제
-            await conn.execute(`DELETE FROM customers WHERE customer_id IN (${placeholders})`, customer_ids);
-
-            res.status(200).send('선택된 고객이 탈퇴 처리되었습니다.');
+            const [ret] = await db.query(`SELECT * FROM customers WHERE status = '휴면'`);
+            res.json(ret);
         } catch (err) {
-            console.error('탈퇴 처리 실패: ', err.message);
-            res.status(500).send('DB 오류');
+            console.error('SQL 실패:', err.message);
+            res.send('DB 오류');
+        }
+    });
+
+    // 탈퇴 고객 조회
+    router.get('/deletedmember', async (req, res) => {
+        console.log(`/ 탈퇴고객 진입 확인`); // 정상작동 확인
+        try {
+            const [ret] = await db.query(`SELECT * FROM deleted_customers`);
+            res.json(ret);
+        } catch (err) {
+            console.error('SQL 실패:', err.message);
+            res.send('DB 오류');
         }
     });
 

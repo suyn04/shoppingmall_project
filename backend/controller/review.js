@@ -25,6 +25,27 @@ module.exports = (upload) => {
             res.status(500).send("DB 오류");
         }
     });
+    router.get("/reviewWrite", async (req, res) => {
+        const { product_opt_id } = req.query; //prodcut_id를 쿼리 파라미터로 받기
+        try {
+            let query = `
+                SELECT *
+                FROM view_product_info_opt
+                WHERE product_opt_id = ?
+            `;
+            const values = [];
+            if (product_opt_id) {
+                values.push(product_opt_id);
+            }
+            const [rows] = await conn.execute(query, values);
+            console.log('/reviewWrite/rows',rows[0]);
+
+            res.json(rows[0]);
+        } catch (err) {
+            console.error("리뷰 목록 조회 실패:", err.message);
+            res.status(500).send("DB 오류");
+        }
+    });
 
     // 리뷰 목록 가져오기
     router.get("/", async (req, res) => {
@@ -68,6 +89,7 @@ module.exports = (upload) => {
     router.post("/", async (req, res) => {
         const {
             product_opt_id = null,
+            product_id =null,
             email = null,
             review_rate = null,
             review_recommend = null,
@@ -85,14 +107,15 @@ module.exports = (upload) => {
         try {
             const query = `
                 INSERT INTO review_management (
-                    product_opt_id, email, review_date, review_rate, review_recommend,
+                    product_opt_id,product_id, email, review_date, review_rate, review_recommend,
                     review_nick, review_title, review_detail, review_region, review_scent,
                     review_time, review_gift, review_status
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
             const values = [
                 product_opt_id,
+                product_id,
                 email,
                 new Date(), // 리뷰 작성 날짜
                 review_rate,

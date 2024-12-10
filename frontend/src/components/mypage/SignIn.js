@@ -87,7 +87,7 @@ function SignIn() {
                                     <img className={styles.notCrossed} src="/imgs/sign/pwIcon.svg" alt="" />
                                 </div>
                                 <div className={styles.pwfind}>
-                                    <Link to="/FindPw">비밀번호 찾기</Link>
+                                    <Link to="/findPw">비밀번호 찾기</Link>
                                 </div>
                                 <button type="submit" className={styles.login}>
                                     로그인

@@ -8,22 +8,24 @@ import Services from './Services';
 import Basket from './components/order/Basket';
 import Payment1 from './components/order/Payment1';
 import Payment2 from './components/order/Payment2';
+import Payment3 from './components/order/Payment3';
 import Mypage from './Mypage';
 import Footer from './components/dup/Footer';
 import Admin from './components/admin/Admin';
 
 function App() {
-    const [hamBtn, setHam] = useState(false);
+    const [ham, setHam] = useState(0);
 
     return (
         <BrowserRouter>
-            <Header hamBtn={hamBtn} setHam={setHam} />
-            <Nav hamBtn={hamBtn} setHam={setHam} />
+            <Header ham={ham} setHam={setHam} />
+            <Nav ham={ham} setHam={setHam} />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/basket/:id" element={<Basket />} />
+                <Route path="/basket" element={<Basket />} />
                 <Route path="/payment1" element={<Payment1/>} />
                 <Route path="/payment2"  element={<Payment2/>} />
+                <Route path="/payment3"  element={<Payment3/>} />
             </Routes>
             <Product />
             <Services />

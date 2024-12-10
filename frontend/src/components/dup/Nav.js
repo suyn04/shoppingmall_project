@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../scss/dup/nav.module.scss";
 
-function Nav({ hamBtn, setHam }) {
+function Nav({ ham, setHam }) {
     const url = "/imgs/main/";
     const [subMenu, setSubmenu] = useState([]);
 
     const hideMenu = () => {
-        setHam(false);
+        setHam(0);
     };
 
     const toggleSubMenu = (index, e) => {
@@ -21,15 +21,15 @@ function Nav({ hamBtn, setHam }) {
     };
 
     return (
-        <div>
+        <div >
             <div
                 className={styles.hamBg}
-                style={{ display: hamBtn ? "block" : "none" }}
+                style={{ display: ham ? "block" : "none" }}
                 onClick={hideMenu}
             ></div>
             <div
                 id={styles.hamMenu}
-                style={{ display: hamBtn ? "block" : "none" }}
+                style={{ display: ham ? "block" : "none" }}
             >
                 <ul className={styles.hMenu}>
                     <li>

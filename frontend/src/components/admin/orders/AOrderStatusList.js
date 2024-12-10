@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios'
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 import styles from '../../../scss/admin/orderDetail.module.scss'
 
-function OrderDetail(props) {
+
+function AOrderStatusList(props) {
+
   const [order, setOrder] = useState([])
   const [customer, setCustomer] = useState([])
   const orderId = window.location.pathname.split('/').pop()
@@ -39,9 +41,14 @@ function OrderDetail(props) {
     return <div>로딩중...</div>;
   }
 
+  
+
   return (
     <>
-      
+      <div>
+        <button><Link to='/admin/order'>주문목록관리</Link></button>
+        <button><Link to='/admin/orderStatus'>취소/반품/환불관리</Link></button>
+      </div>
       <div>주문 제품 상세</div>
       <table border="1" className={styles.orderTable}>
         <tr>
@@ -114,4 +121,4 @@ function OrderDetail(props) {
   );
 }
 
-export default OrderDetail;
+export default AOrderStatusList;
