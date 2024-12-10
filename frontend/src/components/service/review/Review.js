@@ -25,6 +25,7 @@ const Review = () => {
   const [timeOfDay, setTimeOfDay] = useState('');
   const [gift, setGift] = useState('');
   const [product, setProduct] = useState('');
+  const [file, setFile] = useState('');
   const email = sessionStorage.getItem('email')
   const navigate = useNavigate();
   if(!email){
@@ -55,28 +56,63 @@ const Review = () => {
     }, [product_opt_id]);
 
   // 제출 처리 함수
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   let reviewData = {
+  //     product_opt_id: product.product_opt_id,
+  //     product_id: product.product_id,
+  //     email: email,
+  //     review_rate: rating || 0,
+  //     review_recommend: recommend === 'yes' ? 1 : 0,
+  //     review_nick: nickname || '익명',
+  //     review_title: title || '제목 없음',
+  //     review_detail: content || '내용 없음',
+  //     review_region: region || '지역 미지정',
+  //     review_scent: fragranceType || '향 미지정',
+  //     review_time: timeOfDay || null,
+  //     review_gift: gift || null,
+  //     review_upload_file: file || null,
+  //   };
+
+
+  //   console.log('전송 데이터:', reviewData);
+
+  //   try {
+  //     const response = await axios.post('http://localhost:5001/review', reviewData);
+  //     console.log('리뷰 저장 성공:', response.data);
+  //     alert('리뷰가 성공적으로 저장되었습니다!');
+  //   } catch (err) {
+  //     console.error('리뷰 저장 실패:', err);
+  //     alert('리뷰 저장에 실패했습니다.');
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let reviewData = {
-      product_opt_id: product.product_opt_id,
-      product_id: product.product_id,
-      email: email,
-      review_rate: rating || 0,
-      review_recommend: recommend === 'yes' ? 1 : 0,
-      review_nick: nickname || '익명',
-      review_title: title || '제목 없음',
-      review_detail: content || '내용 없음',
-      review_region: region || '지역 미지정',
-      review_scent: fragranceType || '향 미지정',
-      review_time: timeOfDay || null,
-      review_gift: gift || null,
-    };
-
-    console.log('전송 데이터:', reviewData);
-
+  
+    const formData = new FormData();
+    formData.append('product_opt_id', product.product_opt_id);
+    formData.append('product_id', product.product_id);
+    formData.append('email', email);
+    formData.append('review_rate', rating || 0);
+    formData.append('review_recommend', recommend === 'yes' ? 1 : 0);
+    formData.append('review_nick', nickname || '익명');
+    formData.append('review_title', title || '제목 없음');
+    formData.append('review_detail', content || '내용 없음');
+    formData.append('review_region', region || '지역 미지정');
+    formData.append('review_scent', fragranceType || '향 미지정');
+    formData.append('review_time', timeOfDay || null);
+    formData.append('review_gift', gift || null);
+  
+    // 이미지 파일 추가
+    const imageInput = document.querySelector('input[type="file"]');
+    if (imageInput.files[0]) {
+      formData.append('review_upload_file', imageInput.files[0]);
+    }
+  
     try {
-      const response = await axios.post('http://localhost:5001/review', reviewData);
+      const response = await axios.post('http://localhost:5001/review', formData);
       console.log('리뷰 저장 성공:', response.data);
       alert('리뷰가 성공적으로 저장되었습니다!');
     } catch (err) {
@@ -84,7 +120,7 @@ const Review = () => {
       alert('리뷰 저장에 실패했습니다.');
     }
   };
-
+  
   return (
     <div>
       <div className={styles.rwrapper}>
@@ -194,7 +230,11 @@ const Review = () => {
             <label className={styles.time}>
               <div>이 제품이 잘 어울리는 시간대</div>
             </label>
-            <select className={styles.time}>
+            <select 
+            className={styles.time}
+            value={timeOfDay}
+            onChange={(e)=>setTimeOfDay(e.target.value)}
+            >
               <option value disabled selected>선택</option>
               <option>낮</option>
               <option>밤</option>
@@ -206,27 +246,30 @@ const Review = () => {
             <label className={styles.gift}>
               <div>선물여부</div>
             </label>
-            <select className={styles.gift}>
+            <select className={styles.gift}
+            value={gift}
+            onChange={(e)=>setGift(e.target.value)}
+            >
               <option value disabled selected>선택</option>
-              <option>누군가를 위한</option>
+              <option>누군가를 위한</option>    
               <option>나를 위한</option>
             </select>
           </div>
 
 
-
+{/* review_upload_file */}
           <div className={styles.load}>
             <label for="imgLoad">
               <div>이미지 첨부</div>
             </label>
-            <input type="file" className={styles.imgLoad} />
-            <button type='button' className={styles.imgLoadBtn}>이미지 첨부</button>
+            <input 
+            type="file" 
+            className={styles.imgLoad}
+            onChange={(e)=>setFile(e.target.files[0].name)}
+            />
+            
           </div>
-
-
-
-
-
+          
 
             <button type="submit" className={styles.btnsubmit}>제출</button>
           </form>
