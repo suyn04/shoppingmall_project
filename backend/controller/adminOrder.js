@@ -6,7 +6,7 @@ module.exports = () => {
     router.get("/", async (req, res) => {
         console.log("order 진입"); //정상작동 확인
         try {
-            const [ret] = await con.execute('select * from orders')
+            const [ret] = await con.execute('select * from orders WHERE order_status IN ("주문완료", "배송중", "배송완료")')
             // console.log(ret)
             res.json(ret)
         } catch(err){
@@ -57,6 +57,18 @@ module.exports = () => {
         } catch (err) {
         console.error('수정 실패:', err);
         res.status(500).send('DB 오류');
+        }
+    })
+
+    router.get("/status", async (req, res) => {
+        console.log("orderstatus 진입"); //정상작동 확인
+        try {
+            const [ret] = await con.execute('select * from orders WHERE order_status IN ("취소", "반품접수", "반품완료", "환불접수", "환불완료")')
+            // console.log(ret)
+            res.json(ret)
+        } catch(err){
+            console.log('sql 실패 : ', err.message)
+            res.status(500).send('db 오류')
         }
     })
 

@@ -4,6 +4,8 @@ import AdminMain from "./AdminMain";
 import AdminTemp from "./AdminTemp";
 import AOrderList from "./orders/AOrderList";
 import AOrderDetail from "./orders/AOrderDetail";
+import AOrderStatus from "./orders/AOrderStatus";
+import AOrderStatusList from "./orders/AOrderStatusList";
 import AProductList from "./product/AProductList";
 //일대일 문의
 import OneToOneList from "./service/OneToOneList";
@@ -32,6 +34,8 @@ function Admin(props) {
                 <Route path="" element={<AdminMain />} />
                 <Route path="order" element={<AOrderList />} />
                 <Route path="order/detail/:id" element={<AOrderDetail />} />
+                <Route path="orderStatus" element={<AOrderStatus />} />
+                <Route path="orderStatus/detail/:id" element={<AOrderStatusList />} />
                 <Route path="member" element={<MemberList />} />
                 <Route path="member/detail/:id" element={<MemberDetail />} />
                 <Route path="unactivemember" element={<UnactiveMember />} />

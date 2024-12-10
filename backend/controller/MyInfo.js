@@ -166,7 +166,7 @@ module.exports = () => {
         try {
             // 주문 상태를 '취소됨'으로 업데이트
             const [result] = await db.execute(
-                'UPDATE orders SET order_status = ? WHERE order_id = ?',
+                'UPDATE orders SET status_date = sysdate(), order_status = ? WHERE order_id = ?',
                 ['취소', orderId]
             );
     
