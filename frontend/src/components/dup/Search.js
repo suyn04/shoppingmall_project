@@ -65,7 +65,11 @@ const Search = () => {
                 <Link to="">코롱 인텐스</Link>
                 <Link to="">베스트셀러</Link>
             </div>
-            <ProductCard product={product} />
+            {product[0] ? (
+                <ProductCard product={product} />
+            ) : (
+                <div>해당하는 제품이 존재하지 않습니다.</div>
+            )}
         </div>
     );
 };
