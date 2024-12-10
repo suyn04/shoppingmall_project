@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import styles from '../../../scss/service/review/Review.module.scss';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 // 이미지 파일 경로를 생성하는 함수
 function fileGo(file) {
@@ -12,6 +14,7 @@ function fileGo(file) {
 
 const Review = () => {
   // 상태 관리: 폼 데이터
+  const {product_opt_id} = useParams()
   const [nickname, setNickname] = useState('');
   const [rating, setRating] = useState(0);
   const [recommend, setRecommend] = useState('');
@@ -21,7 +24,12 @@ const Review = () => {
   const [fragranceType, setFragranceType] = useState('');
   const [timeOfDay, setTimeOfDay] = useState('');
   const [gift, setGift] = useState('');
-
+  const [product, setProduct] = useState('');
+  const email = sessionStorage.getItem('email')
+  const navigate = useNavigate();
+  if(!email){
+    navigate('/signIn')
+  }
   // 초기 이미지 파일명 설정
   const [productFile, setProductFile] = useState('mandarine_cologne_30ml.jpg');
 
@@ -31,13 +39,29 @@ const Review = () => {
     setProductFile(fileName);
   };
 
+  useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:5001/review/reviewWrite?product_opt_id=${product_opt_id}`
+                );
+                console.log(response.data);
+                setProduct(response.data);
+            } catch (err) {
+                console.error("API 호출 실패:", err);
+            }
+        };
+        fetchReviews();
+    }, [product_opt_id]);
+
   // 제출 처리 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     let reviewData = {
-      product_id: 1,
-      email: 123,
+      product_opt_id: product.product_opt_id,
+      product_id: product.product_id,
+      email: email,
       review_rate: rating || 0,
       review_recommend: recommend === 'yes' ? 1 : 0,
       review_nick: nickname || '익명',
@@ -66,21 +90,21 @@ const Review = () => {
       <div className={styles.rwrapper}>
         
         <div className={styles.rimgbox}>
-          {fileGo(productFile)}
+          {fileGo(product.product_upSystem)}
         </div>
 
         <div className={styles.content}>
           <div className={styles.rtext}>
-            <h2>Mandarine Cologne</h2>
-            <h3>상큼한 만다린 향이 가득한 코롱.</h3>
+            <h2>{product.product_name_kor}</h2>
+            <h3>{product.product_intro}</h3>
           </div>
 
           {/* 용량 선택 버튼 */}
-          <div className={styles.volumeButtons}>
+          {/* <div className={styles.volumeButtons}>
             <button type="button" onClick={() => handleVolumeChange(30)}>30ml</button>
             <button type="button" onClick={() => handleVolumeChange(50)}>50ml</button>
             <button type="button" onClick={() => handleVolumeChange(100)}>100ml</button>
-          </div>
+          </div> */}
 
           <form onSubmit={handleSubmit}>
             {/* 별점 평가 */}
