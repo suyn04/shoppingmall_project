@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import DetailTop from "./DetailTop";
 import DetailAcor from "./DetailAcor";
 import DetailTasting from "./DetailTasting";
-import DetailRecommend from "./DetailRecommend";
 import ReviewList from "../../service/review/ReviewList";
 import ColognesUse from "./ColognesUse";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import CandleUse from "./CandleUse";
+import ProductSwiper from "../ProductSwiper";
+import DiffuserUse from "./DiffuserUse";
 
 const DetailWrap = () => {
     const { product_opt_id } = useParams();
@@ -21,15 +23,16 @@ const DetailWrap = () => {
         axios
             .get(`http://localhost:5001/product/detail/${product_opt_id}`)
             .then((res) => {
-                console.log(res.data);
-                setProduct(res.data);
+                if (res.data) {
+                    setProduct(res.data);
+                } else {
+                    console.warn("No product data found");
+                }
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
             });
     };
-
-    console.log(product);
 
     useEffect(() => {
         if (!product_opt_id) {
@@ -37,27 +40,38 @@ const DetailWrap = () => {
             return;
         }
         productGetAxios();
-        console.log(product);
 
         // console.log(product.product_category_id);
+    }, [product_opt_id]);
 
-        // if (product.product_category_id) {
-        //     setComp(<ColognesUse />);
-        // }
-    }, []);
-    // if (!product.product_category_id) {
-    //     console.log("데이터 없음");
-    //     return;
-    // }
+    useEffect(() => {
+        if (product && product.product_category_id == 1) {
+            setComp(
+                <>
+                    <DetailTasting /> <ColognesUse />
+                </>
+            );
+            console.log(product);
+        } else if (product && product.product_category_id == 2) {
+            setComp(<CandleUse />);
+        } else {
+            setComp(<DiffuserUse />);
+        }
+    }, [product]);
+
+    console.log(comp);
 
     return (
         <div>
             <DetailTop />
             <DetailAcor />
-            <DetailTasting />
-            {/* if(product.product_category_id){<ColognesUse />} */}
-            <DetailRecommend />
-            <ReviewList />
+            {comp}
+            <ProductSwiper product={[]} />
+            {product ? (
+                <ReviewList product_id={product.product_id} />
+            ) : (
+                <p>Loading reviews...</p> // 로딩 중 메시지 추가
+            )}
         </div>
     );
 };

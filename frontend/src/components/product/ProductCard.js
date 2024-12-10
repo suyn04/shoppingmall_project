@@ -70,8 +70,11 @@ const ProductCard = ({ product }) => {
         }
         return null;
     };
+    if (!product) {
+        return <div>제품이 없습니다.</div>;
+    }
     if (!curProduct) {
-        return <div>id 없음</div>;
+        return <div>제품이 없습니다.</div>;
     }
 
     return (

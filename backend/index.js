@@ -28,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
-app.use('/imgs', express.static(path.join(__dirname, 'imgs')));
 
 //관리자페이지 - 회원정보조회
 const memberListRouter = require('./controller/MemberList.js');
@@ -50,7 +49,7 @@ const payment2Router = require('./controller/Payment2.js');
 app.use('/payment2/', payment2Router());
 
 const adminOrderRouter = require('./controller/adminOrder.js');
-app.use('/admin/order/', adminOrderRouter());
+app.use('/admin/order', adminOrderRouter());
 
 // 일대일문의
 const onetooneRouter = require('./controller/one_to_one.js');

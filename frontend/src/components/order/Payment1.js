@@ -6,10 +6,14 @@ import axios from 'axios'
 
 function Payment1(props) {
 
-  const email = 'aram@gmail.com'
+  const email = sessionStorage.getItem('email')
   const [ordersData, setOrder] = useState()
   const [isModal, setModal] = useState(false)
   const navigate = useNavigate()
+
+  if(!email){
+    navigate('/signIn')
+  }
 
   function pageLoad(){
     axios.get(`http://localhost:5001/payment1/${email}`)
@@ -27,20 +31,25 @@ function Payment1(props) {
     pageLoad()
   },[])
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (e) => {
+    e.preventDefault()
     setModal(true)
+    console.log("handleOpenModal : ", isModal)
   }
 
   const handleCloseModal = () => {
     setModal(false)
-    pageLoad()
+  }
+
+  const handleSave = (updatedData) => {
+    setOrder(updatedData)
   }
 
   function payment2GO(){
     const myData = Object.fromEntries(new FormData(document.myFrm)
   )   
    console.log("myData", myData)
-    navigate('/payment2', {state : {'myData':myData}})
+    navigate('/payment2', {state : {'myData':myData, ordersData: ordersData}})
   }
 
   if(!ordersData){
@@ -60,7 +69,7 @@ function Payment1(props) {
         <div>{ordersData.detail_address}</div>
       </div>
       <button onClick={handleOpenModal}>배송지 수정</button>
-      {isModal && <PayModal1 onClose={handleCloseModal} />}
+      {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} />}
       <hr/>
       <div>
         <label>

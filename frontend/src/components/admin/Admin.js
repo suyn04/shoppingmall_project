@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AdminMain from './AdminMain';
@@ -5,6 +6,17 @@ import AdminTemp from './AdminTemp';
 import AOrderList from './orders/AOrderList';
 import AOrderDetail from './orders/AOrderDetail';
 import AProductList from './product/AProductList';
+=======
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import AdminMain from "./AdminMain";
+import AdminTemp from "./AdminTemp";
+import AOrderList from "./orders/AOrderList";
+import AOrderDetail from "./orders/AOrderDetail";
+import AOrderStatus from "./orders/AOrderStatus";
+import AOrderStatusList from "./orders/AOrderStatusList";
+import AProductList from "./product/AProductList";
+>>>>>>> main
 //일대일 문의
 import OneToOneList from './service/OneToOneList';
 import OneToOneDetail from './service/OneToOneDetail';
@@ -26,6 +38,8 @@ import DeletedMember from './member/DeletedMember';
 import ReportList from './service/ReportList';
 import ReportDetail from './service/ReportDetail';
 
+import Analysis from "./analysis/Analysis";
+
 function Admin(props) {
     return (
         <Routes>
@@ -33,6 +47,8 @@ function Admin(props) {
                 <Route path="" element={<AdminMain />} />
                 <Route path="order" element={<AOrderList />} />
                 <Route path="order/detail/:id" element={<AOrderDetail />} />
+                <Route path="orderStatus" element={<AOrderStatus />} />
+                <Route path="orderStatus/detail/:id" element={<AOrderStatusList />} />
                 <Route path="member" element={<MemberList />} />
                 <Route path="member/detail/:id" element={<MemberDetail />} />
                 <Route path="member/unactivemember" element={<UnactiveMember />} />
@@ -52,6 +68,8 @@ function Admin(props) {
                 {/* 리뷰 신고 */}
                 <Route path="reports" element={<ReportList />} />
                 <Route path="reports/detail/:id" element={<ReportDetail />} />
+                {/* 매출 분석 */}
+                <Route path="analysis" element={<Analysis />} />
             </Route>
         </Routes>
     );

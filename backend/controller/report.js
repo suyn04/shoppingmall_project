@@ -52,6 +52,7 @@ router.get('/:id', async (req, res) => {
 
 // 새로운 신고 등록하기
 router.post('/', async (req, res) => {
+    console.log('report 진입')
     try {
         let { review_no, reason, content ,email} = req.body;  //email도 요청에서 받기 
 

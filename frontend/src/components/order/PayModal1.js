@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import styles from '../../scss/order/paymodal1.module.scss';
 import axios from 'axios'
 
-function PayModal1({onClose}) {
+function PayModal1({onClose, onSave}) {
 
-  const email = 'aram@gmail.com'
+  const email = sessionStorage.getItem('email')
   const [ordersData, setOrder] = useState()
 
   useEffect(()=>{
@@ -16,10 +16,10 @@ function PayModal1({onClose}) {
         console.error('에러발생 : ', err)
       }
     )
-  },[])
+  },[email])
 
   if(!ordersData){
-    return <div>로딩중...</div>
+    return <div></div>
   }
 
   function orderChange(kk,me){
@@ -31,22 +31,8 @@ function PayModal1({onClose}) {
 
   function modifySubmit(e){
     e.preventDefault()
-    const frmData = new FormData(document.myFrm)
-    const myData = Object.fromEntries(frmData)
-    console.log(myData)
-    // alert('저장')
-
-    axios.put(`http://localhost:5001/payment1/modify`,myData)
-    .then(res=>{
-        console.log("정보수정 성공 ",res.data)
-        alert("수정되었습니다")
-        onClose()
-        // navigate(`/detail/${id}`)
-    })
-    .catch(err=>{
-        console.error("정보수정 실패 ",err)
-    })
-
+    onSave(ordersData)
+    onClose()
   }
 
   return (
