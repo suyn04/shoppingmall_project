@@ -3,19 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ReportList = () => {
-    const [reports, setReports] = useState([]); // 신고 목록
-    const navigate = useNavigate(); // 이동 함수
+    const [reports, setReports] = useState([]); // 신고 목록 상태
+    const navigate = useNavigate(); // 페이지 이동 함수 
 
-    useEffect(() => {
-        // 서버에서 신고 목록 가져오기
-        axios.get('http://localhost:5001/reports')
-            .then((res) => {
-                setReports(res.data); // 데이터 저장
-            })
-            .catch((err) => {
-                console.error('목록 오류:', err);
-            });
-    }, []);
+  // 신고 목록 가져오기
+  useEffect(() => {
+    const fetchReports = async () => {
+        try {
+            const response = await axios.get('http://localhost:5001/reports');
+            setReports(response.data); // 데이터 저장
+        } catch (err) {
+            console.error('신고 목록 불러오기 실패:', err);
+            alert('신고 목록을 불러오는 데 실패했습니다.');
+        }
+    };
+
+    fetchReports(); // 함수 호출
+}, []); // 컴포넌트가 처음 렌더링될 때 실행
+
 
     // 상세보기로 이동
     const handleDetail = (id) => {
@@ -35,17 +40,20 @@ const ReportList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {reports.map((report) => (
-                        <tr key={report.report_no}>
-                            <td>{report.report_no}</td>
-                            <td>{report.reporter}</td>
-                            <td>{new Date(report.report_date).toLocaleDateString()}</td>
-                            <td>
-                                <button onClick={() => handleDetail(report.report_no)}>보기</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
+                        {reports.map((report) => (
+                            <tr key={report.report_no}>
+                                <td>{report.report_no}</td>
+                                <td>{report.reporter}</td>
+                                <td>{new Date(report.report_date).toLocaleDateString()}</td>
+                                <td>{report.check_status ? '처리 완료' : '미처리'}</td>
+                                <td>
+                                    <button onClick={() => handleDetail(report.report_no)}>
+                                        보기
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
             </table>
         </div>
     );

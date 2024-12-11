@@ -1,103 +1,56 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Analysis from './analysis/Analysis';
+import styles from '../../scss/admin/AdminMain.module.scss';
+import axios from 'axios';
 
-function AdminMain() {
+const AdminMain = () => {
+    // useEffect(() => {
+    //     axios
+    //         .post(
+    //             'http://localhost:5001/admin/order', //index.js의 라우트경로랑 일치시킴
+    //             { action: 'countNewOrder' } //주문접수 가져오는 액션
+    //         )
+    //         .then(response => {
+    //             console.log('주문접수 건 확인');
+    //             const ordercnt = response.data;
+    //         })
+    //         .catch(error => {
+    //             console.log('주문접수 가져오기 에러 : ', error.message);
+    //         });
+    // }, []);
+
     return (
-        <div style={{ padding: '20px' }}>
+        <div className={styles.container}>
             {/* 업무 -- 건수 확인하고 클릭시 해당 게시판으로 넘어감 */}
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '20px',
-                    padding: '10px',
-                    backgroundColor: '#f9f9f9',
-                    border: '1px solid #ddd',
-                    borderRadius: '8px',
-                }}
-            >
-                <Link
-                    to="/admin/order"
-                    style={{
-                        textDecoration: 'none',
-                        textAlign: 'center',
-                        flex: 1,
-                        padding: '10px',
-                        color: '#333',
-                    }}
-                >
+            <div className={styles.topboard}>
+                <Link to="/admin/order">
                     <div>주문접수</div>
-                    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>13 건</div>
+                    <div className={styles.title}>13 건</div>
                 </Link>
-                <Link
-                    to="/admin/onetoone"
-                    style={{
-                        textDecoration: 'none',
-                        textAlign: 'center',
-                        flex: 1,
-                        padding: '10px',
-                        color: '#333',
-                    }}
-                >
+                <Link to="/admin/onetoone">
                     <div>문의접수</div>
-                    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>5 건</div>
+                    <div className={styles.title}>5 건</div>
                 </Link>
-                <Link
-                    to="/admin/reports"
-                    style={{
-                        textDecoration: 'none',
-                        textAlign: 'center',
-                        flex: 1,
-                        padding: '10px',
-                        color: '#333',
-                    }}
-                >
+                <Link to="/admin/reports">
                     <div>반품요청</div>
-                    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>3 건</div>
+                    <div className={styles.title}>8 건</div>
                 </Link>
-                <Link
-                    to="/admin/reports"
-                    style={{
-                        textDecoration: 'none',
-                        textAlign: 'center',
-                        flex: 1,
-                        padding: '10px',
-                        color: '#333',
-                    }}
-                >
+                <Link to="/admin/reports">
                     <div>신고접수</div>
-                    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>1 건</div>
+                    <div className={styles.title}>3 건</div>
                 </Link>
             </div>
 
             {/* 차트 영역 */}
-            <div
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr',
-                    gap: '20px',
-                }}
-            >
-                <div
-                    style={{
-                        height: '600px',
-                        backgroundColor: '#f4f4f4',
-                        border: '1px solid #ddd',
-                        borderRadius: '8px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#999',
-                    }}
-                >
+            <div className={styles.chartcontainer}>
+                <div className={styles.chartbox}>
                     {/* 메인에 차트를 끌어와서 넣으려면 컴포넌트로 만들어서 가져오면 댐 */}
                     <Analysis />
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default AdminMain;

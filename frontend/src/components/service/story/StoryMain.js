@@ -30,12 +30,12 @@ const StoryMain = () => {
 
       </div>
 
-      <div className={styles.iwrapper}>
+      <div className={[styles.iwrapper, styles.wide]}>
 
       <img src="/imgs/service/mainstory_3.avif" alt="" />
     <p className={styles.stitle}>우리의 사람 & 우리의 일터</p>
     <p>인재를 육성하고 팀의 안녕을 제고하는 것은 매우 중요한 일입니다. 포용성이 인정되며 누구나 환영받을 수 있는 일터를 만들기 위해 최선을 다하고 있습니다.</p>
-    <Link to="/peopleworkplace" className={styles.more}>더 보기</Link>
+    <Link to="/peopleworkplace" className={styles.mmore}>더 보기</Link>
       </div>
     </div>
   )

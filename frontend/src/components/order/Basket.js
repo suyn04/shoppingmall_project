@@ -110,8 +110,12 @@ function Basket(props) {
               </div>
             );
           })}
+          {prod.length > 0 && (
+          <input type="button" onClick={paymentGo} value="결제하기" />
+        )}
         </>
       )}
+      
       {prod.length === 0 && (
         <div>
           <div>장바구니가 비어 있습니다.</div>

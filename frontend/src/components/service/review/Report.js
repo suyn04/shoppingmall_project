@@ -9,6 +9,7 @@ const Report = () => {
   const [reportDetail, setReportDetail] = useState(''); // 신고 내용
   const navigate = useNavigate();
 
+  //신고 제출 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
 
