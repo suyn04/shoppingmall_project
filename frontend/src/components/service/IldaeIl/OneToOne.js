@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../scss/service/IldaeIl/OneToOne.scss';
 import axios from 'axios';
+=======
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../../scss/service/IldaeIl/OneToOne.scss";
+import axios from "axios";
+>>>>>>> parent of bc4b2a0a (일대일 문의 끝~~~)
 
 const OneToOne = () => {
     //폼 데이터 상태 관리
@@ -79,27 +86,47 @@ const OneToOne = () => {
         // 서버로 보낼 데이터 준비
         const data = {
             post_category: formData.category, // 문의 유형
+<<<<<<< HEAD
             email: userInfo.email, //email
+=======
+            email: email, //email
+>>>>>>> parent of bc4b2a0a (일대일 문의 끝~~~)
             post_title: formData.title, // 제목
             post_detail: formData.content, // 내용
         };
 
         try {
+<<<<<<< HEAD
             const response = await fetch('http://localhost:5001/onetoone', {
                 // 백엔드 주소와 정확히 일치
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+=======
+            const response = await fetch("http://localhost:5001/onetoone", {
+                // 백엔드 주소와 정확히 일치
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+>>>>>>> parent of bc4b2a0a (일대일 문의 끝~~~)
                 },
                 body: JSON.stringify(data), // 데이터를 JSON으로 변환하여 보냄
             });
             const result = await response.json();
             if (response.ok) {
+<<<<<<< HEAD
                 alert('문의가 접수되었습니다!');
                 console.log('등록된 데이터:', result);
                 //navigate(-1); // 이전 페이지로 이동
 
                 navigate('/onetoonelist'); // 목록 페이지로 이동
+=======
+                alert("문의가 접수되었습니다!");
+                console.log("등록된 데이터:", result);
+                //navigate(-1); // 이전 페이지로 이동
+
+                navigate("/onetoonelist"); // 목록 페이지로 이동
+>>>>>>> parent of bc4b2a0a (일대일 문의 끝~~~)
             } else {
                 alert(`문의 등록 실패: ${result.error}`);
             }
