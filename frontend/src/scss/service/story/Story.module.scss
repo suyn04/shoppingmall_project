@@ -1,10 +1,11 @@
 .wrapper{
     margin: 0 auto;
-    width: 90%;
+    width: 85%;
     .pp{
         margin-bottom: 30px;
     }
 }
+
 .imgwrapper {
     display: flex;
     .stitle{
@@ -25,28 +26,39 @@
 
 }
 
-.Story_tbox1{
-    .ctitle {
-        font-size: 24px;
-        font-weight: 800;
-        margin-bottom: 30px;
-        
-    }
+.mmore{
+    display: block;
+    margin-top: 20px;
+    text-decoration: underline;
 }
+// .Story_tbox1{
+//     .ctitle {
+//         font-size: 24px;
+//         font-weight: 800;
+//         margin-bottom: 30px;
+        
+//     }
+// }
 
 .cbox1 {
     display: flex;
     width: 95%;
     margin: 0 auto;
+
     
     .tbox1 {
-
+        margin-top: 50px;
         width: 70%;
         .ctitle{
-            background-color: #f00;
+            font-size: 24px;
+            font-family: 'NanumMyeongjo';
+        }
+        p{
+            margin-top: 20px;
+            line-height: 24px
         }
     }
-
+    
     .cimg1 {
         width: 100%;
     }
@@ -100,18 +112,41 @@
     margin-top: 30px;
     display: flex;
     line-height: 24px;
+    width: 97%;
 
     p {
         margin-left: 30px;
+        width: 90%;
     }
 
     .ctitle {
-        line-height: 30px;
         width: calc(100%/3);
+        line-height: 30px;
+        font-size: 24px;
+        font-family: 'NanumMyeongjo';
     }
-
 }
 
+.tbox4 {
+    margin-top: 30px;
+    display: flex;
+    // border-top: 1px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .ctitle {
+        width: calc(100%/3);
+        line-height: 30px;
+        font-size: 24px;
+        font-family: 'NanumMyeongjo';
+    }
+    p {
+        width: calc(120%/3);
+        // line-height: 24px;
+        margin-left: 30px;
+        padding-right: 20px;
+    }
+}
 
 .ibox1 {
     display: flex;
@@ -156,22 +191,6 @@
     }
 }
 
-.tbox4 {
-    display: flex;
-    border-top: 1px solid #ccc;
-    padding-top: 30px;
-    padding-bottom: 20px;
-
-    .ctitle {
-        width: calc(100%/3);
-    }
-
-    p {
-        width: calc(100%/3);
-        margin-right: 35px;
-        line-height: 24px;
-    }
-}
 
 .tbox7 {
     border-top: 1px solid #ccc;
@@ -231,11 +250,6 @@
 .iwrapper {
     margin-right: 20px;
     padding-bottom: 70px;
-
-    a {
-        margin: 10px;
-    }
-   
 }
 
 .cimg27 {
