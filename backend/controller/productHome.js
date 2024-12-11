@@ -45,7 +45,7 @@ module.exports = () => {
 
         try {
             const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_opt_id = ?",
+                "select * from view_product_info_opt where product_status = 1 and product_opt_id = ?",
                 [req.params.product_opt_id]
             );
             res.json(ret[0]);
@@ -60,7 +60,7 @@ module.exports = () => {
 
         try {
             const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_id = ?",
+                "select * from view_product_info_opt where product_status = 1 and product_id = ?",
                 [req.params.product_id]
             );
             res.json(ret);
@@ -73,7 +73,7 @@ module.exports = () => {
         console.log("/colognes 진입 확인");
         try {
             const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_category_id = 1"
+                "select * from view_product_info_opt where product_status = 1 and product_category_id = 1"
             );
             console.log(ret);
 
@@ -87,7 +87,7 @@ module.exports = () => {
         console.log("/home-scents/candle 진입 확인");
         try {
             const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_category_id = 2"
+                "select * from view_product_info_opt where product_status = 1 and product_category_id = 2"
             );
             res.json(ret);
         } catch (err) {
@@ -99,7 +99,7 @@ module.exports = () => {
         console.log("/home-scents/diffusers 진입 확인");
         try {
             const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_category_id = 3"
+                "select * from view_product_info_opt where product_status = 1 and product_category_id = 3"
             );
             res.json(ret);
         } catch (err) {
@@ -111,7 +111,7 @@ module.exports = () => {
         console.log("/bath-body/bath-shower 진입 확인");
         try {
             const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_category_id = 4 or product_category_id = 5 or product_category_id = 6"
+                "select * from view_product_info_opt where product_status = 1 and (product_category_id = 4 or product_category_id = 5 or product_category_id = 6)"
             );
             res.json(ret);
         } catch (err) {
@@ -123,7 +123,7 @@ module.exports = () => {
         console.log("/bath-body/body-care 진입 확인");
         try {
             const [ret] = await conn.execute(
-                "select * from view_product_info_opt where product_category_id = 7 or product_category_id = 8 or product_category_id = 9 or product_category_id = 10"
+                "select * from view_product_info_opt where product_status = 1 and (product_category_id = 7 or product_category_id = 8 or product_category_id = 9 or product_category_id = 10)"
             );
             res.json(ret);
         } catch (err) {
@@ -174,7 +174,7 @@ module.exports = () => {
         let data = [];
         if (req.body.product_category_one) {
             sql =
-                "select * from view_product_info_opt where product_category_one = ? and (product_name_eng like ? or product_name_kor like ?)";
+                "select * from view_product_info_opt where product_status = 1 and product_category_one = ? and (product_name_eng like ? or product_name_kor like ?)";
             data = [
                 `${req.body.product_category_one}`,
                 `%${req.body.text}%`,
@@ -182,7 +182,7 @@ module.exports = () => {
             ];
         } else {
             sql =
-                "select * from view_product_info_opt where product_name_eng like ? or product_name_kor like ?";
+                "select * from view_product_info_opt where product_status = 1 and (product_name_eng like ? or product_name_kor like ?)";
             data = [`%${req.body.text}%`, `%${req.body.text}%`];
         }
 

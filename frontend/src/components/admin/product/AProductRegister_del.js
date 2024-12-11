@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import AProductRegisterOpt from "./AProductRegisterOpt";
 
 const AProductRegister = () => {
     const [categories, setCategories] = useState([]); // All category data

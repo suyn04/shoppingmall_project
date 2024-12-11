@@ -1,51 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../../scss/service/IldaeIl/OneToOne.scss';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../../scss/service/IldaeIl/OneToOne.scss";
+import axios from "axios";
 
 const OneToOne = () => {
     //폼 데이터 상태 관리
     const [formData, setFormData] = useState({
-        category: '', // 문의 유형
-        title: '', // 제목
-        content: '', // 내용
+        category: "", // 문의 유형
+        title: "", // 제목
+        content: "", // 내용
         file: null, // 첨부 파일
     });
 
     const [userInfo, setUserInfo] = useState();
     const navigate = useNavigate();
-    const email = sessionStorage.getItem('email')
+    const email = sessionStorage.getItem("email");
 
-    if(!email){
-      navigate('/signIn')
+    if (!email) {
+        navigate("/signIn");
     }
-     useEffect(() => {
-        const sessionToken = sessionStorage.getItem('sessionToken');
-        const email = sessionStorage.getItem('email');
-        const customerName = sessionStorage.getItem('customerName');
+    useEffect(() => {
+        const sessionToken = sessionStorage.getItem("sessionToken");
+        const email = sessionStorage.getItem("email");
+        const customerName = sessionStorage.getItem("customerName");
 
         if (!sessionToken) {
-            navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
+            navigate("/signIn"); // 세션 토큰 없으면 로그인 페이지로 이동
         } else {
             // Axios로 사용자 정보 가져오기
             axios
                 .post(
-                    'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
-                    { action: 'getUserInfo', email: sessionStorage.getItem('email') }, // 요청 본문
+                    "http://localhost:5001/myPage", //index.js의 라우트경로랑 일치시킴
+                    {
+                        action: "getUserInfo",
+                        email: sessionStorage.getItem("email"),
+                    }, // 요청 본문
                     {
                         headers: {
                             Authorization: sessionToken, // 세션 토큰 포함
                         },
                     }
                 )
-                .then(response => {
+                .then((response) => {
                     setUserInfo(response.data); // 세션토큰 콘솔에서 확인
-                    console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
-                    console.log('이메일 :', sessionStorage.getItem('email'));
+                    console.log(
+                        "세션 토큰 :",
+                        sessionStorage.getItem("sessionToken")
+                    );
+                    console.log("이메일 :", sessionStorage.getItem("email"));
                 })
-                .catch(error => {
-                    console.error('세션 토큰 확인불가', error);
-                    navigate('/signIn'); // 실패 시 로그인 페이지로 이동
+                .catch((error) => {
+                    console.error("세션 토큰 확인불가", error);
+                    navigate("/signIn"); // 실패 시 로그인 페이지로 이동
                 });
         }
     }, [navigate]);
@@ -56,7 +62,7 @@ const OneToOne = () => {
     }
 
     //입력값 변경 핸들러
-    const handleChange = e => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -65,7 +71,7 @@ const OneToOne = () => {
     };
 
     //파일 업로드 핸들러
-    const handleFileChange = e => {
+    const handleFileChange = (e) => {
         setFormData({
             ...formData,
             file: e.target.files[0],
@@ -73,7 +79,7 @@ const OneToOne = () => {
     };
 
     // 폼 제출 핸들러
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
 
         // 서버로 보낼 데이터 준비
@@ -85,27 +91,27 @@ const OneToOne = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5001/onetoone', {
+            const response = await fetch("http://localhost:5001/onetoone", {
                 // 백엔드 주소와 정확히 일치
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data), // 데이터를 JSON으로 변환하여 보냄
             });
             const result = await response.json();
             if (response.ok) {
-                alert('문의가 접수되었습니다!');
-                console.log('등록된 데이터:', result);
+                alert("문의가 접수되었습니다!");
+                console.log("등록된 데이터:", result);
                 //navigate(-1); // 이전 페이지로 이동
 
-                navigate('/onetoonelist'); // 목록 페이지로 이동
+                navigate("/onetoonelist"); // 목록 페이지로 이동
             } else {
                 alert(`문의 등록 실패: ${result.error}`);
             }
         } catch (err) {
-            console.error('서버 오류 발생:', err);
-            alert('서버와 연결할 수 없습니다.');
+            console.error("서버 오류 발생:", err);
+            alert("서버와 연결할 수 없습니다.");
         }
     };
 
@@ -117,7 +123,10 @@ const OneToOne = () => {
     return (
         <div>
             <h2>1:1 문의</h2>
-            <div className="gray">※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에 FAQ를 참고 해주세요.</div>
+            <div className="gray">
+                ※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에
+                FAQ를 참고 해주세요.
+            </div>
 
             <form className="inquiry-form" onSubmit={handleSubmit}>
                 {/* 회원 아이디 */}
@@ -143,7 +152,12 @@ const OneToOne = () => {
                     <label htmlFor="category">
                         문의 유형 <span className="red">*</span>
                     </label>
-                    <select name="category" id="category" value={formData.category} onChange={handleChange}>
+                    <select
+                        name="category"
+                        id="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                    >
                         <option value="">선택하세요</option>
                         <option value="information">회원정보</option>
                         <option value="order">주문/배송</option>
@@ -158,28 +172,53 @@ const OneToOne = () => {
                     <label htmlFor="title">
                         제목 <span className="red">*</span>
                     </label>
-                    <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} placeholder="제목을 입력하세요" />
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        placeholder="제목을 입력하세요"
+                    />
                 </div>
                 {/* 내용 입력 */}
                 <div>
                     <label htmlFor="content">
                         문의 내용 <span className="red">*</span>
                     </label>
-                    <textarea id="content" name="content" value={formData.content} onChange={handleChange} placeholder="문의 내용을 입력하세요" />
-                    <p className="gray">※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의 개인정보 입력은 지양하여 주시기 바랍니다.</p>
+                    <textarea
+                        id="content"
+                        name="content"
+                        value={formData.content}
+                        onChange={handleChange}
+                        placeholder="문의 내용을 입력하세요"
+                    />
+                    <p className="gray">
+                        ※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의
+                        개인정보 입력은 지양하여 주시기 바랍니다.
+                    </p>
                 </div>
 
                 {/* 파일 첨부 */}
                 <div>
                     <label htmlFor="file">파일 첨부</label>
-                    <input type="file" id="file" name="file" onChange={handleFileChange} />
+                    <input
+                        type="file"
+                        id="file"
+                        name="file"
+                        onChange={handleFileChange}
+                    />
                     <p className="red">※ 10MB 미만의 파일 4개까지 첨부 가능</p>
                 </div>
 
                 {/* 버튼 그룹 */}
                 <div className="button-group">
                     <button type="submit">문의 접수</button>
-                    <button type="button" onClick={handleCancel} className="cbutton">
+                    <button
+                        type="button"
+                        onClick={handleCancel}
+                        className="cbutton"
+                    >
                         취소
                     </button>
                 </div>

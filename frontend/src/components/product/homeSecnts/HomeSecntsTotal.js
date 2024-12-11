@@ -1,10 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../../scss/product/prodTotal.module.scss";
 import ProductSwiper from "../ProductSwiper";
 import { Link } from "react-router-dom";
 import HomeScentsHomeTop from "./HomeScentsHomeTop";
+import axios from "axios";
 
 const HomeSecntsTotal = () => {
+    const [candle, setCandle] = useState([]);
+    const [diffuser, setDiffuser] = useState([]);
+    const candleGetAxios = () => {
+        axios
+            .get(`http://localhost:5001/product/home-scents/candles`)
+            .then((res) => {
+                let curProduct = res.data;
+                console.log(curProduct);
+
+                setCandle(curProduct);
+            })
+            .catch((err) => {
+                console.error("에러발생 ; ", err);
+            });
+    };
+    const diffuserGetAxios = () => {
+        axios
+            .get(`http://localhost:5001/product/home-scents/diffusers`)
+            .then((res) => {
+                let curProduct = res.data;
+                console.log(curProduct);
+
+                setDiffuser(curProduct);
+            })
+            .catch((err) => {
+                console.error("에러발생 ; ", err);
+            });
+    };
+    useEffect(() => {
+        candleGetAxios();
+        diffuserGetAxios();
+    }, []);
     return (
         <div className={styles.prodTotal}>
             <HomeScentsHomeTop />
@@ -17,12 +50,12 @@ const HomeSecntsTotal = () => {
             </div>
             <div className={styles.category}>
                 <div className={styles.subTitle}>캔들</div>
-                <ProductSwiper />
+                <ProductSwiper product={candle} />
                 <Link to="/home-scents/candles">전체보기</Link>
             </div>
             <div className={styles.category}>
                 <div className={styles.subTitle}>디퓨저</div>
-                <ProductSwiper />
+                <ProductSwiper product={diffuser} />
                 <Link to="/home-scents/diffusers">전체보기</Link>
             </div>
         </div>

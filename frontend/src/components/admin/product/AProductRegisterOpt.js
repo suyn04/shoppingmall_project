@@ -121,10 +121,16 @@ const AProductRegisterOpt = () => {
                     </tr>
                     <tr>
                         <td>
-                            <input type="number" name="product_volume" />
+                            <input
+                                type="number"
+                                step="0.1"
+                                name="product_volume"
+                            />
                             <input type="radio" name="unit" value="ml" />
                             ml
                             <input type="radio" name="unit" value="g" />g
+                            <input type="radio" name="unit" value="kg" />
+                            kg
                         </td>
                         <td>
                             <input type="number" name="product_price" />원

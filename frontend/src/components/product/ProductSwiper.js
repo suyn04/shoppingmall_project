@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import "../../scss/product/swiperStyles.css";
-
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductSwiper({ product }) {
+    const [curProduct, setCurProduct] = useState([]);
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log("ProductSwiper 동작");
+        if (!product) {
+            console.log(`상품이 없습니다`);
+            return;
+        }
+
+        setCurProduct(product);
+    }, [product]);
+    const fileGo = (file) => {
+        if (file) {
+            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
+        }
+        return null;
+    };
+
     return (
         <>
             <Swiper
@@ -25,46 +41,23 @@ export default function ProductSwiper({ product }) {
                 modules={[Pagination, Navigation]}
                 className="mySwiper"
             >
-                <SwiperSlide>
-                    <div>
-                        <img src="/imgs/product/blackberry_50ml.jpg" alt="" />
-                        <div>Lime Basil & Mandarin Cologne</div>
-                        <div>라임 바질 앤 만다린 코롱</div>
-                        <div>₩235,000</div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div>
-                        <img src="/imgs/product/blackberry_50ml.jpg" alt="" />
-                        <div>Lime Basil & Mandarin Cologne</div>
-                        <div>라임 바질 앤 만다린 코롱</div>
-                        <div>₩235,000</div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div>
-                        <img src="/imgs/product/blackberry_50ml.jpg" alt="" />
-                        <div>Lime Basil & Mandarin Cologne</div>
-                        <div>라임 바질 앤 만다린 코롱</div>
-                        <div>₩235,000</div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div>
-                        <img src="/imgs/product/blackberry_50ml.jpg" alt="" />
-                        <div>Lime Basil & Mandarin Cologne</div>
-                        <div>라임 바질 앤 만다린 코롱</div>
-                        <div>₩235,000</div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div>
-                        <img src="/imgs/product/blackberry_50ml.jpg" alt="" />
-                        <div>Lime Basil & Mandarin Cologne</div>
-                        <div>라임 바질 앤 만다린 코롱</div>
-                        <div>₩235,000</div>
-                    </div>
-                </SwiperSlide>
+                {curProduct.map((prod, i) => {
+                    return (
+                        <SwiperSlide>
+                            <div
+                                onClick={() => {
+                                    navigate(`/product/${prod.product_opt_id}`);
+                                }}
+                            >
+                                {fileGo(prod.product_upSystem)}
+                                <div>{prod.product_name_eng}</div>
+                                <div>{prod.product_name_kor}</div>
+                                <div>{prod.product_volume}</div>
+                                <div>₩ {prod.product_price}</div>
+                            </div>
+                        </SwiperSlide>
+                    );
+                })}
             </Swiper>
         </>
     );
