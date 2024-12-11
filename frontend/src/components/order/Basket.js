@@ -10,7 +10,7 @@ function Basket(props) {
   const email = sessionStorage.getItem('email')
 
   
-  console.log(`basket-email:${email}`)
+  // console.log(`basket-email:${email}`)
 
   // 해당 고객의 장바구니 내역 불러오기
   function dataInit(){
@@ -71,53 +71,55 @@ function Basket(props) {
           </div>
         </div>
       </div>
-      <div className={styles.td}>
-        <div>제품</div>
-        <div>가격</div>
-        <div>수량</div>
-        <div>총합계</div>
-      </div>
-      {prod.map((pp, i)=>{
-        const totalPrice = pp.product_price * pp.quantity
-
-        return(
-          <div key={i}>
-            <div><img src={`/imgs/product/${pp.product_upSystem}`} alt=''/></div>
-            <div className={styles.prod}>
-              <div>{pp.product_name_kor}</div>
-              <div>{pp.product_name_eng}</div>
-              <div>{pp.product_volume}</div>
-            </div>
-            <div>{pp.product_price}</div>
-            <div>
-              <select
-                value={pp.quantity}
-                onChange={(e) => handleQuantityChange(pp.bs_product_id, e.target.value)}
-              >
-                {Array.from({ length: 8 }, (_, i) => i + 1).map((qty) => (
-                  <option key={qty} value={qty}>
-                    {qty}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>{totalPrice}</div>
-            <button onClick={()=>{delBasket(pp.bs_id)}}>삭제</button>
+      {prod.length > 0 && (
+        <>
+          <div className={styles.td}>
+            <div>제품</div>
+            <div>가격</div>
+            <div>수량</div>
+            <div>총합계</div>
           </div>
-        )
-      })}
-      <div>
-        <div>합계</div>
-        <div>{getTotal().toLocaleString()}</div>
-      </div>
-      <div>
-        <Link to='/'>쇼핑 계속하기</Link>
-        {prod.length > 0 && (
-          <input type="button" onClick={paymentGo} value="결제하기" />
-        )}
-      </div>
-    </div>
-  );
-}
+          {prod.map((pp, i) => {
+            const totalPrice = pp.product_price * pp.quantity;
+
+            return (
+              <div key={i}>
+                <div>
+                  <img src={`/imgs/product/${pp.product_upSystem}`} alt='' />
+                </div>
+                <div className={styles.prod}>
+                  <div>{pp.product_name_kor}</div>
+                  <div>{pp.product_name_eng}</div>
+                  <div>{pp.product_volume}</div>
+                </div>
+                <div>{pp.product_price}</div>
+                <div>
+                  <select
+                    value={pp.quantity}
+                    onChange={(e) => handleQuantityChange(pp.bs_product_id, e.target.value)}
+                  >
+                    {Array.from({ length: 8 }, (_, i) => i + 1).map((qty) => (
+                      <option key={qty} value={qty}>
+                        {qty}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>{totalPrice.toLocaleString()}</div>
+                <button onClick={() => delBasket(pp.bs_id)}>삭제</button>
+              </div>
+            );
+          })}
+        </>
+      )}
+      {prod.length === 0 && (
+        <div>
+          <div>장바구니가 비어 있습니다.</div>
+          <Link to="/">쇼핑 계속하기</Link>
+        </div>
+      )}
+          </div>
+        );
+      }
 
 export default Basket;

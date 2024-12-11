@@ -1,8 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const conn = require("../db");
+const multer = require('multer')
+const path =require('path');
+const { log } = require("console");
 
-module.exports = (upload) => {
+const storage = multer.diskStorage({
+    destination:(req,file, cb)=>{
+        cb(null,'imgs/review/'); //업로드된 파일이 저장될 폴더
+    },
+    filename:(req,file,cb)=>{
+        cb(null,Date.now()+path.extname(file.originalname));
+    }
+});
+
+const upload = multer({storage});
+
+module.exports = () => {
     router.get("/productReview", async (req, res) => {
         const { product_id } = req.query; //prodcut_id를 쿼리 파라미터로 받기
         try {
@@ -86,7 +100,7 @@ module.exports = (upload) => {
     });
 
     // 리뷰 저장하기
-    router.post("/", async (req, res) => {
+    router.post("/",upload.single('review_upload_file'), async (req, res) => {
         const {
             product_opt_id = null,
             product_id =null,
@@ -100,18 +114,21 @@ module.exports = (upload) => {
             review_scent = null,
             review_time = null,
             review_gift = null,
+
         } = req.body;
 
         console.log("받은 데이터:", req.body);
-
+        console.log(req.file);
+        
+        const review_upload_file = (req.file ? req.file.filename : null); //업로드된 파일명
         try {
             const query = `
                 INSERT INTO review_management (
                     product_opt_id,product_id, email, review_date, review_rate, review_recommend,
                     review_nick, review_title, review_detail, review_region, review_scent,
-                    review_time, review_gift, review_status
+                    review_time, review_gift, review_upload_file, review_status
                 )
-                VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)
             `;
             const values = [
                 product_opt_id,
@@ -127,6 +144,7 @@ module.exports = (upload) => {
                 review_scent || "향 미지정",
                 review_time,
                 review_gift,
+                review_upload_file, //업로드된 이미지 파일명
                 1, // 기본 상태값
             ];
 
