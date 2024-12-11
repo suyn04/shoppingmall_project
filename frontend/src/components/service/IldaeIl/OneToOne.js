@@ -42,30 +42,30 @@ const OneToOne = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
 
-        // 서버로 보낼 데이터 준비
-        const data = {
-            post_category: formData.category, // 문의 유형
-            email: email, //email
-            post_title: formData.title, // 제목
-            post_detail: formData.content, // 내용
-        };
+       //FormData 객체 생성 (캐릭캐릭체인지 부분)
+       const data = new FormData();
+       data.append("post_category",formData.category);
+       data.append("email",email);
+       data.append("post_title",formData.title);
+       data.append("post_detail",formData.content);
+       if(formData.file){
+        data.append("one_upload_file",formData.file)// 파일첨부
+       }
+
 
         try {
             const response = await fetch("http://localhost:5001/onetoone", {
-                // 백엔드 주소와 정확히 일치
+               
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data), // 데이터를 JSON으로 변환하여 보냄
+                body: data, // formData 전송 (Content-Type 자동 설정)
             });
+
             const result = await response.json();
             if (response.ok) {
                 alert("문의가 접수되었습니다!");
                 console.log("등록된 데이터:", result);
-                //navigate(-1); // 이전 페이지로 이동
-
-                navigate("/onetoonelist"); // 목록 페이지로 이동
+                navigate("/onetoonelist");
+                
             } else {
                 alert(`문의 등록 실패: ${result.error}`);
             }
