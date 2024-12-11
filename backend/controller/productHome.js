@@ -4,7 +4,6 @@ const conn = require("../db");
 const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
-const { log } = require("console");
 
 const upload = multer({
     storage: multer.diskStorage({
