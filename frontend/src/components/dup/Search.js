@@ -5,9 +5,8 @@ import axios from "axios";
 import ProductCard from "../product/ProductCard.js";
 
 const Search = () => {
-    const navigate = useNavigate();
     const [product, setProduct] = useState([]);
-    const [comp, setComp] = useState([]);
+    const [text, setText] = useState("");
     const searchGo = (me) => {
         me.preventDefault();
         console.log("submitGo 진입");
@@ -33,6 +32,7 @@ const Search = () => {
                 console.log("검색 완료");
 
                 setProduct(res.data);
+                setText("해당하는 제품이 존재하지 않습니다.");
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
@@ -68,9 +68,7 @@ const Search = () => {
             {product[0] ? (
                 <ProductCard product={product} />
             ) : (
-                <div className={styles.notice}>
-                    해당하는 제품이 존재하지 않습니다.
-                </div>
+                <div className={styles.notice}>{text}</div>
             )}
         </div>
     );
