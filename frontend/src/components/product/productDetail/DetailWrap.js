@@ -9,6 +9,7 @@ import axios from "axios";
 import CandleUse from "./CandleUse";
 import ProductSwiper from "../ProductSwiper";
 import DiffuserUse from "./DiffuserUse";
+import styles from "../../../scss/product/detailWrap.module.scss";
 
 const DetailWrap = () => {
     const { product_opt_id } = useParams();
@@ -16,6 +17,8 @@ const DetailWrap = () => {
     const [product, setProduct] = useState(null);
 
     console.log(product_opt_id);
+
+    const [best, setBest] = useState([]);
 
     const productGetAxios = () => {
         // console.log("product_scent : ", product_scent);
@@ -33,6 +36,23 @@ const DetailWrap = () => {
                 console.error("에러발생 ; ", err);
             });
     };
+    const bestGetAxios = () => {
+        axios
+            .get(`http://localhost:5001/product/`)
+            .then((res) => {
+                console.log("서버 다녀옴", res.data);
+                let curProduct = res.data.filter(
+                    (item) =>
+                        item.product_special == "Best Seller" &&
+                        item.product_opt_id != product_opt_id
+                );
+                console.log(curProduct);
+                setBest(curProduct);
+            })
+            .catch((err) => {
+                console.error("에러발생 ; ", err);
+            });
+    };
 
     useEffect(() => {
         if (!product_opt_id) {
@@ -40,6 +60,7 @@ const DetailWrap = () => {
             return;
         }
         productGetAxios();
+        bestGetAxios();
 
         // console.log(product.product_category_id);
     }, [product_opt_id]);
@@ -66,11 +87,12 @@ const DetailWrap = () => {
             <DetailTop />
             <DetailAcor />
             {comp}
-            <ProductSwiper product={[]} />
+            <div className={styles.recommendTitle}>추천상품</div>
+            <ProductSwiper product={best} />
             {product ? (
                 <ReviewList product_id={product.product_id} />
             ) : (
-                <p>Loading reviews...</p> // 로딩 중 메시지 추가
+                <p>로딩중</p> // 로딩 중 메시지 추가
             )}
         </div>
     );
