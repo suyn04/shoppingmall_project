@@ -25,7 +25,7 @@ const Review = () => {
   const [timeOfDay, setTimeOfDay] = useState('');
   const [gift, setGift] = useState('');
   const [product, setProduct] = useState('');
-  const [file, setFile] = useState('');
+  // const [file, setFile] = useState('');
   const email = sessionStorage.getItem('email')
   const navigate = useNavigate();
   if(!email){
@@ -91,28 +91,33 @@ const Review = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const formData = new FormData();
+    const formData = new FormData(document.myFrm);
+
     formData.append('product_opt_id', product.product_opt_id);
     formData.append('product_id', product.product_id);
     formData.append('email', email);
     formData.append('review_rate', rating || 0);
     formData.append('review_recommend', recommend === 'yes' ? 1 : 0);
-    formData.append('review_nick', nickname || '익명');
-    formData.append('review_title', title || '제목 없음');
+    //formData.append('review_nick', nickname || '익명');
+    //formData.append('review_title', title || '제목 없음');
     formData.append('review_detail', content || '내용 없음');
     formData.append('review_region', region || '지역 미지정');
     formData.append('review_scent', fragranceType || '향 미지정');
     formData.append('review_time', timeOfDay || null);
     formData.append('review_gift', gift || null);
   
-    // 이미지 파일 추가
-    const imageInput = document.querySelector('input[type="file"]');
-    if (imageInput.files[0]) {
-      formData.append('review_upload_file', imageInput.files[0]);
-    }
-  
+    // form 데이터를 일반 객체로 변환
+    const data = Object.fromEntries(formData)
+    console.log("data:",data) // data: {product_opt_id: '3', product_id: '1', email: 'sooyeon@gmail.com', review_rate: '0', review_recommend: '0', …} // 이 형태로 나옴
+
+    //console.log("파일 확인:", formData.get('review_file'));
+
     try {
-      const response = await axios.post('http://localhost:5001/review', formData);
+      const response = await axios.post('http://localhost:5001/review', data, {
+        headers:{
+          'Content-Type':"multipart/form-data" // 파일업로드를 위해 타입을 이렇게 씀
+        }}
+      );
       console.log('리뷰 저장 성공:', response.data);
       alert('리뷰가 성공적으로 저장되었습니다!');
     } catch (err) {
@@ -142,7 +147,7 @@ const Review = () => {
             <button type="button" onClick={() => handleVolumeChange(100)}>100ml</button>
           </div> */}
 
-          <form onSubmit={handleSubmit}>
+          <form name='myFrm' onSubmit={handleSubmit} >
             {/* 별점 평가 */}
             <fieldset className={styles.rating}>
               <legend>고객 평점*</legend>
@@ -173,7 +178,7 @@ const Review = () => {
               <label htmlFor="pname">
                 <div>닉네임*</div>
               </label>
-              <input type="text" id="pname" placeholder="예) A람" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+              <input type="text" id="pname" placeholder="예) A람" name='review_nick' value={nickname} onChange={(e) => setNickname(e.target.value)} />
             </div>
 
             {/* 제목 입력 */}
@@ -181,7 +186,7 @@ const Review = () => {
               <label htmlFor="ptitle">
                 <div>제목*</div>
               </label>
-              <input type="text" id="ptitle" placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다." value={title} onChange={(e) => setTitle(e.target.value)} />
+              <input type="text" id="ptitle" name='review_title' placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다." value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
 
             {/* 상품후기 입력 */}
@@ -263,9 +268,9 @@ const Review = () => {
               <div>이미지 첨부</div>
             </label>
             <input 
-            type="file" 
+            type="file"
+            name="review_file"
             className={styles.imgLoad}
-            onChange={(e)=>setFile(e.target.files[0].name)}
             />
             
           </div>
