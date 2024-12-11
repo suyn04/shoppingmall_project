@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../scss/service/IldaeIl/OneToOne.scss";
-import axios from "axios";
 
 const OneToOne = () => {
     //폼 데이터 상태 관리
@@ -12,53 +11,14 @@ const OneToOne = () => {
         file: null, // 첨부 파일
     });
 
-    const [userInfo, setUserInfo] = useState();
     const navigate = useNavigate();
     const email = sessionStorage.getItem("email");
+    const customerName = sessionStorage.getItem("customerName");
+
+    console.log("customerName:", customerName);
 
     if (!email) {
         navigate("/signIn");
-    }
-    useEffect(() => {
-        const sessionToken = sessionStorage.getItem("sessionToken");
-        const email = sessionStorage.getItem("email");
-        const customerName = sessionStorage.getItem("customerName");
-
-        if (!sessionToken) {
-            navigate("/signIn"); // 세션 토큰 없으면 로그인 페이지로 이동
-        } else {
-            // Axios로 사용자 정보 가져오기
-            axios
-                .post(
-                    "http://localhost:5001/myPage", //index.js의 라우트경로랑 일치시킴
-                    {
-                        action: "getUserInfo",
-                        email: sessionStorage.getItem("email"),
-                    }, // 요청 본문
-                    {
-                        headers: {
-                            Authorization: sessionToken, // 세션 토큰 포함
-                        },
-                    }
-                )
-                .then((response) => {
-                    setUserInfo(response.data); // 세션토큰 콘솔에서 확인
-                    console.log(
-                        "세션 토큰 :",
-                        sessionStorage.getItem("sessionToken")
-                    );
-                    console.log("이메일 :", sessionStorage.getItem("email"));
-                })
-                .catch((error) => {
-                    console.error("세션 토큰 확인불가", error);
-                    navigate("/signIn"); // 실패 시 로그인 페이지로 이동
-                });
-        }
-    }, [navigate]);
-
-    // userInfo가 null일 때 로딩 메시지 표시
-    if (!userInfo) {
-        return <p>로딩 중...</p>;
     }
 
     //입력값 변경 핸들러
@@ -82,30 +42,27 @@ const OneToOne = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
 
-        // 서버로 보낼 데이터 준비
-        const data = {
-            post_category: formData.category, // 문의 유형
-            email: userInfo.email, //email
-            post_title: formData.title, // 제목
-            post_detail: formData.content, // 내용
-        };
+        //FormData 객체 생성 (캐릭캐릭체인지 부분)
+        const data = new FormData();
+        data.append("post_category", formData.category);
+        data.append("email", email);
+        data.append("post_title", formData.title);
+        data.append("post_detail", formData.content);
+        if (formData.file) {
+            data.append("one_upload_file", formData.file); // 파일첨부
+        }
 
         try {
             const response = await fetch("http://localhost:5001/onetoone", {
-                // 백엔드 주소와 정확히 일치
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data), // 데이터를 JSON으로 변환하여 보냄
+                body: data, // formData 전송 (Content-Type 자동 설정)
             });
+
             const result = await response.json();
             if (response.ok) {
                 alert("문의가 접수되었습니다!");
                 console.log("등록된 데이터:", result);
-                //navigate(-1); // 이전 페이지로 이동
-
-                navigate("/onetoonelist"); // 목록 페이지로 이동
+                navigate("/onetoonelist");
             } else {
                 alert(`문의 등록 실패: ${result.error}`);
             }
@@ -143,7 +100,7 @@ const OneToOne = () => {
 
                 <div>
                     <span>
-                        작성자: {userInfo.customer_name}({userInfo.email})
+                        작성자: {customerName}({email})
                     </span>
                 </div>
 

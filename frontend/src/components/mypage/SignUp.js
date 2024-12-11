@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/SignUp.module.scss';
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ function SignUp() {
         phone: '',
         password: '',
         gender: '',
-        requiredAgree: false,
+        requiredAgree: true,
         optionalAgree: false,
     });
 
@@ -95,7 +95,7 @@ function SignUp() {
 
                                 <div className={styles.checkboxgroup}>
                                     <label>
-                                        <input type="checkbox" name="requiredAgree" className={styles.chk1} required onChange={handleChange} /> [필수] 이용 약관에 동의하고, 본인은 만 14세 이상입니다.
+                                        <input type="checkbox" name="requiredAgree" className={styles.chk1} required onChange={handleChange} defaultChecked /> [필수] 이용 약관에 동의하고, 본인은 만 14세 이상입니다.
                                     </label>
                                     <label>
                                         <input type="checkbox" name="optionalAgree" className={styles.chk2} onChange={handleChange} /> [선택] 마케팅 및 홍보 목적의 개인정보 수집에 동의합니다.
