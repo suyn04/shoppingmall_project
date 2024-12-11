@@ -16,6 +16,21 @@ import Admin from './components/admin/Admin';
 function App() {
     const [ham, setHam] = useState(0);
 
+    const sessionToken = sessionStorage.getItem('sessionToken');
+    const email = sessionStorage.getItem('email');
+    const customerName = sessionStorage.getItem('customerName');
+
+    function AdminChk() {
+        // 홈으로 이동
+        if (email === 'admin@jomalone.kr' && customerName === '관리자') {
+            console.log('관리자 확인함');
+            return <Admin />;
+        } else {
+            console.log('일반 고객이므로 어드민 접근불가');
+            return <></>;
+        }
+    }
+
     return (
         <BrowserRouter>
             <Header ham={ham} setHam={setHam} />
@@ -23,15 +38,14 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/basket" element={<Basket />} />
-                <Route path="/payment1" element={<Payment1/>} />
-                <Route path="/payment2"  element={<Payment2/>} />
-                <Route path="/payment3"  element={<Payment3/>} />
+                <Route path="/payment1" element={<Payment1 />} />
+                <Route path="/payment2" element={<Payment2 />} />
+                <Route path="/payment3" element={<Payment3 />} />
             </Routes>
             <Product />
             <Services />
             <Mypage />
-            {/* <Order /> */}
-            <Admin />
+            <AdminChk />
             <Footer />
         </BrowserRouter>
     );
