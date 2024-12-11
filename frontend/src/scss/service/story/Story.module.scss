@@ -248,8 +248,17 @@
 }
 
 .iwrapper {
-    margin-right: 20px;
+    width: 50%;
     padding-bottom: 70px;
+    img{
+        width: 100%;
+    }
+    &.wide{
+        width: 100%;
+        img{
+        width: 100%;
+        }
+    }
 }
 
 .cimg27 {

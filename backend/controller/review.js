@@ -104,25 +104,23 @@ module.exports = () => {
         }
     });
 
-    // 리뷰 저장하기
-    router.post("/",upload.single('review_file'), async (req, res) => {
-        console.log('review post 진입') // back 진입 확인
-        // console.log(req.body)
-        console.log(req.file)
-
-        //한글인코딩
-        let newFName = Buffer.from(req.file.originalname,'latin1').toString('utf8')
-        console.log(newFName)
-
+    router.post("/", upload.single("review_file"), async (req, res) => {
+        console.log("review post 진입");
+        console.log(req.file);
+    
         try {
             const query = `
                 INSERT INTO review_management (
                     product_opt_id, product_id, email, review_date, review_rate, review_recommend,
                     review_nick, review_title, review_detail, review_region, review_scent,
-                    review_time, review_gift, review_upload_file, review_status
+                    review_time, review_gift, review_upload_file, review_status, is_visible
                 )
-                VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
+    
+            // 이미지 파일이 있을 경우 파일명, 없으면 null로 설정
+            const reviewUploadFile = req.file ? req.file.filename : null;
+    
             const values = [
                 req.body.product_opt_id,
                 req.body.product_id,
@@ -137,19 +135,16 @@ module.exports = () => {
                 req.body.review_scent || "향 미지정",
                 req.body.review_time,
                 req.body.review_gift,
-                newFName, //업로드된 이미지 파일명
-                1, // 기본 상태값
+                reviewUploadFile, // 이미지 파일이 없으면 null
+                1, // 기본 상태값 (예: 승인 대기)
+                1, // `is_visible` 기본값 (공개)
             ];
-
-            // console.log("삽입할 값:", values);
-            await conn.execute(query, values);
-
-            res.status(201).json({
-                message: "리뷰가 성공적으로 저장되었습니다!",
-            });
-        } catch (err) {
-            console.error("리뷰 저장 실패:", err.message);
-            res.status(500).send("DB 삽입 실패");
+    
+            const [result] = await conn.execute(query, values);
+            res.status(201).json({ message: "리뷰가 성공적으로 등록되었습니다.", review_no: result.insertId });
+        } catch (error) {
+            console.error("리뷰 등록 오류:", error.message);
+            res.status(500).json({ error: "리뷰 등록 실패" });
         }
     });
 

@@ -89,7 +89,20 @@ const ReviewList = ({ product_id }) => {
         }
         navigate(`/review/${product_opt_id}`);
     };
-
+//   //리뷰 삭제 함수
+//   const handleDeleteReview = async () => {
+//     if (window.confirm('정말로 이 리뷰를 삭제하시겠습니까?')) {
+//       try {
+//         await axios.delete(`http://localhost:5001/report/delete/${id}`);
+//         alert('리뷰가 삭제되었습니다.');
+//         setReviews(reviews.filter((review) => review.review_no !== review_no));
+//       } catch (err) {
+//         console.error('리뷰 삭제 실패:', err);
+//         alert('리뷰 삭제에 실패했습니다.');
+//       }
+//     }
+//   };
+  
     return (
         <div>
             <div className={styles.reviewTitle}>
@@ -112,9 +125,9 @@ const ReviewList = ({ product_id }) => {
                         <p>{review.review_detail}</p>
 
                         {/* 제품 이미지 표시 */}
-                        {review.product_upSystem && (
+                        {review.review_upload_file && (
                             <img
-                                src={review.product_upSystem}
+                                src={`http://localhost:5001/imgs/review/${review.review_upload_file}`}
                                 alt="Product"
                                 style={{
                                     width: "200px",
@@ -213,7 +226,7 @@ const ReviewList = ({ product_id }) => {
                             onClick={handleCloseModal}
                             className={styles.cancelButton}
                         >
-                            취소
+                          취소
                         </button>
                     </div>
                 </Modal>

@@ -30,7 +30,7 @@ const StoryMain = () => {
 
       </div>
 
-      <div className={styles.iwrapper}>
+      <div className={[styles.iwrapper, styles.wide]}>
 
       <img src="/imgs/service/mainstory_3.avif" alt="" />
     <p className={styles.stitle}>우리의 사람 & 우리의 일터</p>

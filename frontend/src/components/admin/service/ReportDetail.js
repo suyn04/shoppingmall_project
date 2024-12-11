@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const ReportDetail = () => {
     const { id } = useParams(); // URL에서 ID 가져오기
     const [report, setReport] = useState(null); // 신고 상세 데이터
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         // 서버에서 신고 상세 가져오기
@@ -16,19 +18,23 @@ const ReportDetail = () => {
                 console.error('상세 오류:', err);
             });
     }, [id]);
-
-// 공개/비공개 상태 변경 (프론트에서만 임시로 처리)
-const handleStatusChange = () => {
-    if (report) {
-        const newStatus = report.check_status === 1 ? 0 : 1;
-        setReport((prevReport) => ({
-            ...prevReport,
-            check_status: newStatus,
-        }));
+ // 리뷰 비공개 처리 함수
+ const handleHideReview = async (review_no) => {
+    if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
+        try {
+            await axios.put(`http://localhost:5001/reports/hide/${review_no}`);
+            alert('리뷰가 비공개 처리되었습니다.');
+            navigate('/admin/reports'); // 비공개 처리 후 신고 목록으로 이동
+        } catch (error) {
+            console.error('리뷰 비공개 처리 실패:', error);
+            alert('리뷰 비공개 처리에 실패했습니다.');
+        }
     }
 };
-    if (!report) return <p>로딩 중...</p>; // 데이터 없을 때 표시
-
+   // report가 null이면 로딩 중 메시지 표시
+    if (!report) {
+        return <p>로딩 중...</p>;
+    }
     return (
         <div>
             <h2>신고 상세</h2>
@@ -37,18 +43,12 @@ const handleStatusChange = () => {
             <p><strong>신고 일자:</strong> {new Date(report.report_date).toLocaleDateString()}</p>
             <p><strong>내용:</strong> {report.report_detail}</p>
             <p>
-                                <button
-                                    onClick={() =>
-                                        handleStatusChange(
-                                            report.report_no,
-                                            report.check_status
-                                        )
-                                    }
-                                >
-                                    {report.check_status
-                                        ? "비공개로 전환"
-                                        : "공개로 전환"}
-                                </button>
+            <button
+                onClick={() => handleHideReview(report.review_no)}
+                // className={styles.hideButton}
+              >
+                리뷰 비공개
+              </button>
                             </p>
         </div>
     );
