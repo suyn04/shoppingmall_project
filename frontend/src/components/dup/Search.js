@@ -7,6 +7,7 @@ import ProductCard from "../product/ProductCard.js";
 const Search = () => {
     const navigate = useNavigate();
     const [product, setProduct] = useState([]);
+    const [comp, setComp] = useState([]);
     const searchGo = (me) => {
         me.preventDefault();
         console.log("submitGo 진입");
@@ -30,6 +31,7 @@ const Search = () => {
             .post(`http://localhost:5001/product/search`, data)
             .then((res) => {
                 console.log("검색 완료");
+
                 setProduct(res.data);
             })
             .catch((err) => {
@@ -43,9 +45,6 @@ const Search = () => {
     return (
         <div className={styles.search}>
             <form name="myFrm">
-                <button type="button" className={styles.searchClose}>
-                    <img src={`/imgs/main/close_icon.svg`} alt="" />
-                </button>
                 <select name="product_category_one" id="category">
                     <option value="">전체</option>
                     <option value="cologne">코롱</option>
@@ -61,11 +60,18 @@ const Search = () => {
             </form>
             <div className={styles.defContent}>
                 <p>도움이 필요하세요?</p>
-                <Link to="">베스트 셀러</Link>
-                <Link to="">코롱 인텐스</Link>
-                <Link to="">베스트셀러</Link>
+                <Link to="/best-seller">베스트 셀러</Link>
+                <Link to="/colognes">코롱</Link>
+                <Link to="/home-scents">홈 프레그런스</Link>
+                <Link to="/bath-body">배스 앤 바디</Link>
             </div>
-            <ProductCard product={product} />
+            {product[0] ? (
+                <ProductCard product={product} />
+            ) : (
+                <div className={styles.notice}>
+                    해당하는 제품이 존재하지 않습니다.
+                </div>
+            )}
         </div>
     );
 };

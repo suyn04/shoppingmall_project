@@ -27,11 +27,11 @@ router.post('/', async (req, res) => {
         );
 
         if (userInfo.length === 0) {
-            return res.status(401).json({ message: '이메일 또는 비밀번호를 확인해주세요.' });
+            return res.json({ message: '이메일 또는 비밀번호를 확인해주세요.' });
         }
 
         // 조인한 DB 결과를 보냄 -- 프론트에서 받아서 처리
-        res.status(200).json({
+        res.json({
             sessionToken,
             email: userInfo[0].email,
             customer_name: userInfo[0].customer_name,
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
     } catch (error) {
         // 서버 오류 처리
         console.error('로그인 오류 :', error);
-        res.status(500).json({ message: '서버 오류가 발생' });
+        res.json({ message: '서버 오류가 발생' });
     }
 });
 

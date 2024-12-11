@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
         );
 
         // `auth` 테이블에 데이터 저장
-        await db.query(`INSERT INTO auth (email, password) VALUES (?, ?)`, [email, password]);
+        await db.query(`INSERT INTO auth (email, password, customer_id) VALUES (?, ?, ?)`, [email, password, customerId]);
         //가입 시 입력한 이메일과 패스워드는 별도의 테이블에 저장
 
         res.status(201).json({ message: '회원가입 성공!' });

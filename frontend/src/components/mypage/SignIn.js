@@ -33,7 +33,11 @@ function SignIn() {
             alert(`${customer_name}님 로그인되었습니다.`);
 
             // 홈으로 이동
-            navigate('/');
+            if (email === 'admin@jomalone.kr' && customer_name === '관리자') {
+                navigate('/admin');
+            } else {
+                navigate('/');
+            }
         } catch (err) {
             console.error('로그인 요청 오류 :', err);
             alert('정확한 정보를 입력해주세요.');

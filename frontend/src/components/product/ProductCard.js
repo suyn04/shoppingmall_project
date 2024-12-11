@@ -90,6 +90,13 @@ const ProductCard = ({ product }) => {
                         >
                             {fileGo(prod.product_upSystem)}
                             <div>
+                                {prod.product_special ? (
+                                    <div className={styles.special}>
+                                        {prod.product_special}
+                                    </div>
+                                ) : (
+                                    <div className={styles.special}></div>
+                                )}
                                 <div>{prod.product_name_eng}</div>
                                 <div>{prod.product_name_kor}</div>
                                 <div>{prod.product_volume}</div>
