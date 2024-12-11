@@ -107,33 +107,37 @@ module.exports = () => {
     // 리뷰 저장하기
     router.post("/",upload.single('review_file'), async (req, res) => {
         console.log('review post 진입') // back 진입 확인
-        console.log(req.body)
+        // console.log(req.body)
         console.log(req.file)
 
+        //한글인코딩
+        let newFName = Buffer.from(req.file.originalname,'latin1').toString('utf8')
+        console.log(newFName)
+
         try {
-            // const query = `
-            //     INSERT INTO review_management (
-            //         product_opt_id,product_id, email, review_date, review_rate, review_recommend,
-            //         review_nick, review_title, review_detail, review_region, review_scent,
-            //         review_time, review_gift, review_upload_file, review_status
-            //     )
-            //     VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)
-            // `;
+            const query = `
+                INSERT INTO review_management (
+                    product_opt_id, product_id, email, review_date, review_rate, review_recommend,
+                    review_nick, review_title, review_detail, review_region, review_scent,
+                    review_time, review_gift, review_upload_file, review_status
+                )
+                VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)
+            `;
             const values = [
-                product_opt_id,
-                product_id,
-                email,
+                req.body.product_opt_id,
+                req.body.product_id,
+                req.body.email,
                 new Date(), // 리뷰 작성 날짜
-                review_rate,
-                review_recommend,
-                review_nick || "익명",
-                review_title || "제목 없음",
-                review_detail || "내용 없음",
-                review_region || "지역 미지정",
-                review_scent || "향 미지정",
-                review_time,
-                review_gift,
-                review_file, //업로드된 이미지 파일명
+                req.body.review_rate,
+                req.body.review_recommend,
+                req.body.review_nick || "익명",
+                req.body.review_title || "제목 없음",
+                req.body.review_detail || "내용 없음",
+                req.body.review_region || "지역 미지정",
+                req.body.review_scent || "향 미지정",
+                req.body.review_time,
+                req.body.review_gift,
+                newFName, //업로드된 이미지 파일명
                 1, // 기본 상태값
             ];
 
