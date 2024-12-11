@@ -1,0 +1,29 @@
+.container {
+    position: absolute;
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 200px;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .sidemenu {
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}

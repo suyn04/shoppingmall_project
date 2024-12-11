@@ -19,7 +19,7 @@ function UnactiveMember() {
             .catch(err => {
                 console.error('에러발생 : ', err);
             });
-    }, [filteredCustomers]);
+    }, []);
 
     //정상 상태 변경
     const handleUpdateStatus = async status => {
