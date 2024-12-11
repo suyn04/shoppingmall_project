@@ -4,7 +4,7 @@ import '../../../scss/service/IldaeIl/OneToOne.scss';
 import axios from 'axios';
 
 const OneToOne = () => {
-    //폼 데이터 상태 관리
+    // 폼 데이터 상태 관리
     const [formData, setFormData] = useState({
         category: '', // 문의 유형
         title: '', // 제목
@@ -14,102 +14,74 @@ const OneToOne = () => {
 
     const [userInfo, setUserInfo] = useState();
     const navigate = useNavigate();
-    const email = sessionStorage.getItem('email')
+    const email = sessionStorage.getItem('email');
 
-    if(!email){
-      navigate('/signIn')
+    if (!email) {
+        navigate('/signIn');
     }
-     useEffect(() => {
+
+    useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
-        const email = sessionStorage.getItem('email');
-        const customerName = sessionStorage.getItem('customerName');
 
         if (!sessionToken) {
-            navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
+            navigate('/signIn');
         } else {
-            // Axios로 사용자 정보 가져오기
             axios
-                .post(
-                    'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
-                    { action: 'getUserInfo', email: sessionStorage.getItem('email') }, // 요청 본문
-                    {
-                        headers: {
-                            Authorization: sessionToken, // 세션 토큰 포함
-                        },
-                    }
-                )
+                .post('http://localhost:5001/myPage', { email }, { headers: { Authorization: sessionToken } })
                 .then(response => {
-                    setUserInfo(response.data); // 세션토큰 콘솔에서 확인
-                    console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
-                    console.log('이메일 :', sessionStorage.getItem('email'));
+                    setUserInfo(response.data);
                 })
                 .catch(error => {
                     console.error('세션 토큰 확인불가', error);
-                    navigate('/signIn'); // 실패 시 로그인 페이지로 이동
+                    navigate('/signIn');
                 });
         }
-    }, [navigate]);
+    }, [navigate, email]);
 
-    // userInfo가 null일 때 로딩 메시지 표시
+    // 로딩 메시지
     if (!userInfo) {
         return <p>로딩 중...</p>;
     }
 
-    //입력값 변경 핸들러
+    // 입력값 변경 핸들러
     const handleChange = e => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        setFormData({ ...formData, [name]: value });
     };
 
-    //파일 업로드 핸들러
+    // 파일 업로드 핸들러
     const handleFileChange = e => {
-        setFormData({
-            ...formData,
-            file: e.target.files[0],
-        });
+        setFormData({ ...formData, file: e.target.files[0] });
     };
 
     // 폼 제출 핸들러
     const handleSubmit = async e => {
-        e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+        e.preventDefault();
 
-        // 서버로 보낼 데이터 준비
-        const data = {
-            post_category: formData.category, // 문의 유형
-            email: userInfo.email, //email
-            post_title: formData.title, // 제목
-            post_detail: formData.content, // 내용
-        };
+        // FormData 생성
+        const data = new FormData();
+        data.append('post_category', formData.category);
+        data.append('email', userInfo.email);
+        data.append('post_title', formData.title);
+        data.append('post_detail', formData.content);
+
+        if (formData.file) {
+            data.append('file', formData.file); // 파일 추가
+        }
 
         try {
-            const response = await fetch('http://localhost:5001/onetoone', {
-                // 백엔드 주소와 정확히 일치
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data), // 데이터를 JSON으로 변환하여 보냄
-            });
-            const result = await response.json();
-            if (response.ok) {
+            const response = await axios.post('http://localhost:5001/onetoone', data);
+            if (response.status === 201) {
                 alert('문의가 접수되었습니다!');
-                console.log('등록된 데이터:', result);
-                //navigate(-1); // 이전 페이지로 이동
-
-                navigate('/onetoonelist'); // 목록 페이지로 이동
-            } else {
-                alert(`문의 등록 실패: ${result.error}`);
+                navigate('/onetoonelist');
             }
         } catch (err) {
             console.error('서버 오류 발생:', err);
-            alert('서버와 연결할 수 없습니다.');
+            alert('문의 등록에 실패했습니다.');
         }
     };
 
-    // 취소 버튼 클릭 핸들러
+    // 취소 버튼 핸들러
     const handleCancel = () => {
         navigate(-1); // 이전 페이지로 이동
     };
@@ -120,21 +92,9 @@ const OneToOne = () => {
             <div className="gray">※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에 FAQ를 참고 해주세요.</div>
 
             <form className="inquiry-form" onSubmit={handleSubmit}>
-                {/* 회원 아이디 */}
-                {/* <div>
-                    <label htmlFor="userid">회원 아이디</label>
-                    <input
-                        type="text"
-                        id="userid"
-                        value={formData.userid}
-                        onChange={handleChange}
-                        placeholder='아이디를 입력하세요'
-                        />
-                </div> */}
-
                 <div>
                     <span>
-                        작성자: {userInfo.customer_name}({userInfo.email})
+                        작성자: {userInfo.customer_name} ({userInfo.email})
                     </span>
                 </div>
 
@@ -160,20 +120,19 @@ const OneToOne = () => {
                     </label>
                     <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} placeholder="제목을 입력하세요" />
                 </div>
+
                 {/* 내용 입력 */}
                 <div>
                     <label htmlFor="content">
                         문의 내용 <span className="red">*</span>
                     </label>
                     <textarea id="content" name="content" value={formData.content} onChange={handleChange} placeholder="문의 내용을 입력하세요" />
-                    <p className="gray">※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의 개인정보 입력은 지양하여 주시기 바랍니다.</p>
                 </div>
 
                 {/* 파일 첨부 */}
                 <div>
                     <label htmlFor="file">파일 첨부</label>
                     <input type="file" id="file" name="file" onChange={handleFileChange} />
-                    <p className="red">※ 10MB 미만의 파일 4개까지 첨부 가능</p>
                 </div>
 
                 {/* 버튼 그룹 */}

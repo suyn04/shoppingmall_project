@@ -1,6 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const conn = require('../db');
+const multer = require('multer')
+const path =require('path');
+const { log } = require("console");
+
+const storage = multer.diskStorage({
+    destination:(req,file, cb)=>{
+        cb(null,'imgs/onetoone/'); //업로드된 파일이 저장될 폴더
+    },
+    filename:(req,file,cb)=>{
+        cb(null,Date.now()+path.extname(file.originalname));
+    }
+});
+
+
+const upload = multer({storage});
+
 
 module.exports = upload => {
     //1:1 문의 목록 조회 (get)
@@ -19,6 +35,7 @@ module.exports = upload => {
                     reply_detail,      -- 답변 내용
                     reply_date,        -- 답변 날짜
                     reply_status       -- 답변 상태
+                    one_upload_file    -- 파일 첨부
                 FROM 
                     one_to_one
             `);
@@ -48,6 +65,7 @@ module.exports = upload => {
                     reply_detail,      -- 답변 내용
                     reply_date,        -- 답변 날짜
                     reply_status       -- 답변 상태
+                    one_upload_file    -- 파일 첨부
                 FROM 
                     one_to_one
 
@@ -64,7 +82,7 @@ module.exports = upload => {
             res.status(500).json({ error: 'DB 에러' });
         }
     });
-
+   // const one_upload_file = (req.file ? req.file.filename : null); //업로드된 파일명
     //1:1 문의 등록 (post)
     router.post('/', async (req, res) => {
         const { post_category, email, post_title, post_detail } = req.body;
@@ -78,7 +96,7 @@ module.exports = upload => {
         // INSERT 쿼리 작성 (email이 null일 경우를 고려)
         const sql = `
             INSERT INTO one_to_one 
-            (post_category, email, post_title, post_detail, post_date, reply_status)
+            (post_category, email, post_title, post_detail, post_date, reply_status,one_upload_file)
             VALUES (?, ?, ?, ?, NOW(), '대기')
         `;
         const [result] = await conn.execute(sql, [post_category, email || null, post_title, post_detail]);
