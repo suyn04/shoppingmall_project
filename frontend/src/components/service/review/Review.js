@@ -25,20 +25,12 @@ const Review = () => {
   const [timeOfDay, setTimeOfDay] = useState('');
   const [gift, setGift] = useState('');
   const [product, setProduct] = useState('');
-  const [file, setFile] = useState('');
+  // const [file, setFile] = useState('');
   const email = sessionStorage.getItem('email')
   const navigate = useNavigate();
   if(!email){
     navigate('/signIn')
   }
-  // 초기 이미지 파일명 설정
-  const [productFile, setProductFile] = useState('mandarine_cologne_30ml.jpg');
-
-  // 용량에 따라 이미지 변경 함수
-  const handleVolumeChange = (volume) => {
-    const fileName = `mandarine_cologne_${volume}ml.jpg`;
-    setProductFile(fileName);
-  };
 
   useEffect(() => {
         const fetchReviews = async () => {
@@ -91,30 +83,36 @@ const Review = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const formData = new FormData();
+    const formData = new FormData(document.myFrm);
+
     formData.append('product_opt_id', product.product_opt_id);
     formData.append('product_id', product.product_id);
     formData.append('email', email);
     formData.append('review_rate', rating || 0);
     formData.append('review_recommend', recommend === 'yes' ? 1 : 0);
-    formData.append('review_nick', nickname || '익명');
-    formData.append('review_title', title || '제목 없음');
-    formData.append('review_detail', content || '내용 없음');
-    formData.append('review_region', region || '지역 미지정');
-    formData.append('review_scent', fragranceType || '향 미지정');
-    formData.append('review_time', timeOfDay || null);
-    formData.append('review_gift', gift || null);
+    // formData.append('review_nick', nickname || '익명');
+    // formData.append('review_title', title || '제목 없음');
+    // formData.append('review_detail', content || '내용 없음');
+    // formData.append('review_region', region || '지역 미지정');
+    // formData.append('review_scent', fragranceType || '향 미지정');
+    // formData.append('review_time', timeOfDay || null);
+    // formData.append('review_gift', gift || null);
   
-    // 이미지 파일 추가
-    const imageInput = document.querySelector('input[type="file"]');
-    if (imageInput.files[0]) {
-      formData.append('review_upload_file', imageInput.files[0]);
-    }
-  
+    // form 데이터를 일반 객체로 변환
+    const data = Object.fromEntries(formData)
+    console.log("data:",data) // 보내는 값 확인
+
+    //console.log("파일 확인:", formData.get('review_file'));
+
     try {
-      const response = await axios.post('http://localhost:5001/review', formData);
+      const response = await axios.post('http://localhost:5001/review', data, {
+        headers:{
+          'Content-Type':"multipart/form-data" // 파일업로드를 위해 타입을 이렇게 씀
+        }}
+      );
       console.log('리뷰 저장 성공:', response.data);
       alert('리뷰가 성공적으로 저장되었습니다!');
+      navigate('/')
     } catch (err) {
       console.error('리뷰 저장 실패:', err);
       alert('리뷰 저장에 실패했습니다.');
@@ -135,14 +133,7 @@ const Review = () => {
             <h3>{product.product_intro}</h3>
           </div>
 
-          {/* 용량 선택 버튼 */}
-          {/* <div className={styles.volumeButtons}>
-            <button type="button" onClick={() => handleVolumeChange(30)}>30ml</button>
-            <button type="button" onClick={() => handleVolumeChange(50)}>50ml</button>
-            <button type="button" onClick={() => handleVolumeChange(100)}>100ml</button>
-          </div> */}
-
-          <form onSubmit={handleSubmit}>
+          <form name='myFrm' onSubmit={handleSubmit} >
             {/* 별점 평가 */}
             <fieldset className={styles.rating}>
               <legend>고객 평점*</legend>
@@ -158,22 +149,12 @@ const Review = () => {
               </div>
             </fieldset>
 
-            {/* 추천 여부 */}
-            <fieldset className={styles.recommend}>
-              <legend>이 상품을 추천하시겠습니까?</legend>
-              <div>답변을 선택하세요</div>
-              <div className={styles["button-box"]}>
-                <button type="button" className={`btn ${recommend === 'yes' ? 'active' : ''}`} onClick={() => setRecommend('yes')}>예</button>
-                <button type="button" className={`btn ${recommend === 'no' ? 'active' : ''}`} onClick={() => setRecommend('no')}>아니오</button>
-              </div>
-            </fieldset>
-
             {/* 닉네임 입력 */}
             <div className={styles.name}>
               <label htmlFor="pname">
                 <div>닉네임*</div>
               </label>
-              <input type="text" id="pname" placeholder="예) A람" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+              <input type="text" id="pname" placeholder="예) A람" name='review_nick' value={nickname} onChange={(e) => setNickname(e.target.value)} />
             </div>
 
             {/* 제목 입력 */}
@@ -181,7 +162,7 @@ const Review = () => {
               <label htmlFor="ptitle">
                 <div>제목*</div>
               </label>
-              <input type="text" id="ptitle" placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다." value={title} onChange={(e) => setTitle(e.target.value)} />
+              <input type="text" id="ptitle" name='review_title' placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다." value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
 
             {/* 상품후기 입력 */}
@@ -189,7 +170,7 @@ const Review = () => {
               <label htmlFor="rreview">
                 <div>상품후기*</div>
               </label>
-              <input type="text" className={styles.linput} value={content} onChange={(e) => setContent(e.target.value)} />
+              <input type="text" name='review_detail' className={styles.linput} value={content} onChange={(e) => setContent(e.target.value)} />
             </div>
   {/* 거주지역 입력 */}
   <div className={styles.seoul}>
@@ -198,6 +179,7 @@ const Review = () => {
             </label>
             <input 
             type="text" 
+            name="review_region"
             id="ptitle" 
             placeholder='예) 서울' 
             value={region}
@@ -212,15 +194,16 @@ const Review = () => {
             </label>
             <select 
             className={styles.type}
+            name="review_scent"
             value={fragranceType} //선택된 값이 상태에 반영됨
             onChange={(e)=> setFragranceType(e.target.value)}
             >
-              <option>시트러스</option>
-              <option>프루티</option>
-              <option>라이트 플로럴</option>
-              <option>플로럴</option>
-              <option>스파이시</option>
-              <option>우디</option>
+              <option value="시트러스">시트러스</option>
+              <option value="프루티">프루티</option>
+              <option value="라이트 플로럴">라이트 플로럴</option>
+              <option value="플로럴">플로럴</option>
+              <option value="스파이시">스파이시</option>
+              <option value="우디">우디</option>
 
             </select>
           </div>
@@ -231,14 +214,14 @@ const Review = () => {
               <div>이 제품이 잘 어울리는 시간대</div>
             </label>
             <select 
+            name="review_time"
             className={styles.time}
             value={timeOfDay}
             onChange={(e)=>setTimeOfDay(e.target.value)}
             >
-              <option value disabled selected>선택</option>
-              <option>낮</option>
-              <option>밤</option>
-              <option>낮과 밤</option>
+              <option value="낮">낮</option>
+              <option value="밤">밤</option>
+              <option value="낮과 밤">낮과 밤</option>
             </select>
           </div>
 
@@ -247,12 +230,12 @@ const Review = () => {
               <div>선물여부</div>
             </label>
             <select className={styles.gift}
+            name="review_gift"
             value={gift}
             onChange={(e)=>setGift(e.target.value)}
             >
-              <option value disabled selected>선택</option>
-              <option>누군가를 위한</option>    
-              <option>나를 위한</option>
+              <option value="누군가를 위한">누군가를 위한</option>    
+              <option value="나를 위한">나를 위한</option>
             </select>
           </div>
 
@@ -263,9 +246,9 @@ const Review = () => {
               <div>이미지 첨부</div>
             </label>
             <input 
-            type="file" 
+            type="file"
+            name="review_file"
             className={styles.imgLoad}
-            onChange={(e)=>setFile(e.target.files[0].name)}
             />
             
           </div>

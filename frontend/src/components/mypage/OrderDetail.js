@@ -38,15 +38,16 @@ function OrderDetail() {
     };
 
     // 주문 취소하기
-    const handleCancelOrder = (orderId) => {
+    const handleCancelOrder = orderId => {
         if (window.confirm('주문을 취소하시겠습니까?')) {
-            axios.post(`http://localhost:5001/myPage/cancelOrder/${orderId}`)
+            axios
+                .post(`http://localhost:5001/myPage/cancelOrder/${orderId}`)
                 .then(() => {
                     alert('주문이 취소되었습니다.');
                     // 상태를 갱신하거나 페이지를 새로고침
                     window.location.reload();
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.error('주문 취소 실패:', err);
                     alert('주문 취소에 실패했습니다.');
                 });
@@ -59,38 +60,39 @@ function OrderDetail() {
                 <div className={styles.orderheader}>주문 상세 보기</div>
 
                 <div className={styles.orderlist}>
-                <div className={styles.orderlistheader}>
-                    <div>주문번호</div>
-                    <div>주문일</div>
-                    <div>결제수단</div>
-                    <div>결제금액</div>
-                    <div>주문상태</div>
-                    <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0][0].invoice ? '#ffffff' : 'inherit' }}>
-                        {detailorders.length > 0 && detailorders[0][0].invoice ? '송장번호' : '취소'}
+                    <div className={styles.orderlistheader}>
+                        <div>주문번호</div>
+                        <div>주문일</div>
+                        <div>결제수단</div>
+                        <div>결제금액</div>
+                        <div>주문상태</div>
+                        <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0][0].invoice ? '#ffffff' : 'inherit' }}>
+                            {detailorders.length > 0 && detailorders[0][0].invoice ? '송장번호' : '취소'}
+                        </div>
                     </div>
 
-                </div>
-
-                {detailorders.length > 0 ? (
-                    detailorders.map((od, index) => (
-                        <div className={styles.orderlistitem} key={index}>
-                            <div>{od[0].order_id}</div>
-                            <div>{formatDate(od[0].order_date)}</div>
-                            <div>{od[0].pay_to}</div>
-                            <div>{od[0].order_total}</div>
-                            <div>{od[0].order_status}</div>
-                            <div>
-                                {od[0].order_status === '주문완료' ? (
-                                    <button className={styles.cancelButton} onClick={() => handleCancelOrder(od[0].order_id)}>취소하기</button>
-                                ) : (
-                                    od[0].invoice || '-'
-                                )}
+                    {detailorders.length > 0 ? (
+                        detailorders.map((od, index) => (
+                            <div className={styles.orderlistitem} key={index}>
+                                <div>{od[0].order_id}</div>
+                                <div>{formatDate(od[0].order_date)}</div>
+                                <div>{od[0].pay_to}</div>
+                                <div>{od[0].order_total}</div>
+                                <div>{od[0].order_status}</div>
+                                <div>
+                                    {od[0].order_status === '주문완료' ? (
+                                        <button className={styles.cancelButton} onClick={() => handleCancelOrder(od[0].order_id)}>
+                                            취소하기
+                                        </button>
+                                    ) : (
+                                        od[0].invoice || '-'
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    ))
-                ) : (
-                    <p>주문 내역이 없습니다.</p>
-                )}
+                        ))
+                    ) : (
+                        <p>주문 내역이 없습니다.</p>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../scss/service/IldaeIl/OneToOne.scss";
-
 
 const OneToOne = () => {
     //폼 데이터 상태 관리
