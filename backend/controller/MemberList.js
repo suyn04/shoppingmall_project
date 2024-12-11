@@ -54,13 +54,15 @@ module.exports = () => {
     //탈퇴처리
     router.post('/moveToDeleted', async (req, res) => {
         try {
-            const { email } = req.body;
+            console.log('/moveToDeleted  진입');
 
-            if (!email || email.length === 0) {
-                return res.status(400).send('삭제할 이메일 목록이 없습니다.');
+            const { customer_ids } = req.body;
+
+            if (!customer_ids || customer_ids.length === 0) {
+                return res.send('삭제할 이메일 목록이 없습니다.');
             }
 
-            const emailPlaceholders = email.map(() => '?').join(',');
+            const del_customer = customer_ids.map(() => '?').join(',');
 
             // 고객 정보 이동 -- 탈퇴 고객 DB로
             const insertQuery = `
@@ -97,16 +99,16 @@ module.exports = () => {
             NOW() as deleted_date,
             '탈퇴' as status
             FROM customers
-            WHERE email IN (${emailPlaceholders})`;
-            await db.query(insertQuery, email);
+            WHERE customer_id IN (${del_customer})`;
+            await db.query(insertQuery, [...customer_ids]);
 
             // auth 테이블에서 삭제
-            const deleteAuth = `DELETE FROM auth WHERE email IN (${emailPlaceholders})`;
-            await db.query(deleteAuth, email);
+            const deleteAuth = `DELETE FROM auth WHERE customer_id IN (${del_customer})`;
+            await db.query(deleteAuth, [...customer_ids]);
 
             // customer 테이블에서 삭제
-            const deleteCustomer = `DELETE FROM customers WHERE email IN (${emailPlaceholders})`;
-            await db.query(deleteCustomer, email);
+            const deleteCustomer = `DELETE FROM customers WHERE customer_id IN (${del_customer})`;
+            await db.query(deleteCustomer, [...customer_ids]);
 
             res.send('선택된 고객이 탈퇴 처리되었습니다.');
         } catch (err) {
