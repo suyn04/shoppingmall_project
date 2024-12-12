@@ -95,6 +95,7 @@ const DetailTop = () => {
                         <div>{product.product_name_eng}</div>
                         <div>{product.product_name_kor}</div>
                     </div>
+                    <div className={styles.price}>{product.product_volume}</div>
                     <div className={styles.price}>
                         ₩ {product.product_price}
                     </div>
