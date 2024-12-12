@@ -13,9 +13,9 @@ const ReviewDetail = () => {
   useEffect(() => {
     const fetchReviewDetail = async () => {
       try {
-        console.log(`요청 URL: http://localhost:5001/review_management/${id}`);
+        // console.log(`요청 URL: http://localhost:5001/review_management/${id}`);
         const response = await axios.get(`http://localhost:5001/review/${id}`);
-        console.log('리뷰 상세 데이터:', response.data);
+        // console.log('리뷰 상세 데이터:', response.data);
         setReview(response.data); //상태 업데이트
       } catch (err) {
         setError('리뷰 세부 정보를 가져오는 데 실패했습니다.');

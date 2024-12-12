@@ -21,7 +21,7 @@ const upload = multer({ storage });
 module.exports =() => {
     //1:1 문의 목록 조회 (get)
     router.get('/', async (req, res) => {
-        console.log('1:1 문의 목록 조회 진입성공');
+        // console.log('1:1 문의 목록 조회 진입성공');
 
         try {
             const [results] = await conn.execute(`
@@ -40,7 +40,7 @@ module.exports =() => {
                     one_to_one
             `);
 
-            console.log(results); // 응답 확인: results가 배열인지 확인
+            // console.log(results); // 응답 확인: results가 배열인지 확인
 
             res.json(results); // 결과 반환
         } catch (err) {
@@ -50,7 +50,7 @@ module.exports =() => {
     });
 
     router.get('/:id', async (req, res) => {
-        console.log('1:1 문의 목록 조회 진입성공');
+        // console.log('1:1 문의 목록 조회 진입성공');
 
         try {
             const [results] = await conn.execute(
@@ -74,7 +74,7 @@ module.exports =() => {
                 [req.params.id]
             );
 
-            console.log(results); // 응답 확인: results가 배열인지 확인
+            // console.log(results); // 응답 확인: results가 배열인지 확인
 
             res.json(results[0]); // 결과 반환
         } catch (err) {
@@ -101,7 +101,7 @@ module.exports =() => {
     `;
             const [result] = await conn.execute(sql, [post_category, email || null, post_title, post_detail, one_upload_file]);
 
-            console.log('1:1 문의 등록 성공:', result);
+            // console.log('1:1 문의 등록 성공:', result);
             res.status(201).json({
                 post_no: result.insertId,
                 post_category,

@@ -9,6 +9,7 @@ const ReportList = () => {
   // 신고 목록 가져오기
   useEffect(() => {
     const fetchReports = async () => {
+        alert('신고관리진입')
         try {
             const response = await axios.get('http://localhost:5001/reports');
             setReports(response.data); // 데이터 저장

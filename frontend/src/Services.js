@@ -20,7 +20,6 @@ import Review from"./components/service/review/Review"
 import ReviewList from"./components/service/review/ReviewList"
 import AReviewList from"./components/admin/service/AReviewList"
 import AReviewDetail from"./components/admin/service/AReviewDetail"
-import Report from"./components/service/review/Report"
 
 function Services() {
     return (
@@ -49,8 +48,6 @@ function Services() {
                 <Route path="/review/:product_opt_id" element={<ReviewList />} />
                 <Route path="/areviewlist" element={<AReviewList />} />
                 <Route path="/areviewdetail/:id" element={<AReviewDetail />} />
-                <Route path="/report/:id" element={<Report />} /> {/* 신고 페이지 */}
-                <Route path="/report" element={<Report />} /> {/* 신고 페이지 */}
 
                 
                

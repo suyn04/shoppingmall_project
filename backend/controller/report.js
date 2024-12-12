@@ -56,8 +56,10 @@ router.post('/', async (req, res) => {
     try {
         let { review_no, reason, content, email } = req.body;
 
+        console.log(email)
+
         review_no = parseInt(review_no, 10);
-        email = email || 'aram@gmail.com';
+        // email = email || 'aram@gmail.com'; // 
         const report_detail = `${reason}: ${content}`;
 
         console.log('받은 데이터:', { review_no, email, report_detail });
