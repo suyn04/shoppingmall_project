@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "../../../scss/product/detailVolume.module.scss";
+//import styles from "./aaa.module.scss";
 
 const DetailVolume = ({ product_id }) => {
     const navigate = useNavigate();
@@ -30,16 +31,28 @@ const DetailVolume = ({ product_id }) => {
 
     useEffect(() => {
         volumeGetAxios();
-    }, [product_opt_id]);
+    }, []);
+
+    const ccc = styles.acitve1;
+
     return (
         <div className={styles.volumeWrap}>
             {volume.map((volume, i) => {
+                // className={
+                //     volume.product_opt_id == product_opt_id
+                //         ? styles.active1
+                //         : ""
+                // }
+
+                // console.log(
+                //     volume.product_opt_id,
+                //     volume.product_opt_id == product_opt_id
+                // );
+
                 return (
                     <button
                         className={
-                            volume.product_opt_id == product_opt_id
-                                ? styles.active
-                                : ""
+                            volume.product_opt_id == product_opt_id ? ccc : ""
                         }
                         onClick={() => {
                             navigate(`/product/${volume.product_opt_id}`);
