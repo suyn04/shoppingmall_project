@@ -1,0 +1,21 @@
+.volumeWrap {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        display: block;
+        width: calc(100% / 3);
+        font-size: 13px;
+        padding: 10px 0;
+        margin: 0 10px;
+        border: 1px solid #999;
+        &:hover {
+            font-weight: 700;
+            text-decoration: underline;
+        }
+        &.acitve {
+            background-color: #1c1c1c;
+        }
+    }
+}

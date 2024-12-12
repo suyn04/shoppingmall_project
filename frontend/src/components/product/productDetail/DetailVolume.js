@@ -1,10 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import styles from "../../../scss/product/detailVolume.module.scss";
 
 const DetailVolume = ({ product_id }) => {
     const navigate = useNavigate();
     const [volume, setVolume] = useState([]);
+    const { product_opt_id } = useParams();
+
+    // console.log(product_opt_id);
+
     const volumeGetAxios = () => {
         // console.log("product_scent : ", product_scent);
 
@@ -25,12 +30,17 @@ const DetailVolume = ({ product_id }) => {
 
     useEffect(() => {
         volumeGetAxios();
-    }, []);
+    }, [product_opt_id]);
     return (
-        <>
+        <div className={styles.volumeWrap}>
             {volume.map((volume, i) => {
                 return (
                     <button
+                        className={
+                            volume.product_opt_id == product_opt_id
+                                ? styles.active
+                                : ""
+                        }
                         onClick={() => {
                             navigate(`/product/${volume.product_opt_id}`);
                         }}
@@ -39,7 +49,7 @@ const DetailVolume = ({ product_id }) => {
                     </button>
                 );
             })}
-        </>
+        </div>
     );
 };
 

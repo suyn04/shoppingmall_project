@@ -40,7 +40,7 @@ module.exports = () => {
 
     router.get("/detail/:product_opt_id", async (req, res) => {
         console.log(`/:product_opt_id`); //정상작동 확인
-        console.log(req.query.product_opt_id);
+        // console.log(req.query.product_opt_id);
 
         try {
             const [ret] = await conn.execute(
@@ -55,7 +55,7 @@ module.exports = () => {
     });
     router.get("/volume/:product_id", async (req, res) => {
         console.log(`/ 진입 확인`); //정상작동 확인
-        console.log(req.query.product_id);
+        // console.log(req.query.product_id);
 
         try {
             const [ret] = await conn.execute(
@@ -74,7 +74,7 @@ module.exports = () => {
             const [ret] = await conn.execute(
                 "select * from view_product_info_opt where product_status = 1 and product_category_id = 1"
             );
-            console.log(ret);
+            // console.log(ret);
 
             res.json(ret);
         } catch (err) {
@@ -147,7 +147,7 @@ module.exports = () => {
     });
     router.post("/basket", async (req, res) => {
         console.log("product/basket 진입 확인");
-        console.log(req.body);
+        // console.log(req.body);
 
         let sql = "insert into basket (bs_email, bs_product_id)";
         sql += " values (?,?)";
@@ -168,7 +168,7 @@ module.exports = () => {
 
     router.post("/search", async (req, res) => {
         console.log(`/search 진입확인`); //정상작동 확인
-        console.log(req.body);
+        // console.log(req.body);
         let sql = "";
         let data = [];
         if (req.body.product_category_one) {
