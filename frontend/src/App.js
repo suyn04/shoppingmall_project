@@ -1,7 +1,7 @@
 import Home from './components/main/Home';
 import Header from './components/dup/Header';
 import Nav from './components/dup/Nav';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Product from './Product';
 import Services from './Services';
@@ -23,7 +23,6 @@ function App() {
     function AdminChk() {
         // 홈으로 이동
         if (email === 'admin@jomalone.kr' && customerName === '관리자') {
-            console.log('관리자 확인함');
             return <Admin />;
         } else {
             console.log('일반 고객이므로 어드민 접근불가');

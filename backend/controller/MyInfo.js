@@ -155,6 +155,74 @@ module.exports = () => {
                 [email]
             );
             return res.json({ orders });
+        } else if (action === 'deleteMember') {
+            try {
+                console.log('/deleteMember 진입');
+                const { email } = req.body;
+                if (!email) {
+                    return res.status(400).send('탈퇴 처리할 이메일이 없습니다.');
+                }
+
+                // 고객 ID 조회
+                const [customer] = await db.query(`SELECT customer_id FROM customers WHERE email = ?`, [email]);
+                if (!customer.length) {
+                    return res.status(404).send('해당 이메일의 회원 정보를 찾을 수 없습니다.');
+                }
+
+                const customer_id = customer[0].customer_id;
+
+                // 고객 정보 이동 -- 탈퇴 고객 DB로
+                const insertQuery = `
+            INSERT INTO deleted_customers (
+                customer_id,
+                customer_name,
+                email,
+                contact_number,
+                gender,
+                birthdate,
+                required_agree,
+                optional_agree,
+                zip,
+                roadname_address,
+                building_name,
+                detail_address,
+                join_date,
+                deleted_date,
+                status
+            )
+            SELECT customer_id,
+                customer_name,
+                email,
+                contact_number,
+                gender,
+                birthdate,
+                required_agree,
+                optional_agree,
+                zip,
+                roadname_address,
+                building_name,
+                detail_address,
+                join_date,
+                NOW() as deleted_date,
+                '탈퇴' as status
+            FROM customers
+            WHERE customer_id = ?`;
+
+                await db.query(insertQuery, [customer_id]);
+
+                // auth 테이블에서 삭제
+                const deleteAuth = `DELETE FROM auth WHERE customer_id = ?`;
+                await db.query(deleteAuth, [customer_id]);
+
+                // customer 테이블에서 삭제
+                const deleteCustomer = `DELETE FROM customers WHERE customer_id = ?`;
+                await db.query(deleteCustomer, [customer_id]);
+
+                res.send('회원 탈퇴 처리가 완료되었습니다.');
+            } catch (err) {
+                console.error('회원 탈퇴 실패:', err.message);
+                return res.json({ error: '탈퇴 진행 중 오류' });
+            }
         } else {
             return res.status(400).json({ error: '유효하지 않은 action 값입니다.' });
         }
@@ -162,18 +230,15 @@ module.exports = () => {
 
     router.post('/cancelOrder/:orderId', async (req, res) => {
         const { orderId } = req.params;
-    
+
         try {
             // 주문 상태를 '취소됨'으로 업데이트
-            const [result] = await db.execute(
-                'UPDATE orders SET status_date = sysdate(), order_status = ? WHERE order_id = ?',
-                ['취소', orderId]
-            );
-    
+            const [result] = await db.execute('UPDATE orders SET status_date = sysdate(), order_status = ? WHERE order_id = ?', ['취소', orderId]);
+
             if (result.affectedRows === 0) {
                 return res.status(404).json({ message: '주문을 찾을 수 없습니다.' });
             }
-    
+
             res.status(200).json({ message: '주문이 취소되었습니다.' });
         } catch (err) {
             console.error('주문 취소 실패:', err);
