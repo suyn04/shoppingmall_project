@@ -5,7 +5,7 @@ import styles from '../../../scss/service/story/Story.module.scss'
 const CharityMission = () => {
   return (
 
-    <div>
+    <div className={styles.charity}>
       <div className={styles.cbox1}>
         <div className={styles.tbox1}>
           <div className={styles.ctitle}>조 말론 런던의 자선 임무</div>
@@ -17,7 +17,7 @@ const CharityMission = () => {
           <p>현재까지 조 말론 런던은 정신 건강 지원 자선 단체에 350만 달러 이상을 기부했습니다.</p>
         </div>
         <div>
-          <img src="/imgs/service/charity_1.avif" alt="" className='cimg1' />
+          <img src="/imgs/service/charity_1.avif" alt="" className={styles.cimg1} />
         </div>
       </div>
       <div className={styles.tbox3}>
@@ -37,8 +37,8 @@ const CharityMission = () => {
 
       <div className={styles.ibox1}>
         <div></div>
-        <img src="/imgs/service/charity_2.avif" alt="" className={styles.cimg1} />
-        <img src="/imgs/service/charity_3.avif" alt="" className={styles.cimg1} />
+        <div><img src="/imgs/service/charity_2.avif" alt="" className={styles.cimg1} /></div>
+        <div><img src="/imgs/service/charity_3.avif" alt="" className={styles.cimg1} /></div>
       </div>
 
 
@@ -88,8 +88,8 @@ const CharityMission = () => {
 
       <div className={styles.ibox1}>
         <div></div>
-        <img src="/imgs/service/charity_5.avif" alt="" className={styles.cimg1} />
-        <img src="/imgs/service/charity_6.avif" alt="" className={styles.cimg1} />
+        <div><img src="/imgs/service/charity_5.avif" alt="" className={styles.cimg1} /></div>
+        <div><img src="/imgs/service/charity_6.avif" alt="" className={styles.cimg1} /></div>
       </div>
 
 

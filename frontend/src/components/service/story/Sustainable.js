@@ -1,14 +1,14 @@
 import React from 'react'
-import styles from '../../../scss/service/story/Story.module.scss'
+import styles from '../../../scss/service/story/Sustainable.module.scss'
 
 const Sustainable = () => {
   return (
-    <div>
+    <div className={styles.sustainable}>
 
       <div className={styles.sbox1}>
         <div className={styles.tbox1}>
           <p className={styles.stitle}>지속가능성을 위한 우리의 활동</p>
-          <p>&nbsp;우리는 환경 보호의 의무뿐만 아니라, 제품을 생산할 때에도 신중한 접근 방식을 취해야 할 책임이 있음을 잘 알고 있습니다.
+          <p className={styles.font14}>&nbsp;우리는 환경 보호의 의무뿐만 아니라, 제품을 생산할 때에도 신중한 접근 방식을 취해야 할 책임이 있음을 잘 알고 있습니다.
             이러한 노력은 현재 진행형이지만, 환경에 대한 영향을 줄이는 책임감 있는 행위들이 조 말론 런던이 관여하는 모든 활동의 중심이 될 수 있도록 최선을 다하고 있습니다.
             조 말론이 하는 모든 활동의 근간에는 친절함이 있습니다.
             재활용되었거나 재활용될 수 있는 포장재를 사용하는 것부터, 재생 가능한 에너지를 적극 사용하는 시설에서 우리의 제품을 생산하겠다는 약속, 탄소 배출을 줄이기 위한 노력들,
@@ -45,8 +45,8 @@ const Sustainable = () => {
 
       <div className={styles.ibox1}>
         <div></div>
-        <img src="/imgs/service/sustainable_2.jpg" alt="" className={styles.cimg1} />
-        <img src="/imgs/service/sustainable_3.avif" alt="" className={styles.cimg1} />
+        <div><img src="/imgs/service/sustainable_2.jpg" alt="" className={styles.cimg1} /></div>
+        <div><img src="/imgs/service/sustainable_3.avif" alt="" className={styles.cimg1} /></div>
       </div>
 
 

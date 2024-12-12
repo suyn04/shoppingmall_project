@@ -1,23 +1,30 @@
-.wrapper{
+.wrapper {
     margin: 0 auto;
     width: 85%;
-    .pp{
+
+    .pp {
         margin-bottom: 30px;
     }
 }
 
 .imgwrapper {
     display: flex;
-    .stitle{
+
+    .stitle {
         font-size: 24px;
         font-family: 'NanumMyeongjo';
     }
-    p{
+
+    p {
         font-family: 'NotoSansKR';
         margin-bottom: 20px;
         padding-right: 50px;
     }
+    .iwrapper{
+        margin: 10px;
+    }
 }
+
 .stitle {
     font-size: 24px;
     font-family: 'NanumMyeongjo';
@@ -26,141 +33,153 @@
 
 }
 
-.mmore{
+.mmore {
     display: block;
     margin-top: 20px;
     text-decoration: underline;
 }
-// .Story_tbox1{
-//     .ctitle {
-//         font-size: 24px;
-//         font-weight: 800;
-//         margin-bottom: 30px;
-        
-//     }
-// }
 
-.cbox1 {
-    display: flex;
-    width: 95%;
-    margin: 0 auto;
-
-    
-    .tbox1 {
-        margin-top: 50px;
-        width: 70%;
-        .ctitle{
+//자선활동 미션 scss
+.charity {
+    margin: 30px;
+    .ibox1{
+        margin: 10px;
+    }
+    .tbox3,p{
+        margin: 10px;
+    }
+    .tbox4,p{
+        margin: 20px;
+    }
+    .tbox4 {
+        // width: calc();
+        margin-top: 30px;
+        display: flex;
+        // border-top: 1px solid #ccc;
+        padding-top: 20px;
+        padding-bottom: 20px;
+       
+        .ctitle {
+            width: calc(100%/3);
+            line-height: 30px;
             font-size: 24px;
             font-family: 'NanumMyeongjo';
         }
-        p{
-            margin-top: 20px;
-            line-height: 24px
+
+        p {
+            width: calc(100%/3);
+
+        }
+        
+    }
+   
+    .cbox1 {
+        display: flex;
+        width: 95%;
+
+        // margin: 0 auto;
+        .cimg1 {
+            width: 100%;
+            margin-top: 50px;
+        }
+        .tbox1 {
+            margin-top: 50px;
+            width: 70%;
+
+            .ctitle {
+                font-size: 24px;
+                font-family: 'NanumMyeongjo';
+                margin-left: 20px;
+            }
+
+            p {
+                margin-top: 20px;
+                line-height: 24px
+            }
+        }
+
+        p {
+            line-height: 24px;
         }
     }
-    
-    .cimg1 {
-        width: 100%;
+
+    .sbox1 {
+        display: flex;
+        width: 95%;
+        margin: 0 auto;
+
+        .tbox1 {
+            width: 100%;
+        }
+
+        .cimg1 {
+            width: 100%;
+        }
+
+        p {
+            line-height: 24px;
+        }
+
+        .stitle {
+            margin-bottom: 50px;
+        }
+
+        padding-bottom: 50px;
     }
 
-    p {
+    .tbox2 {
+        display: flex;
         line-height: 24px;
+        border-top: 1px solid #ccc;
+
+        p {
+            margin-left: 30px;
+        }
+
+        .ctitle {
+            font-size: 24px;
+            line-height: 30px;
+        }
+
+        padding-top: 30px;
+        padding-bottom: 20px;
     }
-}
 
-.sbox1 {
-    display: flex;
-
-    .tbox1 {
-        width: 100%;
-    }
-
-    .cimg1 {
-        width: 100%;
-    }
-
-    p {
+    .tbox3 {
+        margin-top: 30px;
+        display: flex;
         line-height: 24px;
+        width: 100%;
+
+        p,
+        .ctitle {
+            width: calc(100%/3);
+        }
+
+        .ctitle {
+
+            line-height: 30px;
+            font-size: 24px;
+            font-family: 'NanumMyeongjo';
+        }
     }
 
-    .stitle {
-        margin-bottom: 50px;
+
+    .ibox1 {
+        display: flex;
+
+        div {
+            width: calc(100% / 3);
+            margin: 20px;
+
+            img {
+                width: 100%;
+            }
+
+
+            padding-bottom: 30px;
+        }
     }
-
-    padding-bottom: 50px;
-}
-
-.tbox2 {
-    display: flex;
-    line-height: 24px;
-    border-top: 1px solid #ccc;
-
-    p {
-        margin-left: 30px;
-    }
-
-    .ctitle {
-        font-size: 24px;
-        line-height: 30px;
-    }
-
-    padding-top: 30px;
-    padding-bottom: 20px;
-}
-
-.tbox3 {
-    margin-top: 30px;
-    display: flex;
-    line-height: 24px;
-    width: 97%;
-
-    p {
-        margin-left: 30px;
-        width: 90%;
-    }
-
-    .ctitle {
-        width: calc(100%/3);
-        line-height: 30px;
-        font-size: 24px;
-        font-family: 'NanumMyeongjo';
-    }
-}
-
-.tbox4 {
-    margin-top: 30px;
-    display: flex;
-    // border-top: 1px solid #ccc;
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    .ctitle {
-        width: calc(100%/3);
-        line-height: 30px;
-        font-size: 24px;
-        font-family: 'NanumMyeongjo';
-    }
-    p {
-        width: calc(120%/3);
-        // line-height: 24px;
-        margin-left: 30px;
-        padding-right: 20px;
-    }
-}
-
-.ibox1 {
-    display: flex;
-
-    img,
-    div {
-        width: calc(100% / 3);
-    }
-
-    img {
-        margin: 10px
-    }
-
-    padding-bottom: 30px;
 }
 
 .uni {
@@ -186,34 +205,53 @@
     padding-top: 30px;
     padding-bottom: 20px;
 
-    .ctitle {
-        width: 80%;
+    // .ctitle {
+    //     width: 80%;
+    // }
+}
+
+//사람과 일터 scss
+.people {
+    margin: 30px;
+    width: 95%;
+    margin: 0 auto;
+.ibox1{
+    display: flex;
+    div{
+        width: calc(100%/3);
+        margin: 10px;
+    }
+    img{
+        width: 100%;
+        margin: 10px;
     }
 }
 
-
 .tbox7 {
     border-top: 1px solid #ccc;
-    padding-top: 30px;
-    padding-bottom: 20px;
     display: flex;
+    width: 100%;
 
     .stitle {
-        width: 60%;
+        width: calc(100%/3);
         line-height: 30px;
+        font-family: 'NanumMyeongjo';
+        margin: 20px;
     }
 
-    .ttbox1 {
-        width: 90%;
-        margin-right: 30px;
-    }
-
+    .ttbox1,
     .ttbox2 {
-        width: 80%;
+
+        width: calc(100%/3);
+        font-family: 'NotoSansKR';
+        font-size: 14px;
+        margin: 20px;
+
     }
 
     p {
-        line-height: 25px;
+        line-height: 24px;
+        font-family: 'NotoSansKR';
     }
 
     li {
@@ -228,9 +266,15 @@
 .pbox1 {
     display: flex;
     padding-bottom: 30px;
+    width: 95%;
+    margin: 0 auto;
 
     .tbox1 {
         width: 60%;
+
+        p {
+            line-height: 24px;
+        }
     }
 
     .stitle {
@@ -239,31 +283,49 @@
 
     .cimg1 {
         width: 90%;
-    }
 
-    p {
-        line-height: 24px;
     }
-
 }
 
 .iwrapper {
     width: 50%;
     padding-bottom: 70px;
-    img{
+
+    img {
         width: 100%;
     }
-    &.wide{
+
+    .wide {
         width: 100%;
-        img{
-        width: 100%;
+
+        img {
+            width: 100%;
         }
     }
+
+}
+//스토리메인
+}
+.wideimg {
+    width: 100%;
+    margin-top: 20px;
 }
 
 .cimg27 {
+    width: 100%;
     margin: 0 auto;
 }
-.more{
+
+.more {
     text-decoration: underline;
+}
+
+
+.stitle {
+    font-size: 24px;
+    font-family: 'NanumMyeongjo';
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+
 }

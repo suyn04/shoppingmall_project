@@ -31,7 +31,7 @@ return(
 const ExchangeRefund = () => {
   return (
     <div className={styles.wrapper}>
-      <h1>교환 및 환불</h1>
+      <div className={styles.title}>교환 및 환불</div>
       
       
       <Accordion title="교환 및 환불">
