@@ -1,4 +1,4 @@
-import React, { useState, location } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/SignIn.module.scss';
 import axios from 'axios';
@@ -21,22 +21,36 @@ function SignIn() {
         try {
             // 로그인 요청을 서버로 전송
             const res = await axios.post('http://localhost:5001/signIn/', { email, password });
+
+            if (res.data.error) {
+                // 서버에서 반환된 에러 메시지 처리
+                alert(res.data.error); //에러일 경우 데이터 확인 전 얼럿
+                return;
+            }
+
             // 서버 응답에서 데이터 추출
             const { sessionToken, email: returnedEmail, customer_name } = res.data;
+            if (!sessionToken || !returnedEmail || !customer_name) {
+                //세션토큰이 없거나, 이메일이나 이름이 없는 경우라면
+                alert('로그인에 실패하였습니다.');
+                return;
+            }
+
+            // 성공 메시지
+            alert(`${customer_name}님 로그인되었습니다.`);
 
             // 세션 저장
             sessionStorage.setItem('sessionToken', sessionToken); // 세션 토큰 저장
             sessionStorage.setItem('email', returnedEmail); // 이메일 저장
             sessionStorage.setItem('customerName', customer_name); // 고객 이름 저장
 
-            // 성공 메시지
-            alert(`${customer_name}님 로그인되었습니다.`);
-
             // 홈으로 이동
             if (email === 'admin@jomalone.kr' && customer_name === '관리자') {
+                console.log('관리자 계정으로 확인됨');
                 location.href = '/admin';
             } else {
-                navigate('/');
+                console.log('일반 고객 계정으로 확인됨');
+                location.href = '/';
             }
         } catch (err) {
             console.error('로그인 요청 오류 :', err);

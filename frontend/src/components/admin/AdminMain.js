@@ -53,14 +53,14 @@ const AdminMain = () => {
             <div className={styles.chartcontainer}>
                 <div className={styles.chartbox}>
                     {/* 메인에 차트를 끌어와서 넣으려면 컴포넌트로 만들어서 가져오면 댐 */}
-                    <Bar 
+                    {/* <Bar 
                         data={chartData} 
                         options={{ 
                         scales: { 
                             y: { beginAtZero: true }
                         },
                         }} 
-                    />
+                    /> */}
                 </div>
             </div>
         </div>
