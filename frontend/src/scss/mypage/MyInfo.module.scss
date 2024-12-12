@@ -26,13 +26,19 @@
 
         .sectionHeader {
             display: flex;
-            justify-content: space-between; /* 양쪽 정렬 */
-            align-items: center; /* 수직 중앙 정렬 */
+            justify-content: space-between;
+            align-items: center;
             font-weight: bold;
             font-size: 18px;
-            margin-bottom: 15px; /* 아래 내용과 간격 */
+            margin-bottom: 15px;
         }
         .a1 {
+            color: #007bff;
+            font-size: 14px;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .deleteMember {
             color: #007bff;
             font-size: 14px;
             text-decoration: none;

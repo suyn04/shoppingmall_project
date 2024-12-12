@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, location } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/mypage/SignIn.module.scss';
 import axios from 'axios';
@@ -34,7 +34,7 @@ function SignIn() {
 
             // 홈으로 이동
             if (email === 'admin@jomalone.kr' && customer_name === '관리자') {
-                navigate('/admin');
+                location.href = '/admin';
             } else {
                 navigate('/');
             }
@@ -60,14 +60,14 @@ function SignIn() {
                         <div className={styles.bottomCnt}>
                             <div>
                                 <div className={styles.kakao}>
-                                    <a href="#">
+                                    <Link to="#">
                                         <img src="/imgs/sign/kakao.svg" alt="카카오" />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className={styles.naver}>
-                                    <a href="#">
+                                    <Link to="#">
                                         <img src="/imgs/sign/naver.svg" alt="네이버" />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className={styles.or}>또는</div>
