@@ -7,34 +7,46 @@ const ReportDetail = () => {
     const [report, setReport] = useState(null); // 신고 상세 데이터
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        // 서버에서 신고 상세 가져오기
-        axios.get(`http://localhost:5001/reports/${id}`)
-            .then((res) => {
-                setReport(res.data); // 데이터 저장
-            })
-            .catch((err) => {
-                console.error('상세 오류:', err);
-            });
+        fetch(`http://localhost:5001/reports/${id}`)
+            .then((res) => res.json())
+            .then((data) => setReport(data))
+            .catch((err) => console.error('상세 오류:', err));
     }, [id]);
+    // useEffect(() => {
+    //     // 서버에서 신고 상세 가져오기
+    //     axios.get(`http://localhost:5001/reports/${id}`)
+    //         .then((res) => {
+    //             setReport(res.data); // 데이터 저장
+    //         })
+    //         .catch((err) => {
+    //             console.error('상세 오류:', err);
+    //         });
+    // }, [id]);
  // 리뷰 비공개 처리 함수
  const handleHideReview = async (review_no) => {
     if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
         try {
-            await axios.put(`http://localhost:5001/reports/hide/${review_no}`);
+            const response = await fetch(`http://localhost:5001/reports/hide/${review_no}`, {
+                method: 'PUT',
+            });
+
+            if (!response.ok) {
+                throw new Error('비공개 처리 실패');
+            }
+
             alert('리뷰가 비공개 처리되었습니다.');
-            navigate('/admin/reports'); // 비공개 처리 후 신고 목록으로 이동
+            window.location.reload(); // 현재 페이지 새로고침
         } catch (error) {
             console.error('리뷰 비공개 처리 실패:', error);
             alert('리뷰 비공개 처리에 실패했습니다.');
         }
     }
 };
-   // report가 null이면 로딩 중 메시지 표시
-    if (!report) {
-        return <p>로딩 중...</p>;
-    }
+
+if (!report) {
+    return <p>로딩 중...</p>;
+}
     return (
         <div>
             <h2>신고 상세</h2>

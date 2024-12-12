@@ -30,7 +30,7 @@ return(
 const OnlineShopping = () => {
   return (
     <div className='wrapper'>
-      <h1>온라인 쇼핑하기</h1>
+      <div className={styles.title}>온라인 쇼핑하기</div>
       <Accordion title="온라인 쇼핑 방법">
       <p>조 말론 런던 온라인 부티크에 온라인에 오신 것을 환영합니다. 쉽고, 편리하고 안전한 쇼핑을 즐기실 수 있습니다. 구매를 원하시는 제품을 선택하신 후 아래의 순서에 따라 진행해 주세요 :</p>
       <b>1. 원하는 제품 찾기 및 장바구니에 담기</b>

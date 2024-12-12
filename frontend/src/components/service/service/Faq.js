@@ -38,7 +38,7 @@ const Accordion = ({ title, children }) => {
 const Faq = () => {
   return (
     <div className={styles.wrapper}>
-      <h1>자주 묻는 질문</h1>
+      <div className={styles.title}>자주 묻는 질문</div>
       <p>주문 취소나 주소 변경 등 신속한 처리가 필요한 사항은 조 말론 런던 온라인 부티크 고객관리지원팀 (1644-3753)로 문의해주세요.
       </p>
       <p>자주 묻는 질문과 답변 :</p>
