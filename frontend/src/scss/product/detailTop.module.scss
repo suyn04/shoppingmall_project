@@ -13,41 +13,36 @@
         width: calc(100% / 2);
         .textWrap {
             line-height: 1.5;
+            margin: 10px;
             .tag,
             .prodName,
             .price {
                 padding: 10px 0 0;
                 text-align: center;
             }
+            .price {
+                font-weight: 700;
+            }
             .prodInfo {
                 padding: 20px 0;
                 font-size: 14px;
-            }
-        }
-        .volumeWrap {
-            margin: 20px 0;
-            display: flex;
-            align-content: space-between;
-
-            button {
-                margin: 0 auto;
-                display: block;
-                width: 150px;
-                font-size: 13px;
-                padding: 10px 0;
-                border: 1px solid #999;
             }
         }
         .btnWrap {
             display: flex;
             align-content: space-between;
             button {
-                margin: 0 auto;
+                margin: 0 10px;
                 display: block;
-                width: 200px;
+                width: 100%;
                 font-size: 15px;
                 padding: 10px 0;
                 border: 1px solid #999;
+                background-color: #1c1c1c;
+                color: #fff;
+                &:hover {
+                    background-color: #555;
+                }
             }
         }
     }

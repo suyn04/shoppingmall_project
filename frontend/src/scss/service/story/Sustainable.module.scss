@@ -1,0 +1,74 @@
+// 지속가능성 scss
+.sustainable{
+    width: 95%;
+    margin: 0 auto;
+    .stitle {
+        font-size: 24px;
+        font-family: 'NanumMyeongjo';
+        margin-top: 20px;
+        margin-bottom: 20px;
+    
+
+    }
+    .sbox1{
+        // width: calc(100%/2);
+        display: flex;
+        div{
+            width: calc(100%/2);
+            img{
+                width: 100%;
+            }
+        }
+        .font14{
+            font-size: 15px;
+            line-height: 25px;
+        }
+   
+    }
+    .tbox7 {
+        border-top: 1px solid #ccc;
+        display: flex;
+        width: 100%;
+    
+        .stitle {
+            width: calc(100%/3);
+            line-height: 30px;
+            font-family: 'NanumMyeongjo';
+            margin: 20px;
+        }
+      
+        .ttbox1,
+        .ttbox2 {
+    
+            width: calc(100%/3);
+            font-family: 'NotoSansKR';
+            font-size: 14px;
+            margin: 20px;
+    
+        }
+    
+        p {
+            line-height: 24px;
+            font-family: 'NotoSansKR';
+        }
+    
+        li {
+            list-style: '-';
+        }
+    }
+    .ibox1 {
+        display: flex;
+
+        div {
+            width: calc(100% / 3);
+            margin: 20px;
+
+            img {
+                width: 100%;
+            }
+
+
+            padding-bottom: 30px;
+        }
+    }
+}

@@ -30,7 +30,7 @@ const Accordion = ({ title, children }) => {
 const MyProfile = () => {
   return (
     <div className={styles.wrapper}>
-      <h1>나의 프로필</h1>
+      <div className={styles.title}>나의 프로필</div>
       <Accordion title="이메일 뉴스레터 구독 취소">
         <div>
           조 말론 런던 회원이라면 나의 계정의 '계정 정보'를 클릭하신 후 페이지 하단의 '조 말론 런던 뉴스레터' 체크 표시를 해제하세요.

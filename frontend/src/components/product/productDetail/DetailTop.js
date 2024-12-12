@@ -95,6 +95,7 @@ const DetailTop = () => {
                         <div>{product.product_name_eng}</div>
                         <div>{product.product_name_kor}</div>
                     </div>
+                    <div className={styles.price}>{product.product_volume}</div>
                     <div className={styles.price}>
                         ₩ {product.product_price}
                     </div>
@@ -102,9 +103,7 @@ const DetailTop = () => {
                         {product.product_intro}
                     </div>
                 </div>
-                <div className={styles.volumeWrap}>
-                    <DetailVolume product_id={product.product_id} />
-                </div>
+                <DetailVolume product_id={product.product_id} />
                 <div className={styles.btnWrap}>
                     <button onClick={() => basketGo(product_opt_id)}>
                         장바구니 담기

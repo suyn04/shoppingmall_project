@@ -34,7 +34,7 @@ return(
 const MyOrder = () => {
   return (
     <div className={styles.wrapper}>
-      <h1>나의 주문</h1>
+      <div className={styles.title}>나의 주문</div>
       <Accordion title="주문 프로세스">
       <ul>
         <li>주문하신 제품은 택배 서비스를 통해 배송될 예정입니다.</li>

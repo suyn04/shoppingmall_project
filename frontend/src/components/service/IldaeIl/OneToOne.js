@@ -165,7 +165,7 @@ const OneToOne = () => {
                         name="file"
                         onChange={handleFileChange}
                     />
-                    <p className="red">※ 10MB 미만의 파일 4개까지 첨부 가능</p>
+                  
                 </div>
 
                 {/* 버튼 그룹 */}

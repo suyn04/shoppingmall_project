@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const conn = require('../db'); // DB 연결 파일 import
 
-// 🔹 신고 목록 가져오기
+// 신고 목록 가져오기
 router.get('/', async (req, res) => {
     try {
         const [reports] = await conn.query(`
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// 🔹 특정 신고 가져오기
+// 특정 신고 가져오기
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -50,7 +50,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// 🔹 새로운 신고 등록하기
+// 새로운 신고 등록하기
 router.post('/', async (req, res) => {
     console.log('report 진입');
     try {
@@ -79,7 +79,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// 🔹 신고 상태 변경 엔드포인트
+// 신고 상태 변경 엔드포인트
 router.put('/:id/status', async (req, res) => {
     try {
         const { id } = req.params;
@@ -99,27 +99,24 @@ router.put('/:id/status', async (req, res) => {
     }
 });
 
-//  리뷰 비공개 처리 라우터
+// 리뷰 비공개 처리 라우터
 router.put('/hide/:review_no', async (req, res) => {
     const { review_no } = req.params;
 
     try {
         // `review_management` 테이블에서 is_visible 값을 0으로 설정 (비공개)
-        const updateReviewQuery = `
-            UPDATE review_management
-            SET is_visible = 0
-            WHERE review_no = ?
-        `;
-        await conn.execute(updateReviewQuery, [review_no]);
-
-        // `review_reports` 테이블에서 check_status를 1로 설정 (처리 완료)
         const updateReportQuery = `
-            UPDATE review_reports
-            SET check_status = 1, check_datetime = NOW(), check_detail = '비공개 처리됨'
-            WHERE review_no = ?
-        `;
-        await conn.execute(updateReportQuery, [review_no]);
+        UPDATE review_reports
+        SET check_status = 1, check_datetime = NOW(), check_detail = '비공개 처리됨'
+        WHERE review_no = ?
+    `;
+    await conn.execute(updateReportQuery, [review_no]);
 
+        if (updateResult.affectedRows === 0) {
+            return res.status(404).json({ error: '해당 리뷰를 찾을 수 없습니다.' });
+        }
+
+    
         res.json({ message: '리뷰가 비공개 처리되었습니다.' });
     } catch (error) {
         console.error('리뷰 비공개 처리 오류:', error.message);
