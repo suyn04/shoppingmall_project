@@ -1,83 +1,107 @@
-import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
-import "chart.js/auto";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
+import 'chart.js/auto';
 
 const Analysis = () => {
-    const [daily, setDaily] = useState();
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = String(now.getMonth() + 1).padStart(2, "0");
-    let day = String(now.getDate()).padStart(2, "0") - 1;
+  const [timePeriod, setTimePeriod] = useState('day')
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [{
+      label: 'Orders',
+      data: [],
+      backgroundColor: 'rgba(28, 28, 28, 0.2)',
+      borderColor: 'rgba(0, 0, 0, 1)',
+      borderWidth: 1
+    }]
+  })
 
-    let formattedDate = `${year}-${month}-${day}`;
-    console.log(formattedDate);
+  useEffect(() => {
+    fetchData(timePeriod)
+    console.log("최종 chartData:", chartData)
+  }, [timePeriod])
 
-    const analysisGetAxios = () => {
-        axios
-            .get(`http://localhost:5001/analysis`)
-            .then((res) => {
-                console.log("서버 다녀옴", res.data);
-                console.log(res.data[0].status_date.slice(0, 10));
+  const formatDate = (dateString, period) => {
+    if(!dateString) return ''
 
-                // let curData = res.data.filter((item) => {
-                //     item.status_date.slice(0, 10) == formattedDate;
-                // });
-                // console.log(curData);
-                // setDaily(curData);
-            })
-            .catch((err) => {
-                console.error("에러발생 ; ", err);
-            });
-    };
-    useEffect(() => {
-        analysisGetAxios();
-    }, []);
+    const date = new Date(dateString)
 
-    const data = {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [
-            {
-                label: "# of Votes",
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    "rgba(255, 99, 132, 0.2)",
-                    "rgba(54, 162, 235, 0.2)",
-                    "rgba(255, 206, 86, 0.2)",
-                    "rgba(75, 192, 192, 0.2)",
-                    "rgba(153, 102, 255, 0.2)",
-                    "rgba(255, 159, 64, 0.2)",
-                ],
-                borderColor: [
-                    "rgba(255, 99, 132, 1)",
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)",
-                    "rgba(75, 192, 192, 1)",
-                    "rgba(153, 102, 255, 1)",
-                    "rgba(255, 159, 64, 1)",
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
+    if(period === 'day'){
+      return date.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    }else if(period === 'month'){
+      return date.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+      })
+    }else if(period === 'year'){
+      return date.getFullYear() + '년'
+    }
+    return ''
+  }
 
-    const options = {
-        scales: {
-            y: {
-                beginAtZero: true,
-                grid: {
-                    display: false,
-                },
-            },
-            x: {
-                grid: {
-                    display: false,
-                },
-            },
-        },
-    };
+  const fetchData = async (period) => {
+    try{
+      const response = await axios.get(`http://localhost:5001/analysis/${period}`)
+      const data = response.data
+      console.log('data:',data)
+      const dateData = data.map(item => item.order_date)
+      console.log('dateData:',dateData)
 
-    return <Bar data={data} options={options} />;
-};
+      let labels = []
+      let amount = []
 
-export default Analysis;
+      if(period === 'day'){
+        labels = data.map(item => formatDate(item.order_date, period))
+        amount = data.map(item => item.total_amount)
+      }else if (period === 'month'){
+        labels = data.map(item => formatDate(item.order_date, period))
+        amount = data.map(item => item.total_amount)
+      }else if (period === 'year'){
+        labels = data.map(item => formatDate(item.order_date, period))
+        amount = data.map(item => item.total_amount)
+      }
+
+      // console.log('labels,counts:',labels,counts)
+
+      setChartData({
+        labels,
+        datasets: [{
+            label: 'Orders',
+            data: amount,
+            backgroundColor: 'rgba(28, 28, 28, 0.2)',
+            borderColor: 'rgba(0, 0, 0, 1)',
+            borderWidth: 1
+        }]
+      })
+
+      console.log("chartData: ",chartData)
+    }catch (err){
+      console.error('데이터 가져오기 실패: ', err)
+    }
+  }
+
+  return (
+    <div>
+      <h2>판매량 분석</h2>
+      <select onChange={(e) => setTimePeriod(e.target.value)} value={timePeriod}>
+        <option value="day">일별</option>
+        <option value="month">월별</option>
+        <option value="year">연별</option>
+      </select>
+      <Bar 
+        data={chartData} 
+        options={{ 
+          scales: { 
+            y: { beginAtZero: true }
+          },
+        }} 
+      />
+    </div>
+  )
+}
+
+export default Analysis
