@@ -21,7 +21,7 @@ function Nav({ ham, setHam }) {
     };
 
     return (
-        <div >
+        <div>
             <div
                 className={styles.hamBg}
                 style={{ display: ham ? "block" : "none" }}
@@ -44,10 +44,10 @@ function Nav({ ham, setHam }) {
                                 <Link to="">소개</Link>
                             </li>
                             <li>
-                                <Link to="">제품전체</Link>
+                                <Link to="/all-product">제품전체</Link>
                             </li>
                             <li>
-                                <Link to="">베스트셀러</Link>
+                                <Link to="/best-seller">베스트셀러</Link>
                             </li>
                             <li>
                                 <Link to="">신제품</Link>
@@ -262,8 +262,10 @@ function Nav({ ham, setHam }) {
                                         className={`${styles.subItem} ${styles.bold}`}
                                     >
                                         <Link to="">소개</Link>
-                                        <Link to="">제품전체</Link>
-                                        <Link to="">베스트셀러</Link>
+                                        <Link to="/all-product">제품전체</Link>
+                                        <Link to="/best-seller">
+                                            베스트셀러
+                                        </Link>
                                         <Link to="">매장안내</Link>
                                     </div>
                                 </div>

@@ -1,0 +1,59 @@
+import React, { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
+import axios from "axios";
+import styles from "../../scss/product/homeTop.module.scss";
+import { Link } from "react-router-dom";
+import Pagination from "../dup/Pagination";
+
+const AllProduct = () => {
+    const [product, setProduct] = useState([]);
+
+    // pagination 추가
+    const [curPage, setCurPage] = useState(1); // Current page
+    const [itemsPerPage] = useState(12); // Items per page
+    // Calculate the products for the current page
+    const indexOfLastItem = curPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const curProducts = product.slice(indexOfFirstItem, indexOfLastItem);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5001/product/`)
+            .then((res) => {
+                console.log("서버 다녀옴", res.data);
+
+                console.log(res.data);
+                setProduct(res.data);
+            })
+            .catch((err) => {
+                console.error("에러발생 ; ", err);
+            });
+    }, []);
+    return (
+        <div>
+            <div className={styles.homeTop}>
+                <div className={styles.breadCrum}>
+                    <Link to="/">홈</Link>
+                    <span> &gt; </span>
+                    <Link to="/all-product">전체 제품</Link>
+                </div>
+                <div>
+                    <div className={styles.title}>전체 제품</div>
+                    <div className={styles.content}>
+                        <p>하루의 시작과 끝을 향기롭게 보내세요.</p>
+                    </div>
+                </div>
+            </div>
+            <ProductCard product={curProducts} />
+            <Pagination
+                totalItems={product.length}
+                itemsPerPage={itemsPerPage}
+                pagesPerGroup={5}
+                curPage={curPage}
+                setCurPage={setCurPage}
+            />
+        </div>
+    );
+};
+
+export default AllProduct;

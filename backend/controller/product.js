@@ -37,7 +37,7 @@ module.exports = () => {
     });
     router.get("/detail/:product_id", async (req, res) => {
         console.log("/admin/detail 진입 확인");
-        console.log(req.params.product_id);
+        // console.log(req.params.product_id);
         try {
             const [ret] = await conn.execute(
                 "select * from view_product_info where product_id = ?",
@@ -52,7 +52,7 @@ module.exports = () => {
 
     router.get("/detail/option/:product_id", async (req, res) => {
         console.log("/admin/detail 진입 확인");
-        console.log(req.params.product_id);
+        // console.log(req.params.product_id);
         try {
             const [ret] = await conn.execute(
                 "select * from view_product_info_opt where product_id = ?",
@@ -111,7 +111,7 @@ module.exports = () => {
     });
     router.get("/register/option/:product_id", async (req, res) => {
         console.log("/admin/register/option/ 진입 확인");
-        console.log(req.params.product_id);
+        // console.log(req.params.product_id);
 
         try {
             const [product] = await conn.execute(
@@ -174,7 +174,7 @@ module.exports = () => {
         upload.single("product_upfile"),
         async (req, res) => {
             console.log("/admin/register/option/ 정상진입확인");
-            console.log(req.file);
+            // console.log(req.file);
 
             let sql =
                 "insert into product_opt (product_id,product_volume,product_price,product_upSystem,product_upOri)";
@@ -207,9 +207,43 @@ module.exports = () => {
         }
     );
 
+    router.post("/search", async (req, res) => {
+        console.log(`/search 진입확인`); //정상작동 확인
+        // console.log(req.body);
+        let sql = "";
+        let data = [];
+        if (req.body.product_category_one && req.body.text) {
+            sql =
+                "select * from view_product_info where product_category_one = ? and (product_name_eng like ? or product_name_kor like ?)";
+            data = [
+                `${req.body.product_category_one}`,
+                `%${req.body.text}%`,
+                `%${req.body.text}%`,
+            ];
+        } else if (req.body.product_category_one) {
+            sql =
+                "select * from view_product_info where product_category_one = ?";
+            data = [`${req.body.product_category_one}`];
+        } else if (req.body.text) {
+            sql =
+                "select * from view_product_info where product_name_eng like ? or product_name_kor like ?";
+            data = [`%${req.body.text}%`, `%${req.body.text}%`];
+        } else {
+            sql = "select * from view_product_info";
+        }
+
+        try {
+            const [ret] = await conn.execute(sql, data);
+            res.json(ret);
+        } catch (err) {
+            console.error("sql 실패 : ", err.message);
+            res.status(500).send("db 오류");
+        }
+    });
+
     router.delete("/register/option/:product_id", async (req, res) => {
         console.log("삭제 진입:" + req.params.product_id);
-        console.log(req.body);
+        // console.log(req.body);
 
         //파일삭제
         //파일에 작성한 내용이 있다면

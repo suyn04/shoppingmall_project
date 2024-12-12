@@ -1,0 +1,27 @@
+.productNav {
+    padding-top: 40px;
+    display: flex;
+    border-bottom: 1px solid #1c1c1c;
+    li {
+        width: calc(100% / 6);
+        border: 1px solid #1c1c1c;
+        border-right: none;
+        border-bottom: none;
+        text-align: center;
+        &:last-child {
+            border: 1px solid #1c1c1c;
+            border-bottom: none;
+        }
+        &:hover {
+            text-decoration: underline;
+        }
+        a {
+            padding: 20px 0;
+            display: block;
+            &.active {
+                background-color: #1c1c1c;
+                color: #fff;
+            }
+        }
+    }
+}
