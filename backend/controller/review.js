@@ -23,13 +23,14 @@ const upload = multer({
 
 module.exports = () => {
     router.get("/productReview", async (req, res) => {
+        console.log('review 보기')
         const { product_id } = req.query; //prodcut_id를 쿼리 파라미터로 받기
         try {
             let query = `
                 SELECT review_management.*, view_product_info_opt.*
                 FROM review_management
                 LEFT OUTER JOIN view_product_info_opt on review_management.product_id = view_product_info_opt.product_id
-                WHERE review_management.product_id = ?
+                WHERE review_management.product_id = ? and review_management.is_visible = 1
             `;
             const values = [];
             if (product_id) {
