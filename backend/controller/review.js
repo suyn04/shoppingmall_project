@@ -69,7 +69,7 @@ module.exports = () => {
 
     // 리뷰 목록 가져오기
     router.get("/", async (req, res) => {
-        // console.log('리뷰 목록 요청');
+        console.log('리뷰 목록 요청');
         try {
             const [rows] = await conn.execute(
                 "SELECT * FROM review_management"

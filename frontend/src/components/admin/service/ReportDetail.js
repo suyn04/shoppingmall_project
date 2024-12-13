@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const ReportDetail = () => {
     const { id } = useParams(); // URL에서 ID 가져오기
+    console.log(id)
     const [report, setReport] = useState(null); // 신고 상세 데이터
     const navigate = useNavigate();
 
@@ -26,21 +27,15 @@ const ReportDetail = () => {
  // 리뷰 비공개 처리 함수
  const handleHideReview = async (review_no) => {
     if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
-        try {
-            const response = await fetch(`http://localhost:5001/reports/hide/${review_no}`, {
-                method: 'PUT',
-            });
-
-            if (!response.ok) {
-                throw new Error('비공개 처리 실패');
-            }
-
-            alert('리뷰가 비공개 처리되었습니다.');
-            window.location.reload(); // 현재 페이지 새로고침
-        } catch (error) {
-            console.error('리뷰 비공개 처리 실패:', error);
-            alert('리뷰 비공개 처리에 실패했습니다.');
-        }
+        axios.put(`http://localhost:5001/reports/hide/${id}`)
+        .then(res=>{
+            console.log("정보수정 성공 ",res.data)
+            alert(`신고되었습니다.`)
+            navigate(`http://localhost:5001/reports`)
+        })
+        .catch(err=>{
+            console.error("정보수정 실패 ",err)
+        })
     }
 };
 

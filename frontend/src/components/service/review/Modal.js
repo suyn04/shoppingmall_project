@@ -7,10 +7,10 @@ const Modal = ({ children, onClose}) =>{
             <div className={styles.modalContent} onClick={(e)=> e.stopPropagation()}>
                 {children}
                 <div className={styles.buttonGroup}>
-                <button onClick={onClose} className={styles.closeButton}>
-                    취소
-                </button>
-            </div>
+                    <button onClick={onClose} className={styles.closeButton}>
+                        취소
+                    </button>
+                </div>
             </div>
         </div>
     );
