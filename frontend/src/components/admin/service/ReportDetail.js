@@ -31,7 +31,7 @@ const ReportDetail = () => {
         .then(res=>{
             console.log("정보수정 성공 ",res.data)
             alert(`신고되었습니다.`)
-            navigate(`http://localhost:5001/reports`)
+            navigate(`/admin/reports`)
         })
         .catch(err=>{
             console.error("정보수정 실패 ",err)
