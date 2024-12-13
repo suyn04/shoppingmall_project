@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Analysis from './analysis/Analysis';
 import styles from '../../scss/admin/AdminMain.module.scss';
 import axios from 'axios';
 
 const AdminMain = () => {
-    // useEffect(() => {
-    //     axios
-    //         .post(
-    //             'http://localhost:5001/admin/order', //index.js의 라우트경로랑 일치시킴
-    //             { action: 'countNewOrder' } //주문접수 가져오는 액션
-    //         )
-    //         .then(response => {
-    //             console.log('주문접수 건 확인');
-    //             const ordercnt = response.data;
-    //         })
-    //         .catch(error => {
-    //             console.log('주문접수 가져오기 에러 : ', error.message);
-    //         });
-    // }, []);
+    const [order, setOrderCount] = useState(0);
+    // const [ask, setaskCount] = useState(0);
+
+    const DataCount = async () => {
+        try {
+            // 신규 주문접수건 가져오기
+            const orderCnt = await axios.post('http://localhost:5001/admin/order', { action: 'orderCount' });
+            setOrderCount(orderCnt.data);
+
+            // // 문의접수건 가져오기
+            // const askCount = await axios.post('http://localhost:5001/멀라', { action: 'askCount' });
+            // setaskCount(askCount.data);
+        } catch (error) {
+            console.error('데이터 가져오다가 에러남', error.message);
+        }
+    };
+
+    // 컴포넌트 마운트 시 데이터 로드
+    useEffect(() => {
+        DataCount();
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -26,7 +33,7 @@ const AdminMain = () => {
             <div className={styles.topboard}>
                 <Link to="/admin/order">
                     <div>주문접수</div>
-                    <div className={styles.title}>13 건</div>
+                    <div className={styles.title}>{order} 건</div>
                 </Link>
                 <Link to="/admin/onetoone">
                     <div>문의접수</div>
@@ -46,14 +53,14 @@ const AdminMain = () => {
             <div className={styles.chartcontainer}>
                 <div className={styles.chartbox}>
                     {/* 메인에 차트를 끌어와서 넣으려면 컴포넌트로 만들어서 가져오면 댐 */}
-                    <Bar 
+                    {/* <Bar 
                         data={chartData} 
                         options={{ 
                         scales: { 
                             y: { beginAtZero: true }
                         },
                         }} 
-                    />
+                    /> */}
                 </div>
             </div>
         </div>
