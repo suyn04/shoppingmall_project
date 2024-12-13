@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const conn = require('../db');
-const multer = require('multer')
+const multer = require('multer');
 const path = require('path');
-const { log, error } = require("console");
+const { log, error } = require('console');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -11,14 +11,12 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
-    }
+    },
 });
-
 
 const upload = multer({ storage });
 
-
-module.exports =() => {
+module.exports = () => {
     //1:1 문의 목록 조회 (get)
     router.get('/', async (req, res) => {
         console.log('1:1 문의 목록 조회 진입성공');
@@ -34,7 +32,7 @@ module.exports =() => {
                     post_detail,       -- 문의 내용
                     reply_detail,      -- 답변 내용
                     reply_date,        -- 답변 날짜
-                    reply_status       -- 답변 상태
+                    reply_status,       -- 답변 상태
                     one_upload_file    -- 파일 첨부
                 FROM 
                     one_to_one
@@ -64,7 +62,7 @@ module.exports =() => {
                     post_detail,       -- 문의 내용
                     reply_detail,      -- 답변 내용
                     reply_date,        -- 답변 날짜
-                    reply_status       -- 답변 상태
+                    reply_status,       -- 답변 상태
                     one_upload_file    -- 파일 첨부
                 FROM 
                     one_to_one
@@ -117,14 +115,10 @@ module.exports =() => {
         }
     });
 
-
-
-
     // 고객 정보 조회 라우트
     router.post('/myPage', async (req, res) => {
         const { email } = req.body; // 바디에서 이메일 가져와서
         const sessionToken = req.headers['authorization']; // 세션 토큰 확인
-
 
         // 세션 토큰 검증
         if (!sessionToken || sessionToken !== 'mockSessionToken') {

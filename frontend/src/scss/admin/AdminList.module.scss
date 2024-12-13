@@ -1,6 +1,7 @@
 /* MemberList.module.scss */
 
 .list {
+    margin-top: 50px;
     .searchbar {
         margin: 20px 0 20px 40px;
         display: flex;
@@ -67,7 +68,7 @@
         text-align: center;
 
         tr:nth-child(1) {
-            input[type="checkbox"] {
+            input[type='checkbox'] {
                 margin-right: 5px;
             }
             background-color: #ddd;
