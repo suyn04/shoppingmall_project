@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const ReportDetail = () => {
     const { id } = useParams(); // URL에서 ID 가져오기
-    console.log(id);
+    console.log(id)
     const [report, setReport] = useState(null); // 신고 상세 데이터
     const navigate = useNavigate();
 
@@ -24,21 +24,21 @@ const ReportDetail = () => {
     //             console.error('상세 오류:', err);
     //         });
     // }, [id]);
-    // 리뷰 비공개 처리 함수
-    const handleHideReview = async review_no => {
-        if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
-            axios
-                .put(`http://localhost:5001/reports/hide/${id}`)
-                .then(res => {
-                    console.log('정보수정 성공 ', res.data);
-                    alert(`신고되었습니다.`);
-                    navigate(`/admin/reports`);
-                })
-                .catch(err => {
-                    console.error('정보수정 실패 ', err);
-                });
-        }
-    };
+ // 리뷰 비공개 처리 함수
+ const handleHideReview = async (review_no, report_no) => {
+    if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
+        // console.log(review_no, report_no)
+        axios.put(`http://localhost:5001/reports/hide/${review_no}/${report_no}`)
+        .then(res=>{
+            console.log("정보수정 성공 ",res.data)
+            alert(`신고되었습니다.`)
+            navigate(`/admin/reports`)
+        })
+        .catch(err=>{
+            console.error("정보수정 실패 ",err)
+        })
+    }
+};
 
     if (!report) {
         return <p>로딩 중...</p>;
@@ -60,7 +60,7 @@ const ReportDetail = () => {
             </p>
             <p>
                 <button
-                    onClick={() => handleHideReview(report.review_no)}
+                    onClick={() => handleHideReview(report.review_no, report.report_no)}
                     // className={styles.hideButton}
                 >
                     리뷰 비공개

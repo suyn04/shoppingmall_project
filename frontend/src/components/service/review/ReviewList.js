@@ -5,6 +5,12 @@ import Modal from "./Modal";
 import styles from "../../../scss/service/review/ReviewList.module.scss";
 
 const ReviewList = ({ product_id }) => {
+
+    // email 세션 추가
+
+    const email = sessionStorage.getItem('email')
+
+
     const [reviews, setReviews] = useState([]);
     const [expandedReview, setExpandedReview] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,6 +45,11 @@ const ReviewList = ({ product_id }) => {
 
     // 모달 열기
     const handleOpenModal = (review) => {
+        // 로그인한 사람만 리뷰작성 가능하게 끔
+        if(!email){
+            alert('회원만 리뷰작성이 가능합니다.')
+            navigate('/signIn')
+        }
         setSelectedReview(review);
         setIsModalOpen(true);
     };
@@ -65,6 +76,7 @@ const ReviewList = ({ product_id }) => {
 
         try {
             const reportData = {
+                email,
                 review_no: parseInt(selectedReview.review_no, 10),
                 reason: reportReason,
                 content: reportContent,
@@ -89,19 +101,6 @@ const ReviewList = ({ product_id }) => {
         }
         navigate(`/review/${product_opt_id}`);
     };
-//   //리뷰 삭제 함수
-//   const handleDeleteReview = async () => {
-//     if (window.confirm('정말로 이 리뷰를 삭제하시겠습니까?')) {
-//       try {
-//         await axios.delete(`http://localhost:5001/report/delete/${id}`);
-//         alert('리뷰가 삭제되었습니다.');
-//         setReviews(reviews.filter((review) => review.review_no !== review_no));
-//       } catch (err) {
-//         console.error('리뷰 삭제 실패:', err);
-//         alert('리뷰 삭제에 실패했습니다.');
-//       }
-//     }
-//   };
   
     return (
         <div>

@@ -13,8 +13,9 @@ const ReportList = () => {
             const response = await axios.get('http://localhost:5001/reports');
             setReports(response.data); // 데이터 저장
         } catch (err) {
-            console.error('신고 목록 불러오기 실패:', err);
-            alert('신고 목록을 불러오는 데 실패했습니다.');
+            // console.error('신고 목록 불러오기 실패:', err);
+            // alert('신고 목록을 불러오는 데 실패했습니다.');
+            return <div>신고 목록 불러오기 실패</div>            
         }
     };
 
@@ -34,6 +35,7 @@ const ReportList = () => {
                 <thead>
                     <tr>
                         <th>번호</th>
+                        <th>신고 번호</th>
                         <th>신고자</th>
                         <th>신고 일자</th>
                         <th>상세보기</th>
@@ -43,6 +45,7 @@ const ReportList = () => {
                         {reports.map((report) => (
                             <tr key={report.report_no}>
                                 <td>{report.report_no}</td>
+                                <td>{report.review_no}</td>
                                 <td>{report.reporter}</td>
                                 <td>{new Date(report.report_date).toLocaleDateString()}</td>
                                 <td>{report.check_status ? '처리 완료' : '미처리'}</td>
