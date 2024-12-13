@@ -81,11 +81,29 @@ module.exports = () => {
             res.status(500).send("DB 오류");
         }
     });
+    // router.get("/", async (req, res) => {
+
+    //     console.log('리뷰 목록 요청2')
+    //     const { product_id } = req.query;
+    //     try {
+    //         const query = `
+    //             SELECT *
+    //             FROM review_management
+    //             WHERE product_id = ? AND is_visible = 0  -- 공개된 리뷰만 가져오기
+    //         `;
+    //         const [rows] = await conn.execute(query, [product_id]);
+    //         res.json(rows);
+    //     } catch (err) {
+    //         console.error("리뷰 목록 조회 실패:", err.message);
+    //         res.status(500).send("DB 오류");
+    //     }
+    // });
 
     // 특정 리뷰 상세 정보 가져오기
     router.get("/:id", async (req, res) => {
+
         const { id } = req.params;
-        // console.log(`리뷰 상세 요청 ID: ${id}`); // 요청 ID 확인
+        console.log(`리뷰 상세 요청 ID: ${id}`); // 요청 ID 확인
         try {
             const [rows] = await conn.execute(
                 "SELECT * FROM review_management WHERE review_no = ?",
@@ -104,39 +122,6 @@ module.exports = () => {
             res.status(500).send("DB 오류");
         }
     });
-router.get("/", async (req, res) => {
-    const { product_id } = req.query;
-    try {
-        const query = `
-            SELECT *
-            FROM review_management
-            WHERE product_id = ? AND is_visible = 0  -- 공개된 리뷰만 가져오기
-        `;
-        const [rows] = await conn.execute(query, [product_id]);
-        res.json(rows);
-    } catch (err) {
-        console.error("리뷰 목록 조회 실패:", err.message);
-        res.status(500).send("DB 오류");
-    }
-});
-router.get('/', async (req, res) => {
-    const { product_opt_id } = req.query;
-    try {
-        const query = `
-            SELECT *
-            FROM review_management
-            WHERE product_opt_id = ? AND is_visible = 0  -- 공개된 리뷰만 가져오기
-        `;
-        const [rows] = await conn.execute(query, [product_opt_id]);
-        res.json(rows);
-    } catch (err) {
-        console.error('리뷰 목록 조회 실패:', err.message);
-        res.status(500).send('DB 오류');
-    }
-});
-
-
-
 
     router.post("/", upload.single("review_file"), async (req, res) => {
         console.log("review post 진입");

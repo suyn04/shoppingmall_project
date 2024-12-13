@@ -59,7 +59,7 @@ const onetooneRouter = require('./controller/one_to_one.js');
 app.use('/onetoone/', onetooneRouter(upload));
 //리뷰
 const reviewRouter = require('./controller/review.js');
-app.use('/review/', reviewRouter);
+app.use('/review/', reviewRouter());
 //리뷰신고
 const reportRouter = require('./controller/report.js');
 app.use('/reports/', reportRouter);
