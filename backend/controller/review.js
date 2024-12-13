@@ -1,19 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const conn = require("../db");
-const multer = require('multer')
-const path =require('path');
+const multer = require("multer");
+const path = require("path");
 
 const upload = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, 'imgs/review/');
+            cb(null, "imgs/review/");
         },
         filename: (req, file, cb) => {
             const ext = path.extname(file.originalname);
-            let fName = path.basename(file.originalname, ext) + Date.now() + ext;
+            let fName =
+                path.basename(file.originalname, ext) + Date.now() + ext;
             //한글인코딩
-            let newFName = Buffer.from(fName, 'latin1').toString('utf8');
+            let newFName = Buffer.from(fName, "latin1").toString("utf8");
 
             cb(null, newFName);
         },
@@ -69,7 +70,7 @@ module.exports = () => {
 
     // 리뷰 목록 가져오기
     router.get("/", async (req, res) => {
-        // console.log('리뷰 목록 요청');
+        console.log("리뷰 목록 요청");
         try {
             const [rows] = await conn.execute(
                 "SELECT * FROM review_management"
@@ -85,7 +86,7 @@ module.exports = () => {
     // 특정 리뷰 상세 정보 가져오기
     router.get("/:id", async (req, res) => {
         const { id } = req.params;
-        // console.log(`리뷰 상세 요청 ID: ${id}`); // 요청 ID 확인
+        console.log(`리뷰 상세 요청 ID: ${id}`); // 요청 ID 확인
         try {
             const [rows] = await conn.execute(
                 "SELECT * FROM review_management WHERE review_no = ?",
@@ -104,44 +105,45 @@ module.exports = () => {
             res.status(500).send("DB 오류");
         }
     });
-router.get("/", async (req, res) => {
-    const { product_id } = req.query;
-    try {
-        const query = `
+    router.get("/", async (req, res) => {
+        console.log("들어와라");
+
+        const { product_id } = req.query;
+        try {
+            const query = `
             SELECT *
             FROM review_management
             WHERE product_id = ? AND is_visible = 0  -- 공개된 리뷰만 가져오기
         `;
-        const [rows] = await conn.execute(query, [product_id]);
-        res.json(rows);
-    } catch (err) {
-        console.error("리뷰 목록 조회 실패:", err.message);
-        res.status(500).send("DB 오류");
-    }
-});
-router.get('/', async (req, res) => {
-    const { product_opt_id } = req.query;
-    try {
-        const query = `
+            const [rows] = await conn.execute(query, [product_id]);
+            res.json(rows);
+        } catch (err) {
+            console.error("리뷰 목록 조회 실패:", err.message);
+            res.status(500).send("DB 오류");
+        }
+    });
+    router.get("/", async (req, res) => {
+        console.log("들어와라");
+
+        const { product_opt_id } = req.query;
+        try {
+            const query = `
             SELECT *
             FROM review_management
             WHERE product_opt_id = ? AND is_visible = 0  -- 공개된 리뷰만 가져오기
         `;
-        const [rows] = await conn.execute(query, [product_opt_id]);
-        res.json(rows);
-    } catch (err) {
-        console.error('리뷰 목록 조회 실패:', err.message);
-        res.status(500).send('DB 오류');
-    }
-});
-
-
-
+            const [rows] = await conn.execute(query, [product_opt_id]);
+            res.json(rows);
+        } catch (err) {
+            console.error("리뷰 목록 조회 실패:", err.message);
+            res.status(500).send("DB 오류");
+        }
+    });
 
     router.post("/", upload.single("review_file"), async (req, res) => {
         console.log("review post 진입");
         console.log(req.file);
-    
+
         try {
             const query = `
                 INSERT INTO review_management (
@@ -151,10 +153,10 @@ router.get('/', async (req, res) => {
                 )
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
-    
+
             // 이미지 파일이 있을 경우 파일명, 없으면 null로 설정
             const reviewUploadFile = req.file ? req.file.filename : null;
-    
+
             const values = [
                 req.body.product_opt_id,
                 req.body.product_id,
@@ -173,9 +175,12 @@ router.get('/', async (req, res) => {
                 1, // 기본 상태값 (예: 승인 대기)
                 1, // `is_visible` 기본값 (공개)
             ];
-    
+
             const [result] = await conn.execute(query, values);
-            res.status(201).json({ message: "리뷰가 성공적으로 등록되었습니다.", review_no: result.insertId });
+            res.status(201).json({
+                message: "리뷰가 성공적으로 등록되었습니다.",
+                review_no: result.insertId,
+            });
         } catch (error) {
             console.error("리뷰 등록 오류:", error.message);
             res.status(500).json({ error: "리뷰 등록 실패" });

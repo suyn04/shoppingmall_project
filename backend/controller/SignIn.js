@@ -13,8 +13,14 @@ router.post('/', async (req, res) => {
     const sessionToken = 'mockSessionToken'; // 임시 토큰
 
     try {
-        // 데이터베이스에서 사용자 정보 조회
+        // 탈퇴 회원 여부 확인
+        const [deletedUser] = await db.query(`SELECT * FROM deleted_customers WHERE email = ?`, [email]);
 
+        if (deletedUser.length > 0) {
+            return res.json({ error: '탈퇴한 회원입니다.' });
+        }
+
+        // 데이터베이스에서 사용자 정보 조회
         const [userInfo] = await db.query(
             `SELECT auth.auth_id, auth.email, customers.customer_name 
             FROM auth JOIN customers ON auth.email = customers.email
@@ -39,7 +45,7 @@ router.post('/', async (req, res) => {
     } catch (error) {
         // 서버 오류 처리
         console.error('로그인 오류 :', error);
-        res.json({ message: '서버 오류가 발생' });
+        res.json({ message: '서버 오류 발생' });
     }
 });
 

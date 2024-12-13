@@ -17,6 +17,7 @@ import BodyCareHomeWrap from "./components/product/bathBody/BodyCareHomeWrap";
 import Search from "./components/dup/Search";
 import BestSeller from "./components/product/BestSeller";
 import AllProduct from "./components/product/AllProduct";
+import ScentFinder from "./components/dup/ScentFinder";
 
 function Product() {
     return (
@@ -57,6 +58,7 @@ function Product() {
             <Route path="/search" element={<Search />} />
             <Route path="/best-seller" element={<BestSeller />} />
             <Route path="/all-product" element={<AllProduct />} />
+            <Route path="/scent-finder" element={<ScentFinder />} />
         </Routes>
     );
 }

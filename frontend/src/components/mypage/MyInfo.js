@@ -38,6 +38,30 @@ const MyInfo = () => {
         }
     }, []);
 
+    const deleteMember = () => {
+        if (window.confirm('정말 탈퇴하시겠습니까?')) {
+            const sessionToken = sessionStorage.getItem('sessionToken');
+            const email = sessionStorage.getItem('email');
+            axios
+                .post(
+                    'http://localhost:5001/myPage', // 탈퇴 처리 라우트
+                    { action: 'deleteMember', email },
+                    {
+                        headers: { Authorization: sessionToken },
+                    }
+                )
+                .then(() => {
+                    alert('회원 탈퇴가 완료되었습니다.');
+                    sessionStorage.clear(); // 세션 정리
+                    navigate('/');
+                })
+                .catch(error => {
+                    console.error('회원 탈퇴 실패', error);
+                    alert('회원 탈퇴 중 문제가 발생했습니다. 다시 시도해 주세요.');
+                });
+        }
+    };
+
     // 날짜 포맷팅 함수
     const formatDate = dateString => {
         if (!dateString) return '-';
@@ -56,6 +80,9 @@ const MyInfo = () => {
                             <Link to="/myPage/myinfoEdit" className={styles.a1}>
                                 정보 수정하기
                             </Link>
+                            <button onClick={deleteMember} className={styles.deleteMember}>
+                                회원 탈퇴
+                            </button>
                         </div>
                     </div>
                     <div className={styles.infoBlock}>
