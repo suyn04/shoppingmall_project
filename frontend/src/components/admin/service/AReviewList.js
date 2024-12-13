@@ -18,8 +18,6 @@ const AReviewList = () => {
             } catch (err) {
                 setError('리뷰 데이터를 가져오는 데 실패했습니다.');
                 console.error('에러 발생:', err);
-            } finally {
-                setLoading(false);
             }
         };
 
@@ -29,7 +27,7 @@ const AReviewList = () => {
         console.log('전달된 ID:', id); // 클릭한 리뷰의 ID 확인
         navigate(`/admin/areviewdetail/${id}`); // 상세보기 페이지로 이동
     };
-    if (loading) return <p>로딩 중...</p>;
+    // if (loading) return <p>로딩 중...</p>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -41,6 +39,7 @@ const AReviewList = () => {
                         <li key={review.review_no}>
                             {' '}
                             {/* key를 review_no로 설정 */}
+                            <div>{review.review_no}</div>
                             <strong>{review.memberName}</strong> {review.content}
                             <p>
                                 <strong>작성자 이메일:</strong> {review.email}

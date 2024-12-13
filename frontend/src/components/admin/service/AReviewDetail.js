@@ -13,9 +13,9 @@ const ReviewDetail = () => {
   useEffect(() => {
     const fetchReviewDetail = async () => {
       try {
-        console.log(`요청 URL: http://localhost:5001/review_management/${id}`);
+        // console.log(`요청 URL: http://localhost:5001/review_management/${id}`);
         const response = await axios.get(`http://localhost:5001/review/${id}`);
-        console.log('리뷰 상세 데이터:', response.data);
+        // console.log('리뷰 상세 데이터:', response.data);
         setReview(response.data); //상태 업데이트
       } catch (err) {
         setError('리뷰 세부 정보를 가져오는 데 실패했습니다.');
@@ -49,7 +49,7 @@ const ReviewDetail = () => {
       <p><strong>향수 계열:</strong> {review.review_scent}</p>
       {/* <p><strong>좋아요:</strong> {review.review_good}</p>
       <p><strong>싫어요:</strong> {review.review_bad}</p> */}
-      <p><strong>처리상태:</strong> {review.review_status === 1 ? '활성화' : '비활성화'}</p>
+      <p><strong>처리상태:</strong> {review.is_visible === 1 ? '활성화' : '비활성화'}</p>
       <button onClick={handleBack} style={{ marginTop: '20px' }}>뒤로가기</button> {/* 뒤로가기 버튼 */}
     </div>
   );
