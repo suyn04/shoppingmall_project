@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const [report] = await conn.query(`
+        const [report] = await conn.query(
+            `
             SELECT 
                 report_no,
                 review_no,
@@ -37,7 +38,9 @@ router.get('/:id', async (req, res) => {
                 check_status
             FROM review_reports
             WHERE report_no = ?
-        `, [id]);
+        `,
+            [id]
+        );
 
         if (!report.length) {
             return res.status(404).json({ error: '신고를 찾을 수 없음' });
@@ -101,22 +104,18 @@ router.put('/:id/status', async (req, res) => {
 
 // 리뷰 비공개 처리 라우터
 router.put('/hide/:review_no', async (req, res) => {
-    const { review_no } = req.params;
+    console.log('리뷰 비공개 백 진입');
+    console.log(req.params.review_no);
 
     try {
         // `review_management` 테이블에서 is_visible 값을 0으로 설정 (비공개)
         const updateReportQuery = `
         UPDATE review_reports
         SET check_status = 1, check_datetime = NOW(), check_detail = '비공개 처리됨'
-        WHERE review_no = ?
+        WHERE report_no = ?
     `;
-    await conn.execute(updateReportQuery, [review_no]);
+        await conn.execute(updateReportQuery, [req.params.review_no]);
 
-        if (updateResult.affectedRows === 0) {
-            return res.status(404).json({ error: '해당 리뷰를 찾을 수 없습니다.' });
-        }
-
-    
         res.json({ message: '리뷰가 비공개 처리되었습니다.' });
     } catch (error) {
         console.error('리뷰 비공개 처리 오류:', error.message);
