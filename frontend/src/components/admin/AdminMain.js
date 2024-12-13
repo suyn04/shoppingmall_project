@@ -5,8 +5,10 @@ import styles from '../../scss/admin/AdminMain.module.scss';
 import axios from 'axios';
 
 const AdminMain = () => {
-    const [order, setOrderCount] = useState(0);
-    // const [ask, setaskCount] = useState(0);
+    const [Neworder, setOrderCount] = useState(0);
+    const [Newask, setaskCount] = useState(0);
+    const [Newrefund, setrefundCount] = useState(0);
+    const [Newreport, setreportCount] = useState(0);
 
     const DataCount = async () => {
         try {
@@ -14,9 +16,17 @@ const AdminMain = () => {
             const orderCnt = await axios.post('http://localhost:5001/admin/order', { action: 'orderCount' });
             setOrderCount(orderCnt.data);
 
-            // // 문의접수건 가져오기
-            // const askCount = await axios.post('http://localhost:5001/멀라', { action: 'askCount' });
-            // setaskCount(askCount.data);
+            // 문의접수건 가져오기
+            const askCount = await axios.post('http://localhost:5001/admin/onetoone', { action: 'askCount' });
+            setaskCount(askCount.data);
+
+            // 반품접수건 가져오기
+            const refundCount = await axios.post('http://localhost:5001/admin/order', { action: 'refundCount' });
+            setrefundCount(refundCount.data);
+
+            // 신고접수건 가져오기
+            const reportCount = await axios.post('http://localhost:5001/admin/reports', { action: 'reportCount' });
+            setreportCount(reportCount.data);
         } catch (error) {
             console.error('데이터 가져오다가 에러남', error.message);
         }
@@ -33,19 +43,19 @@ const AdminMain = () => {
             <div className={styles.topboard}>
                 <Link to="/admin/order">
                     <div>주문접수</div>
-                    <div className={styles.title}>{order} 건</div>
+                    <div className={styles.title}>{Neworder} 건</div>
                 </Link>
                 <Link to="/admin/onetoone">
                     <div>문의접수</div>
-                    <div className={styles.title}>5 건</div>
+                    <div className={styles.title}>{Newask} 건</div>
                 </Link>
                 <Link to="/admin/reports">
-                    <div>반품요청</div>
-                    <div className={styles.title}>8 건</div>
+                    <div>반품접수</div>
+                    <div className={styles.title}>{Newrefund} 건</div>
                 </Link>
                 <Link to="/admin/reports">
                     <div>신고접수</div>
-                    <div className={styles.title}>3 건</div>
+                    <div className={styles.title}>{Newreport} 건</div>
                 </Link>
             </div>
 
@@ -60,6 +70,7 @@ const AdminMain = () => {
                             y: { beginAtZero: true }
                         },
                         }} 
+                        //월별 매출액 차트만
                     /> */}
                 </div>
             </div>
