@@ -49,7 +49,7 @@ const ReviewDetail = () => {
       <p><strong>향수 계열:</strong> {review.review_scent}</p>
       {/* <p><strong>좋아요:</strong> {review.review_good}</p>
       <p><strong>싫어요:</strong> {review.review_bad}</p> */}
-      <p><strong>처리상태:</strong> {review.review_status === 1 ? '활성화' : '비활성화'}</p>
+      <p><strong>처리상태:</strong> {review.is_visible === 1 ? '활성화' : '비활성화'}</p>
       <button onClick={handleBack} style={{ marginTop: '20px' }}>뒤로가기</button> {/* 뒤로가기 버튼 */}
     </div>
   );

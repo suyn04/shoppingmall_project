@@ -105,21 +105,22 @@ router.put('/:id/status', async (req, res) => {
 });
 
 // 리뷰 비공개 처리 라우터
-router.put('/hide/:review_no', async (req, res) => {
+router.put('/hide/:review_no/:report_no', async (req, res) => {
     console.log('리뷰 비공개 백 진입')
-    console.log(req.params.review_no)
+    const { review_no, report_no } = req.params;
+    console.log(review_no, report_no)
 
     try {
-        // `review_management` 테이블에서 is_visible 값을 0으로 설정 (비공개)
-        const updateReportQuery = `
-        UPDATE review_reports
-        SET check_status = 1, check_datetime = NOW(), check_detail = '비공개 처리됨'
-        WHERE report_no = ?
-    `;
-    await conn.execute(updateReportQuery, [req.params.review_no]);
+        await conn.execute(`UPDATE review_reports
+            SET check_status = 1, check_datetime = NOW(), check_detail = '비공개 처리됨'
+            WHERE report_no = ?`, [report_no]);
 
-        
-
+        await conn.execute(
+            `UPDATE review_management
+            SET is_visible = 0
+            WHERE review_no = ?`,
+            [review_no]
+        );
     
         res.json({ message: '리뷰가 비공개 처리되었습니다.' });
     } catch (error) {

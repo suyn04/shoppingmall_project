@@ -11,7 +11,6 @@ const AReviewList = () => {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                console.log('왜 안들어와 너 왜 안들어와 안들어와!')
                 const response = await axios.get('http://localhost:5001/review');
                 console.log('응답 데이터:', response.data); // 응답 데이터 확인
                 const reviewData = Array.isArray(response.data) ? response.data : [];
@@ -28,7 +27,7 @@ const AReviewList = () => {
         console.log('전달된 ID:', id); // 클릭한 리뷰의 ID 확인
         navigate(`/admin/areviewdetail/${id}`); // 상세보기 페이지로 이동
     };
-    if (loading) return <p>로딩 중...</p>;
+    // if (loading) return <p>로딩 중...</p>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -40,6 +39,7 @@ const AReviewList = () => {
                         <li key={review.review_no}>
                             {' '}
                             {/* key를 review_no로 설정 */}
+                            <div>{review.review_no}</div>
                             <strong>{review.memberName}</strong> {review.content}
                             <p>
                                 <strong>작성자 이메일:</strong> {review.email}

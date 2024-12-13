@@ -25,9 +25,10 @@ const ReportDetail = () => {
     //         });
     // }, [id]);
  // 리뷰 비공개 처리 함수
- const handleHideReview = async (review_no) => {
+ const handleHideReview = async (review_no, report_no) => {
     if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
-        axios.put(`http://localhost:5001/reports/hide/${id}`)
+        // console.log(review_no, report_no)
+        axios.put(`http://localhost:5001/reports/hide/${review_no}/${report_no}`)
         .then(res=>{
             console.log("정보수정 성공 ",res.data)
             alert(`신고되었습니다.`)
@@ -59,7 +60,7 @@ const ReportDetail = () => {
             </p>
             <p>
                 <button
-                    onClick={() => handleHideReview(report.review_no)}
+                    onClick={() => handleHideReview(report.review_no, report.report_no)}
                     // className={styles.hideButton}
                 >
                     리뷰 비공개
