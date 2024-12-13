@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams ,useNavigate} from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ReportDetail = () => {
@@ -10,9 +10,9 @@ const ReportDetail = () => {
 
     useEffect(() => {
         fetch(`http://localhost:5001/reports/${id}`)
-            .then((res) => res.json())
-            .then((data) => setReport(data))
-            .catch((err) => console.error('상세 오류:', err));
+            .then(res => res.json())
+            .then(data => setReport(data))
+            .catch(err => console.error('상세 오류:', err));
     }, [id]);
     // useEffect(() => {
     //     // 서버에서 신고 상세 가져오기
@@ -39,24 +39,32 @@ const ReportDetail = () => {
     }
 };
 
-if (!report) {
-    return <p>로딩 중...</p>;
-}
+    if (!report) {
+        return <p>로딩 중...</p>;
+    }
     return (
         <div>
             <h2>신고 상세</h2>
-            <p><strong>번호:</strong> {report.report_no}</p>
-            <p><strong>신고자:</strong> {report.reporter}</p>
-            <p><strong>신고 일자:</strong> {new Date(report.report_date).toLocaleDateString()}</p>
-            <p><strong>내용:</strong> {report.report_detail}</p>
             <p>
-            <button
-                onClick={() => handleHideReview(report.review_no)}
-                // className={styles.hideButton}
-              >
-                리뷰 비공개
-              </button>
-                            </p>
+                <strong>번호:</strong> {report.report_no}
+            </p>
+            <p>
+                <strong>신고자:</strong> {report.reporter}
+            </p>
+            <p>
+                <strong>신고 일자:</strong> {new Date(report.report_date).toLocaleDateString()}
+            </p>
+            <p>
+                <strong>내용:</strong> {report.report_detail}
+            </p>
+            <p>
+                <button
+                    onClick={() => handleHideReview(report.review_no)}
+                    // className={styles.hideButton}
+                >
+                    리뷰 비공개
+                </button>
+            </p>
         </div>
     );
 };

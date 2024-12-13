@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const [report] = await conn.query(`
+        const [report] = await conn.query(
+            `
             SELECT 
                 report_no,
                 review_no,
@@ -37,7 +38,9 @@ router.get('/:id', async (req, res) => {
                 check_status
             FROM review_reports
             WHERE report_no = ?
-        `, [id]);
+        `,
+            [id]
+        );
 
         if (!report.length) {
             return res.status(404).json({ error: '신고를 찾을 수 없음' });
