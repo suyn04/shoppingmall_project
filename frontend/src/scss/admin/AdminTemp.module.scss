@@ -1,23 +1,51 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: calc(100% - 40px);
+    box-sizing: border-box;
+}
+
 .container {
     display: flex;
-    height: 60vh;
+    height: calc(100% - 40px);
 }
 
 .sidebar {
-    width: 200px;
+    width: 10%;
+    height: calc(100vh - 40px);
     border-right: 1px solid #ddd;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 30px;
+    background: #f0f0f0;
 
     a {
         text-decoration: none;
         color: #333;
         font-size: 16px;
         font-weight: bold;
+        display: block; /* 인라인 스타일에서 block 설정 */
+        margin: 10px 0; /* 인라인 스타일 반영 */
 
         &:hover {
+            color: #ccc;
+        }
+    }
+}
+.topbar {
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+    position: absolute;
+
+    a {
+        text-decoration: none;
+        font-size: 16px;
+        color: #333;
+
+        &::after {
             color: #ccc;
         }
     }
@@ -25,6 +53,5 @@
 
 .content {
     flex: 1;
-    padding: 20px;
-    overflow-y: auto;
+    padding: auto 20px;
 }
