@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import styles from "../../../scss/admin/AdminDetail.module.scss";
 
 const AProductRegister = () => {
     const [noteOptions, setNoteOptions] = useState([]); // Filtered options for Category 3
@@ -61,10 +62,10 @@ const AProductRegister = () => {
     };
 
     return (
-        <div>
+        <div className={styles.list}>
+            <div className={styles.title}>제품 등록</div>
             <form name="myFrm" onSubmit={submitGo}>
-                <div>제품 상세 내용</div>
-                <table border="1">
+                <table>
                     <tr>
                         <td>제품 국문명</td>
                         <td>
@@ -152,7 +153,7 @@ const AProductRegister = () => {
                     <tr>
                         <td>제품 성분</td>
                         <td>
-                            <input name="product_ingredient" type="textarea" />
+                            <textarea name="product_intro" rows="5" />
                         </td>
                     </tr>
                     <tr>
@@ -203,16 +204,41 @@ const AProductRegister = () => {
                     <tr>
                         <td>제품설명</td>
                         <td>
-                            <input name="product_intro" type="text" />
+                            <textarea name="product_intro" rows="5" />
                         </td>
                     </tr>
-
                     <tr>
-                        <td colSpan={2}>
-                            <button onClick={submitGo}>저장</button>
+                        <td>공개여부</td>
+                        <td>
+                            <input
+                                type="radio"
+                                name="product_status"
+                                value="0"
+                            />
+                            비공개
+                            <input
+                                type="radio"
+                                name="product_status"
+                                value="1"
+                                checked
+                            />
+                            공개
                         </td>
                     </tr>
                 </table>
+                <div className={styles.actionButtons}>
+                    <button
+                        className={styles.resetbutton}
+                        onClick={() => {
+                            navigate(`/admin/product`);
+                        }}
+                    >
+                        목록으로
+                    </button>
+                    <button className={styles.searchbutton} onClick={submitGo}>
+                        저장
+                    </button>
+                </div>
             </form>
         </div>
     );

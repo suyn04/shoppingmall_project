@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../scss/dup/finderModal.module.scss";
 
-const FinderModal = () => {
+const FinderModal = ({ openModal, setOpenModal }) => {
     return (
         <div className={styles.overlay}>
             <div className={styles.container}>
@@ -10,8 +10,21 @@ const FinderModal = () => {
                     <div>
                         <div>당신의 고민은?</div>
                         <div>
-                            <input type="radio" name="for" id="for" />
+                            <input
+                                className={styles.btn}
+                                type="radio"
+                                name="for"
+                                id="for"
+                                value={1}
+                            />
                             <label for="for">당신을 위한</label>
+                            <input
+                                className={styles.btn}
+                                type="radio"
+                                name="for"
+                                id="for"
+                                value={2}
+                            />
                             <label for="for">누군가를 위한</label>
                         </div>
                     </div>
@@ -52,6 +65,15 @@ const FinderModal = () => {
                             <div>활기찬</div>
                         </div>
                     </div>
+                    <button
+                        className="cancle"
+                        type="button"
+                        onClick={() => {
+                            setOpenModal(false);
+                        }}
+                    >
+                        취소
+                    </button>
                 </div>
             </div>
         </div>

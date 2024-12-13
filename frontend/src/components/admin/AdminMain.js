@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Analysis from './analysis/Analysis';
-import styles from '../../scss/admin/AdminMain.module.scss';
 import axios from 'axios';
+import styles from '../../scss/admin/AdminMain.module.scss';
+import MonthChart from './analysis/MonthChart';
 
 const AdminMain = () => {
     const [Neworder, setOrderCount] = useState(0);
@@ -17,7 +17,7 @@ const AdminMain = () => {
             setOrderCount(orderCnt.data);
 
             // 문의접수건 가져오기
-            const askCount = await axios.post('http://localhost:5001/admin/onetoone', { action: 'askCount' });
+            const askCount = await axios.post('http://localhost:5001/onetoone', { action: 'askCount' });
             setaskCount(askCount.data);
 
             // 반품접수건 가져오기
@@ -25,7 +25,7 @@ const AdminMain = () => {
             setrefundCount(refundCount.data);
 
             // 신고접수건 가져오기
-            const reportCount = await axios.post('http://localhost:5001/admin/reports', { action: 'reportCount' });
+            const reportCount = await axios.post('http://localhost:5001/reports', { action: 'reportCount' });
             setreportCount(reportCount.data);
         } catch (error) {
             console.error('데이터 가져오다가 에러남', error.message);
@@ -49,7 +49,7 @@ const AdminMain = () => {
                     <div>문의접수</div>
                     <div className={styles.title}>{Newask} 건</div>
                 </Link>
-                <Link to="/admin/reports">
+                <Link to="/admin/orderStatus">
                     <div>반품접수</div>
                     <div className={styles.title}>{Newrefund} 건</div>
                 </Link>
@@ -60,18 +60,11 @@ const AdminMain = () => {
             </div>
 
             {/* 차트 영역 */}
+
             <div className={styles.chartcontainer}>
+                <p>월별 매출액 그래프</p>
                 <div className={styles.chartbox}>
-                    {/* 메인에 차트를 끌어와서 넣으려면 컴포넌트로 만들어서 가져오면 댐 */}
-                    {/* <Bar 
-                        data={chartData} 
-                        options={{ 
-                        scales: { 
-                            y: { beginAtZero: true }
-                        },
-                        }} 
-                        //월별 매출액 차트만
-                    /> */}
+                    <MonthChart />
                 </div>
             </div>
         </div>
