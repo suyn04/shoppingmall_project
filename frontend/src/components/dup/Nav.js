@@ -226,7 +226,7 @@ function Nav({ ham, setHam }) {
                             style={{ display: subMenu[6] ? "block" : "none" }}
                         >
                             <li>
-                                <Link to="">센트 파인더</Link>
+                                <Link to="/scent-finder">센트 파인더</Link>
                             </li>
                             <li>
                                 <Link to="">고객 서비스</Link>
@@ -373,7 +373,9 @@ function Nav({ ham, setHam }) {
                                     <div
                                         className={`${styles.subItem} ${styles.bold}`}
                                     >
-                                        <Link to="">센트 파인더</Link>
+                                        <Link to="/scent-finder">
+                                            센트 파인더
+                                        </Link>
                                         <Link to="">고객 서비스</Link>
                                     </div>
                                 </div>
