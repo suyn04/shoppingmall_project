@@ -28,7 +28,7 @@ const AReviewList = () => {
         console.log('전달된 ID:', id); // 클릭한 리뷰의 ID 확인
         navigate(`/admin/areviewdetail/${id}`); // 상세보기 페이지로 이동
     };
-    // if (loading) return <p>로딩 중...</p>;
+    if (loading) return <p>로딩 중...</p>;
     if (error) return <p>{error}</p>;
 
     return (
