@@ -46,7 +46,36 @@ module.exports = () => {
             res.status(500).json({ error: "DB 에러" });
         }
     });
-
+    router.get('/', async (req, res) => {
+        try {
+            const [results] = await conn.execute(`
+                SELECT 
+                    post_no,
+                    post_category,
+                    email,
+                    post_date,
+                    post_title,
+                    post_detail,
+                    reply_detail,
+                    reply_date,
+                    reply_status,
+                    one_upload_file
+                FROM 
+                    one_to_one
+            `);
+    
+            // 문의가 없는 경우
+            if (results.length === 0) {
+                return res.json({ inquiries: [], message: "No inquiries found" });
+            }
+    
+            // 문의가 있는 경우
+            res.json({ inquiries: results });
+        } catch (err) {
+            console.error("1:1 문의 목록 조회 실패:", err.message);
+            res.status(500).json({ error: "DB 에러" });
+        }
+    });
     router.get('/:id', async (req, res) => {
         // console.log('1:1 문의 목록 조회 진입성공');
 

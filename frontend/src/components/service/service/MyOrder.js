@@ -15,7 +15,7 @@ return(
     // <div className={`${styles.accordion} ${isOpen ? styles.open : ''}`}>
     <div className={isOpen ? `${styles.accordion} ${styles.open}` : `${styles.accordion}`}>
     {/* 아코디언 제목 */}
-    <h2 className={styles["accordian-title"]} onClick={toggleAccordion}>
+    <h2 className={styles["accordion-title"]} onClick={toggleAccordion}>
         {title} 
       </h2>
 

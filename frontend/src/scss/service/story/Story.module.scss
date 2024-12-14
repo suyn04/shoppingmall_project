@@ -1,9 +1,18 @@
 .wrapper {
     margin: 0 auto;
     width: 85%;
-
+    margin-top: 50px;
+    margin-bottom: 50px;
+    .sttitle{
+        font-size: 24px;
+        font-family: 'NanumMyeongjo';
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
     .pp {
         margin-bottom: 30px;
+        margin-left: 20px;
     }
 }
 
@@ -213,6 +222,7 @@
 //사람과 일터 scss
 .people {
     margin: 30px;
+    margin-bottom: 50px;
     width: 95%;
     margin: 0 auto;
 .ibox1{

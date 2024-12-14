@@ -13,7 +13,7 @@ const toggleAccordion = () =>{
 return(
   // <div className={accordion ${isOpen ? 'open' : ''}}>
   <div className={isOpen ? `${styles.accordion} ${styles.open}` : `${styles.accordion}`}>
-    <h2 className={styles.accordion-title} onClick={toggleAccordion}>
+    <h2 className={styles["accordion-title"]} onClick={toggleAccordion}>
         {title} 
       </h2>
 
