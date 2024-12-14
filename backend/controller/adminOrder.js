@@ -72,5 +72,55 @@ module.exports = () => {
         }
     })
 
+    router.post("/search", async (req, res) => {
+        console.log(`/search 진입 확인`); // 정상작동 확인
+        console.log(req.body);
+    
+        let sql = "";
+        let data = [];
+    
+        const { orderCate, text } = req.body;
+    
+        if (orderCate && text) {
+            switch (orderCate) {
+                case "orderNum":
+                    sql = "SELECT * FROM orders WHERE order_id = ?";
+                    data = [text];
+                    break;
+                case "status":
+                    sql = "SELECT * FROM orders WHERE order_status LIKE ?";
+                    data = [`%${text}%`];
+                    break;
+                case "payment":
+                    sql = "SELECT * FROM orders WHERE pay_to LIKE ?";
+                    data = [`%${text}%`];
+                    break;
+                case "orderTo":
+                    sql = "SELECT * FROM orders WHERE order_name LIKE ?";
+                    data = [`%${text}%`];
+                    break;
+                case "invoice":
+                    sql = "SELECT * FROM orders WHERE invoice LIKE ?";
+                    data = [`%${text}%`];
+                    break;
+                default:
+                    sql = "SELECT * FROM orders";
+                    break;
+            }
+        } else {
+            sql = "SELECT * FROM orders";
+        }
+    
+        try {
+            const [ret] = await con.execute(sql, data);
+            res.json(ret);
+        } catch (err) {
+            console.error("SQL 실패: ", err.message);
+            res.status(500).send("DB 오류");
+        }
+    });
+
+    
+
     return router;
 };

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import AProductDetailOpt from "./AProductDetailOpt";
+import styles from "../../../scss/admin/AdminDetail.module.scss";
 
 const AProductDetail = () => {
     const { product_id } = useParams();
@@ -30,9 +31,8 @@ const AProductDetail = () => {
     }
 
     return (
-        <div>
+        <div className={styles.list}>
             <div>
-                <div>제품 상세 내용</div>
                 <table border="1">
                     <tr>
                         <td>제품 국문명</td>

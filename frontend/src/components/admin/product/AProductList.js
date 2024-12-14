@@ -55,7 +55,6 @@ const AProductList = () => {
             .post(`http://localhost:5001/admin/product/search`, data)
             .then((res) => {
                 console.log("검색 완료");
-
                 setProduct(res.data);
                 setText("해당하는 제품이 존재하지 않습니다.");
             })

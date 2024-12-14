@@ -139,8 +139,8 @@ module.exports = () => {
         // console.log(req);
 
         let sql =
-            "insert into product (product_name_kor,product_name_eng,product_category_id,product_scent,product_ingredient,product_top,product_heart,product_base,product_intro,product_reg_date,product_status)";
-        sql += " values (?,?,?,?,?,?,?,?,?,sysdate(),1)";
+            "insert into product (product_name_kor,product_name_eng,product_category_id,product_scent,product_ingredient,product_top,product_heart,product_base,product_intro,product_status,product_reg_date)";
+        sql += " values (?,?,?,?,?,?,?,?,?,?,sysdate())";
 
         let data = [
             req.body.product_name_kor,
@@ -152,6 +152,7 @@ module.exports = () => {
             req.body.product_heart,
             req.body.product_base,
             req.body.product_intro,
+            req.body.product_status,
         ];
         console.log(data);
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import styles from '../../scss/admin/AdminTemp.module.scss';
 
 function AdminTemp() {
     const [topbarLinks, setTopbarLinks] = useState([]);
@@ -11,8 +12,14 @@ function AdminTemp() {
             case 'member': //회원관리 클릭시
                 setTopbarLinks([
                     { name: '회원정보 조회', path: '/admin/member' },
-                    { name: '휴면고객 관리', path: '/admin/member/unactivemember' },
-                    { name: '탈퇴고객 관리', path: '/admin/member/deletedmember' },
+                    {
+                        name: '휴면고객 관리',
+                        path: '/admin/member/unactivemember',
+                    },
+                    {
+                        name: '탈퇴고객 관리',
+                        path: '/admin/member/deletedmember',
+                    },
                 ]);
                 break;
             case 'order': //주문관리 클릭시
@@ -25,7 +32,6 @@ function AdminTemp() {
                 setTopbarLinks([
                     { name: '제품정보 조회', path: '/admin/product' },
                     { name: '제품 등록', path: '/admin/product/register' },
-                    { name: '제품 관리', path: '/admin/product/modify/:product_id' },
                 ]);
                 break;
             case 'board': //게시판관리 클릭시
@@ -36,10 +42,7 @@ function AdminTemp() {
                 ]);
                 break;
             case 'analysis': //매출분석 클릭시
-                setTopbarLinks([
-                    { name: '기간별 매출액 조회', path: '/admin/analysis' },
-                    { name: '기간별 판매량 조회', path: '/admin/analysis' },
-                ]);
+                setTopbarLinks([{ name: '기간별 매출액 조회', path: '/admin/analysis' }]);
                 break;
         }
         setShowTopbar(true); //사이드바를 클릭했을 때는 탑바가 노출되어있어야 함
@@ -57,40 +60,37 @@ function AdminTemp() {
     }, []);
 
     return (
-        <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-            {/* 사이드바 */}
-            <div style={{ width: '200px', background: '#f0f0f0', padding: '10px', overflowY: 'auto' }}>
+        <div className={styles.container}>
+            <div className={styles.sidebar}>
                 <Link
                     to="/admin"
                     onClick={() => {
-                        //관리자 메인페이지를 클릭했을 때 탑바를 숨겨버림
                         setTopbarLinks([]);
                         setShowTopbar(false);
                     }}
-                    style={{ display: 'block', margin: '10px 0' }}
                 >
-                    관리자 메인 페이지
+                    메인페이지로
                 </Link>
-                <Link to="/admin/member" onClick={() => SidebarClick('member')} style={{ display: 'block', margin: '10px 0' }}>
+                <Link to="/admin/member" onClick={() => SidebarClick('member')}>
                     회원관리
                 </Link>
-                <Link to="/admin/order" onClick={() => SidebarClick('order')} style={{ display: 'block', margin: '10px 0' }}>
+                <Link to="/admin/order" onClick={() => SidebarClick('order')}>
                     주문관리
                 </Link>
-                <Link to="/admin/product" onClick={() => SidebarClick('product')} style={{ display: 'block', margin: '10px 0' }}>
+                <Link to="/admin/product" onClick={() => SidebarClick('product')}>
                     제품관리
                 </Link>
-                <Link to="/admin/onetoone" onClick={() => SidebarClick('board')} style={{ display: 'block', margin: '10px 0' }}>
+                <Link to="/admin/onetoone" onClick={() => SidebarClick('board')}>
                     게시판관리
                 </Link>
-                <Link to="/admin/analysis" onClick={() => SidebarClick('analysis')} style={{ display: 'block', margin: '10px 0' }}>
+                <Link to="/admin/analysis" onClick={() => SidebarClick('analysis')}>
                     매출분석
                 </Link>
             </div>
 
-            <div style={{ flex: 1, overflowY: 'auto' }}>
-                {showTopbar && ( //탑바 구간 -- 설정된 경로(path)로 이동
-                    <div style={{ padding: '10px', display: 'flex', gap: '20px' }}>
+            <div className={styles.content}>
+                {showTopbar && (
+                    <div className={styles.topbar}>
                         {topbarLinks.map((link, index) => (
                             <Link key={index} to={link.path}>
                                 {link.name}
@@ -98,10 +98,7 @@ function AdminTemp() {
                         ))}
                     </div>
                 )}
-                {/* 탑바 선택에 따라 내용바뀌므로 아울렛처리 */}
-                <div>
-                    <Outlet />
-                </div>
+                <Outlet />
             </div>
         </div>
     );

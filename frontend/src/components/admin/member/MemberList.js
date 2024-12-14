@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Pagination from '../../dup/Pagination';
 import styles from '../../../scss/member/MemberList.module.scss';
 
 function MemberList(props) {
@@ -11,6 +12,14 @@ function MemberList(props) {
     const [sortOrder, setSortOrder] = useState('asc'); // 가입일 오름차순/내림차순 정렬
     const [selectAll, setSelectAll] = useState(false); // 전체 선택 체크 여부 (전체 선택 체크박스 false상태)
     const [selectedCustomers, setSelectedCustomers] = useState([]); // 개별 체크박스
+
+    // pagination 추가
+    const [curPage, setCurPage] = useState(1); // Current page
+    const [itemsPerPage] = useState(10); // Items per page
+    // Calculate the products for the current page
+    const indexOfLastItem = curPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const curfilteredCustomers = filteredCustomers.slice(indexOfFirstItem, indexOfLastItem);
 
     useEffect(() => {
         axios
@@ -175,7 +184,7 @@ function MemberList(props) {
                     <td>마지막 접속일</td>
                     <td>상태</td>
                 </tr>
-                {filteredCustomers.map(mm => (
+                {curfilteredCustomers.map(mm => (
                     <tr key={mm.customer_id}>
                         <td>
                             <input
@@ -198,6 +207,7 @@ function MemberList(props) {
                     </tr>
                 ))}
             </table>
+            <Pagination totalItems={filteredCustomers.length} itemsPerPage={itemsPerPage} pagesPerGroup={5} curPage={curPage} setCurPage={setCurPage} />
         </div>
     );
 }
