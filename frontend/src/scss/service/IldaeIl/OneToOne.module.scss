@@ -41,9 +41,7 @@
 
         textarea {
             min-height: 200px;
-            /* 최소 높이를 설정 */
-            resize: vertical;
-            /* 사용자가 세로 크기만 조절 가능 */
+            resize: none;
         }
 
         .buttonGroup {
