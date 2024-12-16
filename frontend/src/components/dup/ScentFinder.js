@@ -1,9 +1,36 @@
-import React, { useState } from 'react';
-import FinderModal from './FinderModal';
-import styles from '../../scss/dup/scentFinder.module.scss';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
-// import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
+import FinderModal from "./FinderModal";
+import styles from "../../scss/dup/scentFinder.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
+import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+
+const finderData = [
+    {
+        question: "선물하고 싶은 사람은?",
+        options: ["당신을 위한", "누군가를 위한"],
+    },
+    {
+        question: "누구를 위한 건가요?",
+        options: ["낭성", "여성", "모두"],
+    },
+    {
+        question: "언제 사용할 예정인가요?",
+        options: [
+            "평범한 일상에서",
+            "특별한 저녁 모임 혹은 파티",
+            "나른한 오후 시간에",
+        ],
+    },
+    {
+        question: "당신을 가장 매료시키는 단어는?",
+        options: ["신선한", "생동감 있는", "섬세한", "깊은", "풍부한"],
+    },
+    {
+        question: "당신을 가장 매료시키는 단어는?",
+        options: ["관용적인", "편안한", "고급스러운", "우아한", "활기찬"],
+    },
+];
 
 const ScentFinder = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -26,11 +53,14 @@ const ScentFinder = () => {
             <img src="/imgs/product/scentFinderBanner.jpg" alt="" />
             <div className={styles.content}>
                 <div>
-                    {/* <FontAwesomeIcon icon={faQuoteLeft} size="2x" /> */}
+                    <FontAwesomeIcon icon={faQuoteLeft} size="2x" />
                     <p>탑, 하트, 베이스 노트에 대해 아는 것도 도움이 됩니다.</p>
                     <p>하지만 원료 하나 하나에 신경쓸 필요는 없어요. </p>
-                    <p>끌리는 향을 찾다보면 나도 모르게 새로운 발견을 하게 되실거에요</p>
-                    {/* <FontAwesomeIcon icon={faQuoteRight} size="2x" /> */}
+                    <p>
+                        끌리는 향을 찾다보면 나도 모르게 새로운 발견을 하게
+                        되실거에요
+                    </p>
+                    <FontAwesomeIcon icon={faQuoteRight} size="2x" />
                 </div>
                 <div className={styles.small}>
                     <p>셀린 루</p>
@@ -38,12 +68,13 @@ const ScentFinder = () => {
                 </div>
             </div>
 
-            {/* {openModal ? (
-                // <FinderModal
-                //     openModal={openModal}
-                //     setOpenModal={setOpenModal}
-                // />
-            ) : null} */}
+            {openModal ? (
+                <FinderModal
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    finderData={finderData}
+                />
+            ) : null}
         </div>
     );
 };
