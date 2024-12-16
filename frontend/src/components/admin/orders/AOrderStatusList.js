@@ -38,17 +38,13 @@ function AOrderStatusList(props) {
   }
 
   if (!order || order.length === 0) {
-    return <div>로딩중...</div>;
+    return <div className={styles.load}>로딩중...</div>;
   }
 
   
 
   return (
-    <>
-      <div>
-        <button><Link to='/admin/order'>주문목록관리</Link></button>
-        <button><Link to='/admin/orderStatus'>취소/반품/환불관리</Link></button>
-      </div>
+    <div className={styles.detail}>
       <div>주문 제품 상세</div>
       <table border="1" className={styles.orderTable}>
         <tr>
@@ -65,7 +61,7 @@ function AOrderStatusList(props) {
               <td>{i+1}</td>
               <td className={styles.imgTag}><img src={`http://localhost:5001/imgs/product/${od.product_upSystem}`}/></td>
               <td>
-                <Link to={`http://localhost:3000/admin/product/detail/${od.product_id}`}>
+                <Link className={styles.link} to={`http://localhost:3000/admin/product/detail/${od.product_id}`}>
                   <div>{od.product_name_kor}</div>
                   <div>{od.product_name_eng}</div>
                 </Link>
@@ -76,17 +72,18 @@ function AOrderStatusList(props) {
             </tr>
           )
         })}
+        <tr>
+          <td colSpan={6}>
+            <div className={styles.price}>총 수량 : {getTotalQuantity()}</div>
+            <div className={styles.price}>총 가격 : {orderTotal().toLocaleString()}원</div>
+          </td>
+        </tr>
       </table>
-      <div>
-        <div>총 수량 : {getTotalQuantity()}</div>
-        <div>총 가격 : {orderTotal().toLocaleString()}원</div>
-      </div>
-      <hr/>
       <div>주문자/배송지 정보</div>
-      <table border={1} width={`500px`}>
+      <table>
         <tr>
           <th>주문자</th>
-          <td><Link to={`http://localhost:3000/admin/member/detail/${customer.customer_id}`}>{customer.customer_name}</Link></td>
+          <td><Link className={styles.link} to={`http://localhost:3000/admin/member/detail/${customer.customer_id}`}>{customer.customer_name}</Link></td>
         </tr>
         <tr>
           <th>주문자 전화번호</th>
@@ -114,10 +111,12 @@ function AOrderStatusList(props) {
           <td>{order[0].order_msg}</td>
         </tr>
         <tr>
-          <td colSpan={2}><Link to='/admin/order'>목록으로</Link></td>
+          <td colSpan={2}><div className={styles.price}>
+            <Link className={styles.color} to='/admin/order'>목록으로</Link>
+          </div></td>
         </tr>
       </table>
-    </>
+    </div>
   );
 }
 

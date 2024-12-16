@@ -4,7 +4,7 @@ const con = require("../db");
 
 module.exports = () => {
     router.get("/", async (req, res) => {
-        console.log("order 진입"); //정상작동 확인
+        console.log("order 진입") //정상작동 확인
         try {
             const [ret] = await con.execute("SELECT * FROM orders WHERE order_status IN ('주문완료', '배송중', '배송완료') ORDER BY order_id DESC")
             // console.log(ret)
@@ -30,7 +30,7 @@ module.exports = () => {
                 SELECT * FROM customers WHERE email = ?
                 UNION
                 SELECT * FROM deleted_customers WHERE email = ?
-              `, [ret[0].email, ret[0].email]);
+              `, [ret[0].email, ret[0].email])
 
             const responseData = {
                 order: ret,
@@ -47,25 +47,25 @@ module.exports = () => {
 
     // 주문 상태 및 운송장 번호 업데이트
     router.post('/update', async (req, res) => {
-        const orders = req.body;
-        // console.log(orders)
+        const orders = req.body
+        console.log(orders)
     
         try {
         for (let order of orders) {
             await con.execute(
-            `UPDATE orders SET order_status = ?, invoice = ?, status_date = SYSDATE() WHERE order_id = ?`,
+            `UPDATE orders SET order_status =  ?, invoice = ?, status_date = SYSDATE() WHERE order_id = ?`,
             [order.status, order.invoice, order.order_id]
-            );
+            )
         }
-        res.json({ message: '수정이 완료되었습니다.' });
-        } catch (err) {
-        console.error('수정 실패:', err);
-        res.status(500).send('DB 오류');
+        res.json({ message: '수정이 완료되었습니다.' })
+        }catch(err){
+            console.error('수정 실패:', err)
+            res.status(500).send('DB 오류')
         }
     })
 
     router.get("/status", async (req, res) => {
-        console.log("orderstatus 진입"); //정상작동 확인
+        console.log("orderstatus 진입") //정상작동 확인
         try {
             const [ret] = await con.execute('select * from orders WHERE order_status IN ("취소", "반품접수", "반품완료", "환불접수", "환불완료") ORDER BY order_id DESC')
             // console.log(ret)
@@ -77,54 +77,55 @@ module.exports = () => {
     })
 
     router.post("/search", async (req, res) => {
-        console.log(`/search 진입 확인`); // 정상작동 확인
-        console.log(req.body);
+        console.log(`/search 진입 확인`) // 정상작동 확인
+        console.log(req.body)
     
-        let sql = "";
-        let data = [];
+        let sql = ""
+        let data = []
     
-        const { orderCate, text } = req.body;
+        const { orderCate, text } = req.body
     
         if (orderCate && text) {
             switch (orderCate) {
                 case "orderNum":
-                    sql = "SELECT * FROM orders WHERE order_id = ?";
-                    data = [text];
-                    break;
+                    sql = "SELECT * FROM orders WHERE order_id = ? ORDER BY order_id DESC"
+                    data = [text]
+                    break
                 case "status":
-                    sql = "SELECT * FROM orders WHERE order_status LIKE ?";
-                    data = [`%${text}%`];
-                    break;
+                    sql = "SELECT * FROM orders WHERE order_status LIKE ? ORDER BY order_id DESC"
+                    data = [`%${text}%`]
+                    break
                 case "payment":
-                    sql = "SELECT * FROM orders WHERE pay_to LIKE ?";
-                    data = [`%${text}%`];
-                    break;
+                    sql = "SELECT * FROM orders WHERE pay_to LIKE ? ORDER BY order_id DESC"
+                    data = [`%${text}%`]
+                    break
                 case "orderTo":
-                    sql = "SELECT * FROM orders WHERE order_name LIKE ?";
-                    data = [`%${text}%`];
-                    break;
+                    sql = "SELECT * FROM orders WHERE order_name LIKE ? ORDER BY order_id DESC"
+                    data = [`%${text}%`]
+                    break
                 case "invoice":
-                    sql = "SELECT * FROM orders WHERE invoice LIKE ?";
-                    data = [`%${text}%`];
-                    break;
+                    sql = "SELECT * FROM orders WHERE invoice LIKE ? ORDER BY order_id DESC"
+                    data = [`%${text}%`]
+                    break
                 default:
-                    sql = "SELECT * FROM orders";
-                    break;
+                    sql = "SELECT * FROM orders ORDER BY order_id DESC"
+                    break
             }
         } else {
-            sql = "SELECT * FROM orders";
+            sql = "SELECT * FROM orders ORDER BY order_id DESC"
         }
     
         try {
-            const [ret] = await con.execute(sql, data);
-            res.json(ret);
+            const [ret] = await con.execute(sql, data)
+            res.json(ret)
+            // console.log(ret)
         } catch (err) {
-            console.error("SQL 실패: ", err.message);
-            res.status(500).send("DB 오류");
+            console.error("SQL 실패: ", err.message)
+            res.status(500).send("DB 오류")
         }
-    });
+    })
 
     
 
-    return router;
-};
+    return router
+}

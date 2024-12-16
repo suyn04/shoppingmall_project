@@ -36,14 +36,13 @@ function OrderDetail(props) {
   }
 
   if (!order || order.length === 0) {
-    return <div>로딩중...</div>;
+    return <div className={styles.load}>로딩중...</div>;
   }
 
   return (
-    <>
-      
-      <div>주문 제품 상세</div>
-      <table border="1" className={styles.orderTable}>
+    <div className={styles.detail}>
+      <div>주문 상세</div>
+      <table>
         <tr>
           <td>번호</td>
           <td>이미지</td>
@@ -58,7 +57,7 @@ function OrderDetail(props) {
               <td>{i+1}</td>
               <td className={styles.imgTag}><img src={`http://localhost:5001/imgs/product/${od.product_upSystem}`}/></td>
               <td>
-                <Link to={`http://localhost:3000/admin/product/detail/${od.product_id}`}>
+                <Link className={styles.link} to={`http://localhost:3000/admin/product/detail/${od.product_id}`}>
                   <div>{od.product_name_kor}</div>
                   <div>{od.product_name_eng}</div>
                 </Link>
@@ -69,23 +68,26 @@ function OrderDetail(props) {
             </tr>
           )
         })}
+        <tr>
+          <td colSpan={6}>
+            <div className={styles.price}>총 수량 : {getTotalQuantity()}</div>
+            <div className={styles.price}>총 가격 : {orderTotal().toLocaleString()}원</div>
+          </td>
+        </tr>
       </table>
-      <div>
-        <div>총 수량 : {getTotalQuantity()}</div>
-        <div>총 가격 : {orderTotal().toLocaleString()}원</div>
-      </div>
-      <hr/>
       <div>주문자/배송지 정보</div>
-      <table border={1} width={`500px`}>
+      <table>
         <tr>
           <th>주문자</th>
-          {customer.status === "active" ? (
-            <Link to={`http://localhost:3000/admin/member/detail/${customer.customer_id}`}>
-              {customer.customer_name}
-            </Link>
-          ) : (
-            <Link to={`http://localhost:3000/admin/member/deletedmember`}>{customer.customer_name} (탈퇴 회원)</Link>
-          )}
+          <td>
+            {customer.status === "탈퇴" ? (
+              <Link className={styles.link} to={`http://localhost:3000/admin/member/deletedmember`}>{customer.customer_name} (탈퇴 회원)</Link>
+            ) : (
+              <Link className={styles.link} to={`http://localhost:3000/admin/member/detail/${customer.customer_id}`}>
+                {customer.customer_name}
+              </Link>
+            )}
+          </td>
         </tr>
         <tr>
           <th>주문자 전화번호</th>
@@ -113,10 +115,12 @@ function OrderDetail(props) {
           <td>{order[0].order_msg}</td>
         </tr>
         <tr>
-          <td colSpan={2}><Link to='/admin/order'>목록으로</Link></td>
+          <td colSpan={2}><div className={styles.price}>
+            <Link className={styles.color} to='/admin/order'>목록으로</Link>
+          </div></td>
         </tr>
       </table>
-    </>
+    </div>
   );
 }
 

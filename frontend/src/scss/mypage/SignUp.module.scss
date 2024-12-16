@@ -1,32 +1,23 @@
-/* SignUp CSS */
-/* 공통 스타일 */
 .wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     background-color: #fcf9ee;
-}
 
-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.wrap {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-
-    > div {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+    .wrap {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
         padding: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        .joinContainer {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     }
 }
 
@@ -36,7 +27,8 @@ section {
     justify-content: space-between;
     margin-bottom: 20px;
 
-    button {
+    .signIn,
+    .signUp {
         width: 48%;
         height: 50px;
         background: none;
@@ -60,19 +52,16 @@ section {
     .signIn {
         border-bottom: 2px solid #ddd;
     }
-
     .signUp {
         border-bottom: 2px solid #1c1c1c;
     }
 }
 
-/* 하단 콘텐츠 */
 .bottomCnt {
     display: flex;
     flex-direction: column;
     gap: 20px;
 
-    /* 소셜 로그인 */
     > div:first-of-type {
         display: flex;
         justify-content: center;
@@ -101,7 +90,6 @@ section {
         }
     }
 
-    /* 구분선 */
     .or {
         text-align: center;
         font-size: 14px;
@@ -128,37 +116,32 @@ section {
         }
     }
     .inform {
-        .input {
-            width: 93%;
-            height: auto;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        select {
+        .input,
+        select,
+        input[type='date'],
+        .gender {
             width: 100%;
-            height: auto;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            height: 44px;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #fff;
             font-size: 14px;
         }
-        .birthdaygroup {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
 
-            .birth {
-                width: 30%;
-                padding: 15px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                font-size: 14px;
-            }
+        .chkbtn {
+            width: 100%;
+            height: 30px;
+            background-color: #ffe68d;
+            color: #1c1c1c;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 14px;
         }
+
         .checkboxgroup {
             display: flex;
             flex-direction: column;
@@ -174,16 +157,23 @@ section {
             font-weight: 600;
             font-size: 14px;
             text-align: center;
+            margin-bottom: 20px;
         }
         .join {
             width: 100%;
             height: 50px;
-            text-align: center;
-            line-height: 50px;
-            margin-top: 20px;
+            padding: 10px;
+            font-size: 14px;
             background-color: #1c1c1c;
-            color: #fff;
+            color: #ddd;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #999;
+                color: #1c1c1c;
+            }
         }
     }
 }
