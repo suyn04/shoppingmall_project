@@ -114,3 +114,85 @@ p{
   margin-left: 20px;
 }
 }
+
+/* 태블릿 (800px 이하) */
+@media screen and (max-width: 800px) {
+  .accordion {
+      padding: 10px;
+
+      .accordion-title {
+          font-size: 20px;
+      }
+
+      .accordion-content {
+          font-size: 13px;
+      }
+  }
+
+  .wrapper,
+  .onlinewrapper,
+  .termswrapper {
+      width: 95%;
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+
+  .wrapper .faqtitle,
+  .title,
+  .termswrapper .termstitle {
+      font-size: 20px;
+  }
+
+  .bold {
+      font-size: 16px;
+  }
+
+  p {
+      font-size: 14px;
+      line-height: 22px;
+  }
+}
+
+/* 모바일 (480px 이하) */
+@media screen and (max-width: 480px) {
+  .accordion {
+      padding: 10px;
+
+      .accordion-title {
+          font-size: 18px;
+      }
+
+      .accordion-content {
+          font-size: 12px;
+      }
+  }
+
+  .wrapper,
+  .onlinewrapper,
+  .termswrapper {
+      width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+  }
+
+  .wrapper .faqtitle,
+  .title,
+  .termswrapper .termstitle {
+      font-size: 18px;
+  }
+
+  .bold {
+      font-size: 14px;
+      margin-bottom: 20px;
+  }
+
+  p {
+      font-size: 13px;
+      line-height: 20px;
+  }
+
+  .hli,
+  .oli {
+      margin-left: 10px;
+  }
+}
