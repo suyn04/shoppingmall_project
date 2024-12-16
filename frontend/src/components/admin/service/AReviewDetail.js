@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams ,useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import styles from "../../../scss/admin/AdminList.module.scss";
+
 
 const ReviewDetail = () => {
   const { id } = useParams(); // URL에서 ID 가져오기
@@ -37,8 +39,8 @@ const ReviewDetail = () => {
   if (!review) return <p>리뷰를 찾을 수 없습니다.</p>;
 
   return (
-    <div>
-      <h2>리뷰 상세 정보</h2>
+    <div className={styles.list}>
+      <h2 className={styles.title}>리뷰 상세 정보</h2>
       <p><strong>제목:</strong> {review.review_title}</p>
       <p><strong>닉네임:</strong> {review.review_nick}</p>
       <p><strong>내용:</strong> {review.review_detail}</p>
@@ -47,10 +49,10 @@ const ReviewDetail = () => {
       <p><strong>추천 여부:</strong> {review.review_recommend === 1 ? '추천' : '비추천'}</p>
       <p><strong>지역:</strong> {review.review_region}</p>
       <p><strong>향수 계열:</strong> {review.review_scent}</p>
-      {/* <p><strong>좋아요:</strong> {review.review_good}</p>
-      <p><strong>싫어요:</strong> {review.review_bad}</p> */}
       <p><strong>처리상태:</strong> {review.is_visible === 1 ? '활성화' : '비활성화'}</p>
-      <button onClick={handleBack} style={{ marginTop: '20px' }}>뒤로가기</button> {/* 뒤로가기 버튼 */}
+      <button className={styles.changebutton} onClick={handleBack} style={{ marginTop: '20px' }}>
+        뒤로가기
+      </button>
     </div>
   );
 };
