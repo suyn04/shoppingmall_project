@@ -18,8 +18,8 @@ const upload = multer({ storage });
 
 module.exports = () => {
     //1:1 문의 목록 조회 (get)
-    router.get('/', async (req, res) => {
-        // console.log('1:1 문의 목록 조회 진입성공');
+    router.get("/", async (req, res) => {
+        console.log("1:1 문의 목록 조회 진입성공");
 
         try {
             const [results] = await conn.execute(`
@@ -46,7 +46,7 @@ module.exports = () => {
             res.status(500).json({ error: "DB 에러" });
         }
     });
-    router.get('/', async (req, res) => {
+    router.get("/", async (req, res) => {
         try {
             const [results] = await conn.execute(`
                 SELECT 
@@ -66,7 +66,10 @@ module.exports = () => {
 
             // 문의가 없는 경우
             if (results.length === 0) {
-                return res.json({ inquiries: [], message: "No inquiries found" });
+                return res.json({
+                    inquiries: [],
+                    message: "No inquiries found",
+                });
             }
 
             // 문의가 있는 경우
@@ -76,7 +79,7 @@ module.exports = () => {
             res.status(500).json({ error: "DB 에러" });
         }
     });
-    router.get('/:id', async (req, res) => {
+    router.get("/:id", async (req, res) => {
         // console.log('1:1 문의 목록 조회 진입성공');
 
         try {
@@ -111,70 +114,70 @@ module.exports = () => {
     });
     // const one_upload_file = (req.file ? req.file.filename : null); //업로드된 파일명
 
-
-
     //1:1 문의 등록 (post) 체체체체인지부분
-    router.post("/", upload.single("one_upload_file"), async (req, res) => {
-        console.log('post 진입');
-        console.log(req.body);
-        
-        
-        const { post_category, email, post_title, post_detail } = req.body;
-        const one_upload_file = req.file ? req.file.filename : null; //업로드된 파일명 (있다면~)
-        console.log(req.body);
-        
+    router.post(
+        "/register",
+        upload.single("one_upload_file"),
+        async (req, res) => {
+            console.log("post 진입");
+            console.log(req.body);
 
-        console.log("Received Data:", {
-            post_category,
-            email,
-            post_title,
-            post_detail,
-            one_upload_file
-        });
+            const { post_category, email, post_title, post_detail } = req.body;
+            const one_upload_file = req.file ? req.file.filename : null; //업로드된 파일명 (있다면~)
+            console.log(req.body);
 
-        //res.status(200).json({message:"문의가 접수되었습니다!"})
-
-        //필수 데이터 검증(email은 null 허용)
-        if (
-            !post_category ||
-            typeof post_category !== "string" ||
-            !post_title ||
-            !post_detail
-        ) {
-            return res.status(400).json({
-                error: "필수 입력 데이터가 누락되었거나 잘못되었습니다.",
+            console.log("Received Data:", {
+                post_category,
+                email,
+                post_title,
+                post_detail,
+                one_upload_file,
             });
-        }
-        try {
-            //insert 쿼리 작성(email이 null 인경우를 고려)
-            const sql = `
+
+            //res.status(200).json({message:"문의가 접수되었습니다!"})
+
+            //필수 데이터 검증(email은 null 허용)
+            if (
+                !post_category ||
+                typeof post_category !== "string" ||
+                !post_title ||
+                !post_detail
+            ) {
+                return res.status(400).json({
+                    error: "필수 입력 데이터가 누락되었거나 잘못되었습니다.",
+                });
+            }
+            try {
+                //insert 쿼리 작성(email이 null 인경우를 고려)
+                const sql = `
         INSERT INTO one_to_one 
         (post_category, email, post_title, post_detail, post_date, reply_status, one_upload_file)
         VALUES (?, ?, ?, ?, NOW(), '대기', ?)
     `;
-            const [result] = await conn.execute(sql, [
-                post_category,
-                email || null,
-                post_title,
-                post_detail,
-                one_upload_file,
-            ]);
+                const [result] = await conn.execute(sql, [
+                    post_category,
+                    email || null,
+                    post_title,
+                    post_detail,
+                    one_upload_file,
+                ]);
 
-            // console.log('1:1 문의 등록 성공:', result);
-            res.status(201).json({
-                post_no: result.insertId,
-                post_category,
-                email: email || null,
-                post_title,
-                post_detail,
-                reply_status: "대기",
-                one_upload_file, // 업로드된 파일명도 응답에 포함
-            });
-        } catch (err) {
-            console.error("1:1 문의 등록 실패:", err.message);
-            res.status(500).json({ error: "DB 삽입 실패" });
+                // console.log('1:1 문의 등록 성공:', result);
+                res.status(201).json({
+                    post_no: result.insertId,
+                    post_category,
+                    email: email || null,
+                    post_title,
+                    post_detail,
+                    reply_status: "대기",
+                    one_upload_file, // 업로드된 파일명도 응답에 포함
+                });
+            } catch (err) {
+                console.error("1:1 문의 등록 실패:", err.message);
+                res.status(500).json({ error: "DB 삽입 실패" });
+            }
         }
-    });
+    );
 
     // 고객 정보 조회 라우트
     router.post("/myPage", async (req, res) => {
