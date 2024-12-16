@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../scss/dup/finderModal.module.scss";
 
 const FinderModal = ({ openModal, setOpenModal }) => {
+    const [active, setActive] = useState(false);
     return (
         <div className={styles.overlay}>
             <div className={styles.container}>
                 <div className={styles.modalTitle}>센트파인더</div>
                 <div className={styles.content}>
-                    <div className={styles.question}>
+                    <div className={(styles.question, styles.active)}>
                         <div>당신의 고민은?</div>
                         <div>
                             <input
