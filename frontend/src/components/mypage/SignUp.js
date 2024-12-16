@@ -48,7 +48,7 @@ function SignUp() {
                     ...prev,
                     email: '',
                 }));
-                setIsEmailChecked(false); // 중복 확인 실패 시 false로 설정
+                setemailChkFinish(false); // 중복 확인 실패 시 false로 설정
                 alert('이미 사용 중인 이메일입니다. 다시 입력해주세요.');
             } else {
                 setemailChkFinish(true);
