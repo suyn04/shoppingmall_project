@@ -33,7 +33,7 @@ function Nav({ ham, setHam }) {
             >
                 <ul className={styles.hMenu}>
                     <li>
-                        <Link to="" onClick={(e) => toggleSubMenu(0, e)}>
+                        <Link to="#" onClick={(e) => toggleSubMenu(0, e)}>
                             브랜드 소개
                         </Link>
                         <ul
@@ -41,7 +41,7 @@ function Nav({ ham, setHam }) {
                             style={{ display: subMenu[0] ? "block" : "none" }}
                         >
                             <li>
-                                <Link to="">소개</Link>
+                                <Link to="/storymain">소개</Link>
                             </li>
                             <li>
                                 <Link to="/all-product">제품전체</Link>
@@ -59,7 +59,7 @@ function Nav({ ham, setHam }) {
                     </li>
                     <li>
                         <Link
-                            to="/colognes"
+                            to="#"
                             onClick={(e) => toggleSubMenu(1, e)}
                         >
                             코롱
@@ -69,7 +69,7 @@ function Nav({ ham, setHam }) {
                             style={{ display: subMenu[1] ? "block" : "none" }}
                         >
                             <li>
-                                <Link to="">센트패밀리</Link>
+                                <Link to="/colognes">센트패밀리</Link>
                                 <ul className={styles.hSubitem}>
                                     <li>
                                         <Link to="/colognes/citrus">
