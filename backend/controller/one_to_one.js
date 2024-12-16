@@ -17,35 +17,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports = () => {
-    //1:1 문의 목록 조회 (get)
-    router.get("/", async (req, res) => {
-        console.log("1:1 문의 목록 조회 진입성공");
-
-        try {
-            const [results] = await conn.execute(`
-                SELECT 
-                    post_no,           -- 게시글 번호
-                    post_category,     -- 카테고리
-                    email,             -- 작성자 이메일(id)
-                    post_date,         -- 작성 날짜
-                    post_title,        -- 제목
-                    post_detail,       -- 문의 내용
-                    reply_detail,      -- 답변 내용
-                    reply_date,        -- 답변 날짜
-                    reply_status       -- 답변 상태
-                    one_upload_file    -- 파일 첨부
-                FROM 
-                    one_to_one
-            `);
-
-            // console.log(results); // 응답 확인: results가 배열인지 확인
-
-            res.json(results); // 결과 반환
-        } catch (err) {
-            console.error("1:1 문의 목록 조회 실패:", err.message);
-            res.status(500).json({ error: "DB 에러" });
-        }
-    });
     router.get("/", async (req, res) => {
         try {
             const [results] = await conn.execute(`
@@ -64,6 +35,7 @@ module.exports = () => {
                     one_to_one
             `);
 
+       
             // 문의가 없는 경우
             if (results.length === 0) {
                 return res.json({

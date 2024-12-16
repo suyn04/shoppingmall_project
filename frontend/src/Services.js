@@ -16,6 +16,7 @@ import PeopleWorkplace from "./components/service/story/PeopleWorkplace";
 import OneToOne from"./components/service/IldaeIl/OneToOne"
 import OneToOneMain from"./components/service/IldaeIl/OneToOneMain"
 import OneToOneList from"./components/admin/service/OneToOneList"
+import OneToOneDetail from "../../frontend/src/components/admin/service/OneToOneDetail";
 
 import Review from"./components/service/review/Review"
 import ReviewList from"./components/service/review/ReviewList"
@@ -44,6 +45,7 @@ function Services() {
                 <Route path="/onetoone" element={<OneToOne />} />
                 <Route path="/onetoonemain" element={<OneToOneMain />} />
                 <Route path="/onetoonelist" element={<OneToOneList />} />
+                <Route path="/admin/onetoone/:id" element={<OneToOneDetail />} />
                 
                 {/* 리뷰 */}   
                 <Route path="/review/:product_opt_id" element={<Review />} />
