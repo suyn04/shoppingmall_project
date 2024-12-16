@@ -13,7 +13,6 @@
             background: none;
             color: #1c1c1c;
             cursor: pointer;
-
             &:hover {
                 color: #00f;
             }
@@ -30,17 +29,18 @@
             height: 20px;
             line-height: 20px;
         }
-    }
+        tr {
+            td {
+                vertical-align: middle; /* Vertical centering */
 
-    tr {
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            .link {
-                color: #007bff;
-            }
-            img {
-                width: 100px;
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+                .link {
+                    color: #007bff;
+                }
+                img {
+                    width: 100px;
+                }
             }
         }
     }
