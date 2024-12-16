@@ -48,7 +48,7 @@
                     &:last-child {
                         width: 80%;
 
-                        input[type="text"],
+                        input[type='text'],
                         textarea,
                         select {
                             width: 100%;
@@ -58,7 +58,7 @@
                             font-size: 14px;
                         }
 
-                        input[type="radio"] {
+                        input[type='radio'] {
                             margin-right: 5px;
                         }
 
@@ -100,7 +100,6 @@
                         background-color: #0056b3;
                     }
                 }
-                
             }
         }
     }
@@ -122,10 +121,10 @@
         }
     }
 
-    .imgTag{
-        img{
-          width: 50px;
-          height: 50px;
+    .imgTag {
+        img {
+            width: 50px;
+            height: 50px;
         }
     }
 }

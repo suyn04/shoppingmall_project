@@ -1,33 +1,23 @@
-/* SignIn.module.scss */
-
-/* 공통 스타일 */
 .wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     background-color: #fcf9ee;
-}
 
-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.wrap {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-
-    > div {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+    .wrap {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
         padding: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        .loginContainer {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     }
 }
 
@@ -37,7 +27,8 @@ section {
     justify-content: space-between;
     margin-bottom: 20px;
 
-    button {
+    .signIn,
+    .signUp {
         width: 48%;
         height: 50px;
         background: none;
@@ -61,48 +52,49 @@ section {
     .signIn {
         border-bottom: 2px solid #1c1c1c;
     }
-
     .signUp {
         border-bottom: 2px solid #ddd;
     }
 }
 
-/* 하단 콘텐츠 */
 .bottomCnt {
     display: flex;
     flex-direction: column;
     gap: 20px;
 
-    /* 소셜 로그인 */
     > div:first-of-type {
         display: flex;
         justify-content: center;
         gap: 10px;
 
-        .kakao,
-        .naver {
-            display: inline-block;
+        .kakao {
+            display: block;
             width: 48px;
             height: 48px;
             border-radius: 24px;
+            background-color: #ffe809;
 
             img {
-                width: 100%;
-                height: auto;
+                width: 48px;
+                height: 48px;
                 border-radius: 50%;
             }
         }
-
-        .kakao {
-            background-color: #ffe809;
-        }
-
         .naver {
+            display: block;
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
             background-color: #1ec800;
+
+            img {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+            }
         }
     }
 
-    /* 구분선 */
     .or {
         text-align: center;
         font-size: 14px;
@@ -129,12 +121,9 @@ section {
         }
     }
 
-    /* 로그인 폼 */
     form {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-
         .email,
         .pw {
             width: 100%;
@@ -144,15 +133,15 @@ section {
             border: 1px solid #ddd;
             border-radius: 5px;
             box-sizing: border-box;
+            margin-bottom: 10px;
         }
-
         .pwIcon {
             position: relative;
             top: -45px;
             left: 430px;
             width: 24px;
             height: 24px;
-            img {
+            .crossed {
                 position: absolute;
                 right: 10px;
                 top: 50%;
@@ -161,24 +150,28 @@ section {
                 width: 24px;
                 height: 24px;
             }
-
-            .crossed {
-                display: none;
-            }
-
-            .notCrossed:hover {
-                opacity: 0.8;
+            .notCrossed {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                width: 24px;
+                height: 24px;
+                &:hover {
+                    opacity: 0.8;
+                }
             }
         }
 
         .pwfind {
             text-align: left;
             font-size: 12px;
+            margin-bottom: 10px;
 
             a {
                 text-decoration: none;
                 color: #333;
-
                 &:hover {
                     text-decoration: underline;
                 }
@@ -187,16 +180,18 @@ section {
 
         .login {
             width: 100%;
+            height: 50px;
             padding: 10px;
             font-size: 14px;
-            color: #fff;
             background-color: #1c1c1c;
+            color: #ddd;
             border: none;
             border-radius: 5px;
             cursor: pointer;
 
             &:hover {
-                background-color: #000;
+                background-color: #999;
+                color: #1c1c1c;
             }
         }
     }
