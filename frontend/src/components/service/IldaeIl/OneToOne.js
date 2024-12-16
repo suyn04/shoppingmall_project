@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../scss/service/IldaeIl/OneToOne.scss";
+import styles from "../../../scss/service/IldaeIl/OneToOne.module.scss";
+import axios from "axios";
 
 const OneToOne = () => {
     //폼 데이터 상태 관리
@@ -52,23 +53,32 @@ const OneToOne = () => {
             data.append("one_upload_file", formData.file); // 파일첨부
         }
 
-        try {
-            const response = await fetch("http://localhost:5001/onetoone", {
-                method: "POST",
-                body: data, // formData 전송 (Content-Type 자동 설정)
-            });
+        // FormData에 데이터가 잘 담겼는지 확인
+        for (let [key, value] of data.entries()) {
+            console.log(key, value);
+        }
 
-            const result = await response.json();
-            if (response.ok) {
+        try {
+            const response = await axios.post(
+                "http://localhost:5001/onetoone/register",
+                data
+            ); // formData 전송 (Content-Type 자동 설정)
+            console.log(response);
+
+            if (response.status == 201) {
                 alert("문의가 접수되었습니다!");
-                console.log("등록된 데이터:", result);
+                console.log("등록된 데이터:", response.data);
                 navigate("/onetoonelist");
             } else {
-                alert(`문의 등록 실패: ${result.error}`);
+                alert(`문의 등록 실패: ${response.data.error}`);
             }
         } catch (err) {
             console.error("서버 오류 발생:", err);
-            alert("서버와 연결할 수 없습니다.");
+            if (err.response) {
+                alert(`문의 등록 실패: ${err.response.data.error}`);
+            } else {
+                alert("서버와 연결할 수 없습니다.");
+            }
         }
     };
 
@@ -78,26 +88,14 @@ const OneToOne = () => {
     };
 
     return (
-        <div>
-            <h2>1:1 문의</h2>
-            <div className="gray">
+        <div className={styles.one}>
+            <div className={styles.onetitle}>1:1 문의</div>
+            <div className={styles.gray}>
                 ※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에
                 FAQ를 참고 해주세요.
             </div>
 
-            <form className="inquiry-form" onSubmit={handleSubmit}>
-                {/* 회원 아이디 */}
-                {/* <div>
-                    <label htmlFor="userid">회원 아이디</label>
-                    <input
-                        type="text"
-                        id="userid"
-                        value={formData.userid}
-                        onChange={handleChange}
-                        placeholder='아이디를 입력하세요'
-                        />
-                </div> */}
-
+            <form className={styles.inquiryForm} onSubmit={handleSubmit}>
                 <div>
                     <span>
                         작성자: {customerName}({email})
@@ -107,7 +105,7 @@ const OneToOne = () => {
                 {/* 문의 유형 선택 */}
                 <div>
                     <label htmlFor="category">
-                        문의 유형 <span className="red">*</span>
+                        문의 유형 <span className={styles.red}>*</span>
                     </label>
                     <select
                         name="category"
@@ -127,7 +125,7 @@ const OneToOne = () => {
                 {/* 제목 입력 */}
                 <div>
                     <label htmlFor="title">
-                        제목 <span className="red">*</span>
+                        제목 <span className={styles.red}>*</span>
                     </label>
                     <input
                         type="text"
@@ -141,7 +139,7 @@ const OneToOne = () => {
                 {/* 내용 입력 */}
                 <div>
                     <label htmlFor="content">
-                        문의 내용 <span className="red">*</span>
+                        문의 내용 <span className={styles.red}>*</span>
                     </label>
                     <textarea
                         id="content"
@@ -150,7 +148,7 @@ const OneToOne = () => {
                         onChange={handleChange}
                         placeholder="문의 내용을 입력하세요"
                     />
-                    <p className="gray">
+                    <p className={styles.gray}>
                         ※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의
                         개인정보 입력은 지양하여 주시기 바랍니다.
                     </p>
@@ -165,16 +163,15 @@ const OneToOne = () => {
                         name="file"
                         onChange={handleFileChange}
                     />
-                  
                 </div>
 
                 {/* 버튼 그룹 */}
-                <div className="button-group">
-                    <button type="submit">문의 접수</button>
+                <div className={styles.buttonGroup}>
+                    <button onClick={handleSubmit}>문의 접수</button>
                     <button
                         type="button"
                         onClick={handleCancel}
-                        className="cbutton"
+                        className={styles.cbutton}
                     >
                         취소
                     </button>

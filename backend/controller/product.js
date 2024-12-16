@@ -242,8 +242,8 @@ module.exports = () => {
         }
     });
 
-    router.delete("/register/option/:product_id", async (req, res) => {
-        console.log("삭제 진입:" + req.params.product_id);
+    router.delete("/register/option/:product_opt_id", async (req, res) => {
+        console.log("삭제 진입:" + req.params.product_opt_id);
         // console.log(req.body);
 
         //파일삭제
@@ -270,12 +270,12 @@ module.exports = () => {
 
         try {
             const [ret] = await conn.execute(
-                "delete from product_opt where product_id = ?",
-                [req.params.product_id]
+                "delete from product_opt where product_opt_id = ?",
+                [req.params.product_opt_id]
             );
 
             console.log("삭제 완료", ret);
-            res.send("삭제 성공:" + req.params.product_id);
+            res.send("삭제 성공:" + req.params.product_opt_id);
         } catch (err) {
             console.error("sql 실패 : ", err.message);
             res.status(500).send("db 오류");

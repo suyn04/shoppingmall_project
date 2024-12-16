@@ -1,7 +1,5 @@
 /* AdminDetail.module.scss */
 .detail {
-    padding: 20px;
-
     .title {
         padding: 30px;
         font-size: 30px;
@@ -15,7 +13,6 @@
             background: none;
             color: #1c1c1c;
             cursor: pointer;
-
             &:hover {
                 color: #00f;
             }
@@ -25,46 +22,24 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 20px;
+        text-align: center;
 
+        tr:nth-child(1) {
+            background-color: #ddd;
+            height: 20px;
+            line-height: 20px;
+        }
         tr {
-            border-bottom: 1px solid #ddd;
-
-            &:last-child {
-                border-bottom: none;
-            }
-
             td {
+                vertical-align: middle; /* Vertical centering */
+
                 padding: 10px;
-                vertical-align: middle;
-
-                &:first-child {
-                    font-weight: bold;
-                    width: 20%;
-                    text-align: center;
-                    padding-right: 15px;
+                border-bottom: 1px solid #ccc;
+                .link {
+                    color: #007bff;
                 }
-
-                &:last-child {
-                    width: 80%;
-
-                    input[type="text"],
-                    textarea,
-                    select {
-                        width: 100%;
-                        padding: 8px;
-                        border: 1px solid #ccc;
-                        border-radius: 4px;
-                        font-size: 14px;
-                    }
-
-                    input[type="radio"] {
-                        margin-right: 5px;
-                    }
-
-                    label {
-                        margin-left: 10px;
-                    }
+                img {
+                    width: 100px;
                 }
             }
         }
