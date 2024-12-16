@@ -27,7 +27,7 @@ const OneToOneMain = () => {
 
     // 작성하기 버튼 클릭 시 문의 작성 페이지로 이동
     const handleCreateInquiry = () => {
-        navigate('/onetoone/create'); // 문의 작성 페이지 경로로 이동
+        navigate('/onetoone'); // 문의 작성 페이지 경로로 이동
     };
 
     if (loading) {

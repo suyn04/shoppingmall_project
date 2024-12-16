@@ -25,7 +25,7 @@ function Navbar() {
                 <Link to="myinfoEdit">회원정보 수정</Link>
                 <Link to="addressList">배송 주소록</Link>
                 <Link to="viewOrders">주문내역 보기</Link>
-                <Link to="/onetoone">1:1 문의</Link>
+                <Link to="/onetoonemain">1:1 문의</Link>
             </div>
         </div>
     );
