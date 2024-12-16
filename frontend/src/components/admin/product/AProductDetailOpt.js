@@ -32,12 +32,7 @@ const AProductDetailOpt = () => {
     }
     function fileGo(file) {
         if (file) {
-            return (
-                <img
-                    src={`http://localhost:5001/imgs/product/${file}`}
-                    width="100px"
-                />
-            );
+            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
         }
         return null;
     }

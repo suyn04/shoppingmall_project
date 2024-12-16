@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import styles from "../../../scss/admin/AdminDetail.module.scss";
 
 const AProductModify = () => {
     const [noteOptions, setNoteOptions] = useState([]); // Filtered options for Category 3
@@ -113,10 +114,10 @@ const AProductModify = () => {
     };
 
     return (
-        <div>
+        <div className={styles.detail}>
+            <div className={styles.title}>제품 상세 내용</div>
             <form name="myFrm" onSubmit={submitGo}>
-                <div>제품 상세 내용</div>
-                <table border="1">
+                <table>
                     <tr>
                         <td>제품 국문명</td>
                         <td>
@@ -271,9 +272,9 @@ const AProductModify = () => {
                     <tr>
                         <td>제품 성분</td>
                         <td>
-                            <input
+                            <textarea
+                                rows={5}
                                 name="product_ingredient"
-                                type="textarea"
                                 value={product.product_ingredient}
                                 onChange={(e) =>
                                     stChange("product_ingredient", e.target)
@@ -323,9 +324,9 @@ const AProductModify = () => {
                     <tr>
                         <td>제품설명</td>
                         <td>
-                            <input
+                            <textarea
+                                rows={5}
                                 name="product_intro"
-                                type="text"
                                 value={product.product_intro}
                                 onChange={(e) =>
                                     stChange("product_intro", e.target)
@@ -342,13 +343,12 @@ const AProductModify = () => {
                             ])}
                         </td>
                     </tr>
-
-                    <tr>
-                        <td colSpan={2}>
-                            <button onClick={submitGo}>저장</button>
-                        </td>
-                    </tr>
                 </table>
+                <div className={styles.actionButtons}>
+                    <button className={styles.searchbutton} onClick={submitGo}>
+                        저장
+                    </button>
+                </div>
             </form>
         </div>
     );

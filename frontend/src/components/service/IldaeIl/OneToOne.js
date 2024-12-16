@@ -59,9 +59,13 @@ const OneToOne = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:5001/onetoone", data); // formData 전송 (Content-Type 자동 설정)
-        
-            if (response.status === 200) {
+            const response = await axios.post(
+                "http://localhost:5001/onetoone/register",
+                data
+            ); // formData 전송 (Content-Type 자동 설정)
+            console.log(response);
+
+            if (response.status == 200) {
                 alert("문의가 접수되었습니다!");
                 console.log("등록된 데이터:", response.data);
                 navigate("/onetoonelist");
@@ -76,14 +80,34 @@ const OneToOne = () => {
                 alert("서버와 연결할 수 없습니다.");
             }
         }
+        // try {
+        //     const response = await fetch('http://localhost:5001/onetoone', { // 백엔드 주소와 정확히 일치
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(data), // 데이터를 JSON으로 변환하여 보냄
+        //     });
+        //     const result = await response.json();
+        //     if (response.ok) {
+        //         alert('문의가 접수되었습니다!');
+        //         console.log('등록된 데이터:', result);
+        //         //navigate(-1); // 이전 페이지로 이동
 
+        //         navigate('/onetoonelist'); // 목록 페이지로 이동
+        //     } else {
+        //         alert(`문의 등록 실패: ${result.error}`);
+        //     }
+        // } catch (err) {
+        //     console.error('서버 오류 발생:', err);
+        //     alert('서버와 연결할 수 없습니다.');
+        // }
     };
 
     // 취소 버튼 클릭 핸들러
     const handleCancel = () => {
         navigate(-1); // 이전 페이지로 이동
     };
-
 
     return (
         <div className={styles.one}>
@@ -173,12 +197,11 @@ const OneToOne = () => {
                         name="file"
                         onChange={handleFileChange}
                     />
-
                 </div>
 
                 {/* 버튼 그룹 */}
                 <div className={styles.buttonGroup}>
-                    <button type="submit">문의 접수</button>
+                    <button onClick={handleSubmit}>문의 접수</button>
                     <button
                         type="button"
                         onClick={handleCancel}
@@ -193,4 +216,3 @@ const OneToOne = () => {
 };
 
 export default OneToOne;
- 
