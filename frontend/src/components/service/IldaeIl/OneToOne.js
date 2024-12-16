@@ -167,7 +167,10 @@ const OneToOne = () => {
 
                 {/* 버튼 그룹 */}
                 <div className={styles.buttonGroup}>
-                    <button onClick={handleSubmit}>문의 접수</button>
+                    <button>문의 접수</button>
+                    {/* onClick={handleSubmit} 
+                    중복을 막기위해 코드 주석처리
+                    */}
                     <button
                         type="button"
                         onClick={handleCancel}
