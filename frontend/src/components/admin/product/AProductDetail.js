@@ -31,9 +31,15 @@ const AProductDetail = () => {
     }
 
     return (
-        <div className={styles.list}>
-            <div>
-                <table border="1">
+        <div>
+            <div className={styles.detail}>
+                <div className={styles.title}>
+                    제품 상세 정보
+                    <Link to={`/admin/product/modify/${product.product_id}`}>
+                        수정하기
+                    </Link>
+                </div>
+                <table>
                     <tr>
                         <td>제품 국문명</td>
                         <td>{product.product_name_kor}</td>
@@ -48,15 +54,27 @@ const AProductDetail = () => {
                     </tr>
                     <tr>
                         <td>제품 카테고리1</td>
-                        <td>{product.product_category_one}</td>
+                        <td>
+                            {product.product_category_one
+                                ? product.product_category_one
+                                : "없음"}
+                        </td>
                     </tr>
                     <tr>
                         <td>제품 카테고리2</td>
-                        <td>{product.product_category_two}</td>
+                        <td>
+                            {product.product_category_two
+                                ? product.product_category_two
+                                : "없음"}
+                        </td>
                     </tr>
                     <tr>
                         <td>제품 카테고리3</td>
-                        <td>{product.product_category_three}</td>
+                        <td>
+                            {product.product_category_three
+                                ? product.product_category_three
+                                : "없음"}
+                        </td>
                     </tr>
                     <tr>
                         <td>제품 향</td>
@@ -84,13 +102,14 @@ const AProductDetail = () => {
                     </tr>
                     <tr>
                         <td>공개여부</td>
-                        <td>{product.product_status} </td>
+                        <td>
+                            {product.product_status == 1 ? "공개" : "비공개"}{" "}
+                        </td>
                     </tr>
                 </table>
             </div>
             <AProductDetailOpt />
             <Link to={`/admin/product`}>목록으로</Link>
-            <Link to={`/admin/product/modify/${product.product_id}`}>수정</Link>
         </div>
     );
 };

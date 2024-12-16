@@ -62,7 +62,7 @@ const AProductRegister = () => {
     };
 
     return (
-        <div className={styles.list}>
+        <div className={styles.detail}>
             <div className={styles.title}>제품 등록</div>
             <form name="myFrm" onSubmit={submitGo}>
                 <table>

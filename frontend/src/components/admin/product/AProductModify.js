@@ -52,10 +52,10 @@ const AProductModify = () => {
         axios
             .put(`http://localhost:5001/admin/product/modify`, data)
             .then((res) => {
-                console.log("제품 정보 수정 완료했습니다.");
+                // console.log("제품 정보 수정 완료했습니다.");
 
                 alert("제품 정보 수정 완료했습니다.");
-                productGetAxios();
+                navigate(`/admin/product/detail/${product_id}`);
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
@@ -345,23 +345,7 @@ const AProductModify = () => {
 
                     <tr>
                         <td colSpan={2}>
-                            <button
-                                onClick={() => {
-                                    navigate("/admin/product");
-                                }}
-                            >
-                                목록으로
-                            </button>
                             <button onClick={submitGo}>저장</button>
-                            <button
-                                onClick={() => {
-                                    navigate(
-                                        `/admin/product/option/${product_id}`
-                                    );
-                                }}
-                            >
-                                제품 옵션 수정
-                            </button>
                         </td>
                     </tr>
                 </table>

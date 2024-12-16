@@ -79,7 +79,13 @@ function OrderDetail(props) {
       <table border={1} width={`500px`}>
         <tr>
           <th>주문자</th>
-          <td><Link to={`http://localhost:3000/admin/member/detail/${customer.customer_id}`}>{customer.customer_name}</Link></td>
+          {customer.status === "active" ? (
+            <Link to={`http://localhost:3000/admin/member/detail/${customer.customer_id}`}>
+              {customer.customer_name}
+            </Link>
+          ) : (
+            <Link to={`http://localhost:3000/admin/member/deletedmember`}>{customer.customer_name} (탈퇴 회원)</Link>
+          )}
         </tr>
         <tr>
           <th>주문자 전화번호</th>

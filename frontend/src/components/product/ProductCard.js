@@ -52,8 +52,12 @@ const ProductCard = ({ product }) => {
 
                             .then((res) => {
                                 console.log("게시물 등록 완료", res.data);
-                                alert("장바구니에 제품이 담겼습니다.");
-                                navigate("/");
+                                const useConfirm = window.confirm(
+                                    "장바구니에 제품이 담겼습니다. 장바구니에서 제품을 확인하시겠습니까?"
+                                );
+                                if (useConfirm) {
+                                    navigate(`/basket`);
+                                }
                             })
                             .catch((err) => {
                                 console.error("에러발생 ; ", err);

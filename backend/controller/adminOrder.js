@@ -6,7 +6,7 @@ module.exports = () => {
     router.get("/", async (req, res) => {
         console.log("order 진입"); //정상작동 확인
         try {
-            const [ret] = await con.execute('select * from orders WHERE order_status IN ("주문완료", "배송중", "배송완료")')
+            const [ret] = await con.execute("SELECT * FROM orders WHERE order_status IN ('주문완료', '배송중', '배송완료') ORDER BY order_id DESC")
             // console.log(ret)
             res.json(ret)
         } catch(err){
@@ -26,7 +26,11 @@ module.exports = () => {
 
             // console.log('이메일: ',ret[0].email)
 
-            const [cust] = await con.execute('SELECT * from customers WHERE email = ?', [ret[0].email])
+            const [cust] = await con.execute(`
+                SELECT * FROM customers WHERE email = ?
+                UNION
+                SELECT * FROM deleted_customers WHERE email = ?
+              `, [ret[0].email, ret[0].email]);
 
             const responseData = {
                 order: ret,
@@ -63,7 +67,7 @@ module.exports = () => {
     router.get("/status", async (req, res) => {
         console.log("orderstatus 진입"); //정상작동 확인
         try {
-            const [ret] = await con.execute('select * from orders WHERE order_status IN ("취소", "반품접수", "반품완료", "환불접수", "환불완료")')
+            const [ret] = await con.execute('select * from orders WHERE order_status IN ("취소", "반품접수", "반품완료", "환불접수", "환불완료") ORDER BY order_id DESC')
             // console.log(ret)
             res.json(ret)
         } catch(err){

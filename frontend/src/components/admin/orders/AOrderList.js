@@ -134,6 +134,7 @@ function OrderList(props) {
       </form>
       <table>
         <tr>
+          <td>번호</td>
           <td>주문번호</td>
           <td>주문일시</td>
           <td>주문상태</td>
@@ -142,10 +143,11 @@ function OrderList(props) {
           <td>총주문액</td>
           <td>운송장번호</td>
         </tr>
-        {arr.map((mm) => (
+        {arr.map((mm, i) => (
           <tr key={mm.order_id}>
+            <td>{i+1}</td>
             <td>
-              <Link to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
+              <Link className={styles.link} to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
             </td>
             <td>{formatDate(mm.order_date)}</td>
             <td>
