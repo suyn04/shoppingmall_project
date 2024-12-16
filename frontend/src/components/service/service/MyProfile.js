@@ -37,7 +37,7 @@ const MyProfile = () => {
         </div>
       </Accordion>
       <Accordion title="가입하기">
-        <div>여기를 클릭하여 회원 가입 후 계정을 만들어보세요.</div>
+        <div>회원가입을 클릭하여 회원 가입 후 계정을 만들어보세요.</div>
       </Accordion>
       <Accordion title="멤버쉽 혜택">
         <div>

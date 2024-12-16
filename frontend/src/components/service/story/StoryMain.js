@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const StoryMain = () => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.stitle}>친절함의 문화</div>
+      <div className={styles.sttitle}>친절함의 문화</div>
       <p className={styles.pp}>우리는 환경을 보호하고 지역사회의 안녕을 위해 책임을 져야 한다는 것을 알고 있습니다.
         <br /> 이를 위해 친절함은 우리가 하는 모든 일의 초석이 됩니다.</p>
 

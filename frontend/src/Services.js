@@ -14,6 +14,7 @@ import Sustainable from "./components/service/story/Sustainable";
 import PeopleWorkplace from "./components/service/story/PeopleWorkplace";
 
 import OneToOne from"./components/service/IldaeIl/OneToOne"
+import OneToOneMain from"./components/service/IldaeIl/OneToOneMain"
 import OneToOneList from"./components/admin/service/OneToOneList"
 
 import Review from"./components/service/review/Review"
@@ -41,6 +42,7 @@ function Services() {
                 <Route path="/peopleworkplace" element={<PeopleWorkplace />} />
                 {/* 일대일문의 */}
                 <Route path="/onetoone" element={<OneToOne />} />
+                <Route path="/onetoonemain" element={<OneToOneMain />} />
                 <Route path="/onetoonelist" element={<OneToOneList />} />
                 
                 {/* 리뷰 */}   
