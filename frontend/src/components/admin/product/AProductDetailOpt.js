@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import styles from "../../../scss/admin/AdminDetailOpt.module.scss";
 
 const AProductDetailOpt = () => {
     const { product_id } = useParams();
@@ -42,17 +43,24 @@ const AProductDetailOpt = () => {
     }
     return (
         <div>
-            <div>
-                <div>제품 옵션</div>
-                <table border="1">
+            <div className={styles.detail}>
+                <div className={styles.title}>
+                    제품 옵션
+                    <Link to={`/admin/product/option/${product_id}`}>
+                        수정하기
+                    </Link>
+                </div>
+                <table>
+                    <tr>
+                        <td>제품 용량</td>
+                        <td>제품 가격</td>
+                        <td>제품 이미지</td>
+                    </tr>
                     {productOpt.map((st, i) => {
                         return (
                             <tr>
-                                <td>제품 용량</td>
                                 <td>{st.product_volume}</td>
-                                <td>제품 가격</td>
                                 <td>{st.product_price}</td>
-                                <td>이미지</td>
                                 <td>{fileGo(st.product_upSystem)}</td>
                             </tr>
                         );

@@ -94,6 +94,11 @@ const AProductRegisterOpt = () => {
         return <div>id 없음</div>;
     }
 
+    const saveGo = () => {
+        alert("제품 옵션 수정 완료했습니다.");
+        navigate(`/admin/product/detail/${product_id}`);
+    };
+
     return (
         <div>
             <form name="myFrm" onSubmit={submitGo}>
@@ -161,13 +166,7 @@ const AProductRegisterOpt = () => {
                     </tr>
                 ))}
             </table>
-            <button
-                onClick={() => {
-                    navigate(`/admin/product/detail/${product_id}`);
-                }}
-            >
-                저장
-            </button>
+            <button onClick={saveGo}>저장</button>
         </div>
     );
 };
