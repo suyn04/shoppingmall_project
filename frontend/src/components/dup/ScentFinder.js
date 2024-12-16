@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import FinderModal from "./FinderModal";
-import styles from "../../scss/dup/scentFinder.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
-import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from 'react';
+import FinderModal from './FinderModal';
+import styles from '../../scss/dup/scentFinder.module.scss';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
+// import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 
 const ScentFinder = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -26,14 +26,11 @@ const ScentFinder = () => {
             <img src="/imgs/product/scentFinderBanner.jpg" alt="" />
             <div className={styles.content}>
                 <div>
-                    <FontAwesomeIcon icon={faQuoteLeft} size="2x" />
+                    {/* <FontAwesomeIcon icon={faQuoteLeft} size="2x" /> */}
                     <p>탑, 하트, 베이스 노트에 대해 아는 것도 도움이 됩니다.</p>
                     <p>하지만 원료 하나 하나에 신경쓸 필요는 없어요. </p>
-                    <p>
-                        끌리는 향을 찾다보면 나도 모르게 새로운 발견을 하게
-                        되실거에요
-                    </p>
-                    <FontAwesomeIcon icon={faQuoteRight} size="2x" />
+                    <p>끌리는 향을 찾다보면 나도 모르게 새로운 발견을 하게 되실거에요</p>
+                    {/* <FontAwesomeIcon icon={faQuoteRight} size="2x" /> */}
                 </div>
                 <div className={styles.small}>
                     <p>셀린 루</p>
@@ -41,12 +38,12 @@ const ScentFinder = () => {
                 </div>
             </div>
 
-            {openModal ? (
-                <FinderModal
-                    openModal={openModal}
-                    setOpenModal={setOpenModal}
-                />
-            ) : null}
+            {/* {openModal ? (
+                // <FinderModal
+                //     openModal={openModal}
+                //     setOpenModal={setOpenModal}
+                // />
+            ) : null} */}
         </div>
     );
 };

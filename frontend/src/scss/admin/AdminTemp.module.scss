@@ -19,15 +19,22 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    background: #f0f0f0;
 
+    .subbar1,
+    .subbar2,
+    .subbar3,
+    .subbar4,
+    .subbar5 {
+        height: 50px;
+        background-color: antiquewhite;
+    }
     a {
         text-decoration: none;
         color: #333;
         font-size: 16px;
         font-weight: bold;
-        display: block; /* 인라인 스타일에서 block 설정 */
-        margin: 10px 0; /* 인라인 스타일 반영 */
+        display: block;
+        margin: 10px 0;
 
         &:hover {
             color: #ccc;

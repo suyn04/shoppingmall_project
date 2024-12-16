@@ -62,30 +62,42 @@ function AdminTemp() {
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
-                <Link
-                    to="/admin"
-                    onClick={() => {
-                        setTopbarLinks([]);
-                        setShowTopbar(false);
-                    }}
-                >
-                    메인페이지로
-                </Link>
-                <Link to="/admin/member" onClick={() => SidebarClick('member')}>
-                    회원관리
-                </Link>
-                <Link to="/admin/order" onClick={() => SidebarClick('order')}>
-                    주문관리
-                </Link>
-                <Link to="/admin/product" onClick={() => SidebarClick('product')}>
-                    제품관리
-                </Link>
-                <Link to="/admin/onetoone" onClick={() => SidebarClick('board')}>
-                    게시판관리
-                </Link>
-                <Link to="/admin/analysis" onClick={() => SidebarClick('analysis')}>
-                    매출분석
-                </Link>
+                <div className={styles.subbar1}>
+                    <Link
+                        to="/admin"
+                        onClick={() => {
+                            setTopbarLinks([]);
+                            setShowTopbar(false);
+                        }}
+                    >
+                        메인페이지로
+                    </Link>
+                </div>
+                <div className={styles.subbar2}>
+                    <Link to="/admin/member" onClick={() => SidebarClick('member')}>
+                        회원관리
+                    </Link>
+                </div>
+                <div className={styles.subbar3}>
+                    <Link to="/admin/order" onClick={() => SidebarClick('order')}>
+                        주문관리
+                    </Link>
+                </div>
+                <div className={styles.subbar3}>
+                    <Link to="/admin/product" onClick={() => SidebarClick('product')}>
+                        제품관리
+                    </Link>
+                </div>
+                <div className={styles.subbar4}>
+                    <Link to="/admin/onetoone" onClick={() => SidebarClick('board')}>
+                        게시판관리
+                    </Link>
+                </div>
+                <div className={styles.subbar5}>
+                    <Link to="/admin/analysis" onClick={() => SidebarClick('analysis')}>
+                        매출분석
+                    </Link>
+                </div>
             </div>
 
             <div className={styles.content}>
