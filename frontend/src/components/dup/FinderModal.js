@@ -7,28 +7,28 @@ const FinderModal = ({ openModal, setOpenModal }) => {
             <div className={styles.container}>
                 <div className={styles.modalTitle}>센트파인더</div>
                 <div className={styles.content}>
-                    <div>
+                    <div className={styles.question}>
                         <div>당신의 고민은?</div>
                         <div>
                             <input
                                 className={styles.btn}
                                 type="radio"
                                 name="for"
-                                id="for"
+                                id="forMe"
                                 value={1}
                             />
-                            <label for="for">당신을 위한</label>
+                            <label for="forMe">당신을 위한</label>
                             <input
                                 className={styles.btn}
                                 type="radio"
                                 name="for"
-                                id="for"
+                                id="forYou"
                                 value={2}
                             />
-                            <label for="for">누군가를 위한</label>
+                            <label for="forYou">누군가를 위한</label>
                         </div>
                     </div>
-                    <div>
+                    <div className={styles.question}>
                         <div>누구를 위한 건가요?</div>
                         <div>
                             <div>남성</div>
@@ -36,7 +36,7 @@ const FinderModal = ({ openModal, setOpenModal }) => {
                             <div>모두</div>
                         </div>
                     </div>
-                    <div>
+                    <div className={styles.question}>
                         <div>언제 사용할 예정인가요?</div>
                         <div>
                             <div>평범한 일상에서</div>
@@ -45,7 +45,7 @@ const FinderModal = ({ openModal, setOpenModal }) => {
                             <input type="radio" name="" id="" />
                         </div>
                     </div>
-                    <div>
+                    <div className={styles.question}>
                         <div>당신을 가장 매료시키는 단어는?</div>
                         <div>
                             <div>신선한</div>
@@ -55,7 +55,7 @@ const FinderModal = ({ openModal, setOpenModal }) => {
                             <div>풍부한</div>
                         </div>
                     </div>
-                    <div>
+                    <div className={styles.question}>
                         <div>당신을 가장 매료시키는 단어는?</div>
                         <div>
                             <div>관용적인</div>
@@ -65,16 +65,16 @@ const FinderModal = ({ openModal, setOpenModal }) => {
                             <div>활기찬</div>
                         </div>
                     </div>
-                    <button
-                        className="cancle"
-                        type="button"
-                        onClick={() => {
-                            setOpenModal(false);
-                        }}
-                    >
-                        취소
-                    </button>
                 </div>
+                <button
+                    className="cancle"
+                    type="button"
+                    onClick={() => {
+                        setOpenModal(false);
+                    }}
+                >
+                    취소
+                </button>
             </div>
         </div>
     );

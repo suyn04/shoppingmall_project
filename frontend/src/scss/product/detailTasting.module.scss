@@ -5,16 +5,13 @@
     }
     .noteWrap {
         display: flex;
-        align-content: space-between;
-        align-items: center;
+        justify-content: space-between;
         .infoWrap {
             padding: 20px;
             .noteImg {
-                height: 200px;
                 img {
                     display: block;
                     margin: 0 auto;
-                    width: 40%;
                 }
             }
             .noteName {
@@ -26,4 +23,9 @@
             }
         }
     }
+}
+
+@media screen and (max-width: 800px) {
+}
+@media screen and (max-width: 480px) {
 }

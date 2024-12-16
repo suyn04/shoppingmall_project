@@ -1,7 +1,7 @@
 .volumeWrap {
     margin: 20px 0;
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
 
     button {
         display: block;
@@ -19,4 +19,9 @@
             color: #fff;
         }
     }
+}
+
+@media screen and (max-width: 800px) {
+}
+@media screen and (max-width: 480px) {
 }

@@ -32,8 +32,13 @@
         .content {
             padding: 20px;
             .btn {
-                opacity: 0;
+                display: none;
             }
+            label {
+                display: block;
+            }
+        }
+        button {
         }
     }
 }
