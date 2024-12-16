@@ -114,242 +114,261 @@ const AProductModify = () => {
     };
 
     return (
-        <div className={styles.detail}>
-            <div className={styles.title}>제품 상세 내용</div>
-            <form name="myFrm" onSubmit={submitGo}>
-                <table>
-                    <tr>
-                        <td>제품 국문명</td>
-                        <td>
-                            <input
-                                type="hidden"
-                                name="product_id"
-                                value={product.product_id}
-                            />
-                            <input
-                                name="product_name_kor"
-                                type="text"
-                                value={product.product_name_kor}
-                                onChange={(e) =>
-                                    stChange("product_name_kor", e.target)
-                                }
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제품 영문명</td>
-                        <td>
-                            <input
-                                name="product_name_eng"
-                                type="text"
-                                value={product.product_name_eng}
-                                onChange={(e) =>
-                                    stChange("product_name_eng", e.target)
-                                }
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제품 스페셜</td>
-                        <td>
-                            <select
-                                name="product_special"
-                                id="product_special"
-                                onChange={(e) =>
-                                    stChange("product_speical", e.target)
-                                }
-                            >
-                                {chkSelectModule("product_special", [
-                                    {
-                                        value: "",
-                                        title: "Select",
-                                    },
-                                    {
-                                        value: "Best Seller",
-                                        title: "Best Seller",
-                                    },
-                                    { value: "New", title: "New" },
+        <div className={styles.detailWrap}>
+            <div className={styles.detail}>
+                <div className={styles.title}>제품 상세 내용</div>
+                <form name="myFrm" onSubmit={submitGo}>
+                    <table>
+                        <tr>
+                            <td>제품 국문명</td>
+                            <td>
+                                <input
+                                    type="hidden"
+                                    name="product_id"
+                                    value={product.product_id}
+                                />
+                                <input
+                                    name="product_name_kor"
+                                    type="text"
+                                    value={product.product_name_kor}
+                                    onChange={(e) =>
+                                        stChange("product_name_kor", e.target)
+                                    }
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제품 영문명</td>
+                            <td>
+                                <input
+                                    name="product_name_eng"
+                                    type="text"
+                                    value={product.product_name_eng}
+                                    onChange={(e) =>
+                                        stChange("product_name_eng", e.target)
+                                    }
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제품 스페셜</td>
+                            <td>
+                                <select
+                                    name="product_special"
+                                    id="product_special"
+                                    onChange={(e) =>
+                                        stChange("product_speical", e.target)
+                                    }
+                                >
+                                    {chkSelectModule("product_special", [
+                                        {
+                                            value: "",
+                                            title: "Select",
+                                        },
+                                        {
+                                            value: "Best Seller",
+                                            title: "Best Seller",
+                                        },
+                                        { value: "New", title: "New" },
+                                    ])}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="product_category_id">
+                                    카테고리
+                                </label>
+                            </td>
+                            <td>
+                                <select
+                                    name="product_category_id"
+                                    id="product_category_id"
+                                    onChange={(e) =>
+                                        stChange(
+                                            "product_category_id",
+                                            e.target
+                                        )
+                                    }
+                                >
+                                    {chkSelectModule("product_category_id", [
+                                        {
+                                            value: "",
+                                            title: "Select",
+                                        },
+                                        {
+                                            value: 1,
+                                            title: "코롱",
+                                        },
+                                        {
+                                            value: 2,
+                                            title: "홈 프레그런스 > 캔들",
+                                        },
+                                        {
+                                            value: 3,
+                                            title: "홈 프레그런스 > 디퓨저",
+                                        },
+                                        {
+                                            value: 4,
+                                            title: "배스 앤 바디 > 배스 앤 샤워 > 바디 앤 핸드 워시",
+                                        },
+                                        {
+                                            value: 5,
+                                            title: "배스 앤 바디 > 배스 앤 샤워 > 샤워 젤 앤 오일",
+                                        },
+                                        {
+                                            value: 6,
+                                            title: "배스 앤 바디 > 배스 앤 샤워 > 배스 오일",
+                                        },
+                                        {
+                                            value: 7,
+                                            title: "배스 앤 바디 > 바디 케어 > 바디크림",
+                                        },
+                                        {
+                                            value: 8,
+                                            title: "배스 앤 바디 > 바디 케어 > 바디 앤 핸드 로션",
+                                        },
+                                        {
+                                            value: 9,
+                                            title: "배스 앤 바디 > 바디 케어 > 핸드크림",
+                                        },
+                                        {
+                                            value: 10,
+                                            title: "배스 앤 바디 > 바디 케어 > 바디 미스트",
+                                        },
+                                    ])}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="product_scent">향</label>
+                            </td>
+                            <td>
+                                <select name="product_scent" id="product_scent">
+                                    {chkSelectModule("product_scent", [
+                                        {
+                                            value: "",
+                                            title: "Select",
+                                        },
+                                        {
+                                            value: "citrus",
+                                            title: "시트러스",
+                                        },
+                                        {
+                                            value: "fruity",
+                                            title: "프루티",
+                                        },
+                                        {
+                                            value: "light-floral",
+                                            title: "라이트 플로랄",
+                                        },
+                                        {
+                                            value: "floral",
+                                            title: "플로랄",
+                                        },
+                                        {
+                                            value: "woody",
+                                            title: "우디",
+                                        },
+                                    ])}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제품 성분</td>
+                            <td>
+                                <textarea
+                                    rows={5}
+                                    name="product_ingredient"
+                                    value={product.product_ingredient}
+                                    onChange={(e) =>
+                                        stChange("product_ingredient", e.target)
+                                    }
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="product_top">탑노트</label>
+                            </td>
+                            <td>
+                                <select
+                                    name="product_top"
+                                    id="product_top"
+                                    onChange={(e) =>
+                                        stChange("product_top", e.target)
+                                    }
+                                >
+                                    <option value="">Select</option>
+                                    {chkSelectModule(
+                                        "product_top",
+                                        noteOptions
+                                    )}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="product_heart">하트노트</label>
+                            </td>
+                            <td>
+                                <select name="product_heart" id="product_heart">
+                                    <option value="">Select</option>
+                                    {chkSelectModule(
+                                        "product_heart",
+                                        noteOptions
+                                    )}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="product_base">베이스노트</label>
+                            </td>
+                            <td>
+                                <select name="product_base" id="product_base">
+                                    <option value="">Select</option>
+                                    {chkSelectModule(
+                                        "product_base",
+                                        noteOptions
+                                    )}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제품설명</td>
+                            <td>
+                                <textarea
+                                    rows={5}
+                                    name="product_intro"
+                                    value={product.product_intro}
+                                    onChange={(e) =>
+                                        stChange("product_intro", e.target)
+                                    }
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>공개여부</td>
+                            <td>
+                                {chkRadioModule("product_status", [
+                                    { value: 0, title: "비공개" },
+                                    { value: 1, title: "공개" },
                                 ])}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="product_category_id">카테고리</label>
-                        </td>
-                        <td>
-                            <select
-                                name="product_category_id"
-                                id="product_category_id"
-                                onChange={(e) =>
-                                    stChange("product_category_id", e.target)
-                                }
-                            >
-                                {chkSelectModule("product_category_id", [
-                                    {
-                                        value: "",
-                                        title: "Select",
-                                    },
-                                    {
-                                        value: 1,
-                                        title: "코롱",
-                                    },
-                                    {
-                                        value: 2,
-                                        title: "홈 프레그런스 > 캔들",
-                                    },
-                                    {
-                                        value: 3,
-                                        title: "홈 프레그런스 > 디퓨저",
-                                    },
-                                    {
-                                        value: 4,
-                                        title: "배스 앤 바디 > 배스 앤 샤워 > 바디 앤 핸드 워시",
-                                    },
-                                    {
-                                        value: 5,
-                                        title: "배스 앤 바디 > 배스 앤 샤워 > 샤워 젤 앤 오일",
-                                    },
-                                    {
-                                        value: 6,
-                                        title: "배스 앤 바디 > 배스 앤 샤워 > 배스 오일",
-                                    },
-                                    {
-                                        value: 7,
-                                        title: "배스 앤 바디 > 바디 케어 > 바디크림",
-                                    },
-                                    {
-                                        value: 8,
-                                        title: "배스 앤 바디 > 바디 케어 > 바디 앤 핸드 로션",
-                                    },
-                                    {
-                                        value: 9,
-                                        title: "배스 앤 바디 > 바디 케어 > 핸드크림",
-                                    },
-                                    {
-                                        value: 10,
-                                        title: "배스 앤 바디 > 바디 케어 > 바디 미스트",
-                                    },
-                                ])}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="product_scent">향</label>
-                        </td>
-                        <td>
-                            <select name="product_scent" id="product_scent">
-                                {chkSelectModule("product_scent", [
-                                    {
-                                        value: "",
-                                        title: "Select",
-                                    },
-                                    {
-                                        value: "citrus",
-                                        title: "시트러스",
-                                    },
-                                    {
-                                        value: "fruity",
-                                        title: "프루티",
-                                    },
-                                    {
-                                        value: "light-floral",
-                                        title: "라이트 플로랄",
-                                    },
-                                    {
-                                        value: "floral",
-                                        title: "플로랄",
-                                    },
-                                    {
-                                        value: "woody",
-                                        title: "우디",
-                                    },
-                                ])}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제품 성분</td>
-                        <td>
-                            <textarea
-                                rows={5}
-                                name="product_ingredient"
-                                value={product.product_ingredient}
-                                onChange={(e) =>
-                                    stChange("product_ingredient", e.target)
-                                }
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="product_top">탑노트</label>
-                        </td>
-                        <td>
-                            <select
-                                name="product_top"
-                                id="product_top"
-                                onChange={(e) =>
-                                    stChange("product_top", e.target)
-                                }
-                            >
-                                <option value="">Select</option>
-                                {chkSelectModule("product_top", noteOptions)}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="product_heart">하트노트</label>
-                        </td>
-                        <td>
-                            <select name="product_heart" id="product_heart">
-                                <option value="">Select</option>
-                                {chkSelectModule("product_heart", noteOptions)}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="product_base">베이스노트</label>
-                        </td>
-                        <td>
-                            <select name="product_base" id="product_base">
-                                <option value="">Select</option>
-                                {chkSelectModule("product_base", noteOptions)}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제품설명</td>
-                        <td>
-                            <textarea
-                                rows={5}
-                                name="product_intro"
-                                value={product.product_intro}
-                                onChange={(e) =>
-                                    stChange("product_intro", e.target)
-                                }
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>공개여부</td>
-                        <td>
-                            {chkRadioModule("product_status", [
-                                { value: 0, title: "비공개" },
-                                { value: 1, title: "공개" },
-                            ])}
-                        </td>
-                    </tr>
-                </table>
-                <div className={styles.actionButtons}>
-                    <button className={styles.searchbutton} onClick={submitGo}>
-                        저장
-                    </button>
-                </div>
-            </form>
+                            </td>
+                        </tr>
+                    </table>
+                    <div className={styles.actionButtons}>
+                        <button
+                            className={styles.searchbutton}
+                            onClick={submitGo}
+                        >
+                            저장
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

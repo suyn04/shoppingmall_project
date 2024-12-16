@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import styles from "../../../scss/admin/productOptDetail.module.scss";
 
 const AProductRegisterOpt = () => {
     const navigate = useNavigate();
     const { product_id } = useParams();
     const [product, setProduct] = useState(null);
     const [options, setOptions] = useState([]); // 추가된 옵션 리스트
+    const formRef = useRef(null);
 
     const productAxiosGet = () => {
         if (!product_id) {
@@ -53,18 +55,20 @@ const AProductRegisterOpt = () => {
                 const newOption = Object.fromEntries(frmData);
                 console.log(newOption);
                 productAxiosGet();
+                formRef.current.reset();
             })
             .catch((err) => {
                 console.error("에러발생 ; ", err);
             });
     };
 
-    const delGo = () => {
+    const delGo = (product_opt_id) => {
         console.log("delGo() 진입");
+        console.log(options);
 
         axios
             .delete(
-                `http://localhost:5001/admin/product/register/option/${product_id}`,
+                `http://localhost:5001/admin/product/register/option/${product_opt_id}`,
                 {
                     data: { delUPfile: options.upSystem },
                 }
@@ -100,73 +104,86 @@ const AProductRegisterOpt = () => {
     };
 
     return (
-        <div>
-            <form name="myFrm" onSubmit={submitGo}>
-                <div>제품 옵션</div>
-                <table border="1">
+        <div className={styles.detailWrap}>
+            <div className={styles.detail}>
+                <div className={styles.title}>제품 옵션 추가</div>
+                <form name="myFrm" ref={formRef}>
+                    <table>
+                        <tr>
+                            <td>제품명</td>
+                            <td colSpan={4}>
+                                <input
+                                    type="hidden"
+                                    name="product_id"
+                                    value={product_id}
+                                />
+                                {product.product_name_kor}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowSpan={2}>옵션</td>
+                            <td>제품 용량</td>
+                            <td>제품 가격</td>
+                            <td>제품 이미지</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input
+                                    type="number"
+                                    step="0.1"
+                                    name="product_volume"
+                                />
+                                <input
+                                    type="radio"
+                                    name="unit"
+                                    value="ml"
+                                    checked
+                                />
+                                ml
+                                <input type="radio" name="unit" value="g" />g
+                                <input type="radio" name="unit" value="kg" />
+                                kg
+                            </td>
+                            <td>
+                                <input type="number" name="product_price" />원
+                            </td>
+                            <td>
+                                <input type="file" name="product_upfile" />
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <button onClick={submitGo}>옵션 추가</button>
+                    </div>
+                </form>
+
+                <div className={styles.title}>추가된 옵션</div>
+                <table className={styles.option}>
                     <tr>
-                        <td>제품명</td>
-                        <td colSpan={4}>
-                            <input
-                                type="hidden"
-                                name="product_id"
-                                value={product_id}
-                            />
-                            {product.product_name_kor}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td rowSpan={2}>옵션</td>
                         <td>제품 용량</td>
                         <td>제품 가격</td>
                         <td>제품 이미지</td>
-                        <td rowSpan={2}>
-                            <input type="submit" value="옵션 추가" />
-                        </td>
+                        <td>구분</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <input
-                                type="number"
-                                step="0.1"
-                                name="product_volume"
-                            />
-                            <input type="radio" name="unit" value="ml" />
-                            ml
-                            <input type="radio" name="unit" value="g" />g
-                            <input type="radio" name="unit" value="kg" />
-                            kg
-                        </td>
-                        <td>
-                            <input type="number" name="product_price" />원
-                        </td>
-                        <td>
-                            <input type="file" name="product_upfile" />
-                        </td>
-                    </tr>
+                    {options.map((opt, index) => (
+                        <tr key={index}>
+                            <td>{opt.product_volume}</td>
+                            <td>{opt.product_price} 원</td>
+                            <td>{fileGo(opt.product_upSystem)}</td>
+                            <td>
+                                <button
+                                    onClick={() => {
+                                        delGo(opt.product_opt_id);
+                                    }}
+                                >
+                                    삭제
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </table>
-            </form>
-
-            <h3>추가된 옵션</h3>
-            <table border="1">
-                <tr>
-                    <td>제품 용량</td>
-                    <td>제품 가격</td>
-                    <td>제품 이미지</td>
-                    <td>구분</td>
-                </tr>
-                {options.map((opt, index) => (
-                    <tr key={index}>
-                        <td>{opt.product_volume}</td>
-                        <td>{opt.product_price} 원</td>
-                        <td>{fileGo(opt.product_upSystem)}</td>
-                        <td>
-                            <button onClick={delGo}>삭제</button>
-                        </td>
-                    </tr>
-                ))}
-            </table>
-            <button onClick={saveGo}>저장</button>
+                <button onClick={saveGo}>저장</button>
+            </div>
         </div>
     );
 };

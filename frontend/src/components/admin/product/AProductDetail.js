@@ -31,7 +31,7 @@ const AProductDetail = () => {
     }
 
     return (
-        <div>
+        <div className={styles.detailWrap}>
             <div className={styles.detail}>
                 <div className={styles.title}>
                     제품 상세 정보
@@ -109,7 +109,9 @@ const AProductDetail = () => {
                 </table>
             </div>
             <AProductDetailOpt />
-            <Link to={`/admin/product`}>목록으로</Link>
+            <Link className={styles.Link} to={`/admin/product`}>
+                목록으로
+            </Link>
         </div>
     );
 };
