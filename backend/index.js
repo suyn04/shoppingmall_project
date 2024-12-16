@@ -68,6 +68,10 @@ app.use('/reports/', reportRouter);
 const signUpRouter = require('./controller/SignUp.js');
 app.use('/signUp', signUpRouter);
 
+//중복확인 라우터
+const emailChkRouter = require('./controller/SignUp.js');
+app.use('/signUp', emailChkRouter);
+
 //로그인 라우터
 const signInRouter = require('./controller/SignIn.js');
 app.use('/signIn', signInRouter);
