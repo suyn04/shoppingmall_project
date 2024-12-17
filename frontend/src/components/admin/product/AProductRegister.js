@@ -164,7 +164,7 @@ const AProductRegister = () => {
                         <tr>
                             <td>제품 성분</td>
                             <td>
-                                <textarea name="product_intro" rows="5" />
+                                <textarea name="product_ingredient" rows="5" />
                             </td>
                         </tr>
                         <tr>
