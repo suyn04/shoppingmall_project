@@ -49,12 +49,6 @@ function Nav({ ham, setHam }) {
                             <li>
                                 <Link to="/best-seller">베스트셀러</Link>
                             </li>
-                            <li>
-                                <Link to="">신제품</Link>
-                            </li>
-                            <li>
-                                <Link to="">매장안내</Link>
-                            </li>
                         </ul>
                     </li>
                     <li>
@@ -130,7 +124,7 @@ function Nav({ ham, setHam }) {
                     </li>
                     <li>
                         <Link
-                            to="/home-scents"
+                            to="#"
                             onClick={(e) => toggleSubMenu(3, e)}
                         >
                             홈 프레그런스
@@ -149,7 +143,7 @@ function Nav({ ham, setHam }) {
                     </li>
                     <li>
                         <Link
-                            to="/bath-body"
+                            to="#"
                             onClick={(e) => toggleSubMenu(4, e)}
                         >
                             배스 앤 바디
@@ -218,7 +212,7 @@ function Nav({ ham, setHam }) {
                         </ul>
                     </li>
                     <li>
-                        <Link to="" onClick={(e) => toggleSubMenu(6, e)}>
+                        <Link to="#" onClick={(e) => toggleSubMenu(6, e)}>
                             서비스
                         </Link>
                         <ul
@@ -229,18 +223,15 @@ function Nav({ ham, setHam }) {
                                 <Link to="/scent-finder">센트 파인더</Link>
                             </li>
                             <li>
-                                <Link to="">고객 서비스</Link>
+                                <Link to="/info/faq">고객 서비스</Link>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <Link to="">마이페이지</Link>
+                        <Link to="/myPage">마이페이지</Link>
                     </li>
                     <li>
-                        <Link to="">위시리스트</Link>
-                    </li>
-                    <li>
-                        <Link to="">장바구니</Link>
+                        <Link to="/basket">장바구니</Link>
                     </li>
                     <li>
                         <Link to="">매장위치</Link>
@@ -251,17 +242,17 @@ function Nav({ ham, setHam }) {
                 <div div className={styles.menuBg}></div>
                 <ul className={styles.menu}>
                     <li>
-                        <Link to="">브랜드 소개</Link>
+                        <Link to="/storymain">브랜드 소개</Link>
                         <ul className={styles.submenu}>
                             <li>
                                 <div>
-                                    <Link to="">
+                                    <Link to="/storymain">
                                         <img src={`${url}nav01.avif`} alt="" />
                                     </Link>
                                     <div
                                         className={`${styles.subItem} ${styles.bold}`}
                                     >
-                                        <Link to="">소개</Link>
+                                        <Link to="/storymain">소개</Link>
                                         <Link to="/all-product">제품전체</Link>
                                         <Link to="/best-seller">
                                             베스트셀러
@@ -363,11 +354,11 @@ function Nav({ ham, setHam }) {
                         </ul>
                     </li>
                     <li>
-                        <Link to="">서비스</Link>
+                        <Link to="/info/faq">서비스</Link>
                         <ul className={styles.submenu}>
                             <li>
                                 <div>
-                                    <Link to="">
+                                    <Link to="/scent-finder">
                                         <img src={`${url}nav08.avif`} alt="" />
                                     </Link>
                                     <div
@@ -376,7 +367,7 @@ function Nav({ ham, setHam }) {
                                         <Link to="/scent-finder">
                                             센트 파인더
                                         </Link>
-                                        <Link to="">고객 서비스</Link>
+                                        <Link to="/info/faq">고객 서비스</Link>
                                     </div>
                                 </div>
                             </li>
