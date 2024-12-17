@@ -42,7 +42,7 @@ function AdminTemp() {
                 ]);
                 break;
             case 'analysis': //매출분석 클릭시
-                setTopbarLinks([{ name: '기간별 매출액 조회', path: '/admin/analysis' }]);
+                setTopbarLinks([]);
                 break;
         }
         setShowTopbar(true); //사이드바를 클릭했을 때는 탑바가 노출되어있어야 함

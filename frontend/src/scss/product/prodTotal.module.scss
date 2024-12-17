@@ -24,6 +24,17 @@
     }
 }
 
+// main-slide
+.bestSlide{
+    margin: 100px 0px;
+    >div{
+        margin: 30px 0px;
+        font-family: 'NanumMyeongjo';
+        text-align: center;
+        font-size: 2rem;
+    }
+}
+
 @media screen and (max-width: 800px) {
 }
 @media screen and (max-width: 480px) {

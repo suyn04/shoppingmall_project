@@ -2,13 +2,20 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import styles from '../../../scss/admin/AdminList.module.scss'
+import Pagination from '../../dup/Pagination';
 
 function AOrderStatus(props) {
 
-  const [arr, setArr] = useState([])
   const [isEditable, setIsEditable] = useState(false)
   const [order, setOrder] = useState([])
   const [text, setText] = useState("")
+  // pagination 추가
+  const [curPage, setCurPage] = useState(1); // Current page
+  const [itemsPerPage] = useState(10); // Items per page
+  // Calculate the products for the current page
+  const indexOfLastItem = curPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const curOrders = order.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     axios.get('http://localhost:5001/admin/order/status')
@@ -18,7 +25,7 @@ function AOrderStatus(props) {
           status: item.order_status,
           invoice: item.invoice || '',
         }))
-        setArr(updatedData)
+        setOrder(updatedData)
       })
       .catch((err) => {
         console.error('에러발생 : ', err)
@@ -27,18 +34,18 @@ function AOrderStatus(props) {
 
   // 상태 변경 핸들러
   const handleStatusChange = (id, newStatus) => {
-    const updatedArr = arr.map((item) => {
+    const updatedArr = order.map((item) => {
       if (item.order_id === id) {
         return { ...item, status: newStatus }
       }
       return item
     })
-    setArr(updatedArr)
+    setOrder(updatedArr)
   }
 
   // 수정 완료 핸들러 (DB에 업데이트)
   const handleSaveChanges = () => {
-    axios.post('http://localhost:5001/admin/order/update', arr)
+    axios.post('http://localhost:5001/admin/order/update', order)
       .then((res) => {
         alert('수정이 완료되었습니다.')
         setIsEditable(false)
@@ -96,7 +103,7 @@ function AOrderStatus(props) {
   };
 
   const handleInvoiceChange = (id, newInvoice) => {
-    const updatedArr = arr.map((item) =>
+    const updatedArr = order.map((item) =>
       item.order_id === id
         ? {
             ...item,
@@ -105,7 +112,7 @@ function AOrderStatus(props) {
           }
         : item
     );
-    setArr(updatedArr);
+    setOrder(updatedArr);
   };
 
   return (
@@ -142,9 +149,9 @@ function AOrderStatus(props) {
           <td>총주문액</td>
           <td>반품/환불 운송장번호</td>
         </tr>
-        {arr.map((mm, i) => (
+        {curOrders.map((mm, i) => (
           <tr key={mm.order_id}>
-            <td>{i+1}</td>
+            <td>{(curPage-1)*itemsPerPage+(i+1)}</td>
             <td>
               <Link className={styles.link} to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
             </td>
@@ -178,6 +185,13 @@ function AOrderStatus(props) {
           </tr>
         ))}
       </table>
+      <Pagination
+        totalItems={order.length}
+        itemsPerPage={itemsPerPage}
+        pagesPerGroup={5}
+        curPage={curPage}
+        setCurPage={setCurPage}
+      />
     </div>
   );
 }

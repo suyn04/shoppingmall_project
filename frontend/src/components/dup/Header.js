@@ -40,7 +40,7 @@ function Header({ ham, setHam }) {
                         <img src={`${url}searchIcon.svg`} alt="" />
                     </div>
                     <div className={styles.mapIcon}>
-                        <Link to="">
+                        <Link to="/map">
                             <img src={`${url}mapIcon.svg`} alt="" />
                         </Link>
                     </div>
