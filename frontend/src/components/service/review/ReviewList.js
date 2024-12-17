@@ -5,10 +5,10 @@ import Modal from "./Modal";
 import styles from "../../../scss/service/review/ReviewList.module.scss";
 
 const ReviewList = ({ product_id }) => {
-
     // email 세션 추가
 
-    const email = sessionStorage.getItem('email')
+    const email = sessionStorage.getItem("email");
+
     const [reviews, setReviews] = useState([]);
     const [expandedReview, setExpandedReview] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,9 +44,9 @@ const ReviewList = ({ product_id }) => {
     // 모달 열기
     const handleOpenModal = (review) => {
         // 로그인한 사람만 리뷰작성 가능하게 끔
-        if(!email){
-            alert('회원만 리뷰작성이 가능합니다.')
-            navigate('/signIn')
+        if (!email) {
+            alert("회원만 리뷰작성이 가능합니다.");
+            navigate("/signIn");
         }
         setSelectedReview(review);
         setIsModalOpen(true);
@@ -99,7 +99,7 @@ const ReviewList = ({ product_id }) => {
         }
         navigate(`/review/${product_opt_id}`);
     };
-  
+
     return (
         <div>
             <div className={styles.reviewTitle}>
@@ -223,7 +223,7 @@ const ReviewList = ({ product_id }) => {
                             onClick={handleCloseModal}
                             className={styles.cancelButton}
                         >
-                          취소
+                            취소
                         </button>
                     </div>
                 </Modal>

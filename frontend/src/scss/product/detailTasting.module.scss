@@ -7,7 +7,9 @@
         display: flex;
         justify-content: space-between;
         .infoWrap {
+            width: calc(100% / 3);
             padding: 20px;
+            text-align: center;
             .noteImg {
                 img {
                     display: block;
@@ -17,6 +19,7 @@
             .noteName {
                 padding: 10px;
                 text-align: center;
+                font-weight: 700;
             }
             .noteIntro {
                 line-height: 1.2;
