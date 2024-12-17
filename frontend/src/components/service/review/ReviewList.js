@@ -82,7 +82,7 @@ const ReviewList = ({ product_id }) => {
 
             console.log("보내는 데이터:", reportData);
 
-            await axios.post("http://localhost:5001/reports", reportData);
+            await axios.post("http://localhost:5001/reports/register", reportData);
             alert("신고가 접수되었습니다.");
             handleCloseModal();
         } catch (error) {
@@ -206,6 +206,7 @@ const ReviewList = ({ product_id }) => {
 
                     <p>내용:</p>
                     <textarea
+                        className={styles.resize}
                         value={reportContent}
                         onChange={(e) => setReportContent(e.target.value)}
                         rows="4"
