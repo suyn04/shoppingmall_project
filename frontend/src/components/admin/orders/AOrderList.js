@@ -2,12 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
+import Pagination from '../../dup/Pagination';
 
 function OrderList(props) {
   const [order, setOrder] = useState([])
   const [text, setText] = useState("")
   const [isEditable, setIsEditable] = useState(false)
   const navigate = useNavigate()
+
+  // pagination 추가
+  const [curPage, setCurPage] = useState(1); // Current page
+  const [itemsPerPage] = useState(10); // Items per page
+  // Calculate the products for the current page
+  const indexOfLastItem = curPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const curOrders = order.slice(indexOfFirstItem, indexOfLastItem);
 
   const orderListAxios = () => {
     axios.get('http://localhost:5001/admin/order/')
@@ -158,9 +167,9 @@ function OrderList(props) {
           <td>총주문액</td>
           <td>운송장번호</td>
         </tr>
-        {order.map((mm, i) => (
+        {curOrders.map((mm,i) => (
           <tr key={mm.order_id}>
-            <td>{i+1}</td>
+            <td>{(curPage-1)*itemsPerPage+(i+1)}</td>
             <td>
               <Link className={styles.link} to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
             </td>
@@ -193,6 +202,14 @@ function OrderList(props) {
           </tr>
         ))}
       </table>
+
+      <Pagination
+        totalItems={order.length}
+        itemsPerPage={itemsPerPage}
+        pagesPerGroup={5}
+        curPage={curPage}
+        setCurPage={setCurPage}
+      />
     </div>
   )
 }
