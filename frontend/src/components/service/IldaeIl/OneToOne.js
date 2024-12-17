@@ -146,7 +146,11 @@ const OneToOne = () => {
                         name="content"
                         value={formData.content}
                         onChange={handleChange}
-                        placeholder="문의 내용을 입력하세요"
+                        placeholder={
+                            formData.category === "refund"
+                                ? "주문번호를 입력하세요"
+                                : "문의 내용을 입력하세요"
+                        }
                     />
                     <p className={styles.gray}>
                         ※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의
