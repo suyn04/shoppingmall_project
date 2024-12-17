@@ -32,6 +32,7 @@ function Home(props) {
         </div>
         </section>
       </div>
+      
     </>
   );
 }

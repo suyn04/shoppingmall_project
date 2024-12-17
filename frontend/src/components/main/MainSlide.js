@@ -30,7 +30,7 @@ function MainSlide(props) {
         <SwiperSlide>
           <Link to={'/bath-body'}>
             <div className='slide-title'>행복한 홀리데이를 위해</div>
-            <div className='slide-text'>배스 앤 바디 보기기</div>
+            <div className='slide-text'>배스 앤 바디 보기</div>
             <img src={`/imgs/main/main_slide2.jpg`} alt="Slide 2"/>
           </Link>
         </SwiperSlide>
