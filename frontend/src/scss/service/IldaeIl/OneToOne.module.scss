@@ -33,6 +33,7 @@
         select,
         textarea {
             width: 100%;
+            box-sizing: border-box;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -46,11 +47,11 @@
 
         .buttonGroup {
             display: flex;
-            /* 버튼을 가로로 배치 */
+
             justify-content: center;
-            /* 오른쪽 정렬 */
+
             gap: 10px;
-            /* 버튼 사이 간격 */
+            margin-top: 35px;
         }
 
         button {
@@ -77,7 +78,6 @@
             cursor: pointer;
             font-size: 16px;
         }
-
-
     }
+    margin-bottom: 70px;
 }
