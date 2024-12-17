@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from "../../../scss/admin/AdminList.module.scss";
+
 
 const ReportList = () => {
     const [reports, setReports] = useState([]); // 신고 목록 상태
@@ -29,37 +31,41 @@ const ReportList = () => {
     };
 
     return (
-        <div>
-            <h2>신고 목록</h2>
+        <div className={styles.list}>
+            <div className={styles.title}>신고 목록</div>
+
             <table>
-                <thead>
+                <tr className={styles.headerRow}>
+                    <td>번호</td>
+                    <td>신고 번호</td>
+                    <td>신고자</td>
+                    <td>신고 일자</td>
+                    <td>처리 상태</td>
+                    <td>상세보기</td>
+                </tr>
+
+                {reports.length > 0 ? (
+                    reports.map((report) => (
+                        <tr key={report.report_no} className={styles.dataRow}>
+                            <td>{report.report_no}</td>
+                            <td>{report.review_no}</td>
+                            <td>{report.reporter}</td>
+                            <td>{new Date(report.report_date).toLocaleDateString()}</td>
+                            <td>{report.check_status ? '처리 완료' : '미처리'}</td>
+                            <td>
+                                <button className={styles.changebutton} onClick={() => handleDetail(report.report_no)}>
+                                    보기
+                                </button>
+                            </td>
+                        </tr>
+                    ))
+                ) : (
                     <tr>
-                        <th>번호</th>
-                        <th>신고 번호</th>
-                        <th>신고자</th>
-                        <th>신고 일자</th>
-                        <th>상세보기</th>
+                        <td colSpan="6" className={styles.noData}>신고 목록이 없습니다!</td>
                     </tr>
-                </thead>
-                <tbody>
-                        {reports.map((report) => (
-                            <tr key={report.report_no}>
-                                <td>{report.report_no}</td>
-                                <td>{report.review_no}</td>
-                                <td>{report.reporter}</td>
-                                <td>{new Date(report.report_date).toLocaleDateString()}</td>
-                                <td>{report.check_status ? '처리 완료' : '미처리'}</td>
-                                <td>
-                                    <button onClick={() => handleDetail(report.report_no)}>
-                                        보기
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
+                )}
             </table>
         </div>
     );
 };
-
 export default ReportList;
