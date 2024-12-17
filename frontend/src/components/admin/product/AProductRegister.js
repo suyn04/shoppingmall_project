@@ -36,6 +36,7 @@ const AProductRegister = () => {
         const data = Object.fromEntries(frmData);
         console.log(data);
 
+        //없는 값은 data null로 작성
         Object.keys(data).forEach((key) => {
             if (data[key] === "") {
                 data[key] = null;

@@ -9,7 +9,7 @@ const BathBodyHomeTop = () => {
             <div className={styles.breadCrum}>
                 <Link to="/">홈</Link>
                 <span> &gt; </span>
-                <Link to="/home-scents">배스 앤 바디</Link>
+                <Link to="/bath-body">배스 앤 바디</Link>
             </div>
             <div>
                 <div className={styles.title}>배스 앤 바디</div>

@@ -83,7 +83,7 @@ const AProductList = () => {
             </form>
             <table>
                 <tr>
-                    <td>제품번호</td>
+                    <td>번호</td>
                     <td>제품 카테고리</td>
                     <td>제품명</td>
                     <td>향</td>
@@ -92,7 +92,7 @@ const AProductList = () => {
                 {curProducts.map((st, i) => {
                     return (
                         <tr>
-                            <td>{st.product_id}</td>
+                            <td>{(curPage - 1) * itemsPerPage + (i + 1)}</td>
                             <td>{st.product_category_one}</td>
                             <td>
                                 <Link
