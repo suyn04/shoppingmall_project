@@ -12,7 +12,7 @@ const finderData = [
     },
     {
         question: "누구를 위한 건가요?",
-        options: ["낭성", "여성", "모두"],
+        options: ["남성", "여성", "모두"],
     },
     {
         question: "언제 사용할 예정인가요?",

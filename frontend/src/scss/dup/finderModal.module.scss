@@ -11,7 +11,7 @@
     .container {
         background-color: #ffffff;
         width: 500px;
-        height: 500px;
+        height: 600px;
         border-radius: 10px;
         position: relative;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -30,34 +30,98 @@
             height: 30px;
         }
         .content {
-            .question {
+            .textTop {
+                margin: 20px;
+                p {
+                    font-size: 22px;
+                    line-height: 1.2;
+                }
+            }
+            .qnaWrap {
                 opacity: 0;
                 height: 0;
                 overflow: hidden;
                 pointer-events: none;
                 transition: opacity 0.3s ease, height 0.3s ease;
+                position: relative;
 
                 &.active {
                     opacity: 1;
                     height: auto;
                     pointer-events: auto;
                 }
+                .question {
+                    font-weight: 700;
+                    margin: 20px 0;
+                }
+                .optionWrap {
+                    .btn {
+                        display: none;
+                    }
+                    .option {
+                        display: block;
+                        padding: 10px;
+                        margin: 5px 50px;
+                        border: 1px solid #1c1c1c;
+                        border-radius: 5px;
+                        &:hover {
+                            background-color: #1c1c1c;
+                            color: #fff;
+                        }
+                    }
+                }
             }
+            // 결과 섹션 스타일
+            .result {
+                display: none; // 기본적으로 숨김
+                text-align: center;
+                margin-top: 50px;
 
-            button {
-                margin: 10px;
-                padding: 8px 12px;
-                background-color: #1c1c1c;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
+                &.visible {
+                    display: block; // 결과가 활성화되면 보여줌
+                    animation: fadeIn 0.5s ease-in-out;
+                }
 
-                &:disabled {
-                    background-color: #ccc;
-                    cursor: not-allowed;
+                .title {
+                    font-size: 24px;
+                    font-weight: 700;
+                    margin-bottom: 10px;
+                }
+
+                p {
+                    font-size: 20px;
+                    color: #555;
+                }
+
+                img {
+                    width: 50px;
                 }
             }
         }
+        button {
+            margin: 10px;
+            padding: 8px 12px;
+            background-color: #1c1c1c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
