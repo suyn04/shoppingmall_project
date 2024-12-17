@@ -20,13 +20,12 @@
         display: block;
         margin: 0 auto;
         padding: 8px 12px;
-        background-color: #1c1c1c;
-        color: #fff;
-        border: none;
+        border: 1px solid #1c1c1c;
         border-radius: 4px;
         text-align: center;
         &:hover {
-            text-decoration: underline;
+            background-color: #1c1c1c;
+            color: #fff;
         }
     }
 }
