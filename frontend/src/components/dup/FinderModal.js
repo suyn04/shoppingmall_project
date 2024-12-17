@@ -1,71 +1,134 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import styles from "../../scss/dup/finderModal.module.scss";
 
-const FinderModal = ({ openModal, setOpenModal }) => {
+const FinderModal = ({ openModal, setOpenModal, finderData }) => {
+    const [curQuestion, setCurQuestion] = useState(0);
+    // console.log(finderData);
+    const [score, setScore] = useState(0);
+    const [finalResult, setFinalResult] = useState(""); // Final fragrance result
+
+    const scentResult = (finalScore) => {
+        if (finalScore <= 4) {
+            return (
+                <div>
+                    <div>피오니 앤 블러쉬 스웨이드 코롱</div>
+                    {/* <img src="/imgs/product/peony.jpg" alt="" width={`50px`} /> */}
+                    <div>
+                        꽃의 귀족, 작약의 화려함을 담은 향. 화려하게 핀 작약에
+                        더해진 붉은 사과의 향기로운 과즙과 순수한 자스민, 장미
+                        그리고 카네이션, 블러쉬 스웨이드의 부드러운 관능미가
+                        여운을 남깁니다.
+                    </div>
+                    <Link to="/product/43">제품 바로가기</Link>
+                </div>
+            );
+        } else if (finalScore <= 9) {
+            return (
+                <div>
+                    <div>히노키 앤 시더우드</div>
+                    {/* <img src="/imgs/product/hinoki.jpg" alt="" /> */}
+                    <div>
+                        삼림욕을 하다 마주친 땅 속 깊이 자리 잡은 오래된
+                        편백나무.깔끔한 느낌의 아로마 노트와 강렬한 우디 노트가
+                        어우러지며 우아한 시더우드(삼나무)와 히노키(편백나무)의
+                        강렬함으로 이어집니다. 매우 신선하고 특별한 향입니다.
+                    </div>
+                    <Link to="/product/45">제품 바로가기</Link>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <div>라임 바질 앤 만다린</div>
+                    <img src="/imgs/product/lime.jpg" alt="" />
+                    <div>
+                        조 말론 런던의 시그니처 향. 카리브해의 산들바람에서
+                        실려온 듯한 라임향에 톡 쏘는 바질과 향기로운 백리향이
+                        더해져 독특한 조합을 만들어 냅니다. 현대적인 감각의
+                        클래식한 향입니다.
+                    </div>
+                    <Link to="/product/3">제품 바로가기</Link>
+                </div>
+            );
+        }
+    };
+    const nextGo = (i) => {
+        const newScore = score + i;
+        setScore(newScore);
+        if (curQuestion < finderData.length - 1) {
+            setCurQuestion((prev) => prev + 1);
+        } else {
+            setFinalResult(scentResult(newScore));
+            setCurQuestion((prev) => prev + 1);
+        }
+    };
+
+    useEffect(() => {}, [finalResult]);
+
+    console.log(score);
+
     return (
         <div className={styles.overlay}>
             <div className={styles.container}>
                 <div className={styles.modalTitle}>센트파인더</div>
                 <div className={styles.content}>
-                    <div className={styles.question}>
-                        <div>당신의 고민은?</div>
-                        <div>
-                            <input
-                                className={styles.btn}
-                                type="radio"
-                                name="for"
-                                id="forMe"
-                                value={1}
-                            />
-                            <label for="forMe">당신을 위한</label>
-                            <input
-                                className={styles.btn}
-                                type="radio"
-                                name="for"
-                                id="forYou"
-                                value={2}
-                            />
-                            <label for="forYou">누군가를 위한</label>
-                        </div>
+                    <div className={styles.textTop}>
+                        <p>'센트 파인더'로 찾는 향기</p>
                     </div>
-                    <div className={styles.question}>
-                        <div>누구를 위한 건가요?</div>
-                        <div>
-                            <div>남성</div>
-                            <div>여성</div>
-                            <div>모두</div>
-                        </div>
-                    </div>
-                    <div className={styles.question}>
-                        <div>언제 사용할 예정인가요?</div>
-                        <div>
-                            <div>평범한 일상에서</div>
-                            <div>특별한 저녁 모임 혹은 파티</div>
-                            <div>나른한 오후 시간에</div>
-                            <input type="radio" name="" id="" />
-                        </div>
-                    </div>
-                    <div className={styles.question}>
-                        <div>당신을 가장 매료시키는 단어는?</div>
-                        <div>
-                            <div>신선한</div>
-                            <div>생동감 있는</div>
-                            <div>섬세한</div>
-                            <div>깊은</div>
-                            <div>풍부한</div>
-                        </div>
-                    </div>
-                    <div className={styles.question}>
-                        <div>당신을 가장 매료시키는 단어는?</div>
-                        <div>
-                            <div>관용적인</div>
-                            <div>편안한</div>
-                            <div>고급스러운</div>
-                            <div>우아한</div>
-                            <div>활기찬</div>
-                        </div>
+                    <img src="/imgs/product/scentFinder.jpg" alt="" />
+                    {finderData.map((data, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className={`${styles.qnaWrap} ${
+                                    index === curQuestion ? styles.active : ""
+                                }`}
+                            >
+                                <div className={styles.question}>
+                                    {data.question}
+                                </div>
+                                <div className={styles.optionWrap}>
+                                    {data.options.map((option, i) => {
+                                        return (
+                                            <div key={i}>
+                                                <input
+                                                    className={styles.btn}
+                                                    type="radio"
+                                                    name={`queston-${index}`}
+                                                    id={`option-${index}-${i}`}
+                                                    value={i}
+                                                    checked
+                                                />
+                                                <label
+                                                    className={styles.option}
+                                                    for={`option-${index}-${i}`}
+                                                    onClick={() => {
+                                                        nextGo(i);
+                                                    }}
+                                                >
+                                                    {option}
+                                                </label>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        );
+                    })}
+                    <div
+                        className={
+                            curQuestion >= finderData.length
+                                ? [styles.result, styles.visible]
+                                : styles.result
+                        }
+                    >
+                        <div className={styles.title}>당신의 추천 향기</div>
+                        {finalResult}
                     </div>
                 </div>
+
                 <button
                     className="cancle"
                     type="button"
