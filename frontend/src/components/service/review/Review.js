@@ -89,7 +89,7 @@ const Review = () => {
     formData.append('product_id', product.product_id);
     formData.append('email', email);
     formData.append('review_rate', rating || 0);
-    formData.append('review_recommend', recommend === 'yes' ? 1 : 0);
+    // formData.append('review_recommend', recommend === 'yes' ? 1 : 0);
     // formData.append('review_nick', nickname || '익명');
     // formData.append('review_title', title || '제목 없음');
     // formData.append('review_detail', content || '내용 없음');

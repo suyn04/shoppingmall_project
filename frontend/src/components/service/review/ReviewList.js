@@ -143,12 +143,12 @@ const ReviewList = ({ product_id }) => {
                         {expandedReview === review.review_no && (
                             <div className={styles.rcontent}>
                                 <div>
-                                    <p>
+                                    {/* <p>
                                         추천 여부:{" "}
                                         {review.review_recommend
                                             ? "추천함"
                                             : "추천하지 않음"}
-                                    </p>
+                                    </p> */}
                                     <p>작성자: {review.review_nick}</p>
                                     <p>
                                         지역:{" "}
@@ -185,7 +185,7 @@ const ReviewList = ({ product_id }) => {
             {isModalOpen && (
                 <Modal onClose={handleCloseModal}>
                     <h2>리뷰 신고하기</h2>
-                    <p>신고하려는 문제가 어떤 종류인지 알려주세요: *</p>
+                    <p className={styles.line}>신고하려는 문제가 어떤 종류인지 알려주세요: *</p>
                     <select
                         value={reportReason}
                         onChange={(e) => setReportReason(e.target.value)}
@@ -204,7 +204,7 @@ const ReviewList = ({ product_id }) => {
                         <option value="기타">기타</option>
                     </select>
 
-                    <p>내용:</p>
+                    <p className={styles.line1}>내용:</p>
                     <textarea
                         className={styles.resize}
                         value={reportContent}
