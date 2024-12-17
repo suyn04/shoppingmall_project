@@ -31,7 +31,12 @@
     }
     .iwrapper{
         margin: 10px;
+        width: calc((100% - 40px)/2);
+    img{
+        width: 100%;
     }
+    }
+    
 }
 
 .stitle {
@@ -246,7 +251,7 @@
         width: calc(100%/3);
         line-height: 30px;
         font-family: 'NanumMyeongjo';
-        margin: 20px;
+        margin: 20px 0;
     }
 
     .ttbox1,
@@ -255,7 +260,7 @@
         width: calc(100%/3);
         font-family: 'NotoSansKR';
         font-size: 14px;
-        margin: 20px;
+        margin: 20px 0;
 
     }
 
