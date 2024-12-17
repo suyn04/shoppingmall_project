@@ -9,8 +9,6 @@ const ReviewList = ({ product_id }) => {
     // email 세션 추가
 
     const email = sessionStorage.getItem('email')
-
-
     const [reviews, setReviews] = useState([]);
     const [expandedReview, setExpandedReview] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -117,8 +115,8 @@ const ReviewList = ({ product_id }) => {
             {reviews.length === 0 ? (
                 <p>리뷰가 없습니다.</p>
             ) : (
-                reviews.map((review) => (
-                    <div key={review.review_no} className={styles.reviewCnt}>
+                reviews.map((review,index) => (
+                    <div key={`${review.review_no}-${index}`} className={styles.reviewCnt}>
                         <h2>{review.review_rate}/5</h2>
                         <h3>{review.review_title}</h3>
                         <p>{review.review_detail}</p>
