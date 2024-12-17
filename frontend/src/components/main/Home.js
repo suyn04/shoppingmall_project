@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import styles from '../../scss/main/home.module.scss'
-import MainSlide from './MainSlide';
+// import MainSlide from './MainSlide';
 
 
 function Home(props) {
