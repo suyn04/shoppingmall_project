@@ -1,33 +1,32 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import ProductSwiper from '../product/ProductSwiper';
-import styles from '../../scss/product/prodTotal.module.scss'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ProductSwiper from "../product/ProductSwiper";
+import styles from "../../scss/product/prodTotal.module.scss";
 
 function BestSlide(props) {
-  const [candle, setCandle] = useState([]);
+    const [product, setProduct] = useState([]);
 
-  const candleGetAxios = () => {
-    axios
-    .get(`http://localhost:5001/product/home-scents/candles`)
-    .then((res) => {
-      let curProduct = res.data;
-      console.log(curProduct);
-
-      setCandle(curProduct);
-    })
-    .catch((err) => {
-      console.error("에러발생 ; ", err);
-    });
-  };
-  useEffect(() => {
-    candleGetAxios();
-  }, []);
-  return (
-    <div className={styles.bestSlide}>
-      <div>베스트셀러</div>
-      <ProductSwiper product={candle} />
-    </div>
-  );
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5001/product/`)
+            .then((res) => {
+                console.log("서버 다녀옴", res.data);
+                let curProduct = res.data.filter(
+                    (item) => item.product_special == "Best Seller"
+                );
+                console.log(curProduct);
+                setProduct(curProduct);
+            })
+            .catch((err) => {
+                console.error("에러발생 ; ", err);
+            });
+    }, []);
+    return (
+        <div className={styles.bestSlide}>
+            <div>베스트셀러</div>
+            <ProductSwiper product={product} />
+        </div>
+    );
 }
 
 export default BestSlide;
