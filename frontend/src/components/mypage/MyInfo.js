@@ -77,7 +77,7 @@ const MyInfo = () => {
                     <div className={styles.sectionHeader}>
                         나의 정보
                         <div>
-                            <Link to="/myPage/myinfoEdit" className={styles.a1}>
+                            <Link to="/myPage/myinfoEdit" className={styles.editinfo}>
                                 정보 수정하기
                             </Link>
                             <button onClick={deleteMember} className={styles.deleteMember}>
@@ -113,7 +113,7 @@ const MyInfo = () => {
                     <div className={styles.infoBlock}>
                         <p>
                             고객님의 주문내역이 없습니다.
-                            <Link to="/shop" className={styles.a1}>
+                            <Link to="/all-product" className={styles.a1}>
                                 쇼핑하러가기
                             </Link>
                         </p>

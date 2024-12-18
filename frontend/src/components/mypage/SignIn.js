@@ -40,7 +40,7 @@ function SignIn() {
             const { sessionToken, email: returnedEmail, customer_name } = res.data;
             if (!sessionToken || !returnedEmail || !customer_name) {
                 //세션토큰이 없거나, 이메일이나 이름이 없는 경우라면
-                alert('로그인에 실패하였습니다.');
+                alert('로그인에 실패하였습니다. 이메일과 비밀번호를 다시 확인해주세요.');
                 return;
             }
 

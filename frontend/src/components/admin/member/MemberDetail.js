@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from '../../../scss/member/MemberDetail.module.scss';
 
 function MemberDetail() {
     const { id } = useParams(); // URL에서 id 추출
@@ -18,7 +19,7 @@ function MemberDetail() {
     }, [id]);
 
     // 날짜 포맷팅 함수
-    const formatDate = dateString => {
+    const formatdate = dateString => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
@@ -29,30 +30,37 @@ function MemberDetail() {
     }
 
     return (
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>고객번호</th>
-                    <th>고객명</th>
-                    <th>이메일</th>
-                    <th>연락처</th>
-                    <th>가입일</th>
-                    <th>마지막접속일</th>
-                    <th>상태</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{mm.customer_id}</td>
-                    <td>{mm.customer_name}</td>
-                    <td>{mm.email}</td>
-                    <td>{mm.contact_number}</td>
-                    <td>{formatDate(mm.join_date)}</td>
-                    <td>{formatDate(mm.last_login_date)}</td>
-                    <td>{mm.status}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div className={styles.memberdetailcontainer}>
+            <div className={styles.memberlist}>
+                <div className={styles.memberlistheader}>
+                    <div>고객번호</div>
+                    <div>고객명</div>
+                    <div>이메일</div>
+                    <div>연락처</div>
+                    <div>가입일</div>
+                    <div>성별</div>
+                    <div>생일</div>
+                    <div>마케팅 수신여부</div>
+                    <div>도로명주소</div>
+                    <div>상세주소</div>
+                </div>
+                <div className={styles.memberlistitem}>
+                    <div>{mm.customer_id}</div>
+                    <div>{mm.customer_name}</div>
+                    <div>{mm.email}</div>
+                    <div>{mm.contact_number}</div>
+                    <div>{formatdate(mm.join_date)}</div>
+                    <div>{mm.gender}</div>
+                    <div>{formatdate(mm.birthdate)}</div>
+                    <div>{mm.optional_agree === 1 ? '동의' : '미동의'}</div>
+                    <div>
+                        {mm.roadname_address}
+                        {mm.building_name}
+                    </div>
+                    <div>{mm.detail_address}</div>
+                </div>
+            </div>
+        </div>
     );
 }
 

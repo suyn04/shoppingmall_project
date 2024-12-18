@@ -82,7 +82,7 @@ const ReviewList = ({ product_id }) => {
 
             console.log("보내는 데이터:", reportData);
 
-            await axios.post("http://localhost:5001/reports", reportData);
+            await axios.post("http://localhost:5001/reports/register", reportData);
             alert("신고가 접수되었습니다.");
             handleCloseModal();
         } catch (error) {
@@ -115,8 +115,8 @@ const ReviewList = ({ product_id }) => {
             {reviews.length === 0 ? (
                 <p>리뷰가 없습니다.</p>
             ) : (
-                reviews.map((review) => (
-                    <div key={review.review_no} className={styles.reviewCnt}>
+                reviews.map((review,index) => (
+                    <div key={`${review.review_no}-${index}`} className={styles.reviewCnt}>
                         <h2>{review.review_rate}/5</h2>
                         <h3>{review.review_title}</h3>
                         <p>{review.review_detail}</p>
@@ -143,12 +143,12 @@ const ReviewList = ({ product_id }) => {
                         {expandedReview === review.review_no && (
                             <div className={styles.rcontent}>
                                 <div>
-                                    <p>
+                                    {/* <p>
                                         추천 여부:{" "}
                                         {review.review_recommend
                                             ? "추천함"
                                             : "추천하지 않음"}
-                                    </p>
+                                    </p> */}
                                     <p>작성자: {review.review_nick}</p>
                                     <p>
                                         지역:{" "}
@@ -185,7 +185,7 @@ const ReviewList = ({ product_id }) => {
             {isModalOpen && (
                 <Modal onClose={handleCloseModal}>
                     <h2>리뷰 신고하기</h2>
-                    <p>신고하려는 문제가 어떤 종류인지 알려주세요: *</p>
+                    <p className={styles.line}>신고하려는 문제가 어떤 종류인지 알려주세요: *</p>
                     <select
                         value={reportReason}
                         onChange={(e) => setReportReason(e.target.value)}
@@ -204,8 +204,9 @@ const ReviewList = ({ product_id }) => {
                         <option value="기타">기타</option>
                     </select>
 
-                    <p>내용:</p>
+                    <p className={styles.line1}>내용:</p>
                     <textarea
+                        className={styles.resize}
                         value={reportContent}
                         onChange={(e) => setReportContent(e.target.value)}
                         rows="4"
