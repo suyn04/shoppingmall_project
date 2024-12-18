@@ -1,0 +1,58 @@
+.orderlistcontainer {
+  width: 90%;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.orderlistcontainer .block {
+  background-color: #fefcfa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  position: relative;
+}
+.orderlistcontainer .block .orderheader {
+  font-size: 24px;
+  font-weight: bold;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+.orderlistcontainer .block .orderdescription {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.orderlistcontainer .block .orderlistheader,
+.orderlistcontainer .block .orderlistitem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.orderlistcontainer .block .orderlistheader:first-child,
+.orderlistcontainer .block .orderlistitem:first-child {
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+.orderlistcontainer .block .orderlistheader .a1,
+.orderlistcontainer .block .orderlistitem .a1 {
+  color: #007bff;
+  text-decoration: none;
+}
+.orderlistcontainer .block .orderlistheader .a1:hover,
+.orderlistcontainer .block .orderlistitem .a1:hover {
+  font-weight: bold;
+}
+.orderlistcontainer .block .no_order {
+  margin: 20px;
+  font-size: 14px;
+  text-align: center;
+}

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+/* Navbar CSS */
+/* 공통 스타일 */
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #fcf9ee;
+}
+
+main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.a1 {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+.a1:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* 네비게이션 컨테이너 */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  background-color: transparent;
+  border-bottom: 1px solid #ddd;
+  /* 왼쪽 링크 */
+  /* 중앙 링크 */
+  /* 오른쪽 링크 */
+}
+.navbar .leftLinks {
+  display: flex;
+  gap: 20px;
+}
+.navbar .leftLinks a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+}
+.navbar .leftLinks a:hover {
+  font-weight: bold;
+  color: #000;
+}
+.navbar .centerLinks {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+.navbar .centerLinks a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+}
+.navbar .centerLinks a:hover {
+  font-weight: bold;
+  color: #000;
+}
+.navbar .rightLinks {
+  display: flex;
+}
+.navbar .rightLinks a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+}
+.navbar .rightLinks a:hover {
+  font-weight: bold;
+  color: #000;
+}

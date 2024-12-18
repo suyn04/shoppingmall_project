@@ -61,6 +61,7 @@ const DetailWrap = () => {
         }
         productGetAxios();
         bestGetAxios();
+        window.scrollTo(0, 0);
 
         // console.log(product.product_category_id);
     }, [product_opt_id]);

@@ -54,7 +54,9 @@ export default function ProductSwiper({ product }) {
                                 <div>{prod.product_name_eng}</div>
                                 <div>{prod.product_name_kor}</div>
                                 <div>{prod.product_volume}</div>
-                                <div>₩ {prod.product_price}</div>
+                                <div>
+                                    ₩ {prod.product_price.toLocaleString()}
+                                </div>
                             </div>
                         </SwiperSlide>
                     );

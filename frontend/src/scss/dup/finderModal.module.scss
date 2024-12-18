@@ -32,10 +32,14 @@
         .content {
             .textTop {
                 text-align: center;
-                margin: 20px;
+                margin: 20px 0;
                 p {
+                    margin: 20px 0;
                     font-size: 22px;
                     line-height: 1.2;
+                }
+                &.inactive {
+                    display: none;
                 }
             }
             .qnaWrap {

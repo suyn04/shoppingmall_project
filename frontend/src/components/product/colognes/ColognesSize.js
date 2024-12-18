@@ -40,6 +40,7 @@ const ColognesSize = () => {
     };
     useEffect(() => {
         colognesGetAxios();
+        window.scrollTo(0, 0);
     }, [product_volume]);
     return (
         <div>

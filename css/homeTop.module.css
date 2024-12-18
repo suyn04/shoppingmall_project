@@ -1,0 +1,20 @@
+.homeTop .breadCrum {
+  font-size: 12px;
+  padding: 0 30px;
+}
+.homeTop .title {
+  padding: 30px;
+  font-size: 30px;
+  text-align: center;
+}
+.homeTop .content {
+  padding: 30px;
+  font-size: 15px;
+  text-align: center;
+}
+.homeTop .content p {
+  line-height: 1.5;
+}
+.homeTop img {
+  width: 100%;
+}

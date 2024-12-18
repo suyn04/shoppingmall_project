@@ -37,6 +37,7 @@ const BathBodyTotal = () => {
     useEffect(() => {
         candleGetAxios();
         diffuserGetAxios();
+        window.scrollTo(0, 0);
     }, []);
     return (
         <div className={styles.prodTotal}>

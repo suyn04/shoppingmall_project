@@ -52,6 +52,7 @@ const BodyCareHomeWrap = () => {
     useEffect(() => {
         colognesGetAxios();
         console.log(bodyCare);
+        window.scrollTo(0, 0);
     }, [product_category_thr]);
 
     console.log(product_category_thr);

@@ -1,0 +1,88 @@
+/* MemberList.module.scss */
+.memberlist {
+  margin-top: 20px;
+}
+.memberlist .searchbar {
+  margin: 20px 0 20px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.memberlist .searchbar select,
+.memberlist .searchbar input {
+  padding: 5px;
+  font-size: 14px;
+}
+.memberlist .searchbar .actionButtons .searchbutton,
+.memberlist .searchbar .actionButtons .resetbutton,
+.memberlist .searchbar .actionButtons .changebutton,
+.memberlist .searchbar .actionButtons .deletebutton {
+  padding: 10px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.memberlist .searchbar .actionButtons .searchbutton.searchbutton,
+.memberlist .searchbar .actionButtons .resetbutton.searchbutton,
+.memberlist .searchbar .actionButtons .changebutton.searchbutton,
+.memberlist .searchbar .actionButtons .deletebutton.searchbutton {
+  margin-left: 20px;
+  background-color: #007bff;
+  color: white;
+}
+.memberlist .searchbar .actionButtons .searchbutton.resetbutton,
+.memberlist .searchbar .actionButtons .resetbutton.resetbutton,
+.memberlist .searchbar .actionButtons .changebutton.resetbutton,
+.memberlist .searchbar .actionButtons .deletebutton.resetbutton {
+  margin-left: 10px;
+  background-color: #6c757d;
+  color: white;
+}
+.memberlist .searchbar .actionButtons .searchbutton.changebutton,
+.memberlist .searchbar .actionButtons .resetbutton.changebutton,
+.memberlist .searchbar .actionButtons .changebutton.changebutton,
+.memberlist .searchbar .actionButtons .deletebutton.changebutton {
+  margin-left: 500px;
+  background-color: #007bff;
+  color: white;
+}
+.memberlist .searchbar .actionButtons .searchbutton.deletebutton,
+.memberlist .searchbar .actionButtons .resetbutton.deletebutton,
+.memberlist .searchbar .actionButtons .changebutton.deletebutton,
+.memberlist .searchbar .actionButtons .deletebutton.deletebutton {
+  margin-left: 10px;
+  background-color: #6c757d;
+  color: white;
+}
+.memberlist .chgstatus {
+  padding: 10px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  background-color: #007bff;
+  color: white;
+}
+.memberlist table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+.memberlist table tr:nth-child(1) {
+  background-color: #ddd;
+  height: 20px;
+  line-height: 20px;
+}
+.memberlist table tr:nth-child(1) input[type=checkbox] {
+  margin-right: 5px;
+}
+.memberlist tr td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.memberlist tr td .link {
+  color: #007bff;
+}

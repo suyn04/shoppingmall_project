@@ -17,6 +17,8 @@ const ProductCard = ({ product }) => {
         }
 
         setCurProduct(product);
+
+        window.scrollTo(0, 0);
     }, [product]);
 
     const naviGo = (route) => {
@@ -104,7 +106,9 @@ const ProductCard = ({ product }) => {
                                 <div>{prod.product_name_eng}</div>
                                 <div>{prod.product_name_kor}</div>
                                 <div>{prod.product_volume}</div>
-                                <div>₩ {prod.product_price}</div>
+                                <div>
+                                    ₩ {prod.product_price.toLocaleString()}
+                                </div>
                             </div>
                         </div>
                         <button onClick={() => basketGo(prod.product_opt_id)}>
