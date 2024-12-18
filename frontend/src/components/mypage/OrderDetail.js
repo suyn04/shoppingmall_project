@@ -22,6 +22,7 @@ function OrderDetail() {
                     headers: { Authorization: sessionToken },
                 });
 
+                // console.log('order:',response.data.order)
                 setDetailOrders(response.data.order);
                 setProducts(response.data.products); // 주문 제품 목록 추가
             } catch (err) {
@@ -56,6 +57,10 @@ function OrderDetail() {
                 });
         }
     };
+
+    if(!detailorders){
+        return <div>로딩중...</div>
+    }
 
     return (
         <div className={styles.orderlistcontainer}>

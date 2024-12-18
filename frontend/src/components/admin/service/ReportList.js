@@ -32,7 +32,7 @@ const ReportList = () => {
 
     return (
         <div className={styles.list}>
-            <div className={styles.title}>신고 목록</div>
+            <div className={styles.rtitle}>신고 목록</div>
 
             <table>
                 <tr className={styles.headerRow}>

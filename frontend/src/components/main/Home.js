@@ -26,7 +26,7 @@ function Home(props) {
             <BestSlide />
             {/* 센트파인더 */}
             <section className={styles.scent}>
-                <Link to="/main/scentFinder.html">
+                <Link to="/scent-finder">
                     <img src={`${url}scentFinder.avif`} alt="" />
                     <div>
                         <p>센트 파인더</p>

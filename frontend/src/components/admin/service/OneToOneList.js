@@ -23,12 +23,12 @@ const OneToOneList = () => {
   }, []); // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때만 실행
 
   const handleDetailClick = (id) => {
-    navigate(`/admin/onetoone/${id}`); // 상세보기 페이지로 이동 (절대 경로)
+    navigate(`/admin/onetoone/detail/${id}`); // 상세보기 페이지로 이동 (절대 경로)
   };
 
   return (
     <div className={styles.list}>
-      <div className={styles.title}>1:1 문의 목록</div>
+      <div className={styles.rtitle}>1:1 문의 목록</div>
 
       <table>
 
