@@ -7,6 +7,7 @@ function PayModal1({ onClose, onSave, btnData }) {
 
   // 초기 상태 설정
   const [formData, setFormData] = useState(btnData)
+  const [save, setSave] = useState(onSave)
   const [isAddressReadOnly, setIsAddressReadOnly] = useState(false)
 
   // btnData가 있으면 formData를 업데이트
@@ -46,15 +47,15 @@ function PayModal1({ onClose, onSave, btnData }) {
   // 저장 버튼 클릭 핸들러
   const handleSave = async (e) => {
     e.preventDefault()
-    alert('dndn')
+    const myData = Object.fromEntries(new FormData(document.myFrm));
 
     try {
       if (btnData.zip) {
         // 수정 요청 (PUT)
-        await axios.put(`http://localhost:5001/payment1/update/${email}`, formData)
+        await axios.put(`http://localhost:5001/payment1/update/${email}`, myData)
       }
       
-      onSave(formData)
+      setSave(myData)
       onClose()
     } catch (error) {
       console.error('데이터 저장 중 에러 발생:', error)
@@ -66,7 +67,7 @@ function PayModal1({ onClose, onSave, btnData }) {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <h2>{btnData.zip ? '배송지 수정' : '배송지 추가'}</h2>
-        <form onSubmit={handleSave}>
+        <form name='myFrm' onSubmit={handleSave}>
           <input type="hidden" value={formData.email} name="email" />
 
           <label>

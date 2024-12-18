@@ -1,122 +1,127 @@
-import React, {useState, useEffect}  from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../../scss/order/basket.module.scss';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Basket(props) {
-  const [prod, setProd] = useState([])
-  const navigate = useNavigate()
+  const [prod, setProd] = useState([]);
+  const navigate = useNavigate();
 
-  const email = sessionStorage.getItem('email')
+  const email = sessionStorage.getItem('email');
 
-  
-  // console.log(`basket-email:${email}`)
-
-  // 해당 고객의 장바구니 내역 불러오기
-  function dataInit(){
-    axios.get(`http://localhost:5001/basket/${email}`)
-    .then((res) => {
-      const updatedProd = res.data.map((item) => ({ // 제품 수량 1로 기본 지정
-        ...item,
-        quantity: 1,
-      }))
-      setProd(updatedProd)
-    }).catch(
-      err=>{
-        console.error('에러발생 : ', err)
-      }
-    )
+  // 장바구니 내역 불러오기
+  function dataInit() {
+    axios
+      .get(`http://localhost:5001/basket/${email}`)
+      .then((res) => {
+        const updatedProd = res.data.map((item) => ({
+          ...item,
+          quantity: 1,
+        }));
+        setProd(updatedProd);
+      })
+      .catch((err) => {
+        console.error('에러발생 : ', err);
+      });
   }
-  useEffect(()=>{
-    dataInit()
-  },[])
+
+  useEffect(() => {
+    dataInit();
+  }, []);
+
   // 수량 변경
   const handleQuantityChange = (id, quantity) => {
     const updatedProd = prod.map((item) =>
       item.bs_product_id === id
         ? { ...item, quantity: parseInt(quantity, 10) }
         : item
-    )
-    setProd(updatedProd)
-  }
+    );
+    setProd(updatedProd);
+  };
 
+  // 총합계 계산
   const getTotal = () => {
-    // console.log(prod)
     return prod.reduce((sum, product) => sum + product.product_price * product.quantity, 0);
-  }
+  };
 
   // 장바구니 정보 삭제
-  function delBasket(id){
-    axios.delete(`http://localhost:5001/basket/delete/${id}`)
-    .then(res=>{
-      alert("삭제되었습니다.")
-      dataInit()
-    })
-    .catch(err=>{
-      console.log("삭제오류 : ", err)
-    })
+  function delBasket(id) {
+    axios
+      .delete(`http://localhost:5001/basket/delete/${id}`)
+      .then((res) => {
+        alert('삭제되었습니다.');
+        dataInit();
+      })
+      .catch((err) => {
+        console.log('삭제오류 : ', err);
+      });
   }
 
-  function paymentGo(){
-    navigate('/payment1')
+  function paymentGo() {
+    navigate('/payment1');
   }
 
   return (
     <div className={styles.wrap}>
-      {prod.length > 0 && (
+      {prod.length > 0 ? (
         <>
-          <div>
-            <div className={styles.shoppingHead}>장바구니</div>
-            <div className={styles.shoppingHead2}>
-              <div>
-                <small>({prod.length} 개의 제품 / 장바구니에 담긴 제품 수량)</small>
-              </div>
-            </div>
-          </div>
-          <div className={styles.td}>
-            <div>제품</div>
-            <div>가격</div>
-            <div>수량</div>
-            <div>총합계</div>
-          </div>
-          {prod.map((pp, i) => {
-            const totalPrice = pp.product_price * pp.quantity;
+          <h2 className={styles.shoppingHead}>장바구니</h2>
+          <div className={styles.shoppingHead2}>({prod.length} 개의 제품 / 장바구니에 담긴 제품 수량)</div>
 
-            return (
-              <div key={i}>
-                <div>
-                  <img src={`/imgs/product/${pp.product_upSystem}`} alt='' />
-                </div>
-                <div className={styles.prod}>
-                  <div>{pp.product_name_kor}</div>
-                  <div>{pp.product_name_eng}</div>
-                  <div>{pp.product_volume}</div>
-                </div>
-                <div>{pp.product_price}</div>
-                <div>
-                  <select
-                    value={pp.quantity}
-                    onChange={(e) => handleQuantityChange(pp.bs_product_id, e.target.value)}
-                  >
-                    {Array.from({ length: 8 }, (_, i) => i + 1).map((qty) => (
-                      <option key={qty} value={qty}>
-                        {qty}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>{totalPrice.toLocaleString()}</div>
-                <button onClick={() => delBasket(pp.bs_id)}>삭제</button>
-              </div>
-            );
-          })}
-          {prod.length > 0 && (
-          <input type="button" onClick={paymentGo} value="결제하기" />
-        )}
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>제품명</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>총합계</th>
+                <th>삭제</th>
+              </tr>
+            </thead>
+            <tbody>
+              {prod.map((pp) => {
+                const totalPrice = pp.product_price * pp.quantity;
+
+                return (
+                  <tr key={pp.bs_product_id}>
+                    <td>
+                      <div>{pp.product_name_kor}</div>
+                      <div className={styles.productEng}>{pp.product_name_eng}</div>
+                      <div>{pp.product_volume}</div>
+                    </td>
+                    <td>{pp.product_price.toLocaleString()}원</td>
+                    <td>
+                      <select
+                        value={pp.quantity}
+                        onChange={(e) => handleQuantityChange(pp.bs_product_id, e.target.value)}
+                      >
+                        {Array.from({ length: 8 }, (_, i) => i + 1).map((qty) => (
+                          <option key={qty} value={qty}>
+                            {qty}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>{totalPrice.toLocaleString()}원</td>
+                    <td>
+                      <button onClick={() => delBasket(pp.bs_id)} className={styles.deleteBtn}>
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+
+          <div className={styles.footer}>
+            <div className={styles.total}>총 결제 금액: {getTotal().toLocaleString()}원</div>
+            <button onClick={paymentGo} className={styles.paymentBtn}>
+              결제하기
+            </button>
+          </div>
         </>
-      )}
-      
-      {prod.length === 0 && (
+      ) : (
         <div className={styles.zero}>
           <div>장바구니가 비어 있습니다.</div>
           <Link to="/">쇼핑 계속하기</Link>
