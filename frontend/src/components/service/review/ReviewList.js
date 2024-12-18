@@ -187,6 +187,7 @@ const ReviewList = ({ product_id }) => {
                     <h2>리뷰 신고하기</h2>
                     <p className={styles.line}>신고하려는 문제가 어떤 종류인지 알려주세요: *</p>
                     <select
+                        className={styles.sc}
                         value={reportReason}
                         onChange={(e) => setReportReason(e.target.value)}
                         required
