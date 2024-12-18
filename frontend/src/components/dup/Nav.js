@@ -257,7 +257,7 @@ function Nav({ ham, setHam }) {
                                         <Link to="/best-seller">
                                             베스트셀러
                                         </Link>
-                                        <Link to="">매장안내</Link>
+                                        <Link to="/map">매장안내</Link>
                                     </div>
                                 </div>
                             </li>

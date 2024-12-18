@@ -18,6 +18,14 @@ function Header({ ham, setHam }) {
         }
     };
 
+    const LoginBsk = () => {
+        if(Loginchk){
+            navigate('/basket')
+        } else{
+            navigate('/signIn')
+        }
+    }
+
     const Adminbtn = () => {
         navigate('/admin'); // 관리자 페이지로 이동
     };
@@ -66,12 +74,8 @@ function Header({ ham, setHam }) {
                     <div className={styles.myPageIcon} onClick={Loginbtn}>
                         <img src={`${url}myPageIcon.svg`} alt="" />
                     </div>
-                    <div className={styles.basketContainer}>
-                        <div className={styles.basketIcon}>
-                            <Link to="/basket">
-                                <img src={`${url}basketIcon.svg`} alt="" />
-                            </Link>
-                        </div>
+                    <div className={styles.basketIcon} onClick={LoginBsk}>
+                        <img src={`${url}basketIcon.svg`} alt="" />
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@ function Map(props) {
           <li>
             <Link to="/">홈</Link>
           </li>
-          <p>/</p>
+          <p>&gt;</p>
           <li>
             <Link to="/map">매장 안내</Link>
           </li>
