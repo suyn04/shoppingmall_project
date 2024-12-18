@@ -17,7 +17,7 @@ const Review = () => {
   const {product_opt_id} = useParams()
   const [nickname, setNickname] = useState('');
   const [rating, setRating] = useState(0);
-  const [recommend, setRecommend] = useState('');
+  // const [recommend, setRecommend] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [region, setRegion] = useState('');
@@ -65,9 +65,17 @@ const Review = () => {
     // formData.append('review_time', timeOfDay || null);
     // formData.append('review_gift', gift || null);
   
-    // form 데이터를 일반 객체로 변환
+    const fileInput = document.querySelector('input[name="review_file"]');
+    if (fileInput.files.length > 0) {
+      formData.append('review_file', fileInput.files[0]);
+    }
+  
+    console.log("FormData 확인:", Object.fromEntries(formData));
+
+
+    // // form 데이터를 일반 객체로 변환
     const data = Object.fromEntries(formData)
-    console.log("data:",data) // 보내는 값 확인
+    // console.log("data:",data) // 보내는 값 확인
 
     //console.log("파일 확인:", formData.get('review_file'));
 

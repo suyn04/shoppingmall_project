@@ -131,11 +131,11 @@ module.exports = () => {
         try {
             const query = `
                 INSERT INTO review_management (
-                    product_opt_id, product_id, email, review_date, review_rate, review_recommend,
+                    product_opt_id, product_id, email, review_date, review_rate,
                     review_nick, review_title, review_detail, review_region, review_scent,
                     review_time, review_gift, review_upload_file, review_status, is_visible
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
 
             // 이미지 파일이 있을 경우 파일명, 없으면 null로 설정
@@ -147,7 +147,7 @@ module.exports = () => {
                 req.body.email,
                 new Date(), // 리뷰 작성 날짜
                 req.body.review_rate,
-                req.body.review_recommend,
+                // req.body.review_recommend,
                 req.body.review_nick || "익명",
                 req.body.review_title || "제목 없음",
                 req.body.review_detail || "내용 없음",
