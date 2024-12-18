@@ -54,7 +54,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // 새로운 신고 등록하기
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     console.log('report 진입');
     try {
         let { review_no, reason, content, email } = req.body;

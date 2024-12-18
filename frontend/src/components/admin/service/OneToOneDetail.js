@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import styles from "../../../scss/admin/AdminList.module.scss";
+
 
 const OneToOneDetail = () => {
     const { id } = useParams(); // URL에서 post_no 가져오기
@@ -9,6 +11,11 @@ const OneToOneDetail = () => {
     const [loading, setLoading] = useState(true); // 로딩 상태
     const [error, setError] = useState(null); // 에러 상태
 
+
+    // // 중복 호출 방지 플래그
+    // const isFetched = useRef(false);
+
+    
     // 서버에서 특정 문의 상세 정보를 가져오는 함수
     const fetchOnetooneDetail = async () => {
         if (!id) {
@@ -82,8 +89,8 @@ const OneToOneDetail = () => {
     };
 
     return (
-        <div>
-            <h1>1:1 문의 상세 정보</h1>
+        <div className={styles.list}>
+            <h1 className={styles.title}>1:1 문의 상세 정보</h1>
             <p>
                 <strong>작성자 이메일:</strong> {onetoone.email}
             </p>
@@ -94,8 +101,7 @@ const OneToOneDetail = () => {
                 <strong>문의 내용:</strong> {onetoone.post_detail}
             </p>
             <p>
-                <strong>작성일:</strong>{" "}
-                {new Date(onetoone.post_date).toLocaleDateString()}
+                <strong>작성일:</strong> {new Date(onetoone.post_date).toLocaleDateString()}
             </p>
             <div>
                 <strong>처리 상태:</strong>
@@ -105,34 +111,18 @@ const OneToOneDetail = () => {
                     onChange={(e) => stChange("reply_status", e.target)}
                 >
                     {chkSelectModule("reply_status", [
-                        {
-                            value: "대기",
-                            title: "대기",
-                        },
-                        {
-                            value: "답변완료",
-                            title: "답변완료",
-                        },
+                        { value: "대기", title: "대기" },
+                        { value: "답변완료", title: "답변완료" },
                     ])}
                 </select>
-                <button onClick={statusChgGo}>저장</button>
+                <button className={styles.changebutton} onClick={statusChgGo}>
+                    저장
+                </button>
             </div>
-            {/* {onetoone.reply_detail && (
-                <>
-                    <p>
-                        <strong>답변 내용:</strong> {onetoone.reply_detail}
-                    </p>
-                    <p>
-                        <strong>답변일:</strong>{" "}
-                        {new Date(onetoone.reply_date).toLocaleDateString()}
-                    </p>
-                </>
-            )} */}
-            <button onClick={handleBackClick} style={{ marginTop: "20px" }}>
+            <button className={styles.changebutton} onClick={handleBackClick} style={{ marginTop: "20px" }}>
                 뒤로가기
             </button>
         </div>
     );
 };
-
 export default OneToOneDetail;

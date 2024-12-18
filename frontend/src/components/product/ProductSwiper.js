@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "../../scss/product/swiperStyles.css";
+import "swiper/scss";
+import "swiper/scss/pagination";
+import "swiper/scss/navigation";
+import "../../scss/product/swiperStyles.scss";
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ export default function ProductSwiper({ product }) {
     };
 
     return (
-        <>
+        <div className="product">
             <Swiper
                 slidesPerView={4}
                 spaceBetween={10}
@@ -50,6 +50,7 @@ export default function ProductSwiper({ product }) {
                                 }}
                             >
                                 {fileGo(prod.product_upSystem)}
+                                <div>{prod.product_special}</div>
                                 <div>{prod.product_name_eng}</div>
                                 <div>{prod.product_name_kor}</div>
                                 <div>{prod.product_volume}</div>
@@ -59,6 +60,6 @@ export default function ProductSwiper({ product }) {
                     );
                 })}
             </Swiper>
-        </>
+        </div>
     );
 }

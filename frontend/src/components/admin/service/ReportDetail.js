@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from "../../../scss/admin/AdminList.module.scss";
+
 
 const ReportDetail = () => {
     const { id } = useParams(); // URL에서 ID 가져오기
@@ -43,9 +45,10 @@ const ReportDetail = () => {
     if (!report) {
         return <p>로딩 중...</p>;
     }
+    
     return (
-        <div>
-            <h2>신고 상세</h2>
+        <div className={styles.list}>
+            <h2 className={styles.title}>신고 상세</h2>
             <p>
                 <strong>번호:</strong> {report.report_no}
             </p>
@@ -58,16 +61,22 @@ const ReportDetail = () => {
             <p>
                 <strong>내용:</strong> {report.report_detail}
             </p>
-            <p>
+            <div>
                 <button
+                    className={styles.changebutton}
                     onClick={() => handleHideReview(report.review_no, report.report_no)}
-                    // className={styles.hideButton}
                 >
                     리뷰 비공개
                 </button>
-            </p>
+                <button
+                    className={styles.changebutton}
+                    onClick={() => navigate('/admin/reports')}
+                    style={{ marginLeft: '10px' }}
+                >
+                    뒤로가기
+                </button>
+            </div>
         </div>
     );
 };
-
 export default ReportDetail;

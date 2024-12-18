@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from "../../../scss/admin/AdminList.module.scss";
 
 const OneToOneList = () => {
   const [onetoone, setOnetoone] = useState([]);
@@ -26,22 +27,39 @@ const OneToOneList = () => {
   };
 
   return (
-    <div>
-      <h1>1:1 문의 목록</h1>
-      <ul>
-        {Array.isArray(onetoone) && onetoone.length > 0 ? (
-          onetoone.map((item) => (
-            <li key={item.post_no}>
-              {item.post_title} - {item.email} 
-              <button onClick={() => handleDetailClick(item.post_no)}>상세보기</button>
-            </li>
-          ))
-        ) : (
-          <p>문의 목록이 없습니다.</p>
-        )}
-      </ul>
+    <div className={styles.list}>
+      <div className={styles.title}>1:1 문의 목록</div>
+
+      <table>
+
+          <tr>
+            <td>번호</td>
+            <td>제목</td>
+            <td>작성자 이메일</td>
+            <td>상세보기</td>
+          </tr>
+
+          {Array.isArray(onetoone) && onetoone.length > 0 ? (
+            onetoone.map((item) => (
+              <tr key={item.post_no}>
+                <td>{item.post_no}</td>
+                <td>{item.post_title}</td>
+                <td>{item.email}</td>
+                <td>
+                  <button className={styles.changebutton} onClick={() => handleDetailClick(item.post_no)}>
+                    상세보기
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4">문의 목록이 없습니다.</td>
+            </tr>
+          )}
+
+      </table>
     </div>
   );
 };
-
 export default OneToOneList;

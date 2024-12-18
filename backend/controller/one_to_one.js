@@ -188,7 +188,7 @@ module.exports = () => {
     router.put("/:id", async (req, res) => {
         console.log("1:1 문의 목록 수정 진입성공");
 
-        let data = [req.body.reply_status, parseInt(req.body.post_no)];
+        let data = [req.body.reply_status, parseInt(req.params.id)];
         console.log(data);
 
         try {
