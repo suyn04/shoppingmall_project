@@ -34,7 +34,7 @@ const AReviewList = () => {
 
     return (
         <div className={styles.list}>
-            <div className={styles.title}>회원 리뷰 목록</div>
+            <div className={styles.rtitle}>회원 리뷰 목록</div>
 
             <table>
                 <tr>
