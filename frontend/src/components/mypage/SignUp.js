@@ -16,6 +16,7 @@ function SignUp() {
         optionalAgree: false,
     });
     const [emailChkFinish, setemailChkFinish] = useState(false); // 중복 확인 여부 상태
+    const [editChk, seteditChk] = useState(false); //readOnly 초기값 false
 
     const handleChange = async e => {
         //각 요소 이름, 값, 종류, 체크여부 데이터 저장(폼데이터 바꾸기)
@@ -52,6 +53,7 @@ function SignUp() {
                 alert('이미 사용 중인 이메일입니다. 다시 입력해주세요.');
             } else {
                 setemailChkFinish(true);
+                seteditChk(true);
                 alert('사용 가능한 이메일입니다.');
             }
         } catch (err) {
@@ -156,7 +158,7 @@ function SignUp() {
 
                         <form className={styles.inform}>
                             <input type="text" name="name" placeholder="*이름" className={styles.input} required onChange={handleChange} />
-                            <input type="email" name="email" placeholder="*이메일" className={styles.input} required value={formData.email} onChange={handleChange} />
+                            <input type="email" name="email" placeholder="*이메일" className={styles.input} required value={formData.email} onChange={handleChange} readOnly={editChk} />
                             <button className={styles.chkbtn} onClick={emailChk}>
                                 이메일 중복확인
                             </button>

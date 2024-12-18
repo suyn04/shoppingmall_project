@@ -47,39 +47,6 @@ const Review = () => {
         fetchReviews();
     }, [product_opt_id]);
 
-  // 제출 처리 함수
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   let reviewData = {
-  //     product_opt_id: product.product_opt_id,
-  //     product_id: product.product_id,
-  //     email: email,
-  //     review_rate: rating || 0,
-  //     review_recommend: recommend === 'yes' ? 1 : 0,
-  //     review_nick: nickname || '익명',
-  //     review_title: title || '제목 없음',
-  //     review_detail: content || '내용 없음',
-  //     review_region: region || '지역 미지정',
-  //     review_scent: fragranceType || '향 미지정',
-  //     review_time: timeOfDay || null,
-  //     review_gift: gift || null,
-  //     review_upload_file: file || null,
-  //   };
-
-
-  //   console.log('전송 데이터:', reviewData);
-
-  //   try {
-  //     const response = await axios.post('http://localhost:5001/review', reviewData);
-  //     console.log('리뷰 저장 성공:', response.data);
-  //     alert('리뷰가 성공적으로 저장되었습니다!');
-  //   } catch (err) {
-  //     console.error('리뷰 저장 실패:', err);
-  //     alert('리뷰 저장에 실패했습니다.');
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   

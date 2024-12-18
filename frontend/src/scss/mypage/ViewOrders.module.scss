@@ -1,84 +1,57 @@
-/* ViewOrders CSS */
-/* 주문 리스트 컨테이너 */
 .orderlistcontainer {
-    max-width: 1200px;
+    width: 90%;
     margin: 0 auto;
-    padding: 20px;
-}
-.block {
-    background-color: #fefcfa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
+    line-height: 1.6;
 
-/* 주문 헤더 */
-.orderheader {
-    font-size: 24px;
-    font-weight: bold;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    text-align: center;
-}
+    .block {
+        background-color: #fefcfa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 50px auto;
+        position: relative;
+        .orderheader {
+            font-size: 24px;
+            font-weight: bold;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .orderdescription {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .orderlistheader,
+        .orderlistitem {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
 
-/* 주문 설명 */
-.orderdescription {
-    font-size: 16px;
-    color: #555;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* 주문 리스트 */
-.orderlist {
-    width: 100%;
-    top: 20px;
-    border-spacing: 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    gap: 10px;
-}
-
-/* 주문 리스트 헤더 */
-.orderlistheader,
-.orderlistitem {
-    display: contents;
-}
-
-/* 주문 리스트 타이틀 스타일 */
-.orderlistheader {
-    font-weight: bold;
-    background-color: #000;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    padding: 15px 0;
-    color: #333;
-    margin-top: 20px;
-}
-
-/* 주문 리스트 항목 */
-.orderlistitem {
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-    color: #333;
-    text-align: center;
-    padding: 15px 0;
-    :hover {
-        background-color: #f9f9f9;
-    }
-}
-/* 링크 스타일 */
-.a1 {
-    color: #007bff;
-    text-decoration: none;
-    :hover {
-        text-decoration: underline;
-        font-weight: bold;
+            &:first-child {
+                font-weight: bold;
+                background-color: #f5f5f5;
+            }
+            .a1 {
+                color: #007bff;
+                text-decoration: none;
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+        }
+        .no_order {
+            margin: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
     }
 }

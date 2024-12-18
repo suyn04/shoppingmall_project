@@ -54,24 +54,24 @@ function ViewOrders() {
                         <div>주문상태</div>
                         <div>수령인</div>
                     </div>
-                    {orders.length > 0 ? (
-                        orders.map((order, index) => (
-                            <div className={styles.orderlistitem} key={index}>
-                                <div>
-                                    {order.order_id}
-                                    <Link to={`/myPage/orderDetail/${order.order_id}`} className={styles.a1}>
-                                        자세히 보기
-                                    </Link>
-                                </div>
-                                <div>{formatDate(order.order_date)}</div>
-                                <div>{order.order_status}</div>
-                                <div>{order.order_name}</div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>주문 내역이 없습니다.</p>
-                    )}
                 </div>
+                {orders.length > 0 ? (
+                    orders.map((order, index) => (
+                        <div className={styles.orderlistitem} key={index}>
+                            <div>
+                                {order.order_id}
+                                <Link to={`/myPage/orderDetail/${order.order_id}`} className={styles.a1}>
+                                    자세히 보기
+                                </Link>
+                            </div>
+                            <div>{formatDate(order.order_date)}</div>
+                            <div>{order.order_status}</div>
+                            <div>{order.order_name}</div>
+                        </div>
+                    ))
+                ) : (
+                    <div className={styles.no_order}>주문하신 내역이 없습니다.</div>
+                )}
             </div>
         </div>
     );

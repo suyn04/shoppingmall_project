@@ -1,110 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import styles from '../../scss/admin/AdminTemp.module.scss';
 
 function AdminTemp() {
     const [topbarLinks, setTopbarLinks] = useState([]);
     const [showTopbar, setShowTopbar] = useState(true);
+    const location = useLocation();
 
-    //사이드바 클릭 시 탑바 노출 : 사이드바 메뉴에 따라 노출되는 탑바 이름과 경로가 변경됨
-    const SidebarClick = menu => {
-        switch (menu) {
-            case 'member': //회원관리 클릭시
-                setTopbarLinks([
-                    { name: '회원정보 조회', path: '/admin/member' },
-                    {
-                        name: '휴면고객 관리',
-                        path: '/admin/member/unactivemember',
-                    },
-                    {
-                        name: '탈퇴고객 관리',
-                        path: '/admin/member/deletedmember',
-                    },
-                ]);
-                break;
-            case 'order': //주문관리 클릭시
-                setTopbarLinks([
-                    { name: '주문정보 조회', path: '/admin/order' },
-                    { name: '주문상태 조회', path: '/admin/orderStatus' },
-                ]);
-                break;
-            case 'product': //제품관리 클릭시
-                setTopbarLinks([
-                    { name: '제품정보 조회', path: '/admin/product' },
-                    { name: '제품 등록', path: '/admin/product/register' },
-                ]);
-                break;
-            case 'board': //게시판관리 클릭시
-                setTopbarLinks([
-                    { name: '1:1문의 관리', path: '/admin/onetoone' },
-                    { name: '리뷰관리', path: '/admin/areviewlist' },
-                    { name: '신고관리', path: '/admin/reports' },
-                ]);
-                break;
-            case 'analysis': //매출분석 클릭시
-                setTopbarLinks([]);
-                break;
-        }
-        setShowTopbar(true); //사이드바를 클릭했을 때는 탑바가 노출되어있어야 함
-    };
-
-    // 경로가 어드민 메인페이지일땐 탑바 보이지 않게 설정 -- 경로가 어드민이 아니면 항상 setShowTopbar가 true이므로 노출됨
+    // 탑바 링크를 경로에 따라 설정
     useEffect(() => {
-        const TopbarHidden = () => {
-            if (window.location.pathname === '/admin') {
-                setShowTopbar(false); // 탑바 보여주지 않음
-            }
-        };
-        // 함수실행 -- 주소를 확인하고 어드민일 경우에는 탑바 숨김 설정으로 변경되게
-        TopbarHidden();
-    }, []);
+        if (location.pathname.startsWith('/admin/member')) {
+            // 경로가 '/admin/member' 또는 그 하위 경로일 때
+            setTopbarLinks([
+                { name: '회원정보 조회', path: '/admin/member' },
+                { name: '휴면고객 관리', path: '/admin/member/unactivemember' },
+                { name: '탈퇴고객 관리', path: '/admin/member/deletedmember' },
+            ]);
+        } else if (location.pathname.startsWith('/admin/order')) {
+            setTopbarLinks([
+                { name: '주문정보 조회', path: '/admin/order' },
+                { name: '주문상태 조회', path: '/admin/orderStatus' },
+            ]);
+        } else if (location.pathname.startsWith('/admin/product')) {
+            setTopbarLinks([
+                { name: '제품정보 조회', path: '/admin/product' },
+                { name: '제품 등록', path: '/admin/product/register' },
+            ]);
+        } else if (location.pathname.startsWith('/admin/onetoone') || location.pathname.startsWith('/admin/areviewlist') || location.pathname.startsWith('/admin/reports')) {
+            setTopbarLinks([
+                { name: '1:1문의 관리', path: '/admin/onetoone' },
+                { name: '리뷰관리', path: '/admin/areviewlist' },
+                { name: '신고관리', path: '/admin/reports' },
+            ]);
+        } else if (location.pathname.startsWith('/admin/analysis')) {
+            setTopbarLinks([{ name: '기간별 매출액 조회', path: '/admin/analysis' }]);
+        } else {
+            setTopbarLinks([]); // 기본값
+        }
+
+        setShowTopbar(location.pathname !== '/admin'); // /admin 메인에서는 탑바 숨기기
+    }, [location.pathname]);
 
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
-                <div className={styles.subbar1}>
-                    <Link
-                        to="/admin"
-                        onClick={() => {
-                            setTopbarLinks([]);
-                            setShowTopbar(false);
-                        }}
-                    >
-                        메인페이지로
-                    </Link>
+                <Link to="/admin" className={styles.topLink}>
+                    페이지 메인으로
+                </Link>
+                <div className={styles.menu}>
+                    <div className={styles.subbar}>
+                        <Link to="/admin/member">
+                            <span>회원관리</span>
+                            <span className={styles.arrow}>➡︎</span>
+                        </Link>
+                    </div>
+                    <div className={styles.subbar}>
+                        <Link to="/admin/order">
+                            <span>주문관리</span>
+                            <span className={styles.arrow}>➡︎</span>
+                        </Link>
+                    </div>
+                    <div className={styles.subbar}>
+                        <Link to="/admin/product">
+                            <span>제품관리</span>
+                            <span className={styles.arrow}>➡︎</span>
+                        </Link>
+                    </div>
+                    <div className={styles.subbar}>
+                        <Link to="/admin/onetoone">
+                            <span>게시판관리</span>
+                            <span className={styles.arrow}>➡︎</span>
+                        </Link>
+                    </div>
+                    <div className={styles.subbar}>
+                        <Link to="/admin/analysis">
+                            <span>매출분석</span>
+                            <span className={styles.arrow}>➡︎</span>
+                        </Link>
+                    </div>
                 </div>
-                <div className={styles.subbar2}>
-                    <Link to="/admin/member" onClick={() => SidebarClick('member')}>
-                        회원관리
-                    </Link>
-                </div>
-                <div className={styles.subbar3}>
-                    <Link to="/admin/order" onClick={() => SidebarClick('order')}>
-                        주문관리
-                    </Link>
-                </div>
-                <div className={styles.subbar3}>
-                    <Link to="/admin/product" onClick={() => SidebarClick('product')}>
-                        제품관리
-                    </Link>
-                </div>
-                <div className={styles.subbar4}>
-                    <Link to="/admin/onetoone" onClick={() => SidebarClick('board')}>
-                        게시판관리
-                    </Link>
-                </div>
-                <div className={styles.subbar5}>
-                    <Link to="/admin/analysis" onClick={() => SidebarClick('analysis')}>
-                        매출분석
-                    </Link>
-                </div>
+                <Link to="/" className={styles.bottomLink}>
+                    조말론 쇼핑몰 페이지로 이동
+                </Link>
             </div>
 
+            {/* 콘텐츠 영역 */}
             <div className={styles.content}>
                 {showTopbar && (
                     <div className={styles.topbar}>
                         {topbarLinks.map((link, index) => (
-                            <Link key={index} to={link.path}>
+                            <Link key={index} to={link.path} className={`${styles.topbarLink} ${location.pathname === link.path ? styles.active : ''}`}>
+                                {/* 현재 클릭한 메뉴만 별도 스타일로 표시 */}
                                 {link.name}
                             </Link>
                         ))}

@@ -34,6 +34,13 @@
     display: flex;
     gap:10px;
 }
+.rating{
+  margin-bottom: 20px;
+  legend{
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+}
 .checkbox i {
     font-size: 24px;
     cursor: pointer;
@@ -80,7 +87,6 @@
   }
   
   .name input {
-    width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -88,7 +94,6 @@
   }
   
   .rtitle input {
-    width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -96,7 +101,6 @@
   }
   
   .rreview input {
-    width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -121,6 +125,7 @@
   margin-bottom: 30px;
   }
 }
+
 .load{
   margin-bottom: 20px;
   div{
@@ -135,7 +140,6 @@
    }
   }
   .btnsubmit{
-    
       margin-top: 20px;
       margin-bottom: 20px;
       border: 1px solid #333;
@@ -150,16 +154,14 @@
 
 
 
-// .plus{
-//   margin-top: 20px;
-//   margin-bottom: 20px;
-//   button{
-//     width: 100px;
-//     height: 40px;
-//     border: 1px solid #1c1c1c;
-//   }
-// }
-
-
-
-
+  input,
+  select,
+  textarea {
+    width: 80%; // 부모 컨테이너에 맞춤
+    box-sizing: border-box; // 패딩과 테두리를 포함한 전체 너비
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 10px 0; // 상하 마진 통일
+  }

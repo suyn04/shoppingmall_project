@@ -16,13 +16,12 @@ function Footer(props) {
             </div>
           </div>
           <div>
-            <Link to="story/customerSerivce/01_faq.html">자주 묻는 질문</Link>
-            <Link to="story/customerSerivce/02_csTeam.html">고객관리지원팀</Link>
-            <Link to="story/customerSerivce/03_MyProfile.html">나의 프로필</Link>
-            <Link to="story/customerSerivce/04_myOrder.html">나의 오더</Link>
-            <Link to="story/customerSerivce/05_delivery.html">배송관련</Link>
-            <Link to="story/customerSerivce/06_return_exchange.html">교환 및 환불 규정</Link>
-            <Link to="story/customerSerivce/07_onlineShopping.html">온라인 부티크 쇼핑</Link>
+            <Link to="/info/faq">자주 묻는 질문</Link>
+            <Link to="/info/myprofile">나의 프로필</Link>
+            <Link to="/info/myorder">나의 오더</Link>
+            <Link to="/info/delivery">배송관련</Link>
+            <Link to="/info/onlineshopping">교환 및 환불 규정</Link>
+            <Link to="/info/terms">서비스 이용약관 및 개인정보 처리방침</Link>
           </div>
         </div>
         <div>
@@ -34,9 +33,9 @@ function Footer(props) {
                 <img className={styles.up} src="/imgs/main/upIcon.svg" alt=""/>
               </div>
             </div>
-            <Link to="story/londonHouse/01_ourvalues.html">브랜드 소개</Link>
-            <Link to="story/product.html">제품 전체</Link>
-            <Link to="story/product.html">신제품</Link>
+            <Link to="/storymain">브랜드 소개</Link>
+            <Link to="/all-product">제품 전체</Link>
+            <Link to="/best-seller">베스트 셀러</Link>
             <Link to="main/map.html">매장 안내</Link>
           </div>
         </div>
@@ -60,8 +59,8 @@ function Footer(props) {
           <p>© Jo Malone London 2021</p>
           <img src="/imgs/main/main_trustmark.webp" alt=""/>
           <div>
-            <Link to="story/customerSerivce/08_termsConditons.html">이용약관</Link>
-            <Link to="story/customerSerivce/08_termsConditons.html">개인정보 처리방침</Link>
+            {/* <Link to="story/customerSerivce/08_termsConditons.html">이용약관</Link>
+            <Link to="story/customerSerivce/08_termsConditons.html">개인정보 처리방침</Link> */}
           </div>
         </div>
         <div>
