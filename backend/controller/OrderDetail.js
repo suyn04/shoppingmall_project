@@ -9,15 +9,27 @@ module.exports = () => {
         console.log('요청된 ID:', req.params.id);
 
         try {
-            const [rows] = await db.query('SELECT * FROM orders WHERE order_id = ?', [req.params.id]);
-            console.log([rows]);
+            // 주문 정보 조회
+            const [orderRows] = await db.query('SELECT * FROM orders WHERE order_id = ?', [req.params.id]);
 
-            if (rows.length === 0) {
+            if (orderRows.length === 0) {
                 console.log('해당 주문번호가 없습니다 :', req.params.id);
-                return res.json({ message: '회원 정보를 찾을 수 없습니다.' });
+                return res.json({ message: '주문 정보를 찾을 수 없습니다.' });
             }
 
-            res.json(rows);
+            // 주문 제품 정보 조회
+            const [productRows] = await db.query(
+                `
+                SELECT p.product_id, p.product_name_kor
+                FROM orders_detail od
+                JOIN product p ON od.product_id = p.product_id
+                WHERE od.order_id = ?
+            `,
+                [req.params.id]
+            );
+
+            // 응답 데이터: 주문 정보 + 제품 목록
+            res.json({ order: orderRows, products: productRows });
         } catch (err) {
             console.error('SQL 실패:', err.message);
             res.json({ message: '서버 오류가 발생했습니다.' });

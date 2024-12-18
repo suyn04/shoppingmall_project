@@ -139,17 +139,17 @@ function AddressList() {
                                 </button>
                             </div>
                             <div className={styles.modalBody}>
+                                <button className={styles.searchAddress}>주소 검색</button>
                                 {/* 주소록 수정 */}
                                 <div>
-                                    우편번호 : <input type="text" placeholder="우편번호" value={editAddress.zip} onChange={e => setEditAddress({ ...editAddress, zip: e.target.value })} />
-                                    <button className={styles.searchAddress}>주소 검색</button>
+                                    우편번호 <input type="text" placeholder="우편번호" value={editAddress.zip} onChange={e => setEditAddress({ ...editAddress, zip: e.target.value })} />
                                 </div>
                                 <div>
-                                    도로명주소 : <input type="text" placeholder="도로명주소" value={editAddress.roadname_address} onChange={e => setEditAddress({ ...editAddress, roadname_address: e.target.value })} />
+                                    도로명주소 <input type="text" placeholder="도로명주소" value={editAddress.roadname_address} onChange={e => setEditAddress({ ...editAddress, roadname_address: e.target.value })} />
                                     <input type="text" placeholder="건물명" value={editAddress.building_name} onChange={e => setEditAddress({ ...editAddress, building_name: e.target.value })} />
                                 </div>
                                 <div>
-                                    상세 주소 : <input type="text" placeholder="상세주소" value={editAddress.detail_address} onChange={e => setEditAddress({ ...editAddress, detail_address: e.target.value })} />
+                                    상세 주소 <input type="text" placeholder="상세주소" value={editAddress.detail_address} onChange={e => setEditAddress({ ...editAddress, detail_address: e.target.value })} />
                                 </div>
 
                                 <button className={styles.saveAddress} onClick={saveAddress}>

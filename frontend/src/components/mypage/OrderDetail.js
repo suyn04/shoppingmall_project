@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../scss/mypage/OrderDetail.module.scss';
 
 function OrderDetail() {
     const [detailorders, setDetailOrders] = useState([]); // 주문 목록 상태
+    const [products, setProducts] = useState([]); // 주문 제품 목록
 
     useEffect(() => {
         const OrderDetail = async () => {
@@ -19,8 +21,9 @@ function OrderDetail() {
                 const response = await axios.get(`http://localhost:5001/myPage/orderDetail/${orderId}`, {
                     headers: { Authorization: sessionToken },
                 });
-                console.log('주문 상세 데이터:', response.data);
-                setDetailOrders([response.data]); // 상세보기라 배열로 처리
+
+                setDetailOrders(response.data.order);
+                setProducts(response.data.products); // 주문 제품 목록 추가
             } catch (err) {
                 console.error('데이터 가져오기 오류:', err);
                 alert('데이터를 불러올 수 없습니다.');
@@ -62,30 +65,42 @@ function OrderDetail() {
                 <div className={styles.orderlist}>
                     <div className={styles.orderlistheader}>
                         <div>주문번호</div>
+                        <div>주문제품</div>
                         <div>주문일</div>
                         <div>결제수단</div>
                         <div>결제금액</div>
                         <div>주문상태</div>
-                        <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0][0].invoice ? '#ffffff' : 'inherit' }}>
-                            {detailorders.length > 0 && detailorders[0][0].invoice ? '송장번호' : '취소'}
+                        <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0].invoice ? '#ffffff' : 'inherit' }}>
+                            {detailorders.length > 0 && detailorders[0].invoice ? '송장번호' : '취소'}
                         </div>
                     </div>
 
                     {detailorders.length > 0 ? (
                         detailorders.map((od, index) => (
                             <div className={styles.orderlistitem} key={index}>
-                                <div>{od[0].order_id}</div>
-                                <div>{formatDate(od[0].order_date)}</div>
-                                <div>{od[0].pay_to}</div>
-                                <div>{od[0].order_total}</div>
-                                <div>{od[0].order_status}</div>
+                                <div>{od.order_id}</div>
                                 <div>
-                                    {od[0].order_status === '주문완료' ? (
-                                        <button className={styles.cancelButton} onClick={() => handleCancelOrder(od[0].order_id)}>
+                                    {products.length > 0
+                                        ? products.map(product => (
+                                              <p key={product.product_id} className={styles.productItem}>
+                                                  <Link to={`/product/${product.product_id}`} className={styles.productLink}>
+                                                      {product.product_name_kor}
+                                                  </Link>
+                                              </p>
+                                          ))
+                                        : '제품 정보 없음'}
+                                </div>
+                                <div>{formatDate(od.order_date)}</div>
+                                <div>{od.pay_to}</div>
+                                <div>{od.order_total}</div>
+                                <div>{od.order_status}</div>
+                                <div>
+                                    {od.order_status === '주문완료' ? (
+                                        <button className={styles.cancelButton} onClick={() => handleCancelOrder(od.order_id)}>
                                             취소하기
                                         </button>
                                     ) : (
-                                        od[0].invoice || '-'
+                                        od.invoice || '-'
                                     )}
                                 </div>
                             </div>
