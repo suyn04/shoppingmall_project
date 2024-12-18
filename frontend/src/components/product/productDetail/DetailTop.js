@@ -102,7 +102,7 @@ const DetailTop = () => {
                     </div>
                     <div className={styles.price}>{product.product_volume}</div>
                     <div className={styles.price}>
-                        ₩ {product.product_price}
+                        ₩ {product.product_price.toLocaleString()}
                     </div>
                     <div className={styles.prodInfo}>
                         {product.product_intro}

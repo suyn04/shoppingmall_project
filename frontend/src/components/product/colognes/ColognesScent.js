@@ -54,6 +54,7 @@ const ColognesScent = () => {
     };
     useEffect(() => {
         colognesGetAxios();
+        window.scrollTo(0, 0);
     }, [product_scent]);
 
     console.log(product_scent);

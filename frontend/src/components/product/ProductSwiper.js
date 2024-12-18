@@ -50,11 +50,15 @@ export default function ProductSwiper({ product }) {
                                 }}
                             >
                                 {fileGo(prod.product_upSystem)}
-                                <div>{prod.product_special}</div>
+                                <div className="product_special">
+                                    {prod.product_special}
+                                </div>
                                 <div>{prod.product_name_eng}</div>
                                 <div>{prod.product_name_kor}</div>
                                 <div>{prod.product_volume}</div>
-                                <div>₩ {prod.product_price}</div>
+                                <div>
+                                    ₩ {prod.product_price.toLocaleString()}
+                                </div>
                             </div>
                         </SwiperSlide>
                     );

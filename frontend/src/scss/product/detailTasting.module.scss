@@ -1,9 +1,12 @@
 .note {
+    margin-right: 50px;
+    margin-left: 50px;
     margin-bottom: 40px;
     .noteTitle {
-        padding: 20px 30px;
+        padding: 30px;
     }
     .noteWrap {
+        width: 100%;
         display: flex;
         justify-content: space-between;
         .infoWrap {
