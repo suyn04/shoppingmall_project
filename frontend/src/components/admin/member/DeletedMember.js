@@ -21,7 +21,6 @@ function DeletedMember() {
 
     return (
         <div className={styles.memberlist}>
-            <h2>탈퇴고객 조회</h2>
             <table>
                 <tr>
                     <td>No.</td>
