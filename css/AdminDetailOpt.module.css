@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/* AdminDetail.module.scss */
+.detail .title {
+  padding: 30px;
+  font-size: 30px;
+  text-align: center;
+}
+.detail .title a {
+  font-size: 17px;
+  margin-left: 10px; /* 제목과 간격 */
+  font-style: italic; /* 기울임 */
+  text-decoration: underline; /* 밑줄 */
+  border: none;
+  background: none;
+  color: #1c1c1c;
+  cursor: pointer;
+}
+.detail .title a:hover {
+  color: #00f;
+}
+.detail table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+.detail table tr:nth-child(1) {
+  background-color: #ddd;
+  height: 20px;
+  line-height: 20px;
+}
+.detail table tr td {
+  vertical-align: middle; /* Vertical centering */
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.detail table tr td .link {
+  color: #007bff;
+}
+.detail table tr td img {
+  width: 100px;
+}
+.detail .actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.detail .actionButtons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.detail .actionButtons button.resetbutton {
+  background-color: #ccc;
+  color: #000;
+}
+.detail .actionButtons button.resetbutton:hover {
+  background-color: #bbb;
+}
+.detail .actionButtons button.searchbutton {
+  background-color: #007bff;
+  color: #fff;
+}
+.detail .actionButtons button.searchbutton:hover {
+  background-color: #0056b3;
+}

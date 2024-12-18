@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/* AdminDetail.module.scss */
+.detailWrap .detail {
+  padding: 20px;
+}
+.detailWrap .detail .title {
+  padding: 30px;
+  font-size: 30px;
+  text-align: center;
+}
+.detailWrap .detail .title a {
+  font-size: 17px;
+  margin-left: 10px; /* 제목과 간격 */
+  font-style: italic; /* 기울임 */
+  text-decoration: underline; /* 밑줄 */
+  border: none;
+  background: none;
+  color: #1c1c1c;
+  cursor: pointer;
+}
+.detailWrap .detail .title a:hover {
+  color: #00f;
+}
+.detailWrap .detail table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.detailWrap .detail table tr {
+  border-bottom: 1px solid #ddd;
+}
+.detailWrap .detail table tr:last-child {
+  border-bottom: none;
+}
+.detailWrap .detail table tr td {
+  padding: 10px;
+  vertical-align: middle;
+}
+.detailWrap .detail table tr td:first-child {
+  font-weight: bold;
+  width: 20%;
+  text-align: center;
+  padding-right: 15px;
+}
+.detailWrap .detail table tr td:last-child {
+  width: 80%;
+}
+.detailWrap .detail table tr td:last-child input[type=text],
+.detailWrap .detail table tr td:last-child textarea,
+.detailWrap .detail table tr td:last-child select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.detailWrap .detail table tr td:last-child input[type=radio] {
+  margin-right: 5px;
+}
+.detailWrap .detail table tr td:last-child label {
+  margin-left: 10px;
+}
+.detailWrap .detail .actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.detailWrap .detail .actionButtons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.detailWrap .detail .actionButtons button.resetbutton {
+  background-color: #ccc;
+  color: #000;
+}
+.detailWrap .detail .actionButtons button.resetbutton:hover {
+  background-color: #bbb;
+}
+.detailWrap .detail .actionButtons button.searchbutton {
+  background-color: #007bff;
+  color: #fff;
+}
+.detailWrap .detail .actionButtons button.searchbutton:hover {
+  background-color: #0056b3;
+}
+.detailWrap .Link {
+  display: block;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border: none;
+  border-radius: 4px;
+  width: 100px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
+.detailWrap .Link:hover {
+  background-color: #0056b3;
+}
+.detailWrap .imgTag img {
+  width: 50px;
+  height: 50px;
+}

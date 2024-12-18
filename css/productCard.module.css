@@ -1,0 +1,29 @@
+.cardTotal {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  line-height: 1.5;
+  font-size: 14px;
+  cursor: pointer;
+}
+.cardTotal .card {
+  width: 25%;
+}
+.cardTotal .card .cardContent img {
+  width: 100%;
+}
+.cardTotal .card .cardContent .special {
+  font-style: italic;
+  font-weight: 700;
+  height: 21px;
+}
+.cardTotal .card button {
+  font-size: 13px;
+  margin: 20px;
+  padding: 10px 20px;
+  border: 1px solid #999;
+}
+.cardTotal .card button:hover {
+  background-color: #1c1c1c;
+  color: #fff;
+}

@@ -1,0 +1,181 @@
+@charset "UTF-8";
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fcf9ee;
+}
+.wrapper .wrap {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.wrapper .wrap .loginContainer {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 상단 버튼 */
+.topBtn {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.topBtn .signIn,
+.topBtn .signUp {
+  width: 48%;
+  height: 50px;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.topBtn .signIn:hover,
+.topBtn .signUp:hover {
+  background-color: #f5f5f5;
+}
+.topBtn .signIn a,
+.topBtn .signUp a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  line-height: 50px;
+}
+.topBtn .signIn {
+  border-bottom: 2px solid #1c1c1c;
+}
+.topBtn .signUp {
+  border-bottom: 2px solid #ddd;
+}
+
+.bottomCnt {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.bottomCnt > div:first-of-type {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.bottomCnt > div:first-of-type .kakao {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: #ffe809;
+}
+.bottomCnt > div:first-of-type .kakao img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.bottomCnt > div:first-of-type .naver {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: #1ec800;
+}
+.bottomCnt > div:first-of-type .naver img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.bottomCnt .or {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+}
+.bottomCnt .or::before, .bottomCnt .or::after {
+  content: "";
+  display: inline-block;
+  width: 30%;
+  height: 1px;
+  background-color: #aaa;
+  vertical-align: middle;
+}
+.bottomCnt .or::before {
+  margin-right: 10px;
+}
+.bottomCnt .or::after {
+  margin-left: 10px;
+}
+.bottomCnt form {
+  display: flex;
+  flex-direction: column;
+}
+.bottomCnt form .email,
+.bottomCnt form .pw {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.bottomCnt form .pwIcon {
+  position: relative;
+  top: -45px;
+  left: 430px;
+  width: 24px;
+  height: 24px;
+}
+.bottomCnt form .pwIcon .crossed {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+.bottomCnt form .pwIcon .notCrossed {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+.bottomCnt form .pwIcon .notCrossed:hover {
+  opacity: 0.8;
+}
+.bottomCnt form .pwfind {
+  text-align: left;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.bottomCnt form .pwfind a {
+  text-decoration: none;
+  color: #333;
+}
+.bottomCnt form .pwfind a:hover {
+  text-decoration: underline;
+}
+.bottomCnt form .login {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #1c1c1c;
+  color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.bottomCnt form .login:hover {
+  background-color: #999;
+  color: #1c1c1c;
+}

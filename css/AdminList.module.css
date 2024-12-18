@@ -1,0 +1,130 @@
+.list {
+  margin-top: 50px;
+}
+.list .title {
+  padding: 30px;
+  font-size: 25px;
+  text-align: center;
+}
+.list .searchbar {
+  margin: 20px 0 20px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.list .searchbar select,
+.list .searchbar input {
+  padding: 5px;
+  font-size: 14px;
+}
+.list .searchbar .actionButtons .searchbutton,
+.list .searchbar .actionButtons .resetbutton,
+.list .searchbar .actionButtons .changebutton,
+.list .searchbar .actionButtons .deletebutton,
+.list .searchbar .actionButtons .modifybutton,
+.list .searchbar .actionButtons .modiclearbutton {
+  padding: 10px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.list .searchbar .actionButtons .searchbutton.searchbutton,
+.list .searchbar .actionButtons .resetbutton.searchbutton,
+.list .searchbar .actionButtons .changebutton.searchbutton,
+.list .searchbar .actionButtons .deletebutton.searchbutton,
+.list .searchbar .actionButtons .modifybutton.searchbutton,
+.list .searchbar .actionButtons .modiclearbutton.searchbutton {
+  background-color: #007bff;
+  color: white;
+}
+.list .searchbar .actionButtons .searchbutton.resetbutton,
+.list .searchbar .actionButtons .resetbutton.resetbutton,
+.list .searchbar .actionButtons .changebutton.resetbutton,
+.list .searchbar .actionButtons .deletebutton.resetbutton,
+.list .searchbar .actionButtons .modifybutton.resetbutton,
+.list .searchbar .actionButtons .modiclearbutton.resetbutton {
+  margin-left: 10px;
+  background-color: #6c757d;
+  color: white;
+}
+.list .searchbar .actionButtons .searchbutton.changebutton,
+.list .searchbar .actionButtons .resetbutton.changebutton,
+.list .searchbar .actionButtons .changebutton.changebutton,
+.list .searchbar .actionButtons .deletebutton.changebutton,
+.list .searchbar .actionButtons .modifybutton.changebutton,
+.list .searchbar .actionButtons .modiclearbutton.changebutton {
+  margin-left: 500px;
+  background-color: #007bff;
+  color: white;
+}
+.list .searchbar .actionButtons .searchbutton.deletebutton,
+.list .searchbar .actionButtons .resetbutton.deletebutton,
+.list .searchbar .actionButtons .changebutton.deletebutton,
+.list .searchbar .actionButtons .deletebutton.deletebutton,
+.list .searchbar .actionButtons .modifybutton.deletebutton,
+.list .searchbar .actionButtons .modiclearbutton.deletebutton {
+  margin-left: 10px;
+  background-color: #6c757d;
+  color: white;
+}
+.list .searchbar .actionButtons .searchbutton.modifybutton, .list .searchbar .actionButtons .searchbutton.modiclearbutton,
+.list .searchbar .actionButtons .resetbutton.modifybutton,
+.list .searchbar .actionButtons .resetbutton.modiclearbutton,
+.list .searchbar .actionButtons .changebutton.modifybutton,
+.list .searchbar .actionButtons .changebutton.modiclearbutton,
+.list .searchbar .actionButtons .deletebutton.modifybutton,
+.list .searchbar .actionButtons .deletebutton.modiclearbutton,
+.list .searchbar .actionButtons .modifybutton.modifybutton,
+.list .searchbar .actionButtons .modifybutton.modiclearbutton,
+.list .searchbar .actionButtons .modiclearbutton.modifybutton,
+.list .searchbar .actionButtons .modiclearbutton.modiclearbutton {
+  margin-left: 10px;
+  background-color: #6c757d;
+  color: white;
+}
+.list .chgstatus {
+  padding: 10px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  background-color: #007bff;
+  color: white;
+}
+.list table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+.list table tr:nth-child(1) {
+  background-color: #ddd;
+  height: 20px;
+  line-height: 20px;
+}
+.list table tr:nth-child(1) input[type=checkbox] {
+  margin-right: 5px;
+}
+.list tr td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.list tr td .link {
+  color: #007bff;
+}
+
+.changebutton {
+  margin-left: 10px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.changebutton:hover {
+  background-color: #0056b3;
+}

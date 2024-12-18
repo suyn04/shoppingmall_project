@@ -68,10 +68,16 @@ const FinderModal = ({ openModal, setOpenModal, finderData }) => {
             <div className={styles.container}>
                 <div className={styles.modalTitle}>센트파인더</div>
                 <div className={styles.content}>
-                    <div className={styles.textTop}>
+                    <div
+                        className={`${styles.textTop} ${
+                            curQuestion >= finderData.length
+                                ? styles.inactive
+                                : ""
+                        }`}
+                    >
                         <p>'센트 파인더'로 찾는 향기</p>
+                        <img src="/imgs/product/scentFinder.jpg" alt="" />
                     </div>
-                    <img src="/imgs/product/scentFinder.jpg" alt="" />
                     {finderData.map((data, index) => {
                         return (
                             <div

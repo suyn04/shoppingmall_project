@@ -1,0 +1,64 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fcf9ee;
+  padding: 20px;
+  width: 100%;
+  margin: 100px 0;
+}
+.wrapper .container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fcf9ee;
+  padding: 20px;
+  width: 100%;
+  margin: 100px 0;
+}
+.wrapper h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #343a40;
+}
+.wrapper .form,
+.wrapper .pwcontent {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 300px;
+}
+.wrapper .form input,
+.wrapper .pwcontent input {
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #495057;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.wrapper .form input:focus,
+.wrapper .pwcontent input:focus {
+  border-color: #1c1c1c;
+  box-shadow: 0 0 5px rgba(29, 114, 184, 0.3);
+}
+.wrapper .form button,
+.wrapper .pwcontent button {
+  padding: 10px 15px;
+  background-color: #1c1c1c;
+  color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.wrapper .form button:hover,
+.wrapper .pwcontent button:hover {
+  background-color: #999;
+  color: #1c1c1c;
+}

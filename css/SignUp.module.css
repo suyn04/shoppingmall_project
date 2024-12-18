@@ -1,0 +1,161 @@
+@charset "UTF-8";
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fcf9ee;
+}
+.wrapper .wrap {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.wrapper .wrap .joinContainer {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 상단 버튼 */
+.topBtn {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.topBtn .signIn,
+.topBtn .signUp {
+  width: 48%;
+  height: 50px;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.topBtn .signIn:hover,
+.topBtn .signUp:hover {
+  background-color: #f5f5f5;
+}
+.topBtn .signIn a,
+.topBtn .signUp a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  line-height: 50px;
+}
+.topBtn .signIn {
+  border-bottom: 2px solid #ddd;
+}
+.topBtn .signUp {
+  border-bottom: 2px solid #1c1c1c;
+}
+
+.bottomCnt {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.bottomCnt > div:first-of-type {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.bottomCnt > div:first-of-type .kakao,
+.bottomCnt > div:first-of-type .naver {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+}
+.bottomCnt > div:first-of-type .kakao img,
+.bottomCnt > div:first-of-type .naver img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+.bottomCnt > div:first-of-type .kakao {
+  background-color: #ffe809;
+}
+.bottomCnt > div:first-of-type .naver {
+  background-color: #1ec800;
+}
+.bottomCnt .or {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+}
+.bottomCnt .or::before, .bottomCnt .or::after {
+  content: "";
+  display: inline-block;
+  width: 30%;
+  height: 1px;
+  background-color: #aaa;
+  vertical-align: middle;
+}
+.bottomCnt .or::before {
+  margin-right: 10px;
+}
+.bottomCnt .or::after {
+  margin-left: 10px;
+}
+.bottomCnt .inform .input,
+.bottomCnt .inform select,
+.bottomCnt .inform input[type=date],
+.bottomCnt .inform .gender {
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  font-size: 14px;
+}
+.bottomCnt .inform .chkbtn {
+  width: 100%;
+  height: 30px;
+  background-color: #ffe68d;
+  color: #1c1c1c;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.bottomCnt .inform .checkboxgroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.bottomCnt .inform .checkboxgroup .chk1 .chk2 {
+  align-items: start;
+  accent-color: #1c1c1c;
+}
+.bottomCnt .inform .marketing {
+  color: #ebbb00;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.bottomCnt .inform .join {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #1c1c1c;
+  color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.bottomCnt .inform .join:hover {
+  background-color: #999;
+  color: #1c1c1c;
+}
