@@ -1,94 +1,93 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PayHead from './PayHead';
 import PayModal1 from './PayModal1';
-import axios from 'axios'
+import axios from 'axios';
+import styles from '../../scss/order/payment1.module.scss';
 
 function Payment1(props) {
+  const email = sessionStorage.getItem('email');
+  const [ordersData, setOrder] = useState();
+  const [isModal, setModal] = useState(false);
+  const navigate = useNavigate();
 
-  const email = sessionStorage.getItem('email')
-  const [ordersData, setOrder] = useState()
-  const [isModal, setModal] = useState(false)
-  const navigate = useNavigate()
-
-  if(!email){
-    navigate('/signIn')
+  if (!email) {
+    navigate('/signIn');
   }
 
-  function pageLoad(){
-    axios.get(`http://localhost:5001/payment1/${email}`)
-    .then((res) => {
-      setOrder(res.data)
-      // console.log("useEffect : ",ordersData)
-    }).catch(
-      err=>{
-        console.error('에러발생 : ', err)
-      }
-    )
+  function pageLoad() {
+    axios
+      .get(`http://localhost:5001/payment1/${email}`)
+      .then((res) => {
+        setOrder(res.data);
+      })
+      .catch((err) => {
+        console.error('에러발생 : ', err);
+      });
   }
 
-  useEffect(()=>{
-    pageLoad()
-  },[])
+  useEffect(() => {
+    pageLoad();
+  }, []);
 
   const handleOpenModal = (e) => {
-    e.preventDefault()
-    setModal(true)
-    console.log("handleOpenModal : ", isModal)
-  }
+    e.preventDefault();
+    setModal(true);
+  };
 
   const handleCloseModal = () => {
-    setModal(false)
-  }
+    setModal(false);
+  };
 
   const handleSave = (updatedData) => {
-    setOrder(updatedData)
+    setOrder(updatedData);
+  };
+
+  function payment2GO() {
+    const myData = Object.fromEntries(new FormData(document.myFrm));
+    navigate('/payment2', { state: { myData: myData, ordersData: ordersData } });
   }
 
-  function payment2GO(){
-    const myData = Object.fromEntries(new FormData(document.myFrm)
-  )   
-   console.log("myData", myData)
-    navigate('/payment2', {state : {'myData':myData, ordersData: ordersData}})
+  if (!ordersData) {
+    return <div>로딩중...</div>;
   }
 
-  if(!ordersData){
-    return <div>로딩중...</div>
-  }
-
-  const hasAddress =
-    ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address
-
+  const hasAddress = ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address;
 
   return (
-    <>
-      <PayHead/>
-      <form name="myFrm">
-        <div>
-          <div>배송지 정보</div>
+    <div className={styles.wrap}>
+      <PayHead />
+      <form name="myFrm" className={styles.frmData}>
+        <div className={styles.shoppingHead}>배송지 정보</div>
+        <div className={styles.orderInfo}>
           <div>{ordersData.customer_name}</div>
           <div>{ordersData.zip}</div>
           <div>{ordersData.roadname_address}</div>
           <div>{ordersData.building_name}</div>
           <div>{ordersData.detail_address}</div>
         </div>
-        {hasAddress ? (
-          <button onClick={handleOpenModal}>배송지 수정</button>
-        ) : (
-          <button onClick={handleOpenModal}>배송지 추가</button>
-        )}
+
+        <div className={styles.btnGroup}>
+          {hasAddress ? (
+            <button onClick={handleOpenModal}>배송지 수정</button>
+          ) : (
+            <button onClick={handleOpenModal}>배송지 추가</button>
+          )}
+        </div>
+
         {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} />}
-        <hr/>
-        <div>
+
+        <div className={styles.deliveryRequest}>
           <label>
-            배송요청사항<br/>
+            <span>배송요청사항</span>
             <textarea name="order_msg"></textarea>
           </label>
         </div>
-        <input type='button' onClick={payment2GO} value='결제하기'/>
+
+        <input type="button" onClick={payment2GO} value="결제하기" className={styles.submitBtn} />
       </form>
-    </>
-  )
+    </div>
+  );
 }
 
 export default Payment1;
