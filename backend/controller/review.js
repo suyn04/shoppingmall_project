@@ -74,7 +74,7 @@ module.exports = () => {
         console.log("리뷰 목록 요청");
         try {
             const [rows] = await conn.execute(
-                "SELECT * FROM review_management WHERE is_visible = 1"
+                "SELECT * FROM review_management WHERE is_visible = 1 ORDER BY review_date DESC"
             );
             // console.log("리뷰 목록:", rows); // 디버깅용 로그
             res.json(rows);
