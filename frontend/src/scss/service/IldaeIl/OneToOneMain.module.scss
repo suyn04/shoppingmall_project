@@ -7,11 +7,81 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+    margin-left: 63px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 
+}
 .createButton:hover {
     background-color: #ccc;
 }
-.onemain{
-    font-size: 24px;
+.list {
+    margin-top: 20px;
+    width: 90%;
+    .rtitle{
+        font-size: 24px;
+        font-weight: bold;
+        margin: 29px 0px;
+        margin-left: 63px;
+    }
+    .title {
+        padding: 30px;
+        font-size: 25px;
+        text-align: center;
+    }
+    .searchbar {
+        margin: 20px 0px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .actionButtons {
+            .searchbutton,
+            .resetbutton,
+            .changebutton,
+            .deletebutton,
+            .modifybutton,
+            .modiclearbutton {
+                padding: 10px 10px;
+                font-size: 14px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                
+
+              
+            }
+        }
+    }
+
+
+    table {
+        width: 90%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        text-align: center;
+
+        tr:nth-child(1) {
+            input[type='checkbox'] {
+                margin-right: 5px;
+            }
+            background-color: #ccc;
+            color: #fff;
+            height: 20px;
+            line-height: 20px;
+        }
+    }
+
+    tr {
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #1c1c1c;
+            .link {
+                color: #007bff;
+            }
+        }
+    }
 }
+
+
+

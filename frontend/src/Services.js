@@ -43,9 +43,9 @@ function Services() {
                 <Route path="/peopleworkplace" element={<PeopleWorkplace />} />
                 {/* 일대일문의 */}
                 <Route path="/onetoone" element={<OneToOne />} />
-                <Route path="/onetoonemain" element={<OneToOneMain />} />
-                <Route path="/onetoonelist" element={<OneToOneList />} />
-                <Route path="/admin/onetoone/:id" element={<OneToOneDetail />} />
+                {/* <Route path="/onetoonemain" element={<OneToOneMain />} /> */}
+                <Route path="/onetoonelist" element={<OneToOneMain />} />
+                {/* <Route path="/admin/onetoone/:id" element={<OneToOneDetail />} /> */}
                 
                 {/* 리뷰 */}   
                 <Route path="/review/:product_opt_id" element={<Review />} />

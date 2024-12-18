@@ -39,11 +39,10 @@ const AReviewList = () => {
             <table>
                 <tr>
                     <td>리뷰 번호</td>
-                    <td>회원 이름</td>
                     <td>이메일</td>
                     <td>닉네임</td>
                     <td>제목</td>
-                    <td>내용</td>
+                    {/* <td>내용</td> */}
                     <td>상세보기</td>
                 </tr>
 
@@ -51,11 +50,10 @@ const AReviewList = () => {
                     reviews.map((review) => (
                         <tr key={review.review_no}>
                             <td>{review.review_no}</td>
-                            <td>{review.memberName}</td>
                             <td>{review.email}</td>
                             <td>{review.review_nick}</td>
                             <td>{review.review_title}</td>
-                            <td>{review.content}</td>
+                            {/* <td>{review.detail}</td> */}
                             <td>
                                 <button className={styles.changebutton} onClick={() => handleDetailClick(review.review_no)}>
                                     상세보기

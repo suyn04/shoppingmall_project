@@ -238,7 +238,7 @@
     }
     img{
         width: 100%;
-        margin: 10px;
+       
     }
 }
 
@@ -260,7 +260,7 @@
         width: calc(100%/3);
         font-family: 'NotoSansKR';
         font-size: 14px;
-        margin: 20px 0;
+        margin: 20px 0 20px 20px;
 
     }
 
@@ -329,6 +329,7 @@
 .cimg27 {
     width: 100%;
     margin: 0 auto;
+    margin-bottom: 50px;
 }
 
 .more {
@@ -403,6 +404,7 @@
             padding-left: 10px;
             padding-right: 10px;
         .ibox1 {
+            
             flex-wrap: wrap;
 
             div {
@@ -424,8 +426,10 @@
 
         .tbox7 {
             flex-direction: column;
-
-            .stitle,
+            width: 95%;
+            .stitle{
+                margin-left: 15px;
+            }
             .ttbox1,
             .ttbox2 {
                 width: 100%;
