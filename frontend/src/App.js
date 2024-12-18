@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Product from './Product';
 import Services from './Services';
+import Map from './components/dup/Map';
 import Basket from './components/order/Basket';
 import Payment1 from './components/order/Payment1';
 import Payment2 from './components/order/Payment2';
@@ -41,6 +42,7 @@ function AppContent() {
             )}
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/map" element={<Map />} />
                 <Route path="/basket" element={<Basket />} />
                 <Route path="/payment1" element={<Payment1 />} />
                 <Route path="/payment2" element={<Payment2 />} />

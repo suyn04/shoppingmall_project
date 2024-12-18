@@ -60,19 +60,19 @@ function Basket(props) {
   function paymentGo(){
     navigate('/payment1')
   }
+
   return (
     <div className={styles.wrap}>
-      <img src="/imgs/order/JML_CheckoutBanner.avif" alt=''/>
-      <div>
-      <div className={styles.shoppingHead}>장바구니</div>
-        <div className={styles.shoppingHead2}>
-          <div>
-            <small>({prod.length} 개의 제품 / 장바구니에 담긴 제품 수량)</small>
-          </div>
-        </div>
-      </div>
       {prod.length > 0 && (
         <>
+          <div>
+            <div className={styles.shoppingHead}>장바구니</div>
+            <div className={styles.shoppingHead2}>
+              <div>
+                <small>({prod.length} 개의 제품 / 장바구니에 담긴 제품 수량)</small>
+              </div>
+            </div>
+          </div>
           <div className={styles.td}>
             <div>제품</div>
             <div>가격</div>
@@ -117,13 +117,13 @@ function Basket(props) {
       )}
       
       {prod.length === 0 && (
-        <div>
+        <div className={styles.zero}>
           <div>장바구니가 비어 있습니다.</div>
           <Link to="/">쇼핑 계속하기</Link>
         </div>
       )}
-          </div>
-        );
-      }
+    </div>
+  );
+}
 
 export default Basket;

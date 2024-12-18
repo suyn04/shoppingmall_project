@@ -25,17 +25,16 @@ function MainSlide(props) {
         }}
         loop={true}                // 슬라이드를 무한 반복
         onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
       >
         <SwiperSlide>
           <Link to={'/bath-body'}>
-            <div className='slide-title'>행복한 홀리데이를 위해</div>
-            <div className='slide-text'>배스 앤 바디 보기</div>
+            <div className='slide-ftitle'>행복한 홀리데이를 위해</div>
+            <div className='slide-ftext'>배스 앤 바디 보기</div>
             <img src={`/imgs/main/main_slide2.jpg`} alt="Slide 2"/>
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to={'/colognes/woody'}>
+          <Link to={'/product/45'}>
             <div className='slide-title'>히노키 앤 시더우드</div>
             <div className='slide-text'>더 알아보기</div>
             <img src={`/imgs/main/main_slide1.avif`} alt="Slide 1"/>

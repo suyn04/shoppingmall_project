@@ -43,7 +43,7 @@ export default function ProductSwiper({ product }) {
             >
                 {curProduct.map((prod, i) => {
                     return (
-                        <SwiperSlide>
+                        <SwiperSlide key={i}>
                             <div
                                 onClick={() => {
                                     navigate(`/product/${prod.product_opt_id}`);

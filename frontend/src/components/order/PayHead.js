@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../scss/order/payment1.module.scss'
+import styles from '../../scss/order/payHead.module.scss'
 
 function PayHead(props) {
   return (

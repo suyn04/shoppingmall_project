@@ -20,19 +20,20 @@
       a{
         .slide-ftitle{
             position: absolute;
-            top: 40%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%);
             color: #1c1c1c;
             font-family: 'NanumMyeongjo';
-            font-size: 32px;
+            font-size: 36px;
         }
         .slide-ftext{
             position: absolute;
-            top: 55%;
+            top: 75%;
             left: 50%;
             transform: translate(-50%);
             color: #1c1c1c;
+            text-decoration: underline;
         }
         .slide-title{
             position: absolute;
@@ -41,7 +42,7 @@
             transform: translate(-50%);
             color: #fff;
             font-family: 'NanumMyeongjo';
-            font-size: 32px;
+            font-size: 36px;
         }
         .slide-text{
             position: absolute;
@@ -49,6 +50,7 @@
             left: 50%;
             transform: translate(-50%);
             color: #fff;
+            text-decoration: underline;
         }
       }
   }
