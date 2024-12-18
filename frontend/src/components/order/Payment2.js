@@ -86,6 +86,10 @@ function Payment2(props) {
     e.preventDefault()
     const myData = Object.fromEntries(new FormData(document.myFrm))
 
+    if(!myData.payment){
+      alert('결제수단을 정해주세요')
+    }
+
     const orderPayload = {
       email: email,
       pay_to: myData.payment,

@@ -56,28 +56,36 @@ function Payment1(props) {
     return <div>로딩중...</div>
   }
 
+  const hasAddress =
+    ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address
+
+
   return (
     <>
       <PayHead/>
       <form name="myFrm">
-      <div>
-        <div>배송지 정보</div>
-        <div>{ordersData.customer_name}</div>
-        <div>{ordersData.zip}</div>
-        <div>{ordersData.roadname_address}</div>
-        <div>{ordersData.building_name}</div>
-        <div>{ordersData.detail_address}</div>
-      </div>
-      <button onClick={handleOpenModal}>배송지 수정</button>
-      {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} />}
-      <hr/>
-      <div>
-        <label>
-          배송요청사항<br/>
-          <textarea name="order_msg"></textarea>
-        </label>
-      </div>
-      <input type='button' onClick={payment2GO} value='결제하기'/>
+        <div>
+          <div>배송지 정보</div>
+          <div>{ordersData.customer_name}</div>
+          <div>{ordersData.zip}</div>
+          <div>{ordersData.roadname_address}</div>
+          <div>{ordersData.building_name}</div>
+          <div>{ordersData.detail_address}</div>
+        </div>
+        {hasAddress ? (
+          <button onClick={handleOpenModal}>배송지 수정</button>
+        ) : (
+          <button onClick={handleOpenModal}>배송지 추가</button>
+        )}
+        {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} />}
+        <hr/>
+        <div>
+          <label>
+            배송요청사항<br/>
+            <textarea name="order_msg"></textarea>
+          </label>
+        </div>
+        <input type='button' onClick={payment2GO} value='결제하기'/>
       </form>
     </>
   )

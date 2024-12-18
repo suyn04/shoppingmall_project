@@ -125,7 +125,5 @@ module.exports = () => {
         }
     })
 
-    
-
     return router
 }
