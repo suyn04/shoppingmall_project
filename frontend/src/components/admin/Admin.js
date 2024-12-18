@@ -50,7 +50,7 @@ function Admin(props) {
                 <Route path="product/modify/:product_id" element={<AProductModify />} />
                 {/* 일대일 문의 관련 */}
                 <Route path="onetoone" element={<OneToOneList />} />
-                <Route path="onetoone/:id" element={<OneToOneDetail />} />
+                <Route path="onetoone/detail/:id" element={<OneToOneDetail />} />
 
                 {/* 리뷰관련 */}
                 <Route path="areviewlist" element={<AReviewList />} />
