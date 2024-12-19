@@ -6,90 +6,91 @@ import axios from 'axios';
 import styles from '../../scss/order/payment1.module.scss';
 
 function Payment1(props) {
-  const email = sessionStorage.getItem('email');
-  const [ordersData, setOrder] = useState();
-  const [isModal, setModal] = useState(false);
-  const navigate = useNavigate();
+    const email = sessionStorage.getItem('email');
+    const [ordersData, setOrder] = useState();
+    const [isModal, setModal] = useState(false);
+    const navigate = useNavigate();
 
-  if (!email) {
-    navigate('/signIn');
-  }
+    if (!email) {
+        navigate('/signIn');
+    }
 
-  function pageLoad() {
-    axios
-      .get(`http://localhost:5001/payment1/${email}`)
-      .then((res) => {
-        setOrder(res.data);
-      })
-      .catch((err) => {
-        console.error('에러발생 : ', err);
-      });
-  }
+    function pageLoad() {
+        axios
+            .get(`http://localhost:5001/payment1/${email}`)
+            .then(res => {
+                setOrder(res.data);
+            })
+            .catch(err => {
+                console.error('에러발생 : ', err);
+            });
+    }
 
-  useEffect(() => {
-    pageLoad();
-  }, []);
+    useEffect(() => {
+        pageLoad();
+    }, []);
 
-
-  const handleOpenModal = (e) => {
-    e.preventDefault();
-    setModal(true);
-  };
+    const handleOpenModal = e => {
+        e.preventDefault();
+        setModal(true);
+    };
 
   const handleCloseModal = () => {
     setModal(false);
   };
 
-  const handleSave = (updatedData) => {
-    setOrder(updatedData);
-  };
+    const handleSave = updatedData => {
+        setOrder(updatedData);
+    };
 
-  function payment2GO() {
-    const myData = Object.fromEntries(new FormData(document.myFrm));
-    navigate('/payment2', { state: { myData: myData, ordersData: ordersData } });
-  }
+    function payment2GO() {
+        const myData = Object.fromEntries(new FormData(document.myFrm));
+        navigate('/payment2', { state: { myData: myData, ordersData: ordersData } });
+    }
 
-  if (!ordersData) {
-    return <div>로딩중...</div>;
-  }
+    if (!ordersData) {
+        return <div>로딩중...</div>;
+    }
+    const fullAddress = ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address;
 
-  const hasAddress = ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address;
+    return (
+        <div className={styles.wrap}>
+            <PayHead />
+            <form name="myFrm" className={styles.frmData}>
+                <div className={styles.shoppingHead}>배송지 정보</div>
+                <div className={styles.orderInfo}>
+                    <div>주문자명 : {ordersData.customer_name}</div>
+                    {fullAddress ? (
+                        <>
+                            <div>우편번호 : {ordersData.zip}</div>
+                            <div>
+                                주소 : {ordersData.roadname_address} &nbsp;
+                                {ordersData.building_name} &nbsp;
+                                {ordersData.detail_address}
+                            </div>
+                        </>
+                    ) : (
+                        '배송지를 등록해주세요.'
+                    )}
 
-  return (
-    <div className={styles.wrap}>
-      <PayHead />
-      <form name="myFrm" className={styles.frmData}>
-        <div className={styles.shoppingHead}>배송지 정보</div>
-        <div className={styles.orderInfo}>
-          <div>{ordersData.customer_name}</div>
-          <div>{ordersData.zip}</div>
-          <div>{ordersData.roadname_address}</div>
-          <div>{`(${ordersData.building_name})`}</div>
-          <div>{ordersData.detail_address}</div>
-          <div>{ordersData.contact_number}</div>
+                    <div>연락처 : {ordersData.contact_number}</div>
+                </div>
+
+                <div className={styles.btnGroup}>{fullAddress ? <button onClick={handleOpenModal}>배송지 수정</button> : <button onClick={handleOpenModal}>배송지 추가</button>}</div>
+
+                {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} email={email} />}
+
+                <div className={styles.deliveryRequest}>
+                    <label>
+                        <span>배송요청사항</span>
+                        <textarea name="order_msg"></textarea>
+                    </label>
+                </div>
+
+                <input type="button" onClick={payment2GO} value="결제하기" className={styles.submitBtn} />
+            </form>
         </div>
-
-        <div className={styles.btnGroup}>
-          {hasAddress ? (
-            <button onClick={handleOpenModal}>배송지 수정</button>
-          ) : (
-            <button onClick={handleOpenModal}>배송지 추가</button>
-          )}
-        </div>
-
-        {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} email={email} />}
-
-        <div className={styles.deliveryRequest}>
-          <label>
-            <span>배송요청사항</span>
-            <textarea name="order_msg"></textarea>
-          </label>
-        </div>
-
-        <input type="button" onClick={payment2GO} value="결제하기" className={styles.submitBtn} />
-      </form>
-    </div>
-  );
+    );
 }
 
 export default Payment1;

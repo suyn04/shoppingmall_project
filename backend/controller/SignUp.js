@@ -40,7 +40,7 @@ router.get('/checkEmail', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log('회원가입 요청 수신:', req.body);
 
-    const { name, email, phone, password, gender, birthdate, requiredAgree, optionalAgree } = req.body;
+    const { name, email, phone, password, password2, gender, birthdate, requiredAgree, optionalAgree } = req.body;
     //req.body에 있는 각 요소들 이름 정의
 
     // 유효성 검사
@@ -60,6 +60,10 @@ router.post('/', async (req, res) => {
     }
 
     if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%~]).{12,16}$/.test(password)) {
+        console.log('비밀번호 유효성 검사 통과 못함');
+        return res.json({ message: '비밀번호는 12~16자 이내로 반드시 특수문자(!,@,#,$,%,~)가 들어가야 합니다.' });
+    }
+    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%~]).{12,16}$/.test(password2)) {
         console.log('비밀번호 유효성 검사 통과 못함');
         return res.json({ message: '비밀번호는 12~16자 이내로 반드시 특수문자(!,@,#,$,%,~)가 들어가야 합니다.' });
     }
