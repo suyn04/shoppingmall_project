@@ -1,71 +1,79 @@
-wrapper{
-  width: 100%;
-  margin: 0 auto;
-  display: block;
-}
-.orderNum{
-    height: 50px;
-    line-height: 50px;
-}
-
-main > .notice{
-    width: 80%;
-    margin-bottom: 10px;
-}
-
-.goMain{
-    width: 150px;
-    height: 50px;
-    background-color: #000;
-    color: #fff;
-    text-decoration: none;
-}
-
-.goMain > a{
-    text-decoration: none;
+wrapper {
+    width: 100%;
+    margin: 0 auto;
     display: block;
-    margin-left: 5px;
-    width: 140px;
-    height: 40px;
-    color: #fff;
-    line-height: 40px;
+    .orderFin {
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+
+        .orderNum {
+            line-height: 50px;
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        .notice {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .goMain {
+            margin: 30px auto;
+            width: 150px;
+            height: 50px;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .goMain > a {
+            text-decoration: none;
+            display: block;
+            margin-left: 5px;
+            width: 140px;
+            height: 40px;
+            color: #fff;
+            line-height: 40px;
+        }
+    }
 }
 
-@media screen and (max-width:800px){
-    wrapper{
-      width: 100%;
+@media screen and (max-width: 800px) {
+    wrapper {
+        width: 100%;
     }
 
-    .stepContainer{
-      width: 80%;
+    .stepContainer {
+        width: 80%;
     }
 
-    h1{
-      width: 50%;
+    h1 {
+        width: 50%;
     }
 
-    main{
-      width: 80%;
+    main {
+        width: 80%;
     }
 
-    main > .notice{
-      width: 100%;
-      margin: auto;
-      margin-bottom: 100px;
+    main > .notice {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 100px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    wrapper {
+        width: 100%;
     }
 
-  }
-
-  @media screen and (max-width:500px){
-    wrapper{
-      width: 100%;
-    }
-    
-    main{
-      width: 80%;
+    main {
+        width: 80%;
     }
 
-    main > .notice{
-      margin-bottom: 100px;
+    main > .notice {
+        margin-bottom: 100px;
     }
-  }
+}

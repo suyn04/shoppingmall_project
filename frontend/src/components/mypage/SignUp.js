@@ -38,7 +38,7 @@ function SignUp() {
         if (name === 'birthdate') {
             setFormData(prev => ({
                 ...prev,
-                [name]: value, // 생일 입력값이 바뀌지 않도록 그대로 값을 저장해버리기
+                [name]: value, // 생일 입력값이 DB 저장될때 바뀌지 않도록 그대로 값을 저장해버리기
             }));
             return;
         }
@@ -132,12 +132,12 @@ function SignUp() {
     const emailChk = async () => {
         const { email } = formData;
 
-        // 이메일 유효성 검사 먼저 실행
-        const emailError = ValueChk('email', email);
-        if (emailError) {
-            alert(emailError);
-            return;
-        }
+        // // 이메일 유효성 검사 먼저 실행
+        // const emailError = ValueChk('email', email);
+        // if (emailError) {
+        //     alert(emailError);
+        //     return;
+        // }
 
         try {
             const res = await axios.get('http://localhost:5001/signUp/checkEmail', {
@@ -146,15 +146,11 @@ function SignUp() {
             console.log('Axios 요청 전송:', { email });
 
             if (res.data.exists) {
-                setFormData(prev => ({
-                    ...prev,
-                    email: '',
-                }));
                 setemailChkFinish(false); // 중복 확인 실패 시 false로 설정
                 alert('이미 사용 중인 이메일입니다. 다시 입력해주세요.');
             } else {
                 setemailChkFinish(true);
-                seteditChk(true);
+                seteditChk(true); // readOnly 설정
                 alert('사용 가능한 이메일입니다.');
             }
         } catch (err) {

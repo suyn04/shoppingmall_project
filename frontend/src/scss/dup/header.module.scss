@@ -137,11 +137,13 @@ header {
     margin-top: 20px;
 }
 .userLink {
+    position: absolute;
     cursor: pointer;
     color: #1c1c1c;
     font-size: 14px;
     height: 22px;
     line-height: 22px;
+    right: 170px;
     padding: 10px 0px !important;
 }
 
