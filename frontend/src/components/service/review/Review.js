@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../../../scss/service/review/Review.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,7 +14,7 @@ function fileGo(file) {
 
 const Review = () => {
   // 상태 관리: 폼 데이터
-  const {product_opt_id} = useParams()
+  const { product_opt_id } = useParams()
   const [nickname, setNickname] = useState('');
   const [rating, setRating] = useState(0);
   // const [recommend, setRecommend] = useState('');
@@ -28,28 +28,28 @@ const Review = () => {
   // const [file, setFile] = useState('');
   const email = sessionStorage.getItem('email')
   const navigate = useNavigate();
-  if(!email){
+  if (!email) {
     navigate('/signIn')
   }
 
   useEffect(() => {
-        const fetchReviews = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:5001/review/reviewWrite?product_opt_id=${product_opt_id}`
-                );
-                console.log(response.data);
-                setProduct(response.data);
-            } catch (err) {
-                console.error("API 호출 실패:", err);
-            }
-        };
-        fetchReviews();
-    }, [product_opt_id]);
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/review/reviewWrite?product_opt_id=${product_opt_id}`
+        );
+        console.log(response.data);
+        setProduct(response.data);
+      } catch (err) {
+        console.error("API 호출 실패:", err);
+      }
+    };
+    fetchReviews();
+  }, [product_opt_id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData(document.myFrm);
 
     formData.append('product_opt_id', product.product_opt_id);
@@ -64,12 +64,12 @@ const Review = () => {
     // formData.append('review_scent', fragranceType || '향 미지정');
     // formData.append('review_time', timeOfDay || null);
     // formData.append('review_gift', gift || null);
-  
+
     const fileInput = document.querySelector('input[name="review_file"]');
     if (fileInput.files.length > 0) {
       formData.append('review_file', fileInput.files[0]);
     }
-  
+
     console.log("FormData 확인:", Object.fromEntries(formData));
 
 
@@ -81,9 +81,10 @@ const Review = () => {
 
     try {
       const response = await axios.post('http://localhost:5001/review', data, {
-        headers:{
-          'Content-Type':"multipart/form-data" // 파일업로드를 위해 타입을 이렇게 씀
-        }}
+        headers: {
+          'Content-Type': "multipart/form-data" // 파일업로드를 위해 타입을 이렇게 씀
+        }
+      }
       );
       console.log('리뷰 저장 성공:', response.data);
       alert('리뷰가 성공적으로 저장되었습니다!');
@@ -93,11 +94,11 @@ const Review = () => {
       alert('리뷰 저장에 실패했습니다.');
     }
   };
-  
+
   return (
     <div>
       <div className={styles.rwrapper}>
-        
+
         <div className={styles.rimgbox}>
           {fileGo(product.product_upSystem)}
         </div>
@@ -129,7 +130,13 @@ const Review = () => {
               <label htmlFor="pname">
                 <div>닉네임*</div>
               </label>
-              <input type="text" id="pname" placeholder="예) A람" name='review_nick' value={nickname} onChange={(e) => setNickname(e.target.value)} />
+              <input 
+              className={styles.rinput}
+              type="text" 
+              id="pname" 
+              placeholder="예) A람" 
+              name='review_nick' 
+              value={nickname} onChange={(e) => setNickname(e.target.value)} />
             </div>
 
             {/* 제목 입력 */}
@@ -137,7 +144,9 @@ const Review = () => {
               <label htmlFor="ptitle">
                 <div>제목*</div>
               </label>
-              <input type="text" id="ptitle" name='review_title' placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다." value={title} onChange={(e) => setTitle(e.target.value)} />
+              <input 
+               className={styles.rinput}
+              type="text" id="ptitle" name='review_title' placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다." value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
 
             {/* 상품후기 입력 */}
@@ -145,89 +154,93 @@ const Review = () => {
               <label htmlFor="rreview">
                 <div>상품후기*</div>
               </label>
-              <input type="text" name='review_detail' className={styles.linput} value={content} onChange={(e) => setContent(e.target.value)} />
+              <input 
+               className={styles.rinput}
+              type="text" name='review_detail'  value={content} onChange={(e) => setContent(e.target.value)} />
             </div>
-  {/* 거주지역 입력 */}
-  <div className={styles.seoul}>
-            <label for="ptitle">
-              <div>거주지역*</div>
-            </label>
-            <input 
-            type="text" 
-            name="review_region"
-            id="ptitle" 
-            placeholder='예) 서울' 
-            value={region}
-            onChange={(e)=> setRegion(e.target.value)}
-            />
-          </div>
+            {/* 거주지역 입력 */}
+            <div className={styles.seoul}>
+              <label for="ptitle">
+                <div>거주지역</div>
+              </label>
+              <input
+               className={styles.rseoul}
+                type="text"
+                name="review_region"
+                id="ptitle"
+                placeholder='예) 서울'
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+              />
+            </div>
 
-          {/* 향수 계열 선택 */}
-          <div className={styles.rtitle}>
-            <label className={styles.type}>
-              <div>평소 사용하는 향수 계열</div>
-            </label>
-            <select 
-            className={styles.type}
-            name="review_scent"
-            value={fragranceType} //선택된 값이 상태에 반영됨
-            onChange={(e)=> setFragranceType(e.target.value)}
-            >
-              <option value="시트러스">시트러스</option>
-              <option value="프루티">프루티</option>
-              <option value="라이트 플로럴">라이트 플로럴</option>
-              <option value="플로럴">플로럴</option>
-              <option value="스파이시">스파이시</option>
-              <option value="우디">우디</option>
+            {/* 향수 계열 선택 */}
+            <div className={styles.rtitle}>
+              <label className={styles.type}>
+                <div>평소 사용하는 향수 계열</div>
+              </label>
+              <select
+              
+                className={styles.rselect}
+                name="review_scent"
+                value={fragranceType} //선택된 값이 상태에 반영됨
+                onChange={(e) => setFragranceType(e.target.value)}
+              >
+                <option value="시트러스">시트러스</option>
+                <option value="프루티">프루티</option>
+                <option value="라이트 플로럴">라이트 플로럴</option>
+                <option value="플로럴">플로럴</option>
+                <option value="스파이시">스파이시</option>
+                <option value="우디">우디</option>
 
-            </select>
-          </div>
+              </select>
+            </div>
 
-          {/* 잘 어울리는 시간대 선택 */}
-          <div className={styles.rtitle}>
-            <label className={styles.time}>
-              <div>이 제품이 잘 어울리는 시간대</div>
-            </label>
-            <select 
-            name="review_time"
-            className={styles.time}
-            value={timeOfDay}
-            onChange={(e)=>setTimeOfDay(e.target.value)}
-            >
-              <option value="낮">낮</option>
-              <option value="밤">밤</option>
-              <option value="낮과 밤">낮과 밤</option>
-            </select>
-          </div>
+            {/* 잘 어울리는 시간대 선택 */}
+            <div className={styles.rtitle}>
+              <label className={styles.time}>
+                <div>이 제품이 잘 어울리는 시간대</div>
+              </label>
+              <select
+                name="review_time"
+                className={styles.rselect}
+                value={timeOfDay}
+                onChange={(e) => setTimeOfDay(e.target.value)}
+              >
+                <option value="낮">낮</option>
+                <option value="밤">밤</option>
+                <option value="낮과 밤">낮과 밤</option>
+              </select>
+            </div>
 
-          <div className={styles.rtitle}>
-            <label className={styles.gift}>
-              <div>선물여부</div>
-            </label>
-            <select className={styles.gift}
-            name="review_gift"
-            value={gift}
-            onChange={(e)=>setGift(e.target.value)}
-            >
-              <option value="누군가를 위한">누군가를 위한</option>    
-              <option value="나를 위한">나를 위한</option>
-            </select>
-          </div>
+            <div className={styles.rtitle}>
+              <label className={styles.gift}>
+                <div>선물여부</div>
+              </label>
+              <select className={styles.rselect}
+                name="review_gift"
+                value={gift}
+                onChange={(e) => setGift(e.target.value)}
+              >
+                <option value="누군가를 위한">누군가를 위한</option>
+                <option value="나를 위한">나를 위한</option>
+              </select>
+            </div>
 
 
-{/* review_upload_file */}
-          <div className={styles.load}>
-            <label for="imgLoad">
-              <div>이미지 첨부</div>
-            </label>
-            <input 
-            type="file"
-            name="review_file"
-            className={styles.imgLoad}
-            />
-            
-          </div>
-          
+            {/* review_upload_file */}
+            <div className={styles.load}>
+              <label for="imgLoad">
+                <div>이미지 첨부</div>
+              </label>
+              <input
+                type="file"
+                name="review_file"
+                className={styles.imgLoad}
+              />
+
+            </div>
+
 
             <button type="submit" className={styles.btnsubmit}>제출</button>
           </form>

@@ -13,7 +13,7 @@ function AdminTemp() {
             // 경로가 '/admin/member' 또는 그 하위 경로일 때
             setTopbarLinks([
                 { name: '회원정보 조회', path: '/admin/member' },
-                { name: '휴면고객 관리', path: '/admin/member/unactivemember' },
+                //{ name: '휴면고객 관리', path: '/admin/member/unactivemember' },
                 { name: '탈퇴고객 관리', path: '/admin/member/deletedmember' },
             ]);
         } else if (location.pathname.startsWith('/admin/order')) {
@@ -48,36 +48,19 @@ function AdminTemp() {
                     페이지 메인으로
                 </Link>
                 <div className={styles.menu}>
-                    <div className={styles.subbar}>
-                        <Link to="/admin/member">
-                            <span>회원관리</span>
+                    {[
+                        { name: '회원관리', path: '/admin/member' },
+                        { name: '주문관리', path: '/admin/order' },
+                        { name: '제품관리', path: '/admin/product' },
+                        { name: '게시판관리', path: '/admin/onetoone' },
+                        { name: '매출분석', path: '/admin/analysis' },
+                    ].map((menu, index) => (
+                        <Link key={index} to={menu.path} className={`${styles.subbar} ${location.pathname === menu.path ? styles.active : ''}`}>
+                            {/* 각 메뉴 전체를 링크로 걸어버리고 활성화된 메뉴 스타일 별도로 지정 */}
+                            <span>{menu.name}</span>
                             <span className={styles.arrow}>➡︎</span>
                         </Link>
-                    </div>
-                    <div className={styles.subbar}>
-                        <Link to="/admin/order">
-                            <span>주문관리</span>
-                            <span className={styles.arrow}>➡︎</span>
-                        </Link>
-                    </div>
-                    <div className={styles.subbar}>
-                        <Link to="/admin/product">
-                            <span>제품관리</span>
-                            <span className={styles.arrow}>➡︎</span>
-                        </Link>
-                    </div>
-                    <div className={styles.subbar}>
-                        <Link to="/admin/onetoone">
-                            <span>게시판관리</span>
-                            <span className={styles.arrow}>➡︎</span>
-                        </Link>
-                    </div>
-                    <div className={styles.subbar}>
-                        <Link to="/admin/analysis">
-                            <span>매출분석</span>
-                            <span className={styles.arrow}>➡︎</span>
-                        </Link>
-                    </div>
+                    ))}
                 </div>
                 <Link to="/" className={styles.bottomLink}>
                     조말론 쇼핑몰 페이지로 이동

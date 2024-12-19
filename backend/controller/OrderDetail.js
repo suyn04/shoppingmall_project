@@ -20,13 +20,17 @@ module.exports = () => {
             // 주문 제품 정보 조회
             const [productRows] = await db.query(
                 `
-                SELECT p.product_id, p.product_name_kor
-                FROM orders_detail od
-                JOIN product p ON od.product_id = p.product_id
-                WHERE od.order_id = ?
-            `,
+    SELECT v.product_opt_id, v.product_name_kor
+    FROM orders o
+    JOIN orders_detail od ON o.order_id = od.order_id
+    JOIN view_product_info_opt v ON od.product_id = v.product_opt_id
+    WHERE o.order_id = ?
+    `,
                 [req.params.id]
             );
+
+            // 여러 개의 결과 확인
+            console.log(productRows); // 배열 형태로 모든 데이터 출력
 
             // 응답 데이터: 주문 정보 + 제품 목록
             res.json({ order: orderRows, products: productRows });

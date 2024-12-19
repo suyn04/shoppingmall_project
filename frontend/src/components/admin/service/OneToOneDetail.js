@@ -88,6 +88,13 @@ const OneToOneDetail = () => {
         );
     };
 
+    const formatDate = dateString => {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    };
+
+    
     return (
         <div className={styles.list}>
             <h1 className={styles.title}>1:1 문의 상세 정보</h1>
@@ -101,7 +108,7 @@ const OneToOneDetail = () => {
                 <strong>문의 내용:</strong> {onetoone.post_detail}
             </p>
             <p>
-                <strong>작성일:</strong> {new Date(onetoone.post_date).toLocaleDateString()}
+                <strong>작성일:</strong> {formatDate(onetoone.post_date)}
             </p>
             <div>
                 <strong>처리 상태:</strong>

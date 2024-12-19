@@ -23,7 +23,7 @@ function Footer(props) {
             <Link to="/info/delivery" className={location.pathname === '/info/delivery' ? styles.active : ''}>배송관련</Link>
             <Link to="/info/excahngerefund" className={location.pathname === '/info/excahngerefund' ? styles.active : ''}>교환 및 환불 규정</Link>
             <Link to="/info/onlineshopping" className={location.pathname === '/info/onlineshopping' ? styles.active : ''}>온라인 쇼핑하기</Link>
-            <Link to="/info/terms" className={location.pathname === '/info/terms' ? styles.active : ''}>서비스 이용약관 및 개인정보 처리방침</Link>
+            <Link to="/info/terms" className={location.pathname === '/info/terms' ? styles.active : ''}>서비스 이용약관 <br/>및 개인정보 처리방침</Link>
           </div>
         </div>
         <div>

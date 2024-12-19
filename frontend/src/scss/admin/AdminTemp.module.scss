@@ -48,6 +48,7 @@ body {
         justify-content: flex-start;
         gap: 10px;
 
+        /* 사이드바 메뉴 */
         .subbar {
             position: relative;
             padding: 15px 20px;
@@ -80,10 +81,18 @@ body {
                 font-size: 20px;
                 color: #555;
                 transition: color 0.3s ease;
+            }
+        }
 
-                .subbar:hover & {
-                    color: #2986cc;
-                }
+        .subbar.active {
+            font-weight: bold;
+
+            span {
+                color: #2986cc;
+            }
+
+            .arrow {
+                color: #2986cc;
             }
         }
     }

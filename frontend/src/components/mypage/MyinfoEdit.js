@@ -27,6 +27,16 @@ const MyinfoEdit = () => {
                 )
                 .then(response => {
                     setUserInfo(response.data); // 세션토큰 콘솔에서 확인
+                    const data = response.data;
+
+                    // 서버에서 받은 날짜에 하루를 더함
+                    const correctedDate = new Date(data.birthdate);
+                    correctedDate.setDate(correctedDate.getDate() + 1); // 날짜 하루 추가
+
+                    setUserInfo({
+                        ...data,
+                        birthdate: correctedDate.toISOString().split('T')[0], // YYYY-MM-DD 형식으로 변환
+                    });
                     console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
                     console.log('이메일 :', sessionStorage.getItem('email'));
                 })
@@ -141,7 +151,7 @@ const MyinfoEdit = () => {
     }
 
     return (
-        <main>
+        <div className={styles.main}>
             {/* 상단 제목 및 안내 */}
             <p className={styles.infomessage}>
                 회원가입이 완료되었습니다.
@@ -223,7 +233,7 @@ const MyinfoEdit = () => {
             <button className={styles.btnsubmit} onClick={handleSubmit}>
                 확인
             </button>
-        </main>
+        </div>
     );
 };
 

@@ -31,7 +31,7 @@ function MemberList(props) {
             .catch(err => {
                 console.error('에러발생 : ', err);
             });
-    }, []);
+    }, [selectedCustomers]);
 
     //탈퇴처리 핸들러
     const handleMoveToDeleted = async () => {
