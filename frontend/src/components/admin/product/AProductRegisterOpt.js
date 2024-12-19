@@ -34,9 +34,23 @@ const AProductRegisterOpt = () => {
 
     const submitGo = (me) => {
         me.preventDefault();
-        console.log("submitGo 진입");
+        // console.log("submitGo 진입");
         const frmData = new FormData(document.myFrm);
-        console.log(frmData);
+        // console.log(frmData);
+        const data = Object.fromEntries(frmData);
+        console.log(data);
+        if (!data.product_volume) {
+            alert("제품 용량은 반드시 작성해야 합니다.");
+            return;
+        }
+        if (!data.product_price) {
+            alert("제품 가격은 반드시 작성해야 합니다.");
+            return;
+        }
+        if (!data.product_upfile.name) {
+            alert("제품 이미지는 반드시 등록해야 합니다.");
+            return;
+        }
 
         axios
             .post(
@@ -99,6 +113,10 @@ const AProductRegisterOpt = () => {
     }
 
     const saveGo = () => {
+        if (!options.length) {
+            alert("1개의 제품 옵션은 반드시 등록해야 합니다.");
+            return;
+        }
         alert("제품 옵션 수정 완료했습니다.");
         navigate(`/admin/product/detail/${product_id}`);
     };
@@ -122,9 +140,16 @@ const AProductRegisterOpt = () => {
                         </tr>
                         <tr>
                             <td rowSpan={2}>옵션</td>
-                            <td>제품 용량</td>
-                            <td>제품 가격</td>
-                            <td>제품 이미지</td>
+                            <td>
+                                제품 용량 <span className={styles.red}>*</span>
+                            </td>
+                            <td>
+                                제품 가격 <span className={styles.red}>*</span>
+                            </td>
+                            <td>
+                                제품 이미지{" "}
+                                <span className={styles.red}>*</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -168,7 +193,7 @@ const AProductRegisterOpt = () => {
                     {options.map((opt, index) => (
                         <tr key={index}>
                             <td>{opt.product_volume}</td>
-                            <td>{opt.product_price} 원</td>
+                            <td>₩ {opt.product_price.toLocaleString()}</td>
                             <td>{fileGo(opt.product_upSystem)}</td>
                             <td>
                                 <button

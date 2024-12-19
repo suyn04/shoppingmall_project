@@ -55,7 +55,7 @@ const AProductDetailOpt = () => {
                         return (
                             <tr>
                                 <td>{st.product_volume}</td>
-                                <td>₩ {st.product_price}</td>
+                                <td>₩ {st.product_price.toLocaleString()}</td>
                                 <td>{fileGo(st.product_upSystem)}</td>
                             </tr>
                         );

@@ -120,7 +120,10 @@ const AProductModify = () => {
                 <form name="myFrm" onSubmit={submitGo}>
                     <table>
                         <tr>
-                            <td>제품 국문명</td>
+                            <td>
+                                제품 국문명{" "}
+                                <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <input
                                     type="hidden"
@@ -138,7 +141,10 @@ const AProductModify = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>제품 영문명</td>
+                            <td>
+                                제품 영문명{" "}
+                                <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <input
                                     name="product_name_eng"
@@ -177,7 +183,8 @@ const AProductModify = () => {
                         <tr>
                             <td>
                                 <label for="product_category_id">
-                                    카테고리
+                                    카테고리{" "}
+                                    <span className={styles.red}>*</span>
                                 </label>
                             </td>
                             <td>
@@ -242,7 +249,9 @@ const AProductModify = () => {
                         </tr>
                         <tr>
                             <td>
-                                <label for="product_scent">향</label>
+                                <label for="product_scent">
+                                    향 <span className={styles.red}>*</span>
+                                </label>
                             </td>
                             <td>
                                 <select name="product_scent" id="product_scent">
@@ -276,7 +285,9 @@ const AProductModify = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>제품 성분</td>
+                            <td>
+                                제품 성분 <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <textarea
                                     rows={5}
@@ -337,7 +348,9 @@ const AProductModify = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>제품설명</td>
+                            <td>
+                                제품설명 <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <textarea
                                     rows={5}
@@ -350,7 +363,9 @@ const AProductModify = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>공개여부</td>
+                            <td>
+                                공개여부 <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 {chkRadioModule("product_status", [
                                     { value: 0, title: "비공개" },

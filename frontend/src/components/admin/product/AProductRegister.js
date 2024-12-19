@@ -42,6 +42,30 @@ const AProductRegister = () => {
                 data[key] = null;
             }
         });
+        if (!data.product_name_kor) {
+            alert("제품 국문명은 반드시 작성해야 합니다.");
+            return;
+        }
+        if (!data.product_name_eng) {
+            alert("제품 영문명은 반드시 작성해야 합니다.");
+            return;
+        }
+        if (!data.product_category_id) {
+            alert("제품 카테고리는 반드시 선택해야 합니다.");
+            return;
+        }
+        if (!data.product_scent) {
+            alert("제품 향은 반드시 선택해야 합니다.");
+            return;
+        }
+        if (!data.product_ingredient) {
+            alert("제품 성분은 반드시 작성해야 합니다.");
+            return;
+        }
+        if (!data.product_intro) {
+            alert("제품 설명은 반드시 작성해야 합니다.");
+            return;
+        }
 
         axios
             .post(`http://localhost:5001/admin/product/register`, data)
@@ -69,13 +93,19 @@ const AProductRegister = () => {
                 <form name="myFrm" onSubmit={submitGo}>
                     <table>
                         <tr>
-                            <td>제품 국문명</td>
+                            <td>
+                                제품 국문명{" "}
+                                <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <input name="product_name_kor" type="text" />
                             </td>
                         </tr>
                         <tr>
-                            <td>제품 영문명</td>
+                            <td>
+                                제품 영문명{" "}
+                                <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <input name="product_name_eng" type="text" />
                             </td>
@@ -98,7 +128,8 @@ const AProductRegister = () => {
                         <tr>
                             <td>
                                 <label for="product_category_id">
-                                    카테고리
+                                    카테고리{" "}
+                                    <span className={styles.red}>*</span>
                                 </label>
                             </td>
                             <td>
@@ -147,7 +178,9 @@ const AProductRegister = () => {
                         </tr>
                         <tr>
                             <td>
-                                <label for="product_scent">향</label>
+                                <label for="product_scent">
+                                    향 <span className={styles.red}>*</span>
+                                </label>
                             </td>
                             <td>
                                 <select name="product_scent" id="product_scent">
@@ -163,7 +196,9 @@ const AProductRegister = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>제품 성분</td>
+                            <td>
+                                제품 성분 <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <textarea name="product_ingredient" rows="5" />
                             </td>
@@ -214,13 +249,17 @@ const AProductRegister = () => {
                             </td>
                         </tr>
                         <tr>
-                            <td>제품설명</td>
+                            <td>
+                                제품 설명 <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <textarea name="product_intro" rows="5" />
                             </td>
                         </tr>
                         <tr>
-                            <td>공개여부</td>
+                            <td>
+                                공개여부 <span className={styles.red}>*</span>
+                            </td>
                             <td>
                                 <input
                                     type="radio"
