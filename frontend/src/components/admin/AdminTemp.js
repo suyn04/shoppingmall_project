@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import styles from '../../scss/admin/AdminTemp.module.scss';
 
 function AdminTemp() {
     const [topbarLinks, setTopbarLinks] = useState([]);
     const [showTopbar, setShowTopbar] = useState(true);
     const location = useLocation();
+    const navigate = useNavigate();
+    const customerName = sessionStorage.getItem('customerName'); // 세션에서 이름 가져오기
+
+    const Logout = e => {
+        e.preventDefault(); // Link의 기본 이동 동작 방지
+        const logoutChk = window.confirm(`${customerName}님, 로그아웃 하시겠습니까?`);
+        if (logoutChk) {
+            sessionStorage.clear(); // 세션 스토리지 초기화
+            navigate('/'); // 홈으로 이동
+        }
+    };
 
     // 탑바 링크를 경로에 따라 설정
     useEffect(() => {
@@ -44,9 +55,13 @@ function AdminTemp() {
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
-                <Link to="/admin" className={styles.topLink}>
-                    페이지 메인으로
-                </Link>
+                <div className={styles.topLink}>
+                    <Link to="/admin">페이지 메인으로</Link>
+                    <Link to="/" onClick={Logout}>
+                        로그아웃
+                    </Link>
+                </div>
+
                 <div className={styles.menu}>
                     {[
                         { name: '회원관리', path: '/admin/member' },
@@ -72,7 +87,7 @@ function AdminTemp() {
                 {showTopbar && (
                     <div className={styles.topbar}>
                         {topbarLinks.map((link, index) => (
-                            <Link key={index} to={link.path} className={`${styles.topbarLink} ${location.pathname === link.path ? styles.active : ''}`}>
+                            <Link key={index} to={link.path} className={`${styles.topbarLink} ${location.pathname === location.pathname.startsWith(link.path) ? styles.active : ''}`}>
                                 {/* 현재 클릭한 메뉴만 별도 스타일로 표시 */}
                                 {link.name}
                             </Link>

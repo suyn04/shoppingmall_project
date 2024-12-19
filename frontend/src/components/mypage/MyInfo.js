@@ -81,7 +81,7 @@ const MyInfo = () => {
     };
 
     return (
-        <main>
+        <div className={styles.mainContainer}>
             <div className={styles.sectionContainer}>
                 <div className={styles.sectionBox}>
                     {/* 섹션 1: 나의 정보 */}
@@ -103,7 +103,7 @@ const MyInfo = () => {
                                 <p>이메일 : {userInfo.email}</p>
                                 <p>연락처 : {userInfo.contact_number}</p>
                                 <p>가입일 : {formatDate(userInfo.join_date)}</p>
-                                <p>개인정보 수집 동의: {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
+                                <p>개인정보 수집 동의 : {userInfo.optional_agree === 1 ? '동의' : '동의 안함'}</p>
                             </>
                         ) : (
                             <p>사용자 정보 없음</p>
@@ -123,16 +123,16 @@ const MyInfo = () => {
                     <div className={styles.infoBlock}>
                         {recentOrder ? (
                             <div className={styles.recentOrder}>
-                                <p>주문번호: {recentOrder.order_id}</p>
-                                <p>주문일자: {formatDate(recentOrder.order_date)}</p>
-                                <p>주문상태: {recentOrder.order_status}</p>
-                                <p>수령인: {recentOrder.order_name}</p>
+                                <p>주문번호 : {recentOrder.order_id}</p>
+                                <p>주문일자 : {formatDate(recentOrder.order_date)}</p>
+                                <p>주문상태 : {recentOrder.order_status}</p>
+                                <p>수령인 : {recentOrder.order_name}</p>
                                 <Link to={`/myPage/orderDetail/${recentOrder.order_id}`} className={styles.a1}>
                                     자세히 보기
                                 </Link>
                                 <div className={styles.orderMessage}>
                                     <p>
-                                        가장 최근 주문내역만 노출됩니다. 전체 주문내역은{' '}
+                                        가장 최근 주문내역만 노출됩니다. 전체 주문내역은
                                         <Link to="/myPage/viewOrders" className={styles.a1}>
                                             주문 내역 전체보기
                                         </Link>
@@ -151,7 +151,7 @@ const MyInfo = () => {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

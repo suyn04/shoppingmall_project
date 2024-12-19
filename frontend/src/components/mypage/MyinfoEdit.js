@@ -33,10 +33,16 @@ const MyinfoEdit = () => {
                     const correctedDate = new Date(data.birthdate);
                     correctedDate.setDate(correctedDate.getDate() + 1); // 날짜 하루 추가
 
-                    setUserInfo({
-                        ...data,
-                        birthdate: correctedDate.toISOString().split('T')[0], // YYYY-MM-DD 형식으로 변환
-                    });
+                    if (data.birthdate) {
+                        const correctedDate = new Date(data.birthdate);
+                        correctedDate.setDate(correctedDate.getDate() + 1);
+                        setUserInfo({
+                            ...data,
+                            birthdate: correctedDate.toISOString().split('T')[0],
+                        });
+                    } else {
+                        setUserInfo({ ...data, birthdate: '' }); // birthdate가 없으면 빈 값으로 설정
+                    }
                     console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
                     console.log('이메일 :', sessionStorage.getItem('email'));
                 })
@@ -162,7 +168,7 @@ const MyinfoEdit = () => {
             <div className={styles.block}>
                 {/* 개인정보 관리 */}
                 <h3>개인정보 관리</h3>
-                <div className={styles.requiredinfo}>*는 필수 입력 정보입니다</div>
+                <div className={styles.requiredinfo}>*는 필수 입력 정보입니다.</div>
 
                 <fieldset className={styles.infoinput}>
                     <div className={styles.inputgroup}>
@@ -186,30 +192,18 @@ const MyinfoEdit = () => {
                     <p>온라인 부티크 뉴스레터 및 문자 수신에 동의하시면 조 말론 런던의 신제품 선출시 소식과 이벤트, 혜택 등 다양한 최신 정보를 받아보실 수 있습니다.</p>
                 </div>
 
-                <fieldset className={styles.newslettersettings}>
+                <div className={styles.newslettersettings}>
                     <div className={styles.checkboxgroup}>
-                        <label>뉴스레터 수신여부</label>
+                        <div className={styles.label}>뉴스레터/MMS/DM 수신여부</div>
                         {/* 선택동의 1이면 수신함 체크, 선택동의 0이면 수신안함 체크 -- 이하 동일 */}
-                        <input type="checkbox" checked={userInfo.optional_agree === 1} onChange={() => optionalAgreeChange(1)} />
-                        <span>수신함</span>
-                        <input type="checkbox" checked={userInfo.optional_agree === 0} onChange={() => optionalAgreeChange(0)} />
-                        <span>수신안함</span>
+                        <div className={styles.radiobox}>
+                            <input type="radio" checked={userInfo.optional_agree === 1} onChange={() => optionalAgreeChange(1)} />
+                            <span>수신함</span>
+                            <input type="radio" checked={userInfo.optional_agree === 0} onChange={() => optionalAgreeChange(0)} />
+                            <span>수신안함</span>
+                        </div>
                     </div>
-                    <div className={styles.checkboxgroup}>
-                        <label>MMS 수신여부</label>
-                        <input type="checkbox" checked={userInfo.optional_agree === 1} onChange={() => optionalAgreeChange(1)} />
-                        <span>수신함</span>
-                        <input type="checkbox" checked={userInfo.optional_agree === 0} onChange={() => optionalAgreeChange(0)} />
-                        <span>수신안함</span>
-                    </div>
-                    <div className={styles.checkboxgroup}>
-                        <label>DM 수신여부</label>
-                        <input type="checkbox" checked={userInfo.optional_agree === 1} onChange={() => optionalAgreeChange(1)} />
-                        <span>수신함</span>
-                        <input type="checkbox" checked={userInfo.optional_agree === 0} onChange={() => optionalAgreeChange(0)} />
-                        <span>수신안함</span>
-                    </div>
-                </fieldset>
+                </div>
             </div>
             <div className={styles.block}>
                 {/* 추가 정보 */}
@@ -220,11 +214,15 @@ const MyinfoEdit = () => {
                         <input type="date" value={userInfo.birthdate} className={styles.birthinput} />
                     </div>
                     <div className={styles.gender}>
-                        <label>성별</label>
-                        <input type="radio" checked={userInfo.gender === '남자'} onChange={() => genderChange('남자')} />
-                        <span>남자</span>
-                        <input type="radio" checked={userInfo.gender === '여자'} onChange={() => genderChange('여자')} />
-                        <span>여자</span>
+                        <div className={styles.checkboxgroup}>
+                            <div className={styles.label}>성별</div>
+                            <div className={styles.radiobox}>
+                                <input type="radio" checked={userInfo.gender === '남자'} onChange={() => genderChange('남자')} />
+                                <span>남자</span>
+                                <input type="radio" checked={userInfo.gender === '여자'} onChange={() => genderChange('여자')} />
+                                <span>여자</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
