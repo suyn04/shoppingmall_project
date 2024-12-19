@@ -12,10 +12,6 @@ const OneToOneDetail = () => {
     const [error, setError] = useState(null); // 에러 상태
 
 
-    // // 중복 호출 방지 플래그
-    // const isFetched = useRef(false);
-
-    
     // 서버에서 특정 문의 상세 정보를 가져오는 함수
     const fetchOnetooneDetail = async () => {
         if (!id) {
@@ -94,7 +90,7 @@ const OneToOneDetail = () => {
         return date.toISOString().split('T')[0];
     };
 
-    
+
     return (
         <div className={styles.list}>
             <h1 className={styles.title}>1:1 문의 상세 정보</h1>

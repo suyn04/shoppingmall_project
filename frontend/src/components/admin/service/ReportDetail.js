@@ -16,36 +16,28 @@ const ReportDetail = () => {
             .then(data => setReport(data))
             .catch(err => console.error('상세 오류:', err));
     }, [id]);
-    // useEffect(() => {
-    //     // 서버에서 신고 상세 가져오기
-    //     axios.get(`http://localhost:5001/reports/${id}`)
-    //         .then((res) => {
-    //             setReport(res.data); // 데이터 저장
-    //         })
-    //         .catch((err) => {
-    //             console.error('상세 오류:', err);
-    //         });
-    // }, [id]);
- // 리뷰 비공개 처리 함수
- const handleHideReview = async (review_no, report_no) => {
-    if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
-        // console.log(review_no, report_no)
-        axios.put(`http://localhost:5001/reports/hide/${review_no}/${report_no}`)
-        .then(res=>{
-            console.log("정보수정 성공 ",res.data)
-            alert(`신고되었습니다.`)
-            navigate(`/admin/reports`)
-        })
-        .catch(err=>{
-            console.error("정보수정 실패 ",err)
-        })
-    }
-};
+
+
+    // 리뷰 비공개 처리 함수
+    const handleHideReview = async (review_no, report_no) => {
+        if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
+            // console.log(review_no, report_no)
+            axios.put(`http://localhost:5001/reports/hide/${review_no}/${report_no}`)
+                .then(res => {
+                    console.log("정보수정 성공 ", res.data)
+                    alert(`신고되었습니다.`)
+                    navigate(`/admin/reports`)
+                })
+                .catch(err => {
+                    console.error("정보수정 실패 ", err)
+                })
+        }
+    };
 
     if (!report) {
         return <p>로딩 중...</p>;
     }
-    
+
     return (
         <div className={styles.list}>
             <h2 className={styles.title}>신고 상세</h2>

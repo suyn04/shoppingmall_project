@@ -38,7 +38,7 @@ function SignUp() {
         if (name === 'birthdate') {
             setFormData(prev => ({
                 ...prev,
-                [name]: value, // 생일 입력값이 바뀌지 않도록 그대로 값을 저장해버리기
+                [name]: value, // 생일 입력값이 DB 저장될때 바뀌지 않도록 그대로 값을 저장해버리기
             }));
             return;
         }
@@ -81,6 +81,11 @@ function SignUp() {
         e.preventDefault(); // 기본 동작 방지
         setShowErrors(true); // 에러 메시지 표시
 
+        if (!emailChkFinish) {
+            alert('이메일 중복 확인을 완료해주세요.');
+            return;
+        }
+
         const errorsChk = {}; // 에러 메시지를 수집할 객체
 
         // 각 필드의 유효성 검사 결과 수집
@@ -96,11 +101,6 @@ function SignUp() {
         if (Object.keys(errorsChk).length > 0) {
             alert('입력 내용을 다시 확인해주세요.');
             return; // 에러가 있으면 요청 중단
-        }
-
-        if (!emailChkFinish) {
-            alert('이메일 중복 확인을 완료해주세요.');
-            return;
         }
 
         console.log(formData);
@@ -132,10 +132,8 @@ function SignUp() {
     const emailChk = async () => {
         const { email } = formData;
 
-        // 이메일 유효성 검사 먼저 실행
-        const emailError = ValueChk('email', email);
-        if (emailError) {
-            alert(emailError);
+        if (!email) {
+            alert('이메일을 입력해주세요.');
             return;
         }
 
@@ -146,15 +144,11 @@ function SignUp() {
             console.log('Axios 요청 전송:', { email });
 
             if (res.data.exists) {
-                setFormData(prev => ({
-                    ...prev,
-                    email: '',
-                }));
                 setemailChkFinish(false); // 중복 확인 실패 시 false로 설정
                 alert('이미 사용 중인 이메일입니다. 다시 입력해주세요.');
             } else {
                 setemailChkFinish(true);
-                seteditChk(true);
+                seteditChk(true); // readOnly 설정
                 alert('사용 가능한 이메일입니다.');
             }
         } catch (err) {
