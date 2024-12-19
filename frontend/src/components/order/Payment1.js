@@ -38,7 +38,6 @@ function Payment1(props) {
 
   const handleCloseModal = () => {
     setModal(false);
-    pageLoad();
   };
 
   const handleSave = (updatedData) => {

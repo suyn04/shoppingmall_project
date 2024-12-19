@@ -120,6 +120,11 @@ function PayModal1({ onClose, onSave, btnData, email }) {
             <input type="text" name="detail_address" value={formData.detail_address} onChange={handleChange} />
           </label>
 
+          <label>
+            상세 주소:
+            <input type="text" name="contact_number" value={formData.contact_number} onChange={handleChange} />
+          </label>
+
           <div className={styles.buttons}>
             <button type="button" onClick={handleSave}>저장</button>
             <button type="button" onClick={onClose}>
