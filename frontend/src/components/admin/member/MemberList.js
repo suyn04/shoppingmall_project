@@ -59,31 +59,27 @@ function MemberList(props) {
     const handleSearch = () => {
         let member = [...arr];
 
-        // 검색 필터 (이름으로 조회/연락처로 조회)
+        // 검색 필터 적용 (검색 조건이 있을 경우)
         if (searchType === 'customer_name') {
             member = member.filter(member => member.customer_name.includes(searchValue));
         } else if (searchType === 'contact_number') {
             member = member.filter(member => member.contact_number.includes(searchValue));
-        } else if (searchType === 'join_date') {
-            member = member.filter(member => member.join_date.includes(searchValue));
-        }
-
-        // 가입일 정렬 적용
-        if (searchType === 'join_date') {
-            member = member.sort((a, b) => {
-                const dateA = new Date(a.join_date);
-                const dateB = new Date(b.join_date);
-
-                if (sortOrder === 'asc') {
-                    return dateA - dateB; // 오름차순
-                } else {
-                    return dateB - dateA; // 내림차순
-                }
-            });
         }
 
         setFilteredCustomers(member);
     };
+
+    // 가입일로 정렬할 경우 셀렉트 변경될 때마다 가입일 기준으로 정렬
+    useEffect(() => {
+        if (searchType === 'join_date') {
+            const sorted = [...filteredCustomers].sort((a, b) => {
+                const dateA = new Date(a.join_date);
+                const dateB = new Date(b.join_date);
+                return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+            });
+            setFilteredCustomers(sorted); // 정렬된 데이터 업데이트
+        }
+    }, [sortOrder]);
 
     // 초기화 버튼 이벤트 핸들러
     const resetSearch = () => {
@@ -144,9 +140,10 @@ function MemberList(props) {
                     <option value="join_date">가입일로 정렬/조회</option>
                 </select>
 
-                <input type="text" placeholder="검색어 입력" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
+                {/* 이름/연락처 조회일때는 input 필수 : 검색할 수 있게 */}
+                {searchType !== 'join_date' && <input type="text" placeholder="검색어 입력" value={searchValue} onChange={e => setSearchValue(e.target.value)} />}
 
-                {/* 정렬 옵션 */}
+                {/* 가입일로 정렬할 때는 input 없이 정렬만 가능하게 */}
                 {searchType === 'join_date' && (
                     <select value={sortOrder} onChange={e => setSortOrder(e.target.value)}>
                         <option value="asc">오래된 가입일 순</option>

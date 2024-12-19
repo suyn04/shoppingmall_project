@@ -36,3 +36,18 @@
         --swiper-theme-color: #888;
     }
 }
+
+@media screen and (max-width: 800px) {
+    .product {
+        .swiper-container {
+            width: 800px;
+        }
+    }
+}
+@media screen and (max-width: 480px) {
+    .product {
+        .swiper-container {
+            width: 480px;
+        }
+    }
+}

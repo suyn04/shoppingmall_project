@@ -6,8 +6,9 @@ function Header({ ham, setHam }) {
     const navigate = useNavigate();
 
     //세션토큰 사용
-    const Loginchk = sessionStorage.getItem('sessionToken'); // 세션 스토리지에 있는 토큰 가져와
-    const email = sessionStorage.getItem('email'); // 세션 스토리지에 있는 토큰 가져와
+    const Loginchk = sessionStorage.getItem('sessionToken');
+    const email = sessionStorage.getItem('email');
+    const userName = sessionStorage.getItem('customerName');
 
     const Loginbtn = () => {
         if (Loginchk) {
@@ -19,12 +20,12 @@ function Header({ ham, setHam }) {
     };
 
     const LoginBsk = () => {
-        if(Loginchk){
-            navigate('/basket')
-        } else{
-            navigate('/signIn')
+        if (Loginchk) {
+            navigate('/basket');
+        } else {
+            navigate('/signIn');
         }
-    }
+    };
 
     const Adminbtn = () => {
         navigate('/admin'); // 관리자 페이지로 이동
@@ -64,12 +65,17 @@ function Header({ ham, setHam }) {
                     </Link>
                 </div>
                 <div>
-                    {/* 관리자 계정일 때 관리자 페이지로 이동하게 */}
-                    {email === 'admin@jomalone.kr' && (
-                        <div className={styles.adminLink} onClick={Adminbtn}>
-                            관리자
-                        </div>
-                    )}
+                    {/* 이메일이 있거나 없을 때 이메일에 따라서 표기되는 값 변경 */}
+                    {email ? (
+                        email === 'admin@jomalone.kr' ? (
+                            <div className={styles.userLink} onClick={Adminbtn}>
+                                관리자
+                            </div>
+                        ) : (
+                            <div className={styles.userLink}>{`${userName}님`}</div>
+                        )
+                    ) : null}
+
                     {/* 로그인 혹은 마이페이지 버튼 */}
                     <div className={styles.myPageIcon} onClick={Loginbtn}>
                         <img src={`${url}myPageIcon.svg`} alt="" />

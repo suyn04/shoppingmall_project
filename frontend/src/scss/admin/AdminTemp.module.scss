@@ -27,6 +27,8 @@ body {
     overflow-y: auto;
 
     .topLink {
+        display: flex;
+        justify-content: space-around;
         padding: 20px;
         color: #333;
         font-size: 14px;

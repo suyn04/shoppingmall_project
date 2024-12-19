@@ -31,6 +31,16 @@
 }
 
 @media screen and (max-width: 800px) {
+    .cardTotal {
+        .card {
+            width: calc(100% / 2);
+        }
+    }
 }
 @media screen and (max-width: 480px) {
+    .cardTotal {
+        .card {
+            width: 100%;
+        }
+    }
 }
