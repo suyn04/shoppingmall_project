@@ -58,8 +58,8 @@ function OrderDetail() {
         }
     };
 
-    if(!detailorders){
-        return <div>로딩중...</div>
+    if (!detailorders) {
+        return <div>로딩중...</div>;
     }
 
     return (
@@ -88,7 +88,7 @@ function OrderDetail() {
                                     {products.length > 0
                                         ? products.map(product => (
                                               <p key={product.product_id} className={styles.productItem}>
-                                                  <Link to={`/product/${product.product_id}`} className={styles.productLink}>
+                                                  <Link to={`/product/${product.product_opt_id}`} className={styles.productLink}>
                                                       {product.product_name_kor}
                                                   </Link>
                                               </p>

@@ -6,34 +6,45 @@ import axios from 'axios';
 const MyInfo = () => {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState(null); // 사용자 정보
+    const [recentOrder, setRecentOrder] = useState(null); // 최신 주문 데이터
 
     useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
         const email = sessionStorage.getItem('email');
-        const customerName = sessionStorage.getItem('customerName');
 
         if (!sessionToken) {
             navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
         } else {
-            // Axios로 사용자 정보 가져오기
+            // 사용자 정보 가져오기
             axios
                 .post(
-                    'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
-                    { action: 'getUserInfo', email: sessionStorage.getItem('email') }, // 요청 본문
+                    'http://localhost:5001/myPage',
+                    { action: 'getUserInfo', email },
                     {
                         headers: {
-                            Authorization: sessionToken, // 세션 토큰 포함
+                            Authorization: sessionToken,
                         },
                     }
                 )
-                .then(response => {
-                    setUserInfo(response.data); // 세션토큰 콘솔에서 확인
-                    console.log('세션 토큰 :', sessionStorage.getItem('sessionToken'));
-                    console.log('이메일 :', sessionStorage.getItem('email'));
-                })
+                .then(response => setUserInfo(response.data))
                 .catch(error => {
-                    console.error('세션 토큰 확인불가', error);
-                    navigate('/signIn'); // 실패 시 로그인 페이지로 이동
+                    console.error('사용자 정보 가져오기 실패:', error);
+                    navigate('/signIn');
+                });
+
+            // 주문 내역 가져오기
+            axios
+                .post('http://localhost:5001/myPage', { action: 'getOrders', email }, { headers: { Authorization: sessionToken } })
+                .then(response => {
+                    const orders = response.data.orders || [];
+                    if (orders.length > 0) {
+                        // order_date 기준으로 내림차순 정렬 (최신 주문이 첫 번째로 옴)
+                        const sortedOrders = orders.sort((a, b) => new Date(b.order_date) - new Date(a.order_date));
+                        setRecentOrder(sortedOrders[0]); // 가장 최근 주문 1건 확인
+                    }
+                })
+                .catch(err => {
+                    console.error('주문 내역 가져오기 실패:', err);
                 });
         }
     }, []);
@@ -44,7 +55,7 @@ const MyInfo = () => {
             const email = sessionStorage.getItem('email');
             axios
                 .post(
-                    'http://localhost:5001/myPage', // 탈퇴 처리 라우트
+                    'http://localhost:5001/myPage',
                     { action: 'deleteMember', email },
                     {
                         headers: { Authorization: sessionToken },
@@ -86,7 +97,6 @@ const MyInfo = () => {
                         </div>
                     </div>
                     <div className={styles.infoBlock}>
-                        {/* 불러온 사용자 정보가 있으면 */}
                         {userInfo ? (
                             <>
                                 <p>이름 : {userInfo.customer_name}</p>
@@ -106,17 +116,38 @@ const MyInfo = () => {
                         주문 내역
                         <div>
                             <Link to="/myPage/viewOrders" className={styles.a1}>
-                                주문 내역 보기
+                                주문 내역 전체보기
                             </Link>
                         </div>
                     </div>
                     <div className={styles.infoBlock}>
-                        <p>
-                            고객님의 주문내역이 없습니다.
-                            <Link to="/all-product" className={styles.a1}>
-                                쇼핑하러가기
-                            </Link>
-                        </p>
+                        {recentOrder ? (
+                            <div className={styles.recentOrder}>
+                                <p>주문번호: {recentOrder.order_id}</p>
+                                <p>주문일자: {formatDate(recentOrder.order_date)}</p>
+                                <p>주문상태: {recentOrder.order_status}</p>
+                                <p>수령인: {recentOrder.order_name}</p>
+                                <Link to={`/myPage/orderDetail/${recentOrder.order_id}`} className={styles.a1}>
+                                    자세히 보기
+                                </Link>
+                                <div className={styles.orderMessage}>
+                                    <p>
+                                        가장 최근 주문내역만 노출됩니다. 전체 주문내역은{' '}
+                                        <Link to="/myPage/viewOrders" className={styles.a1}>
+                                            주문 내역 전체보기
+                                        </Link>
+                                        를 클릭해주세요.
+                                    </p>
+                                </div>
+                            </div>
+                        ) : (
+                            <p>
+                                고객님의 주문내역이 없습니다.
+                                <Link to="/all-product" className={styles.a1}>
+                                    쇼핑하러가기
+                                </Link>
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>

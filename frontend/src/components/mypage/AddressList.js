@@ -104,7 +104,7 @@ function AddressList() {
     }
 
     return (
-        <main>
+        <div className={styles.main}>
             {/* 주소 리스트 표시 */}
             {address.map(address => (
                 <div className={styles.block} key={address.id}>
@@ -160,7 +160,7 @@ function AddressList() {
                     </div>
                 </div>
             )}
-        </main>
+        </div>
     );
 }
 

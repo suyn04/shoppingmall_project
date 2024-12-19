@@ -42,6 +42,19 @@ router.post('/resetPw', async (req, res) => {
     console.log(email, newPassword, newPassword2);
 
     try {
+        // 기존 비밀번호 확인
+        const [rows] = await db.query(`SELECT password FROM auth WHERE email = ?`, [email]);
+        if (rows.length === 0) {
+            return res.json({ success: false, message: '해당 이메일로 가입된 정보가 없습니다.' });
+        }
+
+        const currentPassword = rows[0].password.trim(); // 공백 제거한 뒤 비교해야 정확함
+
+        // 기존 비밀번호와 동일한지 확인
+        if (currentPassword === newPassword.trim()) {
+            return res.json({ success: false, message: '기존 비밀번호와 동일한 비밀번호로 변경할 수 없습니다.' });
+        }
+
         // 비밀번호 업데이트
         const [result] = await db.query(`UPDATE auth SET password = ? WHERE email = ?`, [newPassword, email]);
 
