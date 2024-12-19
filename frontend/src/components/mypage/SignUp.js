@@ -81,6 +81,11 @@ function SignUp() {
         e.preventDefault(); // 기본 동작 방지
         setShowErrors(true); // 에러 메시지 표시
 
+        if (!emailChkFinish) {
+            alert('이메일 중복 확인을 완료해주세요.');
+            return;
+        }
+
         const errorsChk = {}; // 에러 메시지를 수집할 객체
 
         // 각 필드의 유효성 검사 결과 수집
@@ -96,11 +101,6 @@ function SignUp() {
         if (Object.keys(errorsChk).length > 0) {
             alert('입력 내용을 다시 확인해주세요.');
             return; // 에러가 있으면 요청 중단
-        }
-
-        if (!emailChkFinish) {
-            alert('이메일 중복 확인을 완료해주세요.');
-            return;
         }
 
         console.log(formData);
@@ -132,12 +132,10 @@ function SignUp() {
     const emailChk = async () => {
         const { email } = formData;
 
-        // // 이메일 유효성 검사 먼저 실행
-        // const emailError = ValueChk('email', email);
-        // if (emailError) {
-        //     alert(emailError);
-        //     return;
-        // }
+        if (!email) {
+            alert('이메일을 입력해주세요.');
+            return;
+        }
 
         try {
             const res = await axios.get('http://localhost:5001/signUp/checkEmail', {

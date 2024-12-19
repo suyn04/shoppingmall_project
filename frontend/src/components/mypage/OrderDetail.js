@@ -89,7 +89,8 @@ function OrderDetail() {
                                         ? products.map(product => (
                                               <p key={product.product_id} className={styles.productItem}>
                                                   <Link to={`/product/${product.product_opt_id}`} className={styles.productLink}>
-                                                      {product.product_name_kor}
+                                                      {product.product_name_kor} &nbsp;
+                                                      {product.product_volume}
                                                   </Link>
                                               </p>
                                           ))
@@ -99,6 +100,11 @@ function OrderDetail() {
                                 <div>{od.pay_to}</div>
                                 <div>₩ {od.order_total.toLocaleString()}</div>
                                 <div>{od.order_status}</div>
+                                <div>
+                                    {od.order_roadname} &nbsp;
+                                    {od.order_buildname} &nbsp;
+                                    {od.order_addredetail}
+                                </div>
                                 <div>
                                     {od.order_status === '주문완료' ? (
                                         <button className={styles.cancelButton} onClick={() => handleCancelOrder(od.order_id)}>
