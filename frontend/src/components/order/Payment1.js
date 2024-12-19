@@ -30,6 +30,7 @@ function Payment1(props) {
     pageLoad();
   }, []);
 
+
   const handleOpenModal = (e) => {
     e.preventDefault();
     setModal(true);
@@ -37,6 +38,7 @@ function Payment1(props) {
 
   const handleCloseModal = () => {
     setModal(false);
+    pageLoad();
   };
 
   const handleSave = (updatedData) => {
@@ -63,8 +65,9 @@ function Payment1(props) {
           <div>{ordersData.customer_name}</div>
           <div>{ordersData.zip}</div>
           <div>{ordersData.roadname_address}</div>
-          <div>{ordersData.building_name}</div>
+          <div>{`(${ordersData.building_name})`}</div>
           <div>{ordersData.detail_address}</div>
+          <div>{ordersData.contact_number}</div>
         </div>
 
         <div className={styles.btnGroup}>
@@ -75,7 +78,7 @@ function Payment1(props) {
           )}
         </div>
 
-        {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} />}
+        {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} email={email} />}
 
         <div className={styles.deliveryRequest}>
           <label>

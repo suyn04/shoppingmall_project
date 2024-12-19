@@ -16,8 +16,28 @@ module.exports = ()=>{
         }
     })
 
-    router.put('/update/:id', async (req,res)=>{
-        console.log('pay1 주소수정 put 진입')
+    router.post('/add', async (req, res) => {
+        console.log('paymodal add접근')
+        const { email, customer_name, zip, roadname_address, building_name, detail_address } = req.body;
+      
+        const query = `
+          UPDATE customers
+            SET 
+                customer_name = ?,
+                zip = ?,
+                roadname_address = ?,
+                building_name = ?,
+                detail_address = ?
+            WHERE email = ?;
+        `;
+
+       try {
+            await con.execute(query, [customer_name, zip, roadname_address, building_name, detail_address, email])
+            res.json('수정완료')
+        } catch(err){
+            console.log('sql 실패 : ', err.message)
+            res.status(500).send('db 오류')
+        }
     })
 
     return router
