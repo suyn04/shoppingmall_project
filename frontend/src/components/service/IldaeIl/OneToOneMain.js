@@ -48,7 +48,6 @@ const OneToOneMain = () => {
       <table border='1'>
 
           <tr>
-            <td>이메일</td>
             <td>제목</td>
             <td>내용</td>
             <td>작성일</td>
@@ -58,7 +57,6 @@ const OneToOneMain = () => {
           {Array.isArray(onetoone) && onetoone.length > 0 ? (
             onetoone.map((item) => (
               <tr key={item.post_no}>
-                <td>{item.email}</td>
                 <td>{item.post_title}</td>
                 <td>{item.post_detail}</td>
                 <td>{formatDate(item.post_date)}</td>

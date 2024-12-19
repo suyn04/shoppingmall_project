@@ -15,11 +15,24 @@ function fileGo(file) {
 const Review = () => {
   // 상태 관리: 폼 데이터
   const { product_opt_id } = useParams()
+  //유효성 검사
   const [nickname, setNickname] = useState('');
+  const [error, setError] = useState('');
+
+
+
   const [rating, setRating] = useState(0);
+  const [ratingError, setRatingError] = useState('');
+
   // const [recommend, setRecommend] = useState('');
   const [title, setTitle] = useState('');
+
+  const [titleError, setTitleError] = useState('');
+
+
   const [content, setContent] = useState('');
+  const [contentError, setContentError] = useState('');
+
   const [region, setRegion] = useState('');
   const [fragranceType, setFragranceType] = useState('');
   const [timeOfDay, setTimeOfDay] = useState('');
@@ -31,6 +44,11 @@ const Review = () => {
   if (!email) {
     navigate('/signIn')
   }
+
+
+
+
+
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -64,6 +82,37 @@ const Review = () => {
     // formData.append('review_scent', fragranceType || '향 미지정');
     // formData.append('review_time', timeOfDay || null);
     // formData.append('review_gift', gift || null);
+
+    //별점 유효성검사 
+    if (rating === 0) {
+      setRatingError('별점을 선택해 주세요.');
+      return;
+    }
+    setRatingError('');
+    //닉네임 유효성 검사
+
+    const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,10}$/;
+    if (!nicknameRegex.test(nickname)) {
+      setError('닉네임은 2~10자의 한글, 영문, 숫자만 허용됩니다.');
+      return;
+    }
+    setError('');
+
+    //제목 유효성 검사
+    const titleRegex = /^.{2,50}$/;
+    if (!titleRegex.test(title)) {
+      setTitleError('제목은 2~50자 이내로 입력해 주세요.');
+      return;
+    }
+    setTitleError('');
+
+    //후기 유효성 검사
+    const contentRegex = /^.{10,500}$/;
+    if (!contentRegex.test(content)) {
+      setContentError('상품 후기는 10자 이상 500자 이하로 입력해 주세요.');
+      return;
+    }
+    setContentError('');
 
     const fileInput = document.querySelector('input[name="review_file"]');
     if (fileInput.files.length > 0) {
@@ -123,6 +172,7 @@ const Review = () => {
                   </label>
                 ))}
               </div>
+              {ratingError && <p style={{ color: 'red' }}>{ratingError}</p>}
             </fieldset>
 
             {/* 닉네임 입력 */}
@@ -130,13 +180,14 @@ const Review = () => {
               <label htmlFor="pname">
                 <div>닉네임*</div>
               </label>
-              <input 
-              className={styles.rinput}
-              type="text" 
-              id="pname" 
-              placeholder="예) A람" 
-              name='review_nick' 
-              value={nickname} onChange={(e) => setNickname(e.target.value)} />
+              <input
+                className={styles.rinput}
+                type="text"
+                id="pname"
+                placeholder="예) A람"
+                name='review_nick'
+                value={nickname} onChange={(e) => setNickname(e.target.value)} />
+              {error && <p style={{ color: 'red' }}>{error}</p>}
             </div>
 
             {/* 제목 입력 */}
@@ -144,9 +195,15 @@ const Review = () => {
               <label htmlFor="ptitle">
                 <div>제목*</div>
               </label>
-              <input 
-               className={styles.rinput}
-              type="text" id="ptitle" name='review_title' placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다." value={title} onChange={(e) => setTitle(e.target.value)} />
+              <input
+                className={styles.rinput}
+                type="text"
+                id="ptitle"
+                name='review_title'
+                placeholder="예) 저는 이 상품을 또 구매할 의향이 있습니다."
+                value={title}
+                onChange={(e) => setTitle(e.target.value)} />
+              {titleError && <p style={{ color: 'red' }}>{titleError}</p>}
             </div>
 
             {/* 상품후기 입력 */}
@@ -154,9 +211,16 @@ const Review = () => {
               <label htmlFor="rreview">
                 <div>상품후기*</div>
               </label>
-              <input 
-               className={styles.rinput}
-              type="text" name='review_detail'  value={content} onChange={(e) => setContent(e.target.value)} />
+              <textarea
+                className={styles.rtextarea}
+                name="review_detail"
+                value={content}
+                placeholder="상품에 대한 후기를 작성해 주세요. (10자 이상)"
+                onChange={(e) => setContent(e.target.value)}
+                rows="5" // 여러 줄 입력을 위한 기본 높이 설정
+              />
+              {contentError && <p style={{ color: 'red' }}>{contentError}</p>}
+             
             </div>
             {/* 거주지역 입력 */}
             <div className={styles.seoul}>
@@ -164,7 +228,7 @@ const Review = () => {
                 <div>거주지역</div>
               </label>
               <input
-               className={styles.rseoul}
+                className={styles.rseoul}
                 type="text"
                 name="review_region"
                 id="ptitle"
@@ -180,7 +244,7 @@ const Review = () => {
                 <div>평소 사용하는 향수 계열</div>
               </label>
               <select
-              
+
                 className={styles.rselect}
                 name="review_scent"
                 value={fragranceType} //선택된 값이 상태에 반영됨

@@ -13,8 +13,7 @@
             font-size: 25px;
         }
         .useText {
-            font-size: 15px;
-            padding: 30px;
+            font-size: 14px;
             p {
                 padding: 10px;
             }
@@ -27,6 +26,29 @@
 }
 
 @media screen and (max-width: 800px) {
+    .useContentWrap {
+        flex-wrap: wrap;
+
+        .useContent {
+            width: calc(100% / 1);
+            .useTitle {
+                padding-top: 20px;
+                text-align: center;
+                font-size: 25px;
+            }
+            .useText {
+                text-align: center;
+            }
+        }
+    }
 }
 @media screen and (max-width: 480px) {
+    .useContentWrap {
+        .useContent {
+            width: calc(100% / 1);
+            .useTitle {
+                font-size: 20px;
+            }
+        }
+    }
 }

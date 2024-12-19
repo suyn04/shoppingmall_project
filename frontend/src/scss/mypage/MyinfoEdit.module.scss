@@ -12,7 +12,7 @@
         line-height: 1.6;
         color: #555;
         margin-bottom: 20px;
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
     .block {
@@ -23,7 +23,16 @@
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         position: relative;
-        gap: 10px;
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .requiredinfo {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #be0000;
+        }
 
         .infoinput {
             .inputgroup {
@@ -31,7 +40,6 @@
                 margin-top: 10px;
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
 
                 label {
                     display: block;
@@ -50,9 +58,11 @@
                     font-size: 14px;
                     color: #333;
                     box-sizing: border-box;
+                    margin-bottom: 10px;
                 }
                 .inputphone {
                     background-color: #fff;
+                    margin-bottom: 0px;
                 }
             }
         }
@@ -144,58 +154,12 @@
                     border-radius: 5px;
                     font-size: 14px;
                 }
-
-                .btnrequestcode {
-                    background-color: #1c1c1c;
-                    color: #fff;
-                    border: none;
-                    padding: 10px 15px;
-                    border-radius: 5px;
-                    font-size: 14px;
-                    cursor: pointer;
-                    white-space: nowrap;
-
-                    &:hover {
-                        background-color: #000000;
-                    }
-                }
-            }
-        }
-
-        /* 인증 코드 */
-        .authcode {
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-
-            .authcodeinput {
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                font-size: 14px;
-            }
-
-            .btnconfirmcode {
-                background-color: #1c1c1c;
-                color: #fff;
-                border: none;
-                padding: 10px 15px;
-                border-radius: 5px;
-                font-size: 14px;
-                cursor: pointer;
-
-                &:hover {
-                    background-color: #000;
-                }
             }
         }
 
         /* 뉴스레터 설정 */
         .newsletter {
-            margin: 30px 0;
+            margin: 0 auto;
             font-size: 14px;
             color: #555;
 
@@ -204,25 +168,39 @@
                 font-weight: bold;
                 margin-bottom: 10px;
             }
+            p {
+                margin-bottom: 10px;
+            }
+        }
+        .newslettersettings {
+            .checkboxgroup {
+                display: block;
+                margin-bottom: 5px;
 
-            .newslettersettings {
-                .checkboxgroup {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin: 10px 0;
-
-                    label {
-                        font-size: 14px;
-                        color: #333;
-                    }
+                .label {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: #333;
+                    margin-left: 5px;
+                    margin-bottom: 5px;
                 }
             }
         }
 
         /* 생일 및 성별 */
         .additionalinfo {
-            margin: 20px 0;
+            margin: 0 auto;
+            font-size: 14px;
+            color: #555;
+
+            h4 {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            p {
+                margin-bottom: 10px;
+            }
 
             .birthinputgroup {
                 display: flex;
@@ -237,24 +215,24 @@
                     font-size: 14px;
                     width: 30%;
                     min-width: 80px;
+                    margin-bottom: 10px;
                 }
             }
+            .checkboxgroup {
+                display: block;
+                margin-bottom: 5px;
 
-            .gender {
-                margin-top: 15px;
-
-                label {
-                    margin-right: 10px;
+                .label {
                     font-size: 14px;
                     font-weight: bold;
-                }
-
-                input {
-                    margin-right: 5px;
+                    color: #333;
+                    margin-left: 5px;
+                    margin-bottom: 5px;
                 }
             }
         }
     }
+
     /* 버튼 */
     .btnsubmit {
         background-color: #1c1c1c;
