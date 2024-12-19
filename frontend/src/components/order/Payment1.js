@@ -15,6 +15,7 @@ function Payment1(props) {
         navigate('/signIn');
     }
 
+    // 기본 회원 정보 가져오기
     function pageLoad() {
         axios
             .get(`http://localhost:5001/payment1/${email}`)
@@ -35,10 +36,11 @@ function Payment1(props) {
         setModal(true);
     };
 
-  const handleCloseModal = () => {
-    setModal(false);
-  };
+    const handleCloseModal = () => {
+      setModal(false);
+    };
 
+    // 모달창에 입력한 값 저장해서 화면에 적용
     const handleSave = updatedData => {
         setOrder(updatedData);
     };

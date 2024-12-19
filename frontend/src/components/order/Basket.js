@@ -74,7 +74,7 @@ function Basket(props) {
                 <th>제품명</th>
                 <th>가격</th>
                 <th>수량</th>
-                <th>총합계</th>
+                <th>합계</th>
                 <th>삭제</th>
               </tr>
             </thead>
@@ -89,7 +89,7 @@ function Basket(props) {
                       <div className={styles.productEng}>{pp.product_name_eng}</div>
                       <div>{pp.product_volume}</div>
                     </td>
-                    <td>{pp.product_price.toLocaleString()}원</td>
+                    <td>₩ {pp.product_price.toLocaleString()}</td>
                     <td>
                       <select
                         value={pp.quantity}
@@ -102,7 +102,7 @@ function Basket(props) {
                         ))}
                       </select>
                     </td>
-                    <td>{totalPrice.toLocaleString()}원</td>
+                    <td>₩ {totalPrice.toLocaleString()}</td>
                     <td>
                       <button onClick={() => delBasket(pp.bs_id)} className={styles.deleteBtn}>
                         삭제
@@ -115,7 +115,7 @@ function Basket(props) {
           </table>
 
           <div className={styles.footer}>
-            <div className={styles.total}>총 결제 금액: {getTotal().toLocaleString()}원</div>
+            <div className={styles.total}>총합계: ₩ {getTotal().toLocaleString()}</div>
             <button onClick={paymentGo} className={styles.paymentBtn}>
               결제하기
             </button>

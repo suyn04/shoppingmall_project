@@ -75,7 +75,7 @@ function OrderDetail() {
                         <div>결제수단</div>
                         <div>결제금액</div>
                         <div>주문상태</div>
-                        <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0].invoice ? '#ffffff' : 'inherit' }}>
+                        <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0].invoice ? '#f5f5f5' : 'inherit' }}>
                             {detailorders.length > 0 && detailorders[0].invoice ? '송장번호' : '취소'}
                         </div>
                     </div>
@@ -97,7 +97,7 @@ function OrderDetail() {
                                 </div>
                                 <div>{formatDate(od.order_date)}</div>
                                 <div>{od.pay_to}</div>
-                                <div>{od.order_total}</div>
+                                <div>₩ {od.order_total.toLocaleString()}</div>
                                 <div>{od.order_status}</div>
                                 <div>
                                     {od.order_status === '주문완료' ? (

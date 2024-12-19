@@ -18,17 +18,6 @@ function Payment2(props) {
         navigate('/signIn');
     }
 
-    function pageLoad() {
-        axios
-            .get(`http://localhost:5001/payment1/${email}`)
-            .then(res => {
-                setOrder(res.data);
-            })
-            .catch(err => {
-                console.error('에러발생 : ', err);
-            });
-    }
-
     function dataInit() {
         // 해당 고객의 장바구니 접근
         axios
@@ -47,10 +36,10 @@ function Payment2(props) {
     }
 
     useEffect(() => {
-        const { myData } = location.state;
+        const { myData, ordersData } = location.state;
         setData(myData);
+        setOrder(ordersData);
         console.log('myData', myData.order_msg);
-        pageLoad();
         dataInit();
     }, []);
 
@@ -191,7 +180,7 @@ function Payment2(props) {
                                                 <div>{pp.product_volume}</div>
                                             </div>
                                         </td>
-                                        <td>{pp.product_price.toLocaleString()}원</td>
+                                        <td>₩ {pp.product_price.toLocaleString()}</td>
                                         <td>
                                             <select value={pp.quantity} onChange={e => handleQuantityChange(pp.bs_product_id, e.target.value)}>
                                                 {Array.from({ length: 8 }, (_, i) => i + 1).map(qty => (
@@ -201,7 +190,7 @@ function Payment2(props) {
                                                 ))}
                                             </select>
                                         </td>
-                                        <td>{totalPrice.toLocaleString()}원</td>
+                                        <td>₩ {totalPrice.toLocaleString()}</td>
                                     </tr>
                                 );
                             })}
@@ -211,7 +200,7 @@ function Payment2(props) {
                                 <td></td>
                                 <td></td>
                                 <td className={styles.totalLabel}>총합계</td>
-                                <td className={styles.totalAmount}>{getTotal().toLocaleString()}원</td>
+                                <td className={styles.totalAmount}>₩ {getTotal().toLocaleString()}</td>
                             </tr>
                         </tfoot>
                     </table>
