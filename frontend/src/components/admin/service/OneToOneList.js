@@ -36,6 +36,7 @@ const OneToOneList = () => {
             <td>번호</td>
             <td>제목</td>
             <td>작성자 이메일</td>
+            <td>처리 상태</td>
             <td>상세보기</td>
           </tr>
 
@@ -45,6 +46,7 @@ const OneToOneList = () => {
                 <td>{item.post_no}</td>
                 <td>{item.post_title}</td>
                 <td>{item.email}</td>
+                <td>{item.reply_status}</td>
                 <td>
                   <button className={styles.changebutton} onClick={() => handleDetailClick(item.post_no)}>
                     상세보기
