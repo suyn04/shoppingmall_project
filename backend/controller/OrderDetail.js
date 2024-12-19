@@ -20,7 +20,7 @@ module.exports = () => {
             // 주문 제품 정보 조회
             const [productRows] = await db.query(
                 `
-    SELECT v.product_opt_id, v.product_name_kor
+    SELECT v.product_opt_id, v.product_name_kor, v.product_volume
     FROM orders o
     JOIN orders_detail od ON o.order_id = od.order_id
     JOIN view_product_info_opt v ON od.product_id = v.product_opt_id

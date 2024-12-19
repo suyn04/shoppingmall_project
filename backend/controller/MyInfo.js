@@ -151,7 +151,7 @@ module.exports = () => {
             // 주문 데이터 조회
             const [orders] = await db.query(
                 `SELECT order_id, order_date, order_status, order_name
-                FROM orders WHERE email = ?`,
+                FROM orders WHERE email = ? ORDER BY order_id DESC;`,
                 [email]
             );
             return res.json({ orders });

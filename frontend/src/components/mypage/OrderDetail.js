@@ -75,6 +75,7 @@ function OrderDetail() {
                         <div>결제수단</div>
                         <div>결제금액</div>
                         <div>주문상태</div>
+                        <div>배송지</div>
                         <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0].invoice ? '#ffffff' : 'inherit' }}>
                             {detailorders.length > 0 && detailorders[0].invoice ? '송장번호' : '취소'}
                         </div>
@@ -89,7 +90,8 @@ function OrderDetail() {
                                         ? products.map(product => (
                                               <p key={product.product_id} className={styles.productItem}>
                                                   <Link to={`/product/${product.product_opt_id}`} className={styles.productLink}>
-                                                      {product.product_name_kor}
+                                                      {product.product_name_kor} &nbsp;
+                                                      {product.product_volume}
                                                   </Link>
                                               </p>
                                           ))
@@ -99,6 +101,11 @@ function OrderDetail() {
                                 <div>{od.pay_to}</div>
                                 <div>{od.order_total}</div>
                                 <div>{od.order_status}</div>
+                                <div>
+                                    {od.order_roadname} &nbsp;
+                                    {od.order_buildname} &nbsp;
+                                    {od.order_addredetail}
+                                </div>
                                 <div>
                                     {od.order_status === '주문완료' ? (
                                         <button className={styles.cancelButton} onClick={() => handleCancelOrder(od.order_id)}>
