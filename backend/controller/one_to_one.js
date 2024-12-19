@@ -37,7 +37,7 @@ module.exports = () => {
                     post_date DESC
             `);
 
-       
+
             // 문의가 없는 경우
             if (results.length === 0) {
                 return res.json({
@@ -86,7 +86,6 @@ module.exports = () => {
             res.status(500).json({ error: "DB 에러" });
         }
     });
-    // const one_upload_file = (req.file ? req.file.filename : null); //업로드된 파일명
 
     //1:1 문의 등록 (post) 체체체체인지부분
     router.post(
@@ -108,7 +107,6 @@ module.exports = () => {
                 one_upload_file,
             });
 
-            //res.status(200).json({message:"문의가 접수되었습니다!"})
 
             //필수 데이터 검증(email은 null 허용)
             if (

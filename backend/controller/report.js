@@ -121,7 +121,7 @@ router.put('/hide/:review_no/:report_no', async (req, res) => {
             WHERE review_no = ?`,
             [review_no]
         );
-    
+
         res.json({ message: '리뷰가 비공개 처리되었습니다.' });
     } catch (error) {
         console.error('리뷰 비공개 처리 오류:', error.message);
