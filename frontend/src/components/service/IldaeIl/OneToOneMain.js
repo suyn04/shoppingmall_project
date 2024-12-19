@@ -30,7 +30,11 @@ const OneToOneMain = () => {
       console.error('Error fetching onetoone:', error);
     }   
   };
-
+  const formatDate = dateString => {
+    if (!dateString) return '-';
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+};
   useEffect(() => {
     fetchOnetoone(); // 처음에 데이터를 가져옴
   }, []); // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때만 실행
@@ -57,7 +61,7 @@ const OneToOneMain = () => {
                 <td>{item.email}</td>
                 <td>{item.post_title}</td>
                 <td>{item.post_detail}</td>
-                <td>{item.post_date}</td>
+                <td>{formatDate(item.post_date)}</td>
                 <td>{item.reply_status}</td>
               </tr>
             ))

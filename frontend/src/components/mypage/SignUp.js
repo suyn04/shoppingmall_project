@@ -17,6 +17,8 @@ function SignUp() {
     });
     const [emailChkFinish, setemailChkFinish] = useState(false); // 중복 확인 여부 상태
     const [editChk, seteditChk] = useState(false); //readOnly 초기값 false
+    const [errors, setErrors] = useState({}); // 유효성 검사 에러 메시지 -- 각 인풋 필드마다 에러메시지 표기
+    const [showErrors, setShowErrors] = useState(false); // 에러 메시지 표시 여부 상태 추가
 
     const handleChange = async e => {
         //각 요소 이름, 값, 종류, 체크여부 데이터 저장(폼데이터 바꾸기)
@@ -33,10 +35,109 @@ function SignUp() {
                 [name]: type === 'checkbox' ? checked : value,
             }));
         }
+        if (name === 'birthdate') {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value, // 생일 입력값이 바뀌지 않도록 그대로 값을 저장해버리기
+            }));
+            return;
+        }
+        // 각 필드의 유효성 검사 결과 업데이트
+        const error = ValueChk(name, type === 'checkbox' ? checked : value);
+
+        // 에러 메시지 업데이트
+        setErrors(prev => ({
+            ...prev,
+            [name]: error, // 에러메시지가 바뀌면 업데이트 해야함
+        }));
+    };
+
+    const ValueChk = (name, value) => {
+        // 각 필드별 에러메시지 스위치문으로 구분(각 필드별 에러 발생시에만 에러 호출)
+        switch (name) {
+            case 'name':
+                if (!/^[가-힣]{2,5}$/.test(value)) return '이름을 정확히 입력해주세요.';
+                break;
+            case 'email':
+                if (!/^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value)) return '유효한 이메일을 입력해주세요.';
+                break;
+            case 'phone':
+                if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(value)) return '연락처를 정확히 입력해주세요.';
+                break;
+            case 'password':
+                if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%~]).{12,16}$/.test(value)) return '비밀번호는 영문, 숫자, 특수문자를 포함하여 12~16자 이내여야 합니다.';
+                break;
+            case 'password2':
+                if (value !== formData.password) return '입력하신 비밀번호가 서로 일치하지 않습니다.';
+                break;
+            default:
+                break;
+        }
+        return ''; // 에러가 없으면 빈 문자열 반환
+    };
+
+    // 회원가입 요청 처리 함수
+    const handleSubmit = async e => {
+        e.preventDefault(); // 기본 동작 방지
+        setShowErrors(true); // 에러 메시지 표시
+
+        const errorsChk = {}; // 에러 메시지를 수집할 객체
+
+        // 각 필드의 유효성 검사 결과 수집
+        for (const field in formData) {
+            const error = ValueChk(field, formData[field]);
+            if (error) {
+                errorsChk[field] = error; // 에러가 있을 경우 저장
+            }
+        }
+
+        setErrors(errorsChk); // 상태 업데이트
+
+        if (Object.keys(errorsChk).length > 0) {
+            alert('입력 내용을 다시 확인해주세요.');
+            return; // 에러가 있으면 요청 중단
+        }
+
+        if (!emailChkFinish) {
+            alert('이메일 중복 확인을 완료해주세요.');
+            return;
+        }
+
+        console.log(formData);
+
+        try {
+            const customerData = { ...formData, requiredAgree: 1 };
+            //고객데이터를 저장 : 기존 폼데이터 불러오고 필수동의약관은 항상 1 값으로 저장
+
+            // 회원가입 요청을 서버로 전송
+            const res = await axios.post('http://localhost:5001/signUp/', customerData);
+
+            // 서버 응답이 성공일 경우
+            alert(`${formData.name}님 가입을 환영합니다.`);
+            navigator('/'); // 홈으로 이동
+        } catch (err) {
+            // 서버 오류 또는 네트워크 오류 처리
+            if (err.res) {
+                // 서버에서 오류 응답을 보낸 경우
+                console.error('회원가입 실패:', err.res.data.message);
+                alert(err.res.data.message);
+            } else {
+                // 네트워크 오류 또는 기타 문제
+                console.error('회원가입 요청 오류:', err);
+                alert('서버 문제 발생');
+            }
+        }
     };
 
     const emailChk = async () => {
         const { email } = formData;
+
+        // 이메일 유효성 검사 먼저 실행
+        const emailError = ValueChk('email', email);
+        if (emailError) {
+            alert(emailError);
+            return;
+        }
 
         try {
             const res = await axios.get('http://localhost:5001/signUp/checkEmail', {
@@ -59,73 +160,6 @@ function SignUp() {
         } catch (err) {
             console.error('이메일 확인 오류:', err);
             alert('서버와 통신 중 오류가 발생했습니다.');
-        }
-    };
-
-    // 회원가입 요청 처리 함수
-    const handleSubmit = async e => {
-        e.preventDefault(); // 기본 동작 방지
-
-        const { name, email, phone, password, password2, requiredAgree } = formData;
-
-        // 유효성 검사
-        if (!/^[가-힣]{2,5}$/.test(name)) {
-            alert('이름을 정확히 입력해주세요.');
-            return;
-        }
-        if (!/^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
-            alert('유효한 이메일을 입력해주세요.');
-            return;
-        }
-        // 이메일 중복확인을 안했을 경우
-        if (!emailChkFinish) {
-            alert('이메일 중복 확인을 완료해주세요.');
-            return;
-        }
-        if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(phone)) {
-            alert('연락처를 정확히 입력해주세요.');
-            return;
-        }
-        if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%~]).{12,16}$/.test(password)) {
-            alert('비밀번호를 정확히 입력해주세요.');
-            return;
-        }
-        if (!requiredAgree) {
-            alert('필수 이용약관에 동의하셔야 합니다.');
-            return;
-        }
-        if (!name || !email || !phone || !password || !password2) {
-            alert('모든 필수 입력값을 작성해주셔야 합니다.');
-            return;
-        }
-        if (password !== password2) {
-            alert('입력하신 비밀번호가 서로 일치하지 않습니다.');
-            return;
-        }
-
-        console.log(formData);
-
-        try {
-            const customerData = { ...formData, requiredAgree: 1 };
-            //고객데이터를 저장 : 기존 폼데이터 불러오고 필수동의약관은 항상 1 값으로 저장
-
-            // 회원가입 요청을 서버로 전송
-            const res = await axios.post('http://localhost:5001/signUp/', customerData);
-
-            // 서버 응답이 성공일 경우
-            alert('회원가입 성공');
-            navigator('/'); // 홈으로 이동
-        } catch (err) {
-            // 서버 오류 또는 네트워크 오류 처리
-            if (err.res) {
-                // 서버에서 오류 응답을 보낸 경우
-                console.error('회원가입 실패:', err.res.data.message);
-                alert(err.res.data.message);
-            } else {
-                // 네트워크 오류 또는 기타 문제
-                console.error('회원가입 요청 오류:', err);
-                alert('서버 문제 발생');
-            }
         }
     };
 
@@ -157,14 +191,33 @@ function SignUp() {
                         <div className={styles.or}>또는</div>
 
                         <form className={styles.inform}>
-                            <input type="text" name="name" placeholder="*이름" className={styles.input} required onChange={handleChange} />
-                            <input type="email" name="email" placeholder="*이메일" className={styles.input} required value={formData.email} onChange={handleChange} readOnly={editChk} />
+                            <div className={styles.inputWrapper}>
+                                <input type="text" name="name" placeholder="*이름" className={styles.input} required onChange={handleChange} />
+                                {showErrors && errors.name && <div className={styles.error}>{errors.name}</div>}
+                            </div>
+
+                            <div className={styles.inputWrapper}>
+                                <input type="email" name="email" placeholder="*이메일" className={styles.input} required value={formData.email} onChange={handleChange} readOnly={editChk} />
+                                {showErrors && errors.email && <div className={styles.error}>{errors.email}</div>}
+                            </div>
                             <button className={styles.chkbtn} onClick={emailChk}>
                                 이메일 중복확인
                             </button>
-                            <input type="text" name="phone" placeholder="*핸드폰 번호 (하이픈(-)포함하여 기재해주세요.)" className={styles.input} required onChange={handleChange} />
-                            <input type="password" name="password" placeholder="*비밀번호 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)" className={styles.input} required onChange={handleChange} />
-                            <input type="password" name="password2" placeholder="*비밀번호확인 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)" className={styles.input} required onChange={handleChange} />
+
+                            <div className={styles.inputWrapper}>
+                                <input type="text" name="phone" placeholder="*핸드폰 번호 (하이픈(-)포함하여 기재해주세요.)" className={styles.input} required onChange={handleChange} />
+                                {showErrors && errors.phone && <div className={styles.error}>{errors.phone}</div>}
+                            </div>
+
+                            <div className={styles.inputWrapper}>
+                                <input type="password" name="password" placeholder="*비밀번호 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)" className={styles.input} required onChange={handleChange} />
+                                {showErrors && errors.password && <div className={styles.error}>{errors.password}</div>}
+                            </div>
+
+                            <div className={styles.inputWrapper}>
+                                <input type="password" name="password2" placeholder="*비밀번호확인 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)" className={styles.input} required onChange={handleChange} />
+                                {showErrors && errors.password2 && <div className={styles.error}>{errors.password2}</div>}
+                            </div>
 
                             <select name="gender" onChange={handleChange} className={styles.gender}>
                                 <option value="">성별 (선택)</option>

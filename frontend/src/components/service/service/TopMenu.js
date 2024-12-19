@@ -1,13 +1,22 @@
-import React ,{useState}from 'react'
+import React ,{useState,useEffect}from 'react'
 import '../../../scss/service/TopMenu.scss'
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate,useLocation } from "react-router-dom";
+
 
 const TopMenu = () => {
+    const location = useLocation(); // 현재 경로 가져오기
+    
   const [activeMenu, setActiveMenu] = useState(''); // 클릭된 메뉴 상태 관리
 
   const handleMenuClick = (menuName) => {
     setActiveMenu(menuName); // 클릭된 메뉴 업데이트
 };
+
+// URL이 변경될 때마다 active 상태를 자동으로 업데이트
+useEffect(() => {
+    const path = location.pathname.replace(urlInfo, '');
+    setActiveMenu(path);
+  }, [location.pathname]);
 
 const urlInfo = '/info/' 
 

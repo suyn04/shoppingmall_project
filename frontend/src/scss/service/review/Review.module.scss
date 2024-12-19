@@ -6,7 +6,14 @@
 .rwrapper{
     display: flex;
     flex-wrap: wrap;
-}
+    .rinput{
+      width: 80%;
+    }
+    .rseoul, .rselect{
+      width: 20%;
+    }
+    
+  }
 
 .content{
     width: 50%;

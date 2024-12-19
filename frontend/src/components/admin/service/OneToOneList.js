@@ -22,6 +22,8 @@ const OneToOneList = () => {
     fetchOnetoone(); // 처음에 데이터를 가져옴
   }, []); // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때만 실행
 
+
+  
   const handleDetailClick = (id) => {
     navigate(`/admin/onetoone/detail/${id}`); // 상세보기 페이지로 이동 (절대 경로)
   };
@@ -36,6 +38,7 @@ const OneToOneList = () => {
             <td>번호</td>
             <td>제목</td>
             <td>작성자 이메일</td>
+            <td>처리 상태</td>
             <td>상세보기</td>
           </tr>
 
@@ -45,6 +48,7 @@ const OneToOneList = () => {
                 <td>{item.post_no}</td>
                 <td>{item.post_title}</td>
                 <td>{item.email}</td>
+                <td>{item.reply_status}</td>
                 <td>
                   <button className={styles.changebutton} onClick={() => handleDetailClick(item.post_no)}>
                     상세보기

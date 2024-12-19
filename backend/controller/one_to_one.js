@@ -33,6 +33,8 @@ module.exports = () => {
                     one_upload_file
                 FROM 
                     one_to_one
+                ORDER BY 
+                    post_date DESC
             `);
 
        
