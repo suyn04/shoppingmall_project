@@ -22,6 +22,8 @@ const OneToOneList = () => {
     fetchOnetoone(); // 처음에 데이터를 가져옴
   }, []); // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때만 실행
 
+
+  
   const handleDetailClick = (id) => {
     navigate(`/admin/onetoone/detail/${id}`); // 상세보기 페이지로 이동 (절대 경로)
   };
