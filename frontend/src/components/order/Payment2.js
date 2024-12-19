@@ -138,9 +138,9 @@ function Payment2(props) {
   }
 
   return (
-    <>
+    <div className={styles.wrap}>
       <PayHead/>
-      <form name='myFrm'>
+      <form name='myFrm' className={styles.myform}>
         <div className={styles.payments}>
           <div>결제방법</div>
           <label>
@@ -172,48 +172,61 @@ function Payment2(props) {
           <div>{data.order_msg}</div>
         </div>
         <div>
-          <div className={styles.td}>
-            <div>제품</div>
-            <div>가격</div>
-            <div>수량</div>
-            <div>총합계</div>
-          </div>
-          {prod.map((pp, i)=>{
-            const totalPrice = pp.product_price * pp.quantity
-            return(
-              <div key={i}>
-                <div><img src={`/imgs/product/${pp.product_upSystem}`} alt=''/></div>
-                <div className={styles.prod}>
-                  <div>{pp.product_name_kor}</div>
-                  <div>{pp.product_name_eng}</div>
-                  <div>{pp.product_volume}</div>
-                </div>
-                <div>{pp.product_price}</div>
-                <div>
-                  <select
-                    value={pp.quantity}
-                    onChange={(e) => handleQuantityChange(pp.bs_product_id, e.target.value)}
-                  >
-                    {Array.from({ length: 8 }, (_, i) => i + 1).map((qty) => (
-                      <option key={qty} value={qty}>
-                        {qty}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>{totalPrice}</div>
-              </div>
-            )
-          })}
-          <div>
-            <div>합계</div>
-            <div>{getTotal().toLocaleString()}</div>
-          </div>
-          <input type='submit' onClick={orderFin} value='결제하기'/>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>제품</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>합계</th>
+              </tr>
+            </thead>
+            <tbody>
+              {prod.map((pp, i) => {
+                const totalPrice = pp.product_price * pp.quantity;
+                return (
+                  <tr key={i}>
+                    <td className={styles.productInfo}>
+                      <div>
+                        <div>{pp.product_name_kor}</div>
+                        <div>{pp.product_name_eng}</div>
+                        <div>{pp.product_volume}</div>
+                      </div>
+                    </td>
+                    <td>{pp.product_price.toLocaleString()}원</td>
+                    <td>
+                      <select
+                        value={pp.quantity}
+                        onChange={(e) => handleQuantityChange(pp.bs_product_id, e.target.value)}
+                      >
+                        {Array.from({ length: 8 }, (_, i) => i + 1).map((qty) => (
+                          <option key={qty} value={qty}>
+                            {qty}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>{totalPrice.toLocaleString()}원</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td></td>
+                <td></td>
+                <td className={styles.totalLabel}>
+                  총합계
+                </td>
+                <td className={styles.totalAmount}>{getTotal().toLocaleString()}원</td>
+              </tr>
+            </tfoot>
+          </table>
+          <input type="submit" onClick={orderFin} value="결제하기" className={styles.submit} />
           {isLoading && <div>로딩중...</div>}
         </div>
       </form>
-    </>
+    </div>
   )
 }
 
