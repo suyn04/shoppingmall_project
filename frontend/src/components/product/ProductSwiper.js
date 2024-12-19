@@ -31,7 +31,7 @@ export default function ProductSwiper({ product }) {
     return (
         <div className="product">
             <Swiper
-                slidesPerView={4}
+                slidesPerView={1}
                 spaceBetween={10}
                 loop={true}
                 pagination={{
@@ -40,6 +40,14 @@ export default function ProductSwiper({ product }) {
                 navigation={true}
                 modules={[Pagination, Navigation]}
                 className="mySwiper"
+                breakpoints={{
+                    480: {
+                        slidesPerView: 2,
+                    },
+                    800: {
+                        slidesPerView: 4,
+                    },
+                }}
             >
                 {curProduct.map((prod, i) => {
                     return (
