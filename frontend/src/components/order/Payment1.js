@@ -89,7 +89,7 @@ function Payment1(props) {
                     </label>
                 </div>
 
-                <input type="button" onClick={payment2GO} value="결제하기" className={styles.submitBtn} />
+                <input type="button" onClick={payment2GO} value="주문검토" className={styles.submitBtn} />
             </form>
         </div>
     );

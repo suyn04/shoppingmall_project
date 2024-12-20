@@ -141,7 +141,6 @@ function Payment2(props) {
                         네이버페이
                     </label>
                 </div>
-                <hr />
                 <div className={styles.addressinfo}>
                     <div>배송지정보</div>
                     <div>{ordersData.customer_name}</div>
@@ -153,7 +152,6 @@ function Payment2(props) {
                     </div>
                     <div>{ordersData.contact_number}</div>
                 </div>
-                <hr />
                 <div>
                     <div className={styles.requirement}>배송요청사항</div>
                     <div className={styles.requirementdetail}>{data.order_msg}</div>

@@ -117,7 +117,7 @@ function Basket(props) {
           <div className={styles.footer}>
             <div className={styles.total}>총합계: ₩ {getTotal().toLocaleString()}</div>
             <button onClick={paymentGo} className={styles.paymentBtn}>
-              결제하기
+              주문서 작성
             </button>
           </div>
         </>
