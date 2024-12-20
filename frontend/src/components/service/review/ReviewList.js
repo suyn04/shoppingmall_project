@@ -116,9 +116,9 @@ const ReviewList = ({ product_id }) => {
             ) : (
                 reviews.map((review, index) => (
                     <div key={`${review.review_no}-${index}`} className={styles.reviewCnt}>
-                        <h2>{review.review_rate}/5</h2>
-                        <h3>{review.review_title}</h3>
-                        <p>{review.review_detail}</p>
+                        <h2 className={styles.lineheight}>{review.review_rate}/5</h2>
+                        <h3 className={styles.lineheight}>{review.review_title}</h3>
+                        <p className={styles.lineheight}>{review.review_detail}</p>
 
                         {/* 제품 이미지 표시 */}
                         {review.review_upload_file && (
@@ -133,7 +133,7 @@ const ReviewList = ({ product_id }) => {
                             />
                         )}
 
-                        <button onClick={() => handleToggle(review.review_no)}>
+                        <button className={styles.toggleButton} onClick={() => handleToggle(review.review_no)}>
                             {expandedReview === review.review_no
                                 ? "닫기"
                                 : "더 보기"}
@@ -142,24 +142,24 @@ const ReviewList = ({ product_id }) => {
                         {expandedReview === review.review_no && (
                             <div className={styles.rcontent}>
                                 <div>
-                                    <p>작성자: {review.review_nick}</p>
-                                    <p>
+                                    <p className={styles.lineheight}>작성자: {review.review_nick}</p>
+                                    <p className={styles.lineheight}>
                                         지역:{" "}
                                         {review.review_region || "지역 미지정"}
                                     </p>
-                                    <p>
+                                    <p className={styles.lineheight}>
                                         향수 계열:{" "}
                                         {review.review_scent || "향 미지정"}
                                     </p>
                                 </div>
                                 <div>
-                                    <p>
+                                    <p className={styles.lineheight}>
                                         작성일:{" "}
                                         {new Date(
                                             review.review_date
                                         ).toLocaleDateString()}
                                     </p>
-                                    <p>
+                                    <p className={styles.lineheight}>
                                         선물 여부:{" "}
                                         {review.review_gift ? "선물" : "본인용"}
                                     </p>

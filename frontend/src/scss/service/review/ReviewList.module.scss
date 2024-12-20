@@ -13,6 +13,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
+
 }
 
 .reviewCnt {
@@ -125,4 +126,24 @@ textarea{
   border-radius: 5px;
   font-size: 14px;
   margin-bottom: 20px;
+}
+.lineheight{
+  line-height: 24px;
+}
+
+//더보기랑 닫기 디자인
+.toggleButton {
+  color: #1c1c1c;     
+  font-style: italic; 
+  text-decoration: underline;         
+  cursor: pointer;
+  font-size: 15px; 
+
+  &:hover {
+      background-color: #a0522d; 
+  }
+
+  &:active {
+      background-color: #a0522d; 
+  }
 }
