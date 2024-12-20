@@ -5,7 +5,6 @@ import Modal from "./Modal";
 import styles from "../../../scss/service/review/ReviewList.module.scss";
 
 const ReviewList = ({ product_id }) => {
-    // email 세션 추가
 
     const email = sessionStorage.getItem("email");
 
@@ -115,7 +114,7 @@ const ReviewList = ({ product_id }) => {
             {reviews.length === 0 ? (
                 <p>리뷰가 없습니다.</p>
             ) : (
-                reviews.map((review,index) => (
+                reviews.map((review, index) => (
                     <div key={`${review.review_no}-${index}`} className={styles.reviewCnt}>
                         <h2>{review.review_rate}/5</h2>
                         <h3>{review.review_title}</h3>
@@ -143,12 +142,6 @@ const ReviewList = ({ product_id }) => {
                         {expandedReview === review.review_no && (
                             <div className={styles.rcontent}>
                                 <div>
-                                    {/* <p>
-                                        추천 여부:{" "}
-                                        {review.review_recommend
-                                            ? "추천함"
-                                            : "추천하지 않음"}
-                                    </p> */}
                                     <p>작성자: {review.review_nick}</p>
                                     <p>
                                         지역:{" "}

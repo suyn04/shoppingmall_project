@@ -43,7 +43,6 @@ function Services() {
                 <Route path="/peopleworkplace" element={<PeopleWorkplace />} />
                 {/* 일대일문의 */}
                 <Route path="/onetoone" element={<OneToOne />} />
-                {/* <Route path="/onetoonemain" element={<OneToOneMain />} /> */}
                 <Route path="/onetoonelist" element={<OneToOneMain />} />
                 {/* <Route path="/admin/onetoone/:id" element={<OneToOneDetail />} /> */}
                 

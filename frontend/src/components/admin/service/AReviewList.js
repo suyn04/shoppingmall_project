@@ -40,7 +40,6 @@ const AReviewList = () => {
                     <td>이메일</td>
                     <td>닉네임</td>
                     <td>제목</td>
-                    {/* <td>내용</td> */}
                     <td>상세보기</td>
                 </tr>
 
@@ -51,7 +50,6 @@ const AReviewList = () => {
                             <td>{review.email}</td>
                             <td>{review.review_nick}</td>
                             <td>{review.review_title}</td>
-                            {/* <td>{review.detail}</td> */}
                             <td>
                                 <button className={styles.changebutton} onClick={() => handleDetailClick(review.review_no)}>
                                     상세보기

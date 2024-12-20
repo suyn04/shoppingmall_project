@@ -8,21 +8,21 @@ const ReportList = () => {
     const [reports, setReports] = useState([]); // 신고 목록 상태
     const navigate = useNavigate(); // 페이지 이동 함수 
 
-  // 신고 목록 가져오기
-  useEffect(() => {
-    const fetchReports = async () => {
-        try {
-            const response = await axios.get('http://localhost:5001/reports');
-            setReports(response.data); // 데이터 저장
-        } catch (err) {
-            // console.error('신고 목록 불러오기 실패:', err);
-            // alert('신고 목록을 불러오는 데 실패했습니다.');
-            return <div>신고 목록 불러오기 실패</div>            
-        }
-    };
+    // 신고 목록 가져오기
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                const response = await axios.get('http://localhost:5001/reports');
+                setReports(response.data); // 데이터 저장
+            } catch (err) {
+                // console.error('신고 목록 불러오기 실패:', err);
+                // alert('신고 목록을 불러오는 데 실패했습니다.');
+                return <div>신고 목록 불러오기 실패</div>
+            }
+        };
 
-    fetchReports(); // 함수 호출
-}, []); // 컴포넌트가 처음 렌더링될 때 실행
+        fetchReports(); // 함수 호출
+    }, []); // 컴포넌트가 처음 렌더링될 때 실행
 
 
     // 상세보기로 이동

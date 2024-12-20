@@ -23,7 +23,7 @@ const OneToOneList = () => {
   }, []); // 빈 배열로 설정하여 컴포넌트가 처음 렌더링될 때만 실행
 
 
-  
+
   const handleDetailClick = (id) => {
     navigate(`/admin/onetoone/detail/${id}`); // 상세보기 페이지로 이동 (절대 경로)
   };
@@ -34,33 +34,33 @@ const OneToOneList = () => {
 
       <table>
 
-          <tr>
-            <td>번호</td>
-            <td>제목</td>
-            <td>작성자 이메일</td>
-            <td>처리 상태</td>
-            <td>상세보기</td>
-          </tr>
+        <tr>
+          <td>번호</td>
+          <td>제목</td>
+          <td>작성자 이메일</td>
+          <td>처리 상태</td>
+          <td>상세보기</td>
+        </tr>
 
-          {Array.isArray(onetoone) && onetoone.length > 0 ? (
-            onetoone.map((item) => (
-              <tr key={item.post_no}>
-                <td>{item.post_no}</td>
-                <td>{item.post_title}</td>
-                <td>{item.email}</td>
-                <td>{item.reply_status}</td>
-                <td>
-                  <button className={styles.changebutton} onClick={() => handleDetailClick(item.post_no)}>
-                    상세보기
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4">문의 목록이 없습니다.</td>
+        {Array.isArray(onetoone) && onetoone.length > 0 ? (
+          onetoone.map((item) => (
+            <tr key={item.post_no}>
+              <td>{item.post_no}</td>
+              <td>{item.post_title}</td>
+              <td>{item.email}</td>
+              <td>{item.reply_status}</td>
+              <td>
+                <button className={styles.changebutton} onClick={() => handleDetailClick(item.post_no)}>
+                  상세보기
+                </button>
+              </td>
             </tr>
-          )}
+          ))
+        ) : (
+          <tr>
+            <td colSpan="4">문의 목록이 없습니다.</td>
+          </tr>
+        )}
 
       </table>
     </div>

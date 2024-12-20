@@ -60,7 +60,7 @@ module.exports = () => {
                 values.push(product_opt_id);
             }
             const [rows] = await conn.execute(query, values);
-            // console.log('/reviewWrite/rows',rows[0]);
+          
 
             res.json(rows[0]);
         } catch (err) {
@@ -83,23 +83,7 @@ module.exports = () => {
             res.status(500).send("DB 오류");
         }
     });
-    // router.get("/", async (req, res) => {
-
-    //     console.log('리뷰 목록 요청2')
-    //     const { product_id } = req.query;
-    //     try {
-    //         const query = `
-    //             SELECT *
-    //             FROM review_management
-    //             WHERE product_id = ? AND is_visible = 0  -- 공개된 리뷰만 가져오기
-    //         `;
-    //         const [rows] = await conn.execute(query, [product_id]);
-    //         res.json(rows);
-    //     } catch (err) {
-    //         console.error("리뷰 목록 조회 실패:", err.message);
-    //         res.status(500).send("DB 오류");
-    //     }
-    // });
+   
 
     // 특정 리뷰 상세 정보 가져오기
     router.get("/:id", async (req, res) => {
@@ -147,7 +131,6 @@ module.exports = () => {
                 req.body.email,
                 new Date(), // 리뷰 작성 날짜
                 req.body.review_rate,
-                // req.body.review_recommend,
                 req.body.review_nick || "익명",
                 req.body.review_title || "제목 없음",
                 req.body.review_detail || "내용 없음",

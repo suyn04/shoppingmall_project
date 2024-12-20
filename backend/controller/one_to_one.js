@@ -133,8 +133,8 @@ module.exports = () => {
                     post_detail,
                     one_upload_file,
                 ]);
-
                 // console.log('1:1 문의 등록 성공:', result);
+
                 res.status(201).json({
                     post_no: result.insertId,
                     post_category,
