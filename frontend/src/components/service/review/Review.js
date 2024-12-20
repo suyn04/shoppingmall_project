@@ -23,31 +23,21 @@ const Review = () => {
 
   const [rating, setRating] = useState(0);
   const [ratingError, setRatingError] = useState('');
-
-  // const [recommend, setRecommend] = useState('');
   const [title, setTitle] = useState('');
-
   const [titleError, setTitleError] = useState('');
-
-
   const [content, setContent] = useState('');
   const [contentError, setContentError] = useState('');
-
   const [region, setRegion] = useState('');
   const [fragranceType, setFragranceType] = useState('');
   const [timeOfDay, setTimeOfDay] = useState('');
   const [gift, setGift] = useState('');
   const [product, setProduct] = useState('');
-  // const [file, setFile] = useState('');
+
   const email = sessionStorage.getItem('email')
   const navigate = useNavigate();
   if (!email) {
     navigate('/signIn')
   }
-
-
-
-
 
 
   useEffect(() => {
@@ -74,14 +64,6 @@ const Review = () => {
     formData.append('product_id', product.product_id);
     formData.append('email', email);
     formData.append('review_rate', rating || 0);
-    // formData.append('review_recommend', recommend === 'yes' ? 1 : 0);
-    // formData.append('review_nick', nickname || '익명');
-    // formData.append('review_title', title || '제목 없음');
-    // formData.append('review_detail', content || '내용 없음');
-    // formData.append('review_region', region || '지역 미지정');
-    // formData.append('review_scent', fragranceType || '향 미지정');
-    // formData.append('review_time', timeOfDay || null);
-    // formData.append('review_gift', gift || null);
 
     //별점 유효성검사 
     if (rating === 0) {
@@ -126,7 +108,6 @@ const Review = () => {
     const data = Object.fromEntries(formData)
     // console.log("data:",data) // 보내는 값 확인
 
-    //console.log("파일 확인:", formData.get('review_file'));
 
     try {
       const response = await axios.post('http://localhost:5001/review', data, {
@@ -220,7 +201,7 @@ const Review = () => {
                 rows="5" // 여러 줄 입력을 위한 기본 높이 설정
               />
               {contentError && <p style={{ color: 'red' }}>{contentError}</p>}
-             
+
             </div>
             {/* 거주지역 입력 */}
             <div className={styles.seoul}>

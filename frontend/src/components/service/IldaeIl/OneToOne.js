@@ -45,9 +45,9 @@ const OneToOne = () => {
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     let isValid = true;
-  
+
     // 문의 유형 유효성 검사
     if (!formData.category) {
       setCategoryError("문의 유형을 선택해 주세요.");
@@ -55,7 +55,7 @@ const OneToOne = () => {
     } else {
       setCategoryError("");
     }
-  
+
     // 제목 유효성 검사 (2~50자)
     const titleRegex = /^.{2,50}$/;
     if (!titleRegex.test(formData.title.trim())) {
@@ -64,7 +64,7 @@ const OneToOne = () => {
     } else {
       setTitleError("");
     }
-  
+
     // 문의 내용 유효성 검사 (10~1000자)
     const contentRegex = /^.{10,1000}$/;
     if (!contentRegex.test(formData.content.trim())) {
@@ -73,9 +73,9 @@ const OneToOne = () => {
     } else {
       setContentError("");
     }
-  
+
     if (!isValid) return;
-  
+
     // FormData 객체 생성
     const data = new FormData();
     data.append("post_category", formData.category);
@@ -85,10 +85,10 @@ const OneToOne = () => {
     if (formData.file) {
       data.append("one_upload_file", formData.file);
     }
-  
+
     try {
       const response = await axios.post("http://localhost:5001/onetoone/register", data);
-  
+
       if (response.status === 201) {
         alert("문의가 접수되었습니다!");
         navigate("/onetoonelist");
@@ -104,7 +104,7 @@ const OneToOne = () => {
       }
     }
   };
-  
+
 
   // 취소 버튼 클릭 핸들러
   const handleCancel = () => {

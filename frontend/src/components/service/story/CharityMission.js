@@ -22,14 +22,14 @@ const CharityMission = () => {
       </div>
       <div className={styles.tbox3}>
         <p className={styles.ctitle}>
-          조 말론 런던의 글로벌 <br/>자선 파트너- 유니세프
+          조 말론 런던의 글로벌 <br />자선 파트너- 유니세프
         </p>
         <p>
           유니세프는 190여개 국가, 때로는 세계에서 가장 힘든 지역에서 절실한 도움이 필요한 어린이 및 청소년을 돕습니다. 유니세프는 아동의 권리 보호를 옹호하고 기본 욕구를 충족할 수 있도록 지원하며 어린이가 잠재력을 발휘할 수 있는 기회를 확대합니다.
         </p>
         <p>
           정신 건강에 대한 낙인, 수치심, 이해 부족 등의 문제를 해결함으로써 긍정적인 연결과 대화를 촉진하는 유니세프의 정신 건강 및 심리사회적 프로그램은 130개국 4,700만여 명 이상의 어린이와 보호자를 지원합니다.
-        <br/><br/>
+          <br /><br />
           해당 이미지들은 상업적 라이센스를 가지고 있습니다. 이미지 상 노출된 어린이들은 유니세프의 후원 대상이 아님을 고지합니다.
         </p>
       </div>
@@ -61,7 +61,7 @@ const CharityMission = () => {
         </p>
       </div>
 
-      
+
       <div className={styles.ibox2}>
         <img src="/imgs/service/charity_4.avif" alt="" className={styles.cimg27} /></div>
 
@@ -82,25 +82,11 @@ const CharityMission = () => {
       </div>
 
 
-
-
-
-
       <div className={styles.ibox1}>
         <div></div>
         <div><img src="/imgs/service/charity_5.avif" alt="" className={styles.cimg1} /></div>
         <div><img src="/imgs/service/charity_6.avif" alt="" className={styles.cimg1} /></div>
       </div>
-
-
-
-
-
-
-
-
-
-
 
 
     </div>

@@ -6,7 +6,6 @@ import styles from "../../../scss/admin/AdminList.module.scss";
 
 const ReviewDetail = () => {
   const { id } = useParams(); // URL에서 ID 가져오기
-  //console.log('url에서 전달된 id : ',id)
   const navigate = useNavigate();
   const [review, setReview] = useState(null); //리뷰 데이터 상태
   const [loading, setLoading] = useState(true); //로딩 상태
@@ -15,9 +14,8 @@ const ReviewDetail = () => {
   useEffect(() => {
     const fetchReviewDetail = async () => {
       try {
-        // console.log(`요청 URL: http://localhost:5001/review_management/${id}`);
+        ;
         const response = await axios.get(`http://localhost:5001/review/${id}`);
-        // console.log('리뷰 상세 데이터:', response.data);
         setReview(response.data); //상태 업데이트
       } catch (err) {
         setError('리뷰 세부 정보를 가져오는 데 실패했습니다.');

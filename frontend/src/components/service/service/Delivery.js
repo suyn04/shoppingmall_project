@@ -5,10 +5,12 @@ const Delivery = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>배송 정보</div>
-    <div className={styles.bold}>배송 지연 안내</div>
-  <p className={styles.marginbottom}>주문하신 제품은 모두 무료로 배송해 드리며, 결제 완료된 시점으로부터 1~3일 이내 출고됩니다.<br/>
-단, 도서 지역 및 섬 지역은 지연 될 수 있으며, 명절 및 연말이나 주문 폭주 시 또한 지연될 수 있습니다.<br/>
-공휴일 및 기타 휴무일에는 배송 되지 않고 배송 소요 기간에서 제외됩니다.</p>
+      <div className={styles.bold}>**홀리이 시즌으로 인한 배송 지연 안내**</div>
+      <p className={styles.marginbottom}>현재 홀리데이 시즌으로 인한 주문량 급증에 따라 배송이 평소보다 지연되고 있습니다.
+        <br />고객님들의 너른 양해를 부탁드리며, 최대한 신속히 출고될 수 있도록 노력하겠습니다.</p>
+      <p>배송 현황은 마이페이지 '주문 내역'에서 확인 가능하며,</p>
+      추가 문의 사항은 라이브챗(평일 오전 9시 ~ 17시 30분 / 점심시간 12시-13시 제외)을 이용해주시기 바랍니다.
+      <br /><br />감사합니다.
     </div>
   )
 }
