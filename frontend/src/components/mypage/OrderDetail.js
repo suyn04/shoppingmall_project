@@ -75,6 +75,7 @@ function OrderDetail() {
                         <div>결제수단</div>
                         <div>결제금액</div>
                         <div>주문상태</div>
+                        <div>배송지</div>
                         <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0].invoice ? '#f5f5f5' : 'inherit' }}>
                             {detailorders.length > 0 && detailorders[0].invoice ? '송장번호' : '취소'}
                         </div>
@@ -90,7 +91,7 @@ function OrderDetail() {
                                               <p key={product.product_id} className={styles.productItem}>
                                                   <Link to={`/product/${product.product_opt_id}`} className={styles.productLink}>
                                                       {product.product_name_kor} &nbsp;
-                                                      {product.product_volume}
+                                                      {product.product_volume} ({`${product.order_cnt}개`})
                                                   </Link>
                                               </p>
                                           ))
