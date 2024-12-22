@@ -234,7 +234,7 @@ function Nav({ ham, setHam }) {
                         <Link to="/basket">장바구니</Link>
                     </li>
                     <li>
-                        <Link to="">매장위치</Link>
+                        <Link to="/map">매장안내</Link>
                     </li>
                 </ul>
             </div>

@@ -36,10 +36,11 @@
     width: 80%;
     height: 50px;
     margin-top: 10px;
+    position: relative;
   }
   .searchBtn{
-    position: relative;
-    top: 0%;
+    position: absolute;
+    top: 70%;
     left: 82%;
     display: block;
     width: 100px;
@@ -62,19 +63,48 @@
   .mapImg img{
     max-width: 100%;
   }
+}
   
   /* 반응형 */
-  @media screen and (max-width: 800px) {
+@media screen and (max-width: 1100px) {
+  .map{
+    .searchBtn{
+      left: 81%;
+    }
+  }
+}
+@media screen and (max-width: 1000px) {
+  .map{
+    .searchBtn{
+      left: 78%;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .map{
     main{
       height: 100%;
     }
     .searchBtn{
-      top: 60%;
+      top: 55%;
+      left: 78%;
     }
     .mapImg{
       width: 80%;
       margin-top: -190px;
     }
   }
-  
+}
+@media screen and (max-width: 700px) {
+  .map{
+    .searchBtn{
+      left: 10%;
+      top: 55%;
+      width: 80%;
+    }
+    .mapImg{
+      width: 100%;
+      margin-top: -190px;
+    }
+  }
 }
