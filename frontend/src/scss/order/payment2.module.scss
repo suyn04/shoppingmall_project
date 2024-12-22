@@ -1,6 +1,5 @@
 .wrap {
     width: 50%;
-    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 
@@ -139,3 +138,10 @@
         }
     }
 }
+
+@media screen and (max-width: 800px) {
+    .wrap {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }

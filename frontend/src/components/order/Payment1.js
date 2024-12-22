@@ -48,7 +48,7 @@ function Payment1(props) {
     function payment2GO() {
         if(!fullAddress){
             alert('배송지를 등록해주세요')
-            return
+            return;
         }
         const myData = Object.fromEntries(new FormData(document.myFrm));
         navigate('/payment2', { state: { myData: myData, ordersData: ordersData } });

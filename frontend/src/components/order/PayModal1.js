@@ -57,11 +57,31 @@ function PayModal1({ onClose, onSave, btnData, email }) {
       const myData = Object.fromEntries(new FormData(formRef.current));
       console.log(myData);
 
+      // 유효성 검사
+      const trimmedZip = myData.zip ? myData.zip.trim() : '';
+      const trimmedRoadnameAddress = myData.roadname_address ? myData.roadname_address.trim() : '';
+      const trimmedBuildingName = myData.building_name ? myData.building_name.trim() : '';
+      const trimmedDetailAddress = myData.detail_address ? myData.detail_address.trim() : '';
+
+      if (!trimmedZip || !trimmedRoadnameAddress || !trimmedBuildingName || !trimmedDetailAddress) {
+        alert('빈칸 없이 주소를 입력해주세요.');
+        return;
+      }
+
+      // 우편번호 유효성 검사 (숫자 5글자만 허용)
+      const ziptype = /^\d{5}$/;
+
+      if (!ziptype.test(trimmedZip)) {
+        alert('정확한 우편번호를 입력해주세요.');
+        return;
+      }
+
+      // 유효성 검사를 통과한 경우에만 저장
       try {
         if (!btnData || !btnData.zip) {
           await axios.post('http://localhost:5001/payment1/add', {
-            email,
-            ...myData,
+              email,
+              ...myData,
           });
           alert('배송지가 추가되었습니다.');
         }

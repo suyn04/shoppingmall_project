@@ -37,6 +37,9 @@ function Payment2(props) {
 
     useEffect(() => {
         const { myData, ordersData } = location.state;
+        if(myData.order_msg === ''){
+            myData.order_msg = '없음'
+        }
         setData(myData);
         setOrder(ordersData);
         console.log('myData', myData.order_msg);
@@ -71,6 +74,7 @@ function Payment2(props) {
 
         if (!myData.payment) {
             alert('결제수단을 정해주세요');
+            return
         }
 
         const orderPayload = {
