@@ -19,9 +19,9 @@ function Payment3(props) {
     }, []);
 
     return (
-        <>
+        <div className={styles.wrap}>
             <PayHead activeStep={3}/>
-            <wrapper>
+            <div className={styles.wrapper}>
                 <div className={styles.orderFin}>
                     <div className={styles.orderNum}>
                         <h1>주문완료</h1>
@@ -48,8 +48,8 @@ function Payment3(props) {
                         </button>
                     </div>
                 </div>
-            </wrapper>
-        </>
+            </div>
+        </div>
     );
 }
 
