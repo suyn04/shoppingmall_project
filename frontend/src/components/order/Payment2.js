@@ -120,7 +120,7 @@ function Payment2(props) {
 
     return (
         <div className={styles.wrap}>
-            <PayHead />
+            <PayHead activeStep={1} />
             <form name="myFrm" className={styles.myform}>
                 <div className={styles.payments}>
                     <div>결제방법</div>

@@ -46,6 +46,10 @@ function Payment1(props) {
     };
 
     function payment2GO() {
+        if(!fullAddress){
+            alert('배송지를 등록해주세요')
+            return
+        }
         const myData = Object.fromEntries(new FormData(document.myFrm));
         navigate('/payment2', { state: { myData: myData, ordersData: ordersData } });
     }
@@ -53,11 +57,12 @@ function Payment1(props) {
     if (!ordersData) {
         return <div>로딩중...</div>;
     }
+    
     const fullAddress = ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address;
 
     return (
         <div className={styles.wrap}>
-            <PayHead />
+            <PayHead activeStep={0} />
             <form name="myFrm" className={styles.frmData}>
                 <div className={styles.shoppingHead}>배송지 정보</div>
                 <div className={styles.orderInfo}>

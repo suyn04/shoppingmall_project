@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from '../../scss/dup/footer.module.scss';
 
 function Footer(props) {
   const location = useLocation(); // 현재 경로 가져오기
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
 
-  // 상태 관리: 각 메뉴의 열림/닫힘 상태
+  // 화면 크기 변경 감지
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 800);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 메뉴 상태 관리 (모바일 전용)
   const [isCustomerServiceOpen, setIsCustomerServiceOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
   const [isSocialOpen, setIsSocialOpen] = useState(false);
@@ -15,24 +23,29 @@ function Footer(props) {
       <div className={styles.footerSite}>
         {/* 고객 서비스 */}
         <div>
-          <div className={styles.tt} onClick={() => setIsCustomerServiceOpen(!isCustomerServiceOpen)}>
+          <div
+            className={styles.tt}
+            onClick={() => isMobile && setIsCustomerServiceOpen(!isCustomerServiceOpen)}
+          >
             <span>고객 서비스</span>
-            <div className={styles.footerIcons}>
-              <img
-                className={styles.down}
-                src="/imgs/main/downIcon.svg"
-                alt="펼치기"
-                style={{ display: isCustomerServiceOpen ? 'none' : 'inline' }}
-              />
-              <img
-                className={styles.up}
-                src="/imgs/main/upIcon.svg"
-                alt="접기"
-                style={{ display: isCustomerServiceOpen ? 'inline' : 'none' }}
-              />
-            </div>
+            {isMobile && (
+              <div className={styles.footerIcons}>
+                <img
+                  className={styles.down}
+                  src="/imgs/main/downIcon.svg"
+                  alt="펼치기"
+                  style={{ display: isCustomerServiceOpen ? 'none' : 'inline' }}
+                />
+                <img
+                  className={styles.up}
+                  src="/imgs/main/upIcon.svg"
+                  alt="접기"
+                  style={{ display: isCustomerServiceOpen ? 'inline' : 'none' }}
+                />
+              </div>
+            )}
           </div>
-          {isCustomerServiceOpen && (
+          {(isMobile && isCustomerServiceOpen) || !isMobile ? (
             <div>
               <Link to="/info/faq" className={location.pathname === '/info/faq' ? styles.active : ''}>자주 묻는 질문</Link>
               <Link to="/info/myprofile" className={location.pathname === '/info/myprofile' ? styles.active : ''}>나의 프로필</Link>
@@ -47,64 +60,74 @@ function Footer(props) {
                 서비스 이용약관 <br /> 및 개인정보 처리방침
               </Link>
             </div>
-          )}
+          ) : null}
         </div>
 
         {/* 살펴보기 */}
         <div>
-          <div className={styles.tt} onClick={() => setIsExploreOpen(!isExploreOpen)}>
+          <div
+            className={styles.tt}
+            onClick={() => isMobile && setIsExploreOpen(!isExploreOpen)}
+          >
             <span>살펴보기</span>
-            <div className={styles.footerIcons}>
-              <img
-                className={styles.down}
-                src="/imgs/main/downIcon.svg"
-                alt="펼치기"
-                style={{ display: isExploreOpen ? 'none' : 'inline' }}
-              />
-              <img
-                className={styles.up}
-                src="/imgs/main/upIcon.svg"
-                alt="접기"
-                style={{ display: isExploreOpen ? 'inline' : 'none' }}
-              />
-            </div>
+            {isMobile && (
+              <div className={styles.footerIcons}>
+                <img
+                  className={styles.down}
+                  src="/imgs/main/downIcon.svg"
+                  alt="펼치기"
+                  style={{ display: isExploreOpen ? 'none' : 'inline' }}
+                />
+                <img
+                  className={styles.up}
+                  src="/imgs/main/upIcon.svg"
+                  alt="접기"
+                  style={{ display: isExploreOpen ? 'inline' : 'none' }}
+                />
+              </div>
+            )}
           </div>
-          {isExploreOpen && (
+          {(isMobile && isExploreOpen) || !isMobile ? (
             <div>
               <Link to="/storymain">브랜드 소개</Link>
               <Link to="/all-product">제품 전체</Link>
               <Link to="/best-seller">베스트 셀러</Link>
               <Link to="main/map.html">매장 안내</Link>
             </div>
-          )}
+          ) : null}
         </div>
 
         {/* 소셜 네트워크 */}
         <div>
-          <div className={styles.tt} onClick={() => setIsSocialOpen(!isSocialOpen)}>
+          <div
+            className={styles.tt}
+            onClick={() => isMobile && setIsSocialOpen(!isSocialOpen)}
+          >
             <span>소셜 네트워크</span>
-            <div className={styles.footerIcons}>
-              <img
-                className={styles.down}
-                src="/imgs/main/downIcon.svg"
-                alt="펼치기"
-                style={{ display: isSocialOpen ? 'none' : 'inline' }}
-              />
-              <img
-                className={styles.up}
-                src="/imgs/main/upIcon.svg"
-                alt="접기"
-                style={{ display: isSocialOpen ? 'inline' : 'none' }}
-              />
-            </div>
+            {isMobile && (
+              <div className={styles.footerIcons}>
+                <img
+                  className={styles.down}
+                  src="/imgs/main/downIcon.svg"
+                  alt="펼치기"
+                  style={{ display: isSocialOpen ? 'none' : 'inline' }}
+                />
+                <img
+                  className={styles.up}
+                  src="/imgs/main/upIcon.svg"
+                  alt="접기"
+                  style={{ display: isSocialOpen ? 'inline' : 'none' }}
+                />
+              </div>
+            )}
           </div>
-          {isSocialOpen && (
+          {(isMobile && isSocialOpen) || !isMobile ? (
             <div>
               <Link to="https://www.instagram.com/jomalonelondon">인스타그램</Link>
               <Link to="https://www.facebook.com/JoMaloneLondon">페이스북</Link>
               <Link to="https://www.youtube.com/channel/UCWMSJ5L5Zvkr9JfflU4JMUA">유튜브</Link>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
 
