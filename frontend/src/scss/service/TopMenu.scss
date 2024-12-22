@@ -26,16 +26,16 @@
         }
     }
 
-   /* 활성화된 메뉴 스타일 */
-   .swrapper1 div.active,
-   .swrapper2 div.active {
-       font-weight: 800;
-       color: #1c1c1c;
-       border-bottom: 1px solid #1c1c1c;
-       border-style: dashed;
+    /* 활성화된 메뉴 스타일 */
+    .swrapper1 div.active,
+    .swrapper2 div.active {
+        font-weight: 800;
+        color: #1c1c1c;
+        border-bottom: 1px solid #1c1c1c;
+        border-style: dashed;
 
-       a {
-           color: #1c1c1c;
-       }
-   }
+        a {
+            color: #1c1c1c;
+        }
+    }
 }

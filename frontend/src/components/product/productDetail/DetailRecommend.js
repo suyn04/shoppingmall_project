@@ -1,7 +1,7 @@
-import React from "react";
-import RecommendSwiper from "./RecommendSwiper";
+import React from 'react';
+import RecommendSwiper from './RecommendSwiper';
 
-import styles from "../../../scss/product/detailRecommend.module.scss";
+import styles from '../../../scss/product/detailRecommend.module.scss';
 
 const DetailRecommend = () => {
     const [product, setProduct] = useState([]);
@@ -10,15 +10,13 @@ const DetailRecommend = () => {
         axios
             .get(`http://localhost:5001/product/`)
             .then((res) => {
-                console.log("서버 다녀옴", res.data);
-                let curProduct = res.data.filter(
-                    (item) => item.product_special == "Best Seller"
-                );
+                console.log('서버 다녀옴', res.data);
+                let curProduct = res.data.filter((item) => item.product_special == 'Best Seller');
                 console.log(curProduct);
                 setProduct(curProduct);
             })
             .catch((err) => {
-                console.error("에러발생 ; ", err);
+                console.error('에러발생 ; ', err);
             });
     }, []);
 

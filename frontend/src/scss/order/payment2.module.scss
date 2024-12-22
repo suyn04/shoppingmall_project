@@ -131,7 +131,7 @@
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s;
-        
+
             &:hover {
                 background-color: #444;
             }
@@ -141,7 +141,7 @@
 
 @media screen and (max-width: 800px) {
     .wrap {
-      width: 90%;
-      margin: 0 auto;
+        width: 90%;
+        margin: 0 auto;
     }
-  }
+}

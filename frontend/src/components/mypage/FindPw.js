@@ -19,7 +19,10 @@ function FindPw() {
         }
 
         try {
-            const res = await axios.post('http://localhost:5001/findPw', { email, contact_number: contactNumber });
+            const res = await axios.post('http://localhost:5001/findPw', {
+                email,
+                contact_number: contactNumber,
+            });
             if (res.data.success) {
                 alert('정보가 확인되었습니다. 비밀번호를 재설정하세요.');
                 setcontentOpen(true);
@@ -47,7 +50,11 @@ function FindPw() {
             return;
         }
         try {
-            const res = await axios.post('http://localhost:5001/resetPw', { email, newPassword, newPassword2 });
+            const res = await axios.post('http://localhost:5001/resetPw', {
+                email,
+                newPassword,
+                newPassword2,
+            });
             console.log(email, newPassword, newPassword2);
 
             if (res.data.success) {
@@ -67,8 +74,18 @@ function FindPw() {
         <div className={styles.wrapper}>
             <h1>비밀번호 찾기</h1>
             <div className={styles.form}>
-                <input type="email" placeholder="이메일을 입력하세요" value={email} onChange={e => setEmail(e.target.value)} />
-                <input type="text" placeholder="연락처를 입력하세요" value={contactNumber} onChange={e => setContactNumber(e.target.value)} />
+                <input
+                    type="email"
+                    placeholder="이메일을 입력하세요"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="연락처를 입력하세요"
+                    value={contactNumber}
+                    onChange={(e) => setContactNumber(e.target.value)}
+                />
                 <button onClick={handleFindPassword}>확인</button>
             </div>
 
@@ -76,8 +93,18 @@ function FindPw() {
                 <div className={styles.container}>
                     <div className={styles.pwcontent}>
                         <h1>비밀번호 재설정</h1>
-                        <input type="password" placeholder="새 비밀번호를 입력하세요" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-                        <input type="password" placeholder="새 비밀번호를 입력하세요" value={newPassword2} onChange={e => setNewPassword2(e.target.value)} />
+                        <input
+                            type="password"
+                            placeholder="새 비밀번호를 입력하세요"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                        <input
+                            type="password"
+                            placeholder="새 비밀번호를 입력하세요"
+                            value={newPassword2}
+                            onChange={(e) => setNewPassword2(e.target.value)}
+                        />
                         <button onClick={handleResetPassword}>재설정</button>
                     </div>
                 </div>

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import styles from "../../../scss/admin/AdminList.module.scss";
-
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styles from '../../../scss/admin/AdminList.module.scss';
 
 const OneToOneDetail = () => {
     const { id } = useParams(); // URL에서 post_no 가져오기
@@ -11,23 +10,20 @@ const OneToOneDetail = () => {
     const [loading, setLoading] = useState(true); // 로딩 상태
     const [error, setError] = useState(null); // 에러 상태
 
-
     // 서버에서 특정 문의 상세 정보를 가져오는 함수
     const fetchOnetooneDetail = async () => {
         if (!id) {
-            console.log("id없음");
+            console.log('id없음');
             return;
         }
         try {
-            const response = await axios.get(
-                `http://localhost:5001/onetoone/${id}`
-            );
+            const response = await axios.get(`http://localhost:5001/onetoone/${id}`);
             console.log(response.data);
 
             setOnetoone(response.data); // 서버에서 받은 데이터를 상태에 저장
         } catch (error) {
-            setError("1:1 문의 세부 정보를 가져오는 데 실패했습니다.");
-            console.error("Error fetching onetoone detail:", error);
+            setError('1:1 문의 세부 정보를 가져오는 데 실패했습니다.');
+            console.error('Error fetching onetoone detail:', error);
         } finally {
             setLoading(false);
         }
@@ -38,7 +34,7 @@ const OneToOneDetail = () => {
     }, [id]);
 
     const handleBackClick = () => {
-        navigate("/admin/onetoone"); // 목록 페이지로 이동
+        navigate('/admin/onetoone'); // 목록 페이지로 이동
     };
 
     // onetoone이 null인 경우 처리
@@ -47,18 +43,18 @@ const OneToOneDetail = () => {
     }
 
     const statusChgGo = () => {
-        console.log("statusChgGo 진입");
+        console.log('statusChgGo 진입');
         console.log(onetoone);
         axios
             .put(`http://localhost:5001/onetoone/${id}`, onetoone)
             .then((res) => {
-                console.log("제품 정보 수정 완료했습니다.");
+                console.log('제품 정보 수정 완료했습니다.');
 
-                alert("상태 수정을 완료했습니다.");
+                alert('상태 수정을 완료했습니다.');
                 fetchOnetooneDetail();
             })
             .catch((err) => {
-                console.error("에러발생 ; ", err);
+                console.error('에러발생 ; ', err);
             });
     };
     const stChange = (bname, me) => {
@@ -70,9 +66,7 @@ const OneToOneDetail = () => {
         const ret = [];
         for (let ee of arr) {
             // console.log(ee);
-            ret.push(
-                chkSelect(ee.value, ee.title, onetoone[bname] == ee.value)
-            );
+            ret.push(chkSelect(ee.value, ee.title, onetoone[bname] == ee.value));
         }
         return ret;
     };
@@ -84,12 +78,11 @@ const OneToOneDetail = () => {
         );
     };
 
-    const formatDate = dateString => {
+    const formatDate = (dateString) => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
     };
-
 
     return (
         <div className={styles.list}>
@@ -108,21 +101,17 @@ const OneToOneDetail = () => {
             </p>
             <div>
                 <strong>처리 상태:</strong>
-                <select
-                    name="reply_status"
-                    id="reply_status"
-                    onChange={(e) => stChange("reply_status", e.target)}
-                >
-                    {chkSelectModule("reply_status", [
-                        { value: "대기", title: "대기" },
-                        { value: "답변완료", title: "답변완료" },
+                <select name="reply_status" id="reply_status" onChange={(e) => stChange('reply_status', e.target)}>
+                    {chkSelectModule('reply_status', [
+                        { value: '대기', title: '대기' },
+                        { value: '답변완료', title: '답변완료' },
                     ])}
                 </select>
                 <button className={styles.changebutton} onClick={statusChgGo}>
                     저장
                 </button>
             </div>
-            <button className={styles.changebutton} onClick={handleBackClick} style={{ marginTop: "20px" }}>
+            <button className={styles.changebutton} onClick={handleBackClick} style={{ marginTop: '20px' }}>
                 뒤로가기
             </button>
         </div>

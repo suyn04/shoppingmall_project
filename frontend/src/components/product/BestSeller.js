@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import axios from "axios";
-import styles from "../../scss/product/homeTop.module.scss";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import ProductCard from './ProductCard';
+import axios from 'axios';
+import styles from '../../scss/product/homeTop.module.scss';
+import { Link } from 'react-router-dom';
 
 const BestSeller = () => {
     const [product, setProduct] = useState([]);
@@ -11,15 +11,13 @@ const BestSeller = () => {
         axios
             .get(`http://localhost:5001/product/`)
             .then((res) => {
-                console.log("서버 다녀옴", res.data);
-                let curProduct = res.data.filter(
-                    (item) => item.product_special == "Best Seller"
-                );
+                console.log('서버 다녀옴', res.data);
+                let curProduct = res.data.filter((item) => item.product_special == 'Best Seller');
                 console.log(curProduct);
                 setProduct(curProduct);
             })
             .catch((err) => {
-                console.error("에러발생 ; ", err);
+                console.error('에러발생 ; ', err);
             });
     }, []);
     return (

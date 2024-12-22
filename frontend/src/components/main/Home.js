@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "../../scss/main/home.module.scss";
-import MainSlide from "./MainSlide";
-import BestSlide from "./BestSlide";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from '../../scss/main/home.module.scss';
+import MainSlide from './MainSlide';
+import BestSlide from './BestSlide';
 
 function Home(props) {
-    const url = "/imgs/main/";
+    const url = '/imgs/main/';
 
     return (
         <>
@@ -30,10 +30,7 @@ function Home(props) {
                     <img src={`${url}scentFinder.avif`} alt="" />
                     <div>
                         <p>센트 파인더</p>
-                        <p>
-                            조 말론 런던의 도움을 받아 편리하게 나만의 시그니처
-                            향을 찾아보세요.
-                        </p>
+                        <p>조 말론 런던의 도움을 받아 편리하게 나만의 시그니처 향을 찾아보세요.</p>
                         <span>시작하기</span>
                     </div>
                 </Link>

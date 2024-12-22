@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "../../../scss/product/detailUse.module.scss";
+import React from 'react';
+import styles from '../../../scss/product/detailUse.module.scss';
 
 const CandleUse = () => {
     return (
@@ -13,12 +13,7 @@ const CandleUse = () => {
                     </div>
                 </div>
                 <div className={styles.useContent}>
-                    <video
-                        src="/imgs/product/HowTo_Candle.mp4"
-                        loop={true}
-                        muted={true}
-                        autoPlay={true}
-                    />
+                    <video src="/imgs/product/HowTo_Candle.mp4" loop={true} muted={true} autoPlay={true} />
                 </div>
             </div>
         </div>
