@@ -55,3 +55,18 @@
         }
     }
 }
+
+/* 반응형 */
+@media screen and (max-width: 800px) {
+    .orderlistheader,
+    .orderlistitem {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .orderlistheader,
+    .orderlistitem {
+        font-size: 12px;
+    }
+}

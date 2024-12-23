@@ -47,9 +47,9 @@ header {
 .logo {
     position: relative;
     width: 100%;
+    margin-left: calc(71.52px / 2);
     display: flex;
     justify-content: center;
-    margin-left: 0;
     img {
         width: 150px;
         height: 60px;
@@ -113,7 +113,8 @@ header {
 }
 
 .userLink {
-    display: inline-flex;
+    display: block;
+    text-align: right;
     align-items: center;
     cursor: pointer;
     color: #1c1c1c;
@@ -191,6 +192,9 @@ header {
                 }
             }
         }
+    }
+    .searchIcon {
+        display: none;
     }
     .basketIcon {
         display: none;

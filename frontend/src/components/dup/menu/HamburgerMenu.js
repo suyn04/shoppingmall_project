@@ -152,6 +152,9 @@ function HamburgerMenu({ ham, hideMenu, subMenu, toggleSubMenu }) {
                     <li>
                         <Link to="/map">매장안내</Link>
                     </li>
+                    <li>
+                        <Link to="/search">검색</Link>
+                    </li>
                 </ul>
             </div>
         </>

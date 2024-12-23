@@ -70,4 +70,10 @@
     }
 }
 @media screen and (max-width: 480px) {
+    .note {
+        .noteTitle {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+    }
 }
