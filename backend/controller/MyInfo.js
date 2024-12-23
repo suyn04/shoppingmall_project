@@ -70,6 +70,12 @@ module.exports = () => {
 
             if (!email) return res.json({ error: '이메일이 필요합니다.' });
 
+            const phonetype = /^01[0-9]-\d{3,4}-\d{4}$/;
+
+            if (!phonetype.test(contact_number)) {
+                return res.json({ message: '핸드폰 번호 형식이 올바르지 않습니다.' });
+            }
+
             try {
                 const [result] = await db.query(
                     `UPDATE customers SET contact_number = ?, optional_agree = ?
