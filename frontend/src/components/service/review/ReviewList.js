@@ -4,6 +4,8 @@ import axios from 'axios';
 import Modal from './Modal';
 import styles from '../../../scss/service/review/ReviewList.module.scss';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const ReviewList = ({ product_id }) => {
     const email = sessionStorage.getItem('email');
 
@@ -22,7 +24,7 @@ const ReviewList = ({ product_id }) => {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/review/productReview?product_id=${product_id}`);
+                const response = await axios.get(`${bkURL}/review/productReview?product_id=${product_id}`);
                 console.log(response.data);
                 setReviews(Array.isArray(response.data) ? response.data : []);
             } catch (err) {
@@ -78,7 +80,7 @@ const ReviewList = ({ product_id }) => {
 
             console.log('보내는 데이터:', reportData);
 
-            await axios.post('http://localhost:5001/reports/register', reportData);
+            await axios.post('${bkURL}/reports/register', reportData);
             alert('신고가 접수되었습니다.');
             handleCloseModal();
         } catch (error) {
@@ -117,7 +119,7 @@ const ReviewList = ({ product_id }) => {
                         {/* 제품 이미지 표시 */}
                         {review.review_upload_file && (
                             <img
-                                src={`http://localhost:5001/imgs/review/${review.review_upload_file}`}
+                                src={`${bkURL}/imgs/review/${review.review_upload_file}`}
                                 alt="Product"
                                 style={{
                                     width: '200px',

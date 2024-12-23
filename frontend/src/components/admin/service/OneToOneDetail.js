@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const OneToOneDetail = () => {
     const { id } = useParams(); // URL에서 post_no 가져오기
     const navigate = useNavigate(); // 뒤로가기 구현을 위해 사용
@@ -87,30 +89,55 @@ const OneToOneDetail = () => {
     return (
         <div className={styles.list}>
             <h1 className={styles.title}>1:1 문의 상세 정보</h1>
-            <p>
-                <strong>작성자 이메일:</strong> {onetoone.email}
-            </p>
-            <p>
-                <strong>제목:</strong> {onetoone.post_title}
-            </p>
-            <p>
-                <strong>문의 내용:</strong> {onetoone.post_detail}
-            </p>
-            <p>
-                <strong>작성일:</strong> {formatDate(onetoone.post_date)}
-            </p>
-            <div>
-                <strong>처리 상태:</strong>
-                <select name="reply_status" id="reply_status" onChange={(e) => stChange('reply_status', e.target)}>
+            <table className={styles.table}>
+    <tbody>
+        <tr>
+            <td><strong>작성자 이메일</strong></td>
+            <td>{onetoone.email}</td>
+        </tr>
+        <tr>
+            <td><strong>제목</strong></td>
+            <td>{onetoone.post_title}</td>
+        </tr>
+        <tr>
+            <td><strong>문의 내용</strong></td>
+            <td>{onetoone.post_detail}</td>
+        </tr>
+        <tr>
+            <td><strong>작성일</strong></td>
+            <td>{formatDate(onetoone.post_date)}</td>
+        </tr>
+        <tr>
+            <td><strong>파일</strong></td>
+            <td>
+                {onetoone.one_upload_file ? (
+                    <img
+                    src={`${bkURL}/imgs/onetoone/${onetoone.one_upload_file}`}
+                        alt="첨부 이미지"
+                        style={{ maxWidth: '100%', maxHeight: '200px' }}
+                    />
+                ) : (
+                    '첨부 파일 없음'
+                )}
+            </td>
+        </tr>
+        <tr>
+            <td><strong>처리 상태</strong></td>
+            <td>
+                <select
+                    name="reply_status"
+                    id="reply_status"
+                    onChange={(e) => stChange('reply_status', e.target)}
+                >
                     {chkSelectModule('reply_status', [
                         { value: '대기', title: '대기' },
                         { value: '답변완료', title: '답변완료' },
                     ])}
                 </select>
-                <button className={styles.changebutton} onClick={statusChgGo}>
-                    저장
-                </button>
-            </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
             <button className={styles.changebutton} onClick={handleBackClick} style={{ marginTop: '20px' }}>
                 뒤로가기
             </button>

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../../../scss/service/IldaeIl/OneToOne.module.scss';
 import axios from 'axios';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const OneToOne = () => {
     // 폼 데이터 상태 관리
     const [formData, setFormData] = useState({
@@ -87,8 +89,7 @@ const OneToOne = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5001/onetoone/register', data);
-
+            const response = await axios.post('${bkURL}/onetoone/register', data);
             if (response.status === 201) {
                 alert('문의가 접수되었습니다!');
                 navigate('/onetoonelist');

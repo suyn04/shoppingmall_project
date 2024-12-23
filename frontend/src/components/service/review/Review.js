@@ -3,12 +3,14 @@ import axios from 'axios';
 import styles from '../../../scss/service/review/Review.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 // 이미지 파일 경로를 생성하는 함수
 function fileGo(file) {
     if (file) {
-        return <img src={`http://localhost:5001/imgs/product/${file}`} alt="Product" />;
+        return <img src={`${bkURL}/imgs/product/${file}`} alt="Product" />;
     }
-    return <img src="http://localhost:5001/imgs/product/default.jpg" alt="Default Product" />;
+    return <img src={`${bkURL}/imgs/product/default.jpg`} alt="Default Product" />;
 }
 
 const Review = () => {
@@ -40,7 +42,7 @@ const Review = () => {
         const fetchReviews = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:5001/review/reviewWrite?product_opt_id=${product_opt_id}`
+                    `${bkURL}/review/reviewWrite?product_opt_id=${product_opt_id}`
                 );
                 console.log(response.data);
                 setProduct(response.data);
@@ -104,7 +106,7 @@ const Review = () => {
         // console.log("data:",data) // 보내는 값 확인
 
         try {
-            const response = await axios.post('http://localhost:5001/review', data, {
+            const response = await axios.post('${bkURL}/review', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // 파일업로드를 위해 타입을 이렇게 씀
                 },
