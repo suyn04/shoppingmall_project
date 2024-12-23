@@ -11,9 +11,10 @@ function FindPw() {
     const [contentOpen, setcontentOpen] = useState(false);
     const navigate = useNavigate();
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     // 비밀번호 찾기 요청
     const handleFindPassword = async () => {
-        const bkURL = process.env.REACT_APP_BACK_URL;
         if (!email || !contactNumber) {
             alert('이메일과 연락처를 입력해주세요.');
             return;
