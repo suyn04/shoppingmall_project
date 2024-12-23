@@ -9,7 +9,6 @@
         width: 100%;
         max-width: 500px;
         margin: 0 auto;
-        padding: 20px;
 
         .joinContainer {
             background-color: #fff;
@@ -198,5 +197,74 @@
                 color: #1c1c1c;
             }
         }
+    }
+}
+
+/* 반응형 */
+@media screen and (max-width: 800px) {
+    .wrapper {
+        padding: 0;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .wrap {
+        max-width: 90%;
+    }
+
+    .checkboxgroup {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wrapper {
+        padding: 0;
+        width: 90%;
+    }
+
+    .wrap {
+        max-width: 90%;
+        margin: 0;
+    }
+
+    .topBtn {
+        .signIn,
+        .signUp {
+            font-size: 12px;
+        }
+    }
+
+    .bottomCnt {
+        .or {
+            font-size: 12px;
+        }
+        .inform {
+            .inputWrapper {
+                .input {
+                    font-size: 12px;
+                }
+                .error {
+                    font-size: 10px;
+                }
+            }
+            select,
+            input[type='date'],
+            .gender {
+                font-size: 12px;
+            }
+            .chkbtn {
+                font-size: 12px;
+            }
+            .marketing {
+                font-size: 12px;
+            }
+            .join {
+                font-size: 12px;
+            }
+        }
+    }
+    .checkboxgroup {
+        font-size: 12px;
     }
 }

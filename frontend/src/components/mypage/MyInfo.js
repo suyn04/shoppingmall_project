@@ -133,7 +133,9 @@ const MyInfo = () => {
                                 </Link>
                                 <div className={styles.orderMessage}>
                                     <p>
-                                        가장 최근 주문내역만 노출됩니다. 전체 주문내역은
+                                        가장 최근 주문내역만 노출됩니다.
+                                        <br />
+                                        전체 주문내역은
                                         <Link to="/myPage/viewOrders" className={styles.a1}>
                                             &nbsp; 주문 내역 전체보기
                                         </Link>

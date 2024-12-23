@@ -8,8 +8,7 @@
     .wrap {
         width: 100%;
         max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
+        margin: 0 auto 30px;
 
         .loginContainer {
             background-color: #fff;
@@ -194,5 +193,38 @@
                 color: #1c1c1c;
             }
         }
+    }
+}
+
+/* 반응형 */
+@media screen and (max-width: 800px) {
+    .wrapper {
+        padding: 0;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .wrap {
+        max-width: 90%;
+    }
+
+    .pwIcon {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wrapper {
+        padding: 0;
+        width: 90%;
+    }
+
+    .wrap {
+        max-width: 90%;
+        margin: 0;
+    }
+
+    .pwIcon {
+        display: none;
     }
 }
