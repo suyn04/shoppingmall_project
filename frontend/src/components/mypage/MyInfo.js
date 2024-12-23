@@ -7,6 +7,7 @@ const MyInfo = () => {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState(null); // 사용자 정보
     const [recentOrder, setRecentOrder] = useState(null); // 최신 주문 데이터
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
@@ -18,7 +19,7 @@ const MyInfo = () => {
             // 사용자 정보 가져오기
             axios
                 .post(
-                    'http://localhost:5001/myPage',
+                    `${bkURL}/myPage`,
                     { action: 'getUserInfo', email },
                     {
                         headers: {
@@ -26,20 +27,16 @@ const MyInfo = () => {
                         },
                     }
                 )
-                .then((response) => setUserInfo(response.data))
-                .catch((error) => {
+                .then(response => setUserInfo(response.data))
+                .catch(error => {
                     console.error('사용자 정보 가져오기 실패:', error);
                     navigate('/signIn');
                 });
 
             // 주문 내역 가져오기
             axios
-                .post(
-                    'http://localhost:5001/myPage',
-                    { action: 'getOrders', email },
-                    { headers: { Authorization: sessionToken } }
-                )
-                .then((response) => {
+                .post(`${bkURL}/myPage`, { action: 'getOrders', email }, { headers: { Authorization: sessionToken } })
+                .then(response => {
                     const orders = response.data.orders || [];
                     if (orders.length > 0) {
                         // order_date 기준으로 내림차순 정렬 (최신 주문이 첫 번째로 옴)
@@ -47,7 +44,7 @@ const MyInfo = () => {
                         setRecentOrder(sortedOrders[0]); // 가장 최근 주문 1건 확인
                     }
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.error('주문 내역 가져오기 실패:', err);
                 });
         }
@@ -59,7 +56,7 @@ const MyInfo = () => {
             const email = sessionStorage.getItem('email');
             axios
                 .post(
-                    'http://localhost:5001/myPage',
+                    `${bkURL}/myPage`,
                     { action: 'deleteMember', email },
                     {
                         headers: { Authorization: sessionToken },
@@ -70,7 +67,7 @@ const MyInfo = () => {
                     sessionStorage.clear(); // 세션 정리
                     navigate('/');
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error('회원 탈퇴 실패', error);
                     alert('회원 탈퇴 중 문제가 발생했습니다. 다시 시도해 주세요.');
                 });
@@ -78,7 +75,7 @@ const MyInfo = () => {
     };
 
     // 날짜 포맷팅 함수
-    const formatDate = (dateString) => {
+    const formatDate = dateString => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];

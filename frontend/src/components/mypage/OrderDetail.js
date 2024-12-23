@@ -7,6 +7,8 @@ function OrderDetail() {
     const [detailorders, setDetailOrders] = useState([]); // 주문 목록 상태
     const [products, setProducts] = useState([]); // 주문 제품 목록
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     useEffect(() => {
         const OrderDetail = async () => {
             const sessionToken = sessionStorage.getItem('sessionToken');
@@ -18,7 +20,7 @@ function OrderDetail() {
             }
 
             try {
-                const response = await axios.get(`http://localhost:5001/myPage/orderDetail/${orderId}`, {
+                const response = await axios.get(`${bkURL}/myPage/orderDetail/${orderId}`, {
                     headers: { Authorization: sessionToken },
                 });
 
@@ -45,7 +47,7 @@ function OrderDetail() {
     const handleCancelOrder = (orderId) => {
         if (window.confirm('주문을 취소하시겠습니까?')) {
             axios
-                .post(`http://localhost:5001/myPage/cancelOrder/${orderId}`)
+                .post(`${bkURL}/myPage/cancelOrder/${orderId}`)
                 .then(() => {
                     alert('주문이 취소되었습니다.');
                     // 상태를 갱신하거나 페이지를 새로고침
