@@ -20,6 +20,8 @@ const Analysis = () => {
         ],
     });
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     useEffect(() => {
         fetchData(timePeriod);
         console.log('최종 chartData:', chartData);
@@ -42,7 +44,7 @@ const Analysis = () => {
 
     const fetchData = async (period) => {
         try {
-            const response = await axios.get(`http://localhost:5001/analysis/${period}`);
+            const response = await axios.get(`${bkURL}/analysis/${period}`);
             const data = response.data;
             console.log('data:', data);
             const dateData = data.map((item) => item.order_date);

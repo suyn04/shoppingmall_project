@@ -16,11 +16,12 @@ const MonthChart = () => {
             },
         ],
     });
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/analysis/month');
+                const response = await axios.get(`${bkURL}/analysis/month`);
                 const data = response.data;
 
                 const labels = data.map((item) =>

@@ -8,11 +8,13 @@ function AOrderStatusList(props) {
     const [customer, setCustomer] = useState([]);
     const orderId = window.location.pathname.split('/').pop();
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     // console.log(orderId)
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5001/admin/order/detail/${orderId}`)
+            .get(`${bkURL}/admin/order/detail/${orderId}`)
             .then((res) => {
                 // console.log('갔다옴 : ', res.data.order,res.data.customer)
                 setOrder(res.data.order);
@@ -53,7 +55,7 @@ function AOrderStatusList(props) {
                         <tr key={i}>
                             <td>{i + 1}</td>
                             <td className={styles.imgTag}>
-                                <img src={`http://localhost:5001/imgs/product/${od.product_upSystem}`} />
+                                <img src={`${bkURL}/imgs/product/${od.product_upSystem}`} />
                             </td>
                             <td>
                                 <Link

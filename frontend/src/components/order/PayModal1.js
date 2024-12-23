@@ -14,6 +14,7 @@ function PayModal1({ onClose, onSave, btnData, email }) {
 
     const [isAddressReadOnly, setIsAddressReadOnly] = useState(false);
     const formRef = useRef(null); // 폼 요소에 접근하기 위한 ref
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         if (btnData) {
@@ -79,7 +80,7 @@ function PayModal1({ onClose, onSave, btnData, email }) {
             // 유효성 검사를 통과한 경우에만 저장
             try {
                 if (!btnData || !btnData.zip) {
-                    await axios.post('http://localhost:5001/payment1/add', {
+                    await axios.post(`${bkURL}/payment1/add`, {
                         email,
                         ...myData,
                     });

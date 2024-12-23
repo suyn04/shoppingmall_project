@@ -5,10 +5,11 @@ import styles from '../../scss/product/prodTotal.module.scss';
 
 function BestSlide(props) {
     const [product, setProduct] = useState([]);
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5001/product/`)
+            .get(`${bkURL}/product/`)
             .then((res) => {
                 console.log('서버 다녀옴', res.data);
                 let curProduct = res.data.filter((item) => item.product_special == 'Best Seller');

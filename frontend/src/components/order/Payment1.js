@@ -11,6 +11,8 @@ function Payment1(props) {
     const [isModal, setModal] = useState(false);
     const navigate = useNavigate();
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     if (!email) {
         navigate('/signIn');
     }
@@ -18,7 +20,7 @@ function Payment1(props) {
     // 기본 회원 정보 가져오기
     function pageLoad() {
         axios
-            .get(`http://localhost:5001/payment1/${email}`)
+            .get(`${bkURL}/payment1/${email}`)
             .then((res) => {
                 setOrder(res.data);
             })

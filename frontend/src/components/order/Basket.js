@@ -8,11 +8,12 @@ function Basket(props) {
     const navigate = useNavigate();
 
     const email = sessionStorage.getItem('email');
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     // 장바구니 내역 불러오기
     function dataInit() {
         axios
-            .get(`http://localhost:5001/basket/${email}`)
+            .get(`${bkURL}/basket/${email}`)
             .then((res) => {
                 const updatedProd = res.data.map((item) => ({
                     ...item,
@@ -45,7 +46,7 @@ function Basket(props) {
     // 장바구니 정보 삭제
     function delBasket(id) {
         axios
-            .delete(`http://localhost:5001/basket/delete/${id}`)
+            .delete(`${bkURL}/basket/delete/${id}`)
             .then((res) => {
                 alert('삭제되었습니다.');
                 dataInit();

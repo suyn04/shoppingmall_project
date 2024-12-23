@@ -17,10 +17,12 @@ const YearChart = () => {
         ],
     });
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/analysis/year');
+                const response = await axios.get(`${bkURL}/analysis/year`);
                 const data = response.data;
 
                 const labels = data.map((item) => `${new Date(item.order_date).getFullYear()}년`);

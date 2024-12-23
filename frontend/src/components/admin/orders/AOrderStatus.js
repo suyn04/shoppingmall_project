@@ -16,9 +16,11 @@ function AOrderStatus(props) {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const curOrders = order.slice(indexOfFirstItem, indexOfLastItem);
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     useEffect(() => {
         axios
-            .get('http://localhost:5001/admin/order/status')
+            .get(`${bkURL}/admin/order/status`)
             .then((res) => {
                 const updatedData = res.data.map((item) => ({
                     ...item,
@@ -46,7 +48,7 @@ function AOrderStatus(props) {
     // 수정 완료 핸들러 (DB에 업데이트)
     const handleSaveChanges = () => {
         axios
-            .post('http://localhost:5001/admin/order/update', order)
+            .post(`${bkURL}/admin/order/update`, order)
             .then((res) => {
                 alert('수정이 완료되었습니다.');
                 setIsEditable(false);
@@ -91,7 +93,7 @@ function AOrderStatus(props) {
         }
 
         axios
-            .post(`http://localhost:5001/admin/order/search`, data)
+            .post(`${bkURL}/admin/order/search`, data)
             .then((res) => {
                 console.log('검색 완료', res.data);
 
@@ -125,7 +127,7 @@ function AOrderStatus(props) {
 
         // 데이터를 원래 상태로 복원
         axios
-            .get('http://localhost:5001/admin/order/status')
+            .get(`${bkURL}/admin/order/status`)
             .then((res) => {
                 const updatedData = res.data.map((item) => ({
                     ...item,

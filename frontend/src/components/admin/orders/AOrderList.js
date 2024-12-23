@@ -18,9 +18,11 @@ function OrderList(props) {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const curOrders = order.slice(indexOfFirstItem, indexOfLastItem);
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     const orderListAxios = () => {
         axios
-            .get('http://localhost:5001/admin/order/')
+            .get(`${bkURL}/admin/order/`)
             .then((res) => {
                 const updatedData = res.data.map((item) => ({
                     ...item,
@@ -76,7 +78,7 @@ function OrderList(props) {
         }
 
         axios
-            .post('http://localhost:5001/admin/order/update', order)
+            .post(`${bkURL}/admin/order/update`, order)
             .then((res) => {
                 alert('수정이 완료되었습니다.');
                 setIsEditable(false);
@@ -122,7 +124,7 @@ function OrderList(props) {
         }
 
         axios
-            .post(`http://localhost:5001/admin/order/search`, data)
+            .post(`${bkURL}/admin/order/search`, data)
             .then((res) => {
                 console.log('검색 완료', res.data);
 
@@ -143,7 +145,7 @@ function OrderList(props) {
 
         // 데이터를 원래 상태로 복원
         axios
-            .get('http://localhost:5001/admin/order/status')
+            .get(`${bkURL}/admin/order/status`)
             .then((res) => {
                 const updatedData = res.data.map((item) => ({
                     ...item,
