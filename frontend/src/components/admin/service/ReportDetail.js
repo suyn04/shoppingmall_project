@@ -3,6 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
+
 const ReportDetail = () => {
     const { id } = useParams(); // URL에서 ID 가져오기
     console.log(id);
@@ -10,7 +13,7 @@ const ReportDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:5001/reports/${id}`)
+        fetch(`${bkURL}/reports/${id}`)
             .then((res) => res.json())
             .then((data) => setReport(data))
             .catch((err) => console.error('상세 오류:', err));
@@ -21,7 +24,7 @@ const ReportDetail = () => {
         if (window.confirm('이 리뷰를 비공개 처리하시겠습니까?')) {
             // console.log(review_no, report_no)
             axios
-                .put(`http://localhost:5001/reports/hide/${review_no}/${report_no}`)
+                .put(`${bkURL}/reports/hide/${review_no}/${report_no}`)
                 .then((res) => {
                     console.log('정보수정 성공 ', res.data);
                     alert(`신고되었습니다.`);

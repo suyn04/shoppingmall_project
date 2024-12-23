@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const OneToOneList = () => {
     const [onetoone, setOnetoone] = useState([]);
     const navigate = useNavigate();
@@ -10,7 +12,7 @@ const OneToOneList = () => {
     // 서버에서 데이터를 가져오는 함수
     const fetchOnetoone = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/onetoone');
+            const response = await axios.get(`${bkURL}/onetoone`);
             console.log('API 응답 데이터:', response.data); // 데이터 구조 확인
             setOnetoone(response.data.inquiries); // 서버에서 받은 데이터를 onetoone에 저장
         } catch (error) {

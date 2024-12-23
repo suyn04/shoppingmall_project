@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
 
+
+const bkURL = process.env.REACT_APP_BACK_URL;
+
+
 const ReportList = () => {
     const [reports, setReports] = useState([]); // 신고 목록 상태
     const navigate = useNavigate(); // 페이지 이동 함수
@@ -11,7 +15,7 @@ const ReportList = () => {
     useEffect(() => {
         const fetchReports = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/reports');
+                const response = await axios.get(`${bkURL}/reports`);
                 setReports(response.data); // 데이터 저장
             } catch (err) {
                 // console.error('신고 목록 불러오기 실패:', err);

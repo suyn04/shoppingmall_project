@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const ReviewDetail = () => {
     const { id } = useParams(); // URL에서 ID 가져오기
     const navigate = useNavigate();
@@ -13,7 +15,7 @@ const ReviewDetail = () => {
     useEffect(() => {
         const fetchReviewDetail = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/review/${id}`);
+                const response = await axios.get(`${bkURL}/review/${id}`);
                 setReview(response.data); //상태 업데이트
             } catch (err) {
                 setError('리뷰 세부 정보를 가져오는 데 실패했습니다.');
@@ -77,7 +79,9 @@ const ReviewDetail = () => {
                     </tr>
                 </tbody>
             </table>
-            <button className={styles.changebutton} onClick={handleBack} style={{ marginTop: '20px' }}>
+            <button className={styles.changebutton} 
+            onClick={handleBack} 
+            style={{ marginTop: '20px' }}>
                 뒤로가기
             </button>
         </div>
