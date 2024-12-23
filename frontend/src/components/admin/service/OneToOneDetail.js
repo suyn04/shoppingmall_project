@@ -134,6 +134,9 @@ const OneToOneDetail = () => {
                         { value: '답변완료', title: '답변완료' },
                     ])}
                 </select>
+                <button className={styles.changebutton} onClick={statusChgGo}>
+                    저장
+                </button>
             </td>
         </tr>
     </tbody>

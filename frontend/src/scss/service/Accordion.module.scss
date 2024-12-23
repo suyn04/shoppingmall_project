@@ -38,7 +38,7 @@
     width: 90%;
     margin: 0 auto;
     margin-bottom: 50px;
-
+    line-height: 22px;
     // margin: 10px 20px;
     .bold {
         font-weight: 800;
@@ -47,6 +47,7 @@
 
     .marginbottom {
         margin-bottom: 50px;
+        line-height: 22px;
     }
 
     .faqtitle {
@@ -128,6 +129,9 @@
     }
 }
 
+.p{
+    line-height: 24px;
+}
 //////////////반응형////////
 
 /* 태블릿 (800px 이하) */
@@ -172,7 +176,8 @@
         line-height: 26px;
     }
     .marginbottom {
-        line-height: 26px;
+        line-height: 24px;
+        
     }
 }
 

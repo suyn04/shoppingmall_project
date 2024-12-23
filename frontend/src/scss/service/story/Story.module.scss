@@ -3,6 +3,7 @@
     width: 85%;
     margin-top: 50px;
     margin-bottom: 50px;
+
     .sttitle {
         font-size: 24px;
         font-family: 'NanumMyeongjo';
@@ -10,9 +11,11 @@
         margin-bottom: 20px;
         margin-left: 20px;
     }
+
     .pp {
         margin-bottom: 30px;
         margin-left: 20px;
+        line-height: 24px;
     }
 }
 
@@ -29,12 +32,18 @@
         margin-bottom: 20px;
         padding-right: 50px;
     }
+
     .iwrapper {
         margin: 10px;
         width: calc((100% - 40px) / 2);
+
         img {
             width: 100%;
         }
+    }
+
+    .ppp {
+        line-height: 24px;
     }
 }
 
@@ -54,17 +63,21 @@
 //자선활동 미션 scss
 .charity {
     margin: 30px;
+
     .ibox1 {
         margin: 10px;
     }
+
     .tbox3,
     p {
         margin: 10px;
     }
+
     .tbox4,
     p {
         margin: 20px;
     }
+
     .tbox4 {
         // width: calc();
         margin-top: 30px;
@@ -94,6 +107,7 @@
             width: 100%;
             margin-top: 50px;
         }
+
         .tbox1 {
             margin-top: 50px;
             width: 70%;
@@ -225,12 +239,15 @@
     margin-bottom: 50px;
     width: 95%;
     margin: 0 auto;
+
     .ibox1 {
         display: flex;
+
         div {
             width: calc(100% / 3);
             margin: 10px;
         }
+
         img {
             width: 100%;
         }
@@ -309,8 +326,10 @@
             }
         }
     }
+
     //스토리메인
 }
+
 .wideimg {
     width: 100%;
     margin-top: 20px;
@@ -344,9 +363,7 @@
         flex-direction: column;
         align-items: center;
 
-        p {
-            // padding-right: 0;
-        }
+
 
         .iwrapper {
             width: 100%;
@@ -354,14 +371,20 @@
             // padding-right: 10px;
         }
     }
+.stitle, .ppp, .more, .pppp, .mmore{
+    margin-left: 20px;
+}
+
 
     .charity {
+
         // padding-left: 10px;
         //     padding-right: 10px;
         .cbox1,
         .sbox1 {
             flex-direction: column;
             width: 100%;
+
             .tbox1 {
                 width: 100%;
                 margin-top: 20px;
@@ -371,13 +394,16 @@
                 width: 100%;
             }
         }
+
         .tbox4,
         p {
             margin: 0;
         }
+
         .tbox3 {
             margin: 0;
         }
+
         .tbox3,
         .tbox4 {
             flex-direction: column;
@@ -386,13 +412,19 @@
             p {
                 width: 100%;
                 margin-bottom: 20px;
+                line-height: 1.6;
             }
         }
+    }
+
+    .pppp {
+        line-height: 24px;
     }
 
     .people {
         padding-left: 10px;
         padding-right: 10px;
+
         .ibox1 {
             flex-wrap: wrap;
 
@@ -416,9 +448,11 @@
         .tbox7 {
             flex-direction: column;
             width: 95%;
+
             .stitle {
                 margin-left: 15px;
             }
+
             .ttbox1,
             .ttbox2 {
                 width: 100%;
@@ -433,8 +467,7 @@
         width: 100%;
         margin-top: 30px;
         margin-bottom: 30px;
-        // padding-left: 20px;
-        // padding-right: 20px;
+
         .sttitle {
             font-size: 20px;
         }
@@ -451,6 +484,7 @@
     }
 
     .charity {
+
         // padding-left: 20px;
         // padding-right: 20px;
         .ibox1 {
@@ -474,6 +508,7 @@
     }
 
     .people {
+
         // padding-left: 20px;
         // padding-right: 20px;
         .ibox1 {
