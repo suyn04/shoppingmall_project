@@ -28,7 +28,7 @@ const OneToOne = () => {
     }
 
     // 입력값 변경 핸들러
-    const handleChange = (e) => {
+    const handleChange = e => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -37,7 +37,7 @@ const OneToOne = () => {
     };
 
     // 파일 업로드 핸들러
-    const handleFileChange = (e) => {
+    const handleFileChange = e => {
         setFormData({
             ...formData,
             file: e.target.files[0],
@@ -45,7 +45,7 @@ const OneToOne = () => {
     };
 
     // 폼 제출 핸들러
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
         let isValid = true;
@@ -89,7 +89,7 @@ const OneToOne = () => {
         }
 
         try {
-            const response = await axios.post('${bkURL}/onetoone/register', data);
+            const response = await axios.post(`${bkURL}/onetoone/register`, data);
             if (response.status === 201) {
                 alert('문의가 접수되었습니다!');
                 navigate('/onetoonelist');
@@ -114,9 +114,7 @@ const OneToOne = () => {
     return (
         <div className={styles.one}>
             <div className={styles.onetitle}>1:1 문의</div>
-            <div className={styles.gray}>
-                ※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에 FAQ를 참고 해주세요.
-            </div>
+            <div className={styles.gray}>※ 문의하신 사항은 성실하게 답변 드리겠습니다. 문의하시기 전에 FAQ를 참고 해주세요.</div>
 
             <form className={styles.inquiryForm} onSubmit={handleSubmit}>
                 <div>
@@ -146,14 +144,7 @@ const OneToOne = () => {
                     <label htmlFor="title">
                         제목 <span className={styles.red}>*</span>
                     </label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        placeholder="제목을 입력하세요"
-                    />
+                    <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} placeholder="제목을 입력하세요" />
                     {titleError && <p style={{ color: 'red' }}>{titleError}</p>}
                 </div>
 
@@ -162,19 +153,9 @@ const OneToOne = () => {
                     <label htmlFor="content">
                         문의 내용 <span className={styles.red}>*</span>
                     </label>
-                    <textarea
-                        id="content"
-                        name="content"
-                        value={formData.content}
-                        onChange={handleChange}
-                        placeholder={
-                            formData.category === 'refund' ? '주문번호를 입력하세요' : '문의 내용을 입력하세요'
-                        }
-                    />
+                    <textarea id="content" name="content" value={formData.content} onChange={handleChange} placeholder={formData.category === 'refund' ? '주문번호를 입력하세요' : '문의 내용을 입력하세요'} />
                     {contentError && <p style={{ color: 'red' }}>{contentError}</p>}
-                    <p className={styles.gray}>
-                        ※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의 개인정보 입력은 지양하여 주시기 바랍니다.
-                    </p>
+                    <p className={styles.gray}>※ 개인정보 보호를 위해 이메일, 주소, 휴대폰 번호 등의 개인정보 입력은 지양하여 주시기 바랍니다.</p>
                 </div>
 
                 {/* 파일 첨부 */}
