@@ -21,23 +21,23 @@ function SignUp() {
     const [errors, setErrors] = useState({}); // 유효성 검사 에러 메시지 -- 각 인풋 필드마다 에러메시지 표기
     const [showErrors, setShowErrors] = useState(false); // 에러 메시지 표시 여부 상태 추가
 
-    const handleChange = async (e) => {
+    const handleChange = async e => {
         //각 요소 이름, 값, 종류, 체크여부 데이터 저장(폼데이터 바꾸기)
         const { name, value, type, checked } = e.target;
         // requiredAgree 체크박스는 항상 true 유지
         if (name === 'requiredAgree') {
-            setFormData((prev) => ({
+            setFormData(prev => ({
                 ...prev,
                 [name]: true, // 항상 true로 강제 설정
             }));
         } else {
-            setFormData((prev) => ({
+            setFormData(prev => ({
                 ...prev,
                 [name]: type === 'checkbox' ? checked : value,
             }));
         }
         if (name === 'birthdate') {
-            setFormData((prev) => ({
+            setFormData(prev => ({
                 ...prev,
                 [name]: value, // 생일 입력값이 DB 저장될때 바뀌지 않도록 그대로 값을 저장해버리기
             }));
@@ -47,7 +47,7 @@ function SignUp() {
         const error = ValueChk(name, type === 'checkbox' ? checked : value);
 
         // 에러 메시지 업데이트
-        setErrors((prev) => ({
+        setErrors(prev => ({
             ...prev,
             [name]: error, // 에러메시지가 바뀌면 업데이트 해야함
         }));
@@ -60,15 +60,13 @@ function SignUp() {
                 if (!/^[가-힣]{2,5}$/.test(value)) return '이름을 정확히 입력해주세요.';
                 break;
             case 'email':
-                if (!/^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value))
-                    return '유효한 이메일을 입력해주세요.';
+                if (!/^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value)) return '유효한 이메일을 입력해주세요.';
                 break;
             case 'phone':
                 if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(value)) return '연락처를 정확히 입력해주세요.';
                 break;
             case 'password':
-                if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%~]).{12,16}$/.test(value))
-                    return '비밀번호는 영문, 숫자, 특수문자를 포함하여 12~16자 이내여야 합니다.';
+                if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%~]).{12,16}$/.test(value)) return '비밀번호는 영문, 숫자, 특수문자를 포함하여 12~16자 이내여야 합니다.';
                 break;
             case 'password2':
                 if (value !== formData.password) return '입력하신 비밀번호가 서로 일치하지 않습니다.';
@@ -80,7 +78,7 @@ function SignUp() {
     };
 
     // 회원가입 요청 처리 함수
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault(); // 기본 동작 방지
         setShowErrors(true); // 에러 메시지 표시
 
@@ -117,7 +115,7 @@ function SignUp() {
 
             // 서버 응답이 성공일 경우
             alert(`${formData.name}님 가입을 환영합니다.`);
-            navigator('/'); // 홈으로 이동
+            navigator('/signIn'); // 홈으로 이동
         } catch (err) {
             // 서버 오류 또는 네트워크 오류 처리
             if (err.res) {
@@ -134,9 +132,14 @@ function SignUp() {
 
     const emailChk = async () => {
         const { email } = formData;
+        const emailtype = /^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
         if (!email) {
             alert('이메일을 입력해주세요.');
+            return;
+        }
+        if (!emailtype.test(email)) {
+            alert('유효한 이메일을 입력해주세요.');
             return;
         }
 
@@ -189,28 +192,12 @@ function SignUp() {
 
                         <form className={styles.inform}>
                             <div className={styles.inputWrapper}>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="*이름"
-                                    className={styles.input}
-                                    required
-                                    onChange={handleChange}
-                                />
+                                <input type="text" name="name" placeholder="*이름" className={styles.input} required onChange={handleChange} />
                                 {showErrors && errors.name && <div className={styles.error}>{errors.name}</div>}
                             </div>
 
                             <div className={styles.inputWrapper}>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="*이메일"
-                                    className={styles.input}
-                                    required
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    readOnly={editChk}
-                                />
+                                <input type="email" name="email" placeholder="*이메일" className={styles.input} required value={formData.email} onChange={handleChange} readOnly={editChk} />
                                 {showErrors && errors.email && <div className={styles.error}>{errors.email}</div>}
                             </div>
                             <button className={styles.chkbtn} onClick={emailChk}>
@@ -218,41 +205,18 @@ function SignUp() {
                             </button>
 
                             <div className={styles.inputWrapper}>
-                                <input
-                                    type="text"
-                                    name="phone"
-                                    placeholder="*핸드폰 번호 (하이픈(-)포함하여 기재해주세요.)"
-                                    className={styles.input}
-                                    required
-                                    onChange={handleChange}
-                                />
+                                <input type="text" name="phone" placeholder="*핸드폰 번호 (하이픈(-)포함하여 기재해주세요.)" className={styles.input} required onChange={handleChange} />
                                 {showErrors && errors.phone && <div className={styles.error}>{errors.phone}</div>}
                             </div>
 
                             <div className={styles.inputWrapper}>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    placeholder="*비밀번호 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)"
-                                    className={styles.input}
-                                    required
-                                    onChange={handleChange}
-                                />
+                                <input type="password" name="password" placeholder="*비밀번호 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)" className={styles.input} required onChange={handleChange} />
                                 {showErrors && errors.password && <div className={styles.error}>{errors.password}</div>}
                             </div>
 
                             <div className={styles.inputWrapper}>
-                                <input
-                                    type="password"
-                                    name="password2"
-                                    placeholder="*비밀번호확인 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)"
-                                    className={styles.input}
-                                    required
-                                    onChange={handleChange}
-                                />
-                                {showErrors && errors.password2 && (
-                                    <div className={styles.error}>{errors.password2}</div>
-                                )}
+                                <input type="password" name="password2" placeholder="*비밀번호확인 (영문대소문자, 숫자, 특수기호 (!,@,#,$,%,~) 필수 12-16자)" className={styles.input} required onChange={handleChange} />
+                                {showErrors && errors.password2 && <div className={styles.error}>{errors.password2}</div>}
                             </div>
 
                             <select name="gender" onChange={handleChange} className={styles.gender}>
@@ -277,12 +241,7 @@ function SignUp() {
                                     [필수] 이용 약관에 동의하고, 본인은 만 14세 이상입니다.
                                 </label>
                                 <label>
-                                    <input
-                                        type="checkbox"
-                                        name="optionalAgree"
-                                        className={styles.chk2}
-                                        onChange={handleChange}
-                                    />
+                                    <input type="checkbox" name="optionalAgree" className={styles.chk2} onChange={handleChange} />
                                     [선택] 마케팅 및 홍보 목적의 개인정보 수집에 동의합니다.
                                 </label>
                             </div>

@@ -11,11 +11,11 @@ function SignIn() {
 
     const passwordHide = () => {
         //비밀번호 숨기기 아이콘 클릭시마다 상태 변경
-        setshowPassword((prevState) => !prevState);
+        setshowPassword(prevState => !prevState);
     };
 
     // 로그인 요청 처리 함수
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault(); // 기본 동작 방지
 
         // 이메일과 비밀번호 공란이면 얼럿
@@ -103,21 +103,11 @@ function SignIn() {
                                 className={styles.email}
                                 placeholder="*이메일"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)} // 이메일 입력값 업데이트
+                                onChange={e => setEmail(e.target.value)} // 이메일 입력값 업데이트
                             />
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                className={styles.pw}
-                                value={password}
-                                placeholder="*비밀번호"
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <input type={showPassword ? 'text' : 'password'} className={styles.pw} value={password} placeholder="*비밀번호" onChange={e => setPassword(e.target.value)} />
                             <div className={styles.pwIcon} onClick={passwordHide}>
-                                {showPassword ? (
-                                    <img className={styles.crossed} src="/imgs/sign/pwIcon.svg" />
-                                ) : (
-                                    <img className={styles.notCrossed} src="/imgs/sign/pwIcon_cross.svg" />
-                                )}
+                                {showPassword ? <img className={styles.crossed} src="/imgs/sign/pwIcon.svg" /> : <img className={styles.notCrossed} src="/imgs/sign/pwIcon_cross.svg" />}
                             </div>
                             <div className={styles.pwfind}>
                                 <Link to="/findPw">비밀번호 찾기</Link>

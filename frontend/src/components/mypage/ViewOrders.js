@@ -19,19 +19,11 @@ function ViewOrders() {
 
             try {
                 // 사용자 정보 가져오기 -- 세션토큰은 마이페이지에서
-                const userResponse = await axios.post(
-                    `http://localhost:5001/myPage`,
-                    { action: 'getUserInfo', email },
-                    { headers: { Authorization: sessionToken } }
-                );
+                const userResponse = await axios.post(`http://localhost:5001/myPage`, { action: 'getUserInfo', email }, { headers: { Authorization: sessionToken } });
                 setUserInfo(userResponse.data.userInfo);
 
                 // 세션토큰 이메일을 기준으로 주문데이터 가져오기
-                const ordersResponse = await axios.post(
-                    `http://localhost:5001/myPage`,
-                    { action: 'getOrders', email },
-                    { headers: { Authorization: sessionToken } }
-                );
+                const ordersResponse = await axios.post(`http://localhost:5001/myPage`, { action: 'getOrders', email }, { headers: { Authorization: sessionToken } });
                 setOrders(ordersResponse.data.orders);
             } catch (err) {
                 console.error('데이터 가져오기 오류:', err);
@@ -43,7 +35,7 @@ function ViewOrders() {
     }, []);
 
     // 날짜 포맷팅 함수
-    const formatDate = (dateString) => {
+    const formatDate = dateString => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
@@ -53,9 +45,7 @@ function ViewOrders() {
         <div className={styles.orderlistcontainer}>
             <div className={styles.block}>
                 <div className={styles.orderheader}>주문 전체 보기</div>
-                <p className={styles.orderdescription}>
-                    주문하신 제품의 상세내역을 보시려면 아래 자세히 보기를 클릭해 주세요.
-                </p>
+                <p className={styles.orderdescription}>주문하신 제품의 상세내역을 보시려면 아래 자세히 보기를 클릭해 주세요.</p>
 
                 <div className={styles.orderlist}>
                     <div className={styles.orderlistheader}>
@@ -71,7 +61,7 @@ function ViewOrders() {
                             <div>
                                 {order.order_id}
                                 <Link to={`/myPage/orderDetail/${order.order_id}`} className={styles.a1}>
-                                    자세히 보기
+                                    &nbsp; 자세히 보기
                                 </Link>
                             </div>
                             <div>{formatDate(order.order_date)}</div>

@@ -135,7 +135,7 @@ const MyInfo = () => {
                                     <p>
                                         가장 최근 주문내역만 노출됩니다. 전체 주문내역은
                                         <Link to="/myPage/viewOrders" className={styles.a1}>
-                                            주문 내역 전체보기
+                                            &nbsp; 주문 내역 전체보기
                                         </Link>
                                         를 클릭해주세요.
                                     </p>
@@ -145,7 +145,7 @@ const MyInfo = () => {
                             <p>
                                 고객님의 주문내역이 없습니다.
                                 <Link to="/all-product" className={styles.a1}>
-                                    쇼핑하러가기
+                                    &nbsp; 쇼핑하러가기
                                 </Link>
                             </p>
                         )}
