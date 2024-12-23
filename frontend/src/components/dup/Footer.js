@@ -84,7 +84,7 @@ function Footer(props) {
                                 to="/info/terms"
                                 className={`${styles.link} ${location.pathname === '/info/terms' ? styles.active : ''}`}
                             >
-                                서비스 이용약관 <br /> 및 개인정보 처리방침
+                                <p className={styles.fterms}>서비스 이용약관 <br /> 및 개인정보 처리방침</p>
                             </Link>
                         </div>
                     ) : null}
