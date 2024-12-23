@@ -120,6 +120,11 @@ const MyinfoEdit = () => {
             return;
         }
 
+        if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(phoneNumber)) {
+            alert('연락처를 다시 확인해주세요.');
+            return;
+        }
+
         // 변경된 정보 서버로 전송
         axios
             .post(
