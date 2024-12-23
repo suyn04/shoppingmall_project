@@ -1,5 +1,5 @@
 // 지속가능성 scss
-.sustainable{
+.sustainable {
     width: 95%;
     margin: 0 auto;
     margin-top: 20px;
@@ -8,52 +8,47 @@
         font-family: 'NanumMyeongjo';
         margin-top: 20px;
         margin-bottom: 20px;
-    
-
     }
-    .sbox1{
+    .sbox1 {
         // width: calc(100%/2);
         display: flex;
-        div{
-            width: calc(100%/2);
-            img{
+        div {
+            width: calc(100% / 2);
+            img {
                 width: 100%;
             }
         }
-        .font14{
+        .font14 {
             font-size: 15px;
             line-height: 25px;
         }
-   
     }
     .tbox7 {
         margin-top: 30px;
         border-top: 1px solid #ccc;
         display: flex;
         width: 100%;
-    
+
         .stitle {
-            width: calc(100%/3);
+            width: calc(100% / 3);
             line-height: 30px;
             font-family: 'NanumMyeongjo';
             margin: 20px;
         }
-      
+
         .ttbox1,
         .ttbox2 {
-    
-            width: calc(100%/3);
+            width: calc(100% / 3);
             font-family: 'NotoSansKR';
             font-size: 14px;
             margin: 20px;
-    
         }
-    
+
         p {
             line-height: 24px;
             font-family: 'NotoSansKR';
         }
-    
+
         li {
             list-style: '-';
         }
@@ -69,15 +64,14 @@
                 width: 100%;
             }
 
-
             padding-bottom: 30px;
         }
     }
-    .cimg27{
+    .cimg27 {
         margin: 0 auto 50px;
         width: 100%;
     }
-    .cimg26{
+    .cimg26 {
         margin-left: 38px;
     }
 }

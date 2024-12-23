@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "../../scss/product/productNav.module.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from '../../scss/product/productNav.module.scss';
 
 const ProductNav = ({ navInfo }) => {
     console.log(navInfo);
@@ -11,14 +11,7 @@ const ProductNav = ({ navInfo }) => {
             {navInfo.map((info, i) => {
                 return (
                     <li>
-                        <Link
-                            className={
-                                window.location.pathname == info.url
-                                    ? styles.active
-                                    : ""
-                            }
-                            to={info.url}
-                        >
+                        <Link className={window.location.pathname == info.url ? styles.active : ''} to={info.url}>
                             {info.title}
                         </Link>
                     </li>

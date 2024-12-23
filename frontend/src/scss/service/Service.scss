@@ -1,20 +1,18 @@
-.wrapper{
+.wrapper {
     background-color: #fcf9ee;
     margin: 10px 20px;
 }
-.tterms{
+.tterms {
     font-weight: bold;
     text-decoration: underline;
     line-height: 24px;
-    
 }
-.hli{
+.hli {
     list-style-type: '-';
 }
-p{
+p {
     line-height: 24px;
 }
-
 
 /* 태블릿 (800px 이하) */
 @media screen and (max-width: 800px) {

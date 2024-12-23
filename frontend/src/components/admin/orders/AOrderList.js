@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styles from '../../../scss/admin/AdminList.module.scss';
-import Pagination from '../../dup/Pagination';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import styles from "../../../scss/admin/AdminList.module.scss";
+import Pagination from "../../dup/Pagination";
 
 function OrderList(props) {
-  const [order, setOrder] = useState([])
-  const [text, setText] = useState("")
-  const [isEditable, setIsEditable] = useState(false)
-  const navigate = useNavigate()
+  const [order, setOrder] = useState([]);
+  const [text, setText] = useState("");
+  const [isEditable, setIsEditable] = useState(false);
+  const navigate = useNavigate();
 
   // pagination 추가
   const [curPage, setCurPage] = useState(1); // Current page
@@ -19,123 +19,125 @@ function OrderList(props) {
   const curOrders = order.slice(indexOfFirstItem, indexOfLastItem);
 
   const orderListAxios = () => {
-    axios.get('http://localhost:5001/admin/order/')
-    .then((res) => {
-      const updatedData = res.data.map((item) => ({
-        ...item,
-        status: item.order_status || '주문완료',
-        invoice: item.invoice || '',
-      }))
-      setOrder(updatedData)
-    })
-    .catch((err) => {
-      console.error('에러발생 : ', err)
-    })
-  }
+    axios
+      .get("http://localhost:5001/admin/order/")
+      .then((res) => {
+        const updatedData = res.data.map((item) => ({
+          ...item,
+          status: item.order_status || "주문완료",
+          invoice: item.invoice || "",
+        }));
+        setOrder(updatedData);
+      })
+      .catch((err) => {
+        console.error("에러발생 : ", err);
+      });
+  };
 
   useEffect(() => {
-    orderListAxios()
-  },[])
+    orderListAxios();
+  }, []);
 
   // 상태 변경 핸들러
   const handleStatusChange = (id, newStatus) => {
     const updatedArr = order.map((item) => {
       if (item.order_id === id) {
         // invoice가 null이면서 상태가 '배송 중'일 때, 상태를 '주문 완료'로 되돌림
-        if (!item.invoice && newStatus === '배송중') {
-          alert('운송장번호를 먼저 입력하세요')
-          return { ...item, status: '주문 완료', invoice: ''}
+        if (!item.invoice && newStatus === "배송중") {
+          alert("운송장번호를 먼저 입력하세요");
+          return { ...item, status: "주문 완료", invoice: "" };
         }
-        return { ...item, status: newStatus, invoice: item.invoice}
+        return { ...item, status: newStatus, invoice: item.invoice };
       }
-      return item
-    })
-    setOrder(updatedArr)
-  }
+      return item;
+    });
+    setOrder(updatedArr);
+  };
 
   // 운송장 번호 변경 핸들러
   const handleInvoiceChange = (id, newInvoice) => {
     const updatedArr = order.map((item) =>
-      item.order_id === id ? { ...item, invoice: newInvoice, status: '배송중' } : item
-    )
-    setOrder(updatedArr)
-  }
+      item.order_id === id
+        ? { ...item, invoice: newInvoice, status: "배송중" }
+        : item,
+    );
+    setOrder(updatedArr);
+  };
 
   // 수정 완료 핸들러 (DB에 업데이트)
   const handleSaveChanges = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     for (const ee of order) {
-      if( !ee['invoice']){
-        ee['invoice'] = ''
+      if (!ee["invoice"]) {
+        ee["invoice"] = "";
       }
-      if(!ee['status']){
-         ee['status'] = order.order_status
+      if (!ee["status"]) {
+        ee["status"] = order.order_status;
       }
-      console.log(ee['status'], ee['invoice']);
-      
-    }
-
-    axios.post('http://localhost:5001/admin/order/update', order)
-      .then((res) => {
-        alert('수정이 완료되었습니다.')
-        setIsEditable(false)
-        navigate('/admin/order')
-      })
-      .catch((err) => {
-        console.error('수정 실패 :', err)
-        alert('수정에 실패했습니다.')
-      })
-  }
-
-  const formatDate = (dateString) => {
-    if (!dateString) return '-'
-    const date = new Date(dateString)
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-    }) // 한국 로컬 시간대에 맞게 변환
-  }
-
-  const searchGo = (me) => {
-    me.preventDefault()
-    console.log("submitGo 진입")
-    const frmData = new FormData(document.myFrm)
-    // console.log(frmData)
-    const data = Object.fromEntries(frmData)
-    console.log("order 검색:",data)
-
-    Object.keys(data).forEach((key) => {
-      if (data[key] === "") {
-          data[key] = null
-      }
-    })
-
-    if (!data.text) {
-        alert("검색할 단어를 입력해 주세요.")
-        return
+      console.log(ee["status"], ee["invoice"]);
     }
 
     axios
-    .post(`http://localhost:5001/admin/order/search`, data)
-    .then((res) => {
-      console.log("검색 완료",res.data)
+      .post("http://localhost:5001/admin/order/update", order)
+      .then((res) => {
+        alert("수정이 완료되었습니다.");
+        setIsEditable(false);
+        navigate("/admin/order");
+      })
+      .catch((err) => {
+        console.error("수정 실패 :", err);
+        alert("수정에 실패했습니다.");
+      });
+  };
 
-      setOrder(res.data)
-      setText("해당하는 주문이 존재하지 않습니다.")
-    })
-    .catch((err) => {
-      console.error("에러발생: ", err)
-    })
-  }
+  const formatDate = (dateString) => {
+    if (!dateString) return "-";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    }); // 한국 로컬 시간대에 맞게 변환
+  };
+
+  const searchGo = (me) => {
+    me.preventDefault();
+    console.log("submitGo 진입");
+    const frmData = new FormData(document.myFrm);
+    // console.log(frmData)
+    const data = Object.fromEntries(frmData);
+    console.log("order 검색:", data);
+
+    Object.keys(data).forEach((key) => {
+      if (data[key] === "") {
+        data[key] = null;
+      }
+    });
+
+    if (!data.text) {
+      alert("검색할 단어를 입력해 주세요.");
+      return;
+    }
+
+    axios
+      .post(`http://localhost:5001/admin/order/search`, data)
+      .then((res) => {
+        console.log("검색 완료", res.data);
+
+        setOrder(res.data);
+        setText("해당하는 주문이 존재하지 않습니다.");
+      })
+      .catch((err) => {
+        console.error("에러발생: ", err);
+      });
+  };
 
   return (
     <div className={styles.list}>
-      
       <form name="myFrm" className={styles.searchbar}>
         <select name="orderCate" id="category">
           <option value="">검색기준 선택</option>
@@ -150,10 +152,24 @@ function OrderList(props) {
 
         <div className={styles.actionButtons}>
           <button className={styles.searchbutton} onClick={searchGo}>
-              검색
+            검색
           </button>
-          {!isEditable && <button className={styles.modifybutton} onClick={() => setIsEditable(true)}>수정하기</button>}
-          {isEditable && <button className={styles.modiclearbutton} onClick={handleSaveChanges}>수정완료</button>}
+          {!isEditable && (
+            <button
+              className={styles.modifybutton}
+              onClick={() => setIsEditable(true)}
+            >
+              수정하기
+            </button>
+          )}
+          {isEditable && (
+            <button
+              className={styles.modiclearbutton}
+              onClick={handleSaveChanges}
+            >
+              수정완료
+            </button>
+          )}
         </div>
       </form>
       <table>
@@ -167,17 +183,21 @@ function OrderList(props) {
           <td>총주문액</td>
           <td>운송장번호</td>
         </tr>
-        {curOrders.map((mm,i) => (
+        {curOrders.map((mm, i) => (
           <tr key={mm.order_id}>
-            <td>{(curPage-1)*itemsPerPage+(i+1)}</td>
+            <td>{(curPage - 1) * itemsPerPage + (i + 1)}</td>
             <td>
-              <Link className={styles.link} to={`detail/${mm.order_id}`}>{mm.order_id}</Link>
+              <Link className={styles.link} to={`detail/${mm.order_id}`}>
+                {mm.order_id}
+              </Link>
             </td>
             <td>{formatDate(mm.order_date)}</td>
             <td>
               <select
                 value={mm.status}
-                onChange={(e) => handleStatusChange(mm.order_id, e.target.value)}
+                onChange={(e) =>
+                  handleStatusChange(mm.order_id, e.target.value)
+                }
                 disabled={!isEditable}
               >
                 <option value="주문완료">주문완료</option>
@@ -196,7 +216,9 @@ function OrderList(props) {
                 value={mm.invoice}
                 readOnly={!isEditable}
                 maxLength={14}
-                onChange={(e) => handleInvoiceChange(mm.order_id, e.target.value)}
+                onChange={(e) =>
+                  handleInvoiceChange(mm.order_id, e.target.value)
+                }
               />
             </td>
           </tr>
@@ -211,7 +233,7 @@ function OrderList(props) {
         setCurPage={setCurPage}
       />
     </div>
-  )
+  );
 }
 
-export default OrderList
+export default OrderList;

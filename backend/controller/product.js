@@ -71,14 +71,12 @@ module.exports = () => {
             const [categories] = await conn.execute(
                 "select * from  product_category"
             );
-            const [gruopScents] = await conn.execute(
-                "select product_group_scent from product"
-            );
+            const [product] = await conn.execute("select * from product");
             const [note] = await conn.execute("select * from  product_note");
 
             const combinedData = {
                 categories,
-                gruopScents,
+                product,
                 note,
             };
             // console.log(combinedData);
@@ -97,10 +95,12 @@ module.exports = () => {
                 [req.params.product_id]
             );
             const [note] = await conn.execute("select * from  product_note");
+            const [allProduct] = await conn.execute("select * from product");
 
             const combinedData = {
                 product,
                 note,
+                allProduct,
             };
             // console.log(combinedData);
             res.json(combinedData);

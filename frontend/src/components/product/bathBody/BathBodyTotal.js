@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
-import styles from "../../../scss/product/prodTotal.module.scss";
-import ProductSwiper from "../ProductSwiper";
-import { Link } from "react-router-dom";
-import BathBodyHomeTop from "./BathBodyHomeTop";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import styles from '../../../scss/product/prodTotal.module.scss';
+import ProductSwiper from '../ProductSwiper';
+import { Link } from 'react-router-dom';
+import BathBodyHomeTop from './BathBodyHomeTop';
+import axios from 'axios';
+
+const bkURL = process.env.REACT_APP_BACK_URL;
 
 const BathBodyTotal = () => {
     const [bathShower, setBathShower] = useState([]);
     const [bodyCare, setBodyCare] = useState([]);
     const candleGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/bath-body/bath-shower`)
+            .get(`${bkURL}/product/bath-body/bath-shower`)
             .then((res) => {
                 let curProduct = res.data;
                 console.log(curProduct);
@@ -18,12 +20,12 @@ const BathBodyTotal = () => {
                 setBathShower(curProduct);
             })
             .catch((err) => {
-                console.error("에러발생 ; ", err);
+                console.error('에러발생 ; ', err);
             });
     };
     const diffuserGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/bath-body/body-care`)
+            .get(`${bkURL}/product/bath-body/body-care`)
             .then((res) => {
                 let curProduct = res.data;
                 console.log(curProduct);
@@ -31,7 +33,7 @@ const BathBodyTotal = () => {
                 setBodyCare(curProduct);
             })
             .catch((err) => {
-                console.error("에러발생 ; ", err);
+                console.error('에러발생 ; ', err);
             });
     };
     useEffect(() => {

@@ -37,14 +37,14 @@ function OrderDetail() {
     }, []);
 
     // 날짜 포맷팅 함수
-    const formatDate = dateString => {
+    const formatDate = (dateString) => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
     };
 
     // 주문 취소하기
-    const handleCancelOrder = orderId => {
+    const handleCancelOrder = (orderId) => {
         if (window.confirm('주문을 취소하시겠습니까?')) {
             axios
                 .post(`${bkURL}/myPage/cancelOrder/${orderId}`)
@@ -53,7 +53,7 @@ function OrderDetail() {
                     // 상태를 갱신하거나 페이지를 새로고침
                     window.location.reload();
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.error('주문 취소 실패:', err);
                     alert('주문 취소에 실패했습니다.');
                 });
@@ -78,7 +78,12 @@ function OrderDetail() {
                         <div>결제금액</div>
                         <div>주문상태</div>
                         <div>배송지</div>
-                        <div className={styles.headerColumn} style={{ color: detailorders.length > 0 && !detailorders[0].invoice ? '#f5f5f5' : 'inherit' }}>
+                        <div
+                            className={styles.headerColumn}
+                            style={{
+                                color: detailorders.length > 0 && !detailorders[0].invoice ? '#f5f5f5' : 'inherit',
+                            }}
+                        >
                             {detailorders.length > 0 && detailorders[0].invoice ? '송장번호' : '취소'}
                         </div>
                     </div>
@@ -89,9 +94,12 @@ function OrderDetail() {
                                 <div>{od.order_id}</div>
                                 <div>
                                     {products.length > 0
-                                        ? products.map(product => (
+                                        ? products.map((product) => (
                                               <p key={product.product_id} className={styles.productItem}>
-                                                  <Link to={`/product/${product.product_opt_id}`} className={styles.productLink}>
+                                                  <Link
+                                                      to={`/product/${product.product_opt_id}`}
+                                                      className={styles.productLink}
+                                                  >
                                                       {product.product_name_kor} &nbsp;
                                                       {product.product_volume} ({`${product.order_cnt}개`})
                                                   </Link>
@@ -110,7 +118,10 @@ function OrderDetail() {
                                 </div>
                                 <div>
                                     {od.order_status === '주문완료' ? (
-                                        <button className={styles.cancelButton} onClick={() => handleCancelOrder(od.order_id)}>
+                                        <button
+                                            className={styles.cancelButton}
+                                            onClick={() => handleCancelOrder(od.order_id)}
+                                        >
                                             취소하기
                                         </button>
                                     ) : (

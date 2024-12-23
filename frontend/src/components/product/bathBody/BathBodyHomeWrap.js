@@ -1,6 +1,5 @@
-import React from "react";
-import HomeTop from "./BathBodyHomeTop";
-import { Outlet } from "react-router-dom";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const BathBodyHomeWrap = () => {
     return (
