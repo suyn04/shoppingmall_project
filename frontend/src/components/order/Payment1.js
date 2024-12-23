@@ -83,7 +83,7 @@ function Payment1(props) {
                         '배송지를 등록해주세요.'
                     )}
 
-                    <div>연락처 : {ordersData.contact_number}</div>
+                    <div>전화번호 : {ordersData.contact_number}</div>
                 </div>
 
                 <div className={styles.btnGroup}>
