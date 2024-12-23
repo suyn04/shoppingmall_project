@@ -113,6 +113,12 @@ function SignUp() {
             // 회원가입 요청을 서버로 전송
             const res = await axios.post(`${bkURL}/signUp/`, customerData);
 
+            if (res.data.error) {
+                // 백에서 에러를 보내면
+                alert(res.data.message); // 에러메시지 띄우기
+                return;
+            }
+
             // 서버 응답이 성공일 경우
             alert(`${formData.name}님 가입을 환영합니다.`);
             navigator('/signIn'); // 홈으로 이동

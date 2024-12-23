@@ -1,6 +1,7 @@
 html,
 body {
     background-color: #fcf9ee;
+    overflow-x: hidden;
 }
 /* header */
 header {
@@ -23,10 +24,12 @@ header {
     }
 }
 .lefticonbox {
+    display: flex;
     margin-left: 30px;
     z-index: 99;
 }
 .righticonbox {
+    display: flex;
     margin-right: 30px;
     z-index: 99;
 }
@@ -42,7 +45,7 @@ header {
     }
 }
 .logo {
-    position: absolute;
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
