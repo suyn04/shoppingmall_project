@@ -39,8 +39,8 @@
         position: relative;
     }
     .searchBtn {
-        position: absolute;
-        top: 70%;
+        position: relative;
+        top: 0%;
         left: 82%;
         display: block;
         width: 100px;
@@ -86,7 +86,6 @@
             height: 100%;
         }
         .searchBtn {
-            top: 55%;
             left: 78%;
         }
         .mapImg {
@@ -99,7 +98,6 @@
     .map {
         .searchBtn {
             left: 10%;
-            top: 55%;
             width: 80%;
         }
         .mapImg {
