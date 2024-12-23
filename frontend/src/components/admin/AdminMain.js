@@ -22,7 +22,7 @@ const AdminMain = () => {
             setaskCount(askCount.data);
 
             // 반품접수건 가져오기
-            const refundCount = await axios.post(`${bkURL}admin/order`, { action: 'refundCount' });
+            const refundCount = await axios.post(`${bkURL}/admin/order`, { action: 'refundCount' });
             setrefundCount(refundCount.data);
 
             // 신고접수건 가져오기
