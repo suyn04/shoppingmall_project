@@ -15,7 +15,7 @@
 
     .accordion-title {
         font-size: 24px;
-        font-family: 'NanumMyeongjo';
+        font-family: "NanumMyeongjo";
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -62,14 +62,14 @@
 }
 
 .hli {
-    list-style-type: '-';
+    list-style-type: "-";
     margin-left: 20px;
 }
 
 .title {
     font-size: 24px;
     margin-bottom: 30px;
-    font-family: 'NanumMyeongjo';
+    font-family: "NanumMyeongjo";
 }
 
 //온라인 쇼핑하기 line-height
@@ -111,7 +111,7 @@
 
     .termstitle {
         font-size: 24px;
-        font-family: 'NanumMyeongjo';
+        font-family: "NanumMyeongjo";
     }
 
     .tterms {
@@ -163,24 +163,17 @@
         font-size: 16px;
     }
 
-<<<<<<< HEAD
-  .bold {
-    font-size: 16px;
-  }
-
-  .p {
-    font-size: 16px;
-    line-height: 26px;
-  }
-  .marginbottom{
-    line-height: 26px;
-  }
-=======
-    p {
-        font-size: 14px;
-        line-height: 22px;
+    .bold {
+        font-size: 16px;
     }
->>>>>>> main
+
+    .p {
+        font-size: 16px;
+        line-height: 26px;
+    }
+    .marginbottom {
+        line-height: 26px;
+    }
 }
 
 /* 모바일 (480px 이하) */
