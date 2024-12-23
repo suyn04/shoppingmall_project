@@ -102,17 +102,17 @@ function PayModal1({ onClose, onSave, btnData, email }) {
                 <form ref={formRef}>
                     {' '}
                     {/* ref 속성으로 form 요소를 참조 */}
-                    <label>
-                        이름:
+                    <div>
+                        <label>이름:</label>
                         <input
                             type="text"
                             name="customer_name"
                             value={formData.customer_name}
                             onChange={handleChange}
                         />
-                    </label>
-                    <label>
-                        우편번호:
+                    </div>
+                    <div>
+                        <label>우편번호:</label>
                         <input
                             type="text"
                             name="zip"
@@ -123,9 +123,9 @@ function PayModal1({ onClose, onSave, btnData, email }) {
                         <button className={styles.addressBtn} onClick={handleAddressSearch}>
                             주소검색
                         </button>
-                    </label>
-                    <label>
-                        도로명 주소:
+                    </div>
+                    <div>
+                        <label>도로명 주소:</label>
                         <input
                             type="text"
                             name="roadname_address"
@@ -133,9 +133,9 @@ function PayModal1({ onClose, onSave, btnData, email }) {
                             onChange={handleChange}
                             readOnly={isAddressReadOnly}
                         />
-                    </label>
-                    <label>
-                        건물명:
+                    </div>
+                    <div>
+                        <label>건물명:</label>
                         <input
                             type="text"
                             name="building_name"
@@ -143,25 +143,25 @@ function PayModal1({ onClose, onSave, btnData, email }) {
                             onChange={handleChange}
                             readOnly={isAddressReadOnly}
                         />
-                    </label>
-                    <label>
-                        상세 주소:
+                    </div>
+                    <div>
+                        <label>상세 주소:</label>
                         <input
                             type="text"
                             name="detail_address"
                             value={formData.detail_address}
                             onChange={handleChange}
                         />
-                    </label>
-                    <label>
-                        상세 주소:
+                    </div>
+                    <div>
+                        <label>전화 번호:</label>
                         <input
                             type="text"
                             name="contact_number"
                             value={formData.contact_number}
                             onChange={handleChange}
                         />
-                    </label>
+                    </div>
                     <div className={styles.buttons}>
                         <button type="button" onClick={handleSave}>
                             저장

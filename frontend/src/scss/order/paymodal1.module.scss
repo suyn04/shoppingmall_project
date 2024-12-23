@@ -16,8 +16,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
+    width: 500px;
 
     h2 {
         margin-bottom: 20px;
@@ -29,7 +28,10 @@
         gap: 10px;
 
         label {
+            display: inline-flex;
+            width: 100px;
             font-size: 16px;
+            text-align: right;
         }
 
         input {
@@ -74,4 +76,22 @@
     padding: 8px;
     font-size: 14px;
     margin-left: 10px;
+}
+@media screen and (max-width: 600px) {
+    .modal {
+        form {
+            input {
+                width: 55%;
+            }
+        }
+    }
+}
+@media screen and (max-width: 480px) {
+    .modal {
+        form {
+            input {
+                width: 50%;
+            }
+        }
+    }
 }

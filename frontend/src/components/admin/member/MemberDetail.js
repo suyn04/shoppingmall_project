@@ -6,20 +6,21 @@ import styles from '../../../scss/member/MemberDetail.module.scss';
 function MemberDetail() {
     const { id } = useParams(); // URL에서 id 추출
     const [mm, setMM] = useState(null);
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5001/admin/member/detail/${id}`)
-            .then((res) => {
+            .get(`${bkURL}/admin/member/detail/${id}`)
+            .then(res => {
                 setMM(res.data[0]);
             })
-            .catch((err) => {
+            .catch(err => {
                 console.error('에러발생 : ', err);
             });
     }, [id]);
 
     // 날짜 포맷팅 함수
-    const formatdate = (dateString) => {
+    const formatdate = dateString => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];

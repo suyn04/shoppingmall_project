@@ -7,6 +7,7 @@ function SignIn() {
     const [email, setEmail] = useState(''); // 이건 input에 있는 email value
     const [password, setPassword] = useState(''); // 비밀번호 입력값 상태
     const [showPassword, setshowPassword] = useState(false);
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     const passwordHide = () => {
         //비밀번호 숨기기 아이콘 클릭시마다 상태 변경
@@ -25,7 +26,7 @@ function SignIn() {
 
         try {
             // 로그인 요청을 서버로 전송
-            const res = await axios.post('http://localhost:5001/signIn/', {
+            const res = await axios.post(`${bkURL}/signIn/`, {
                 email,
                 password,
             });
