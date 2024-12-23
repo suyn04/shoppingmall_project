@@ -122,8 +122,8 @@ const ReviewList = ({ product_id }) => {
                                 src={`${bkURL}/imgs/review/${review.review_upload_file}`}
                                 alt="Product"
                                 style={{
-                                    width: '200px',
-                                    height: '200px',
+                                    width: '300px',
+                                    height: '300px',
                                     objectFit: 'cover',
                                 }}
                             />
