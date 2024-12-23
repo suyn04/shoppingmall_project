@@ -30,8 +30,6 @@ const ReportList = () => {
 
     return (
         <div className={styles.list}>
-            <div className={styles.rtitle}>신고 목록</div>
-
             <table>
                 <tr className={styles.headerRow}>
                     <td>번호</td>
