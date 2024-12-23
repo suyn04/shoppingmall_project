@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "../../../scss/product/detailVolume.module.scss";
-//import styles from "./aaa.module.scss";
+
+const bkURL = process.env.REACT_APP_BACK_URL;
 
 const DetailVolume = ({ product_id }) => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const DetailVolume = ({ product_id }) => {
             return;
         }
         axios
-            .get(`http://localhost:5001/product/volume/${product_id}`)
+            .get(`${bkURL}/product/volume/${product_id}`)
             .then((res) => {
                 console.log(res.data);
                 setVolume(res.data);

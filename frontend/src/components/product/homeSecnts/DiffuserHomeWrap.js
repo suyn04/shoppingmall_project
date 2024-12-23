@@ -11,9 +11,10 @@ import LightFloral from "../LightFloral";
 import Woody from "../Woody";
 import DiffuserTotal from "./DiffuserTotal";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const DiffuserHomeWrap = () => {
     const { product_scent } = useParams();
-    const curPath = window.location.pathname;
 
     const [comp, setComp] = useState(null);
     const [diffusers, setDiffusers] = useState([]);
@@ -22,7 +23,7 @@ const DiffuserHomeWrap = () => {
         console.log("product_scent : ", product_scent);
 
         axios
-            .get(`http://localhost:5001/product/home-scents/diffusers`)
+            .get(`${bkURL}/product/home-scents/diffusers`)
             .then((res) => {
                 // console.log("서버 다녀옴", res.data);
                 // console.log(product_scent);

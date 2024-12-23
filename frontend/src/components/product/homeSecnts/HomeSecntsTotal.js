@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import HomeScentsHomeTop from "./HomeScentsHomeTop";
 import axios from "axios";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const HomeSecntsTotal = () => {
     const [candle, setCandle] = useState([]);
     const [diffuser, setDiffuser] = useState([]);
     const candleGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/home-scents/candles`)
+            .get(`${bkURL}/product/home-scents/candles`)
             .then((res) => {
                 let curProduct = res.data;
                 console.log(curProduct);
@@ -23,7 +25,7 @@ const HomeSecntsTotal = () => {
     };
     const diffuserGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/home-scents/diffusers`)
+            .get(`${bkURL}/product/home-scents/diffusers`)
             .then((res) => {
                 let curProduct = res.data;
                 console.log(curProduct);

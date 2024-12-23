@@ -11,9 +11,10 @@ import Fruity from "../Fruity";
 import LightFloral from "../LightFloral";
 import Woody from "../Woody";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const ColognesScent = () => {
     const { product_scent } = useParams();
-    const curPath = window.location.pathname;
 
     const [comp, setComp] = useState(null);
     const [colognes, setColognes] = useState([]);
@@ -21,7 +22,7 @@ const ColognesScent = () => {
         console.log("product_scent : ", product_scent);
 
         axios
-            .get(`http://localhost:5001/product/colognes`)
+            .get(`${bkURL}/product/colognes`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 // console.log(product_scent);

@@ -3,14 +3,18 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../../../scss/admin/AdminDetail.module.scss";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const AProductRegister = () => {
     const [noteOptions, setNoteOptions] = useState([]); // Filtered options for Category 3
+    const [korName, setKorName] = useState([]);
+    const [engName, setEngName] = useState([]);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         axios
-            .get("http://localhost:5001/admin/product/register")
+            .get(`${bkURL}/admin/product/register`)
             .then((res) => {
                 const uniqueNote = [
                     ...new Map(
@@ -23,18 +27,37 @@ const AProductRegister = () => {
                         ])
                     ).values(),
                 ];
+                const uniqueKor = [
+                    ...new Map(
+                        res.data.product.map((item) => [
+                            item.product_id,
+                            item.product_name_kor,
+                        ])
+                    ).values(),
+                ];
+                const uniqueEng = [
+                    ...new Map(
+                        res.data.product.map((item) => [
+                            item.product_id,
+                            item.product_name_eng,
+                        ])
+                    ).values(),
+                ];
                 setNoteOptions(uniqueNote);
+                setKorName(uniqueKor);
+                setEngName(uniqueEng);
             })
             .catch((err) => console.error("Error fetching categories:", err));
     }, []);
 
     const submitGo = (me) => {
         me.preventDefault();
-        console.log("submitGo 진입");
+        // console.log("submitGo 진입");
         const frmData = new FormData(document.myFrm);
         // console.log(frmData);
         const data = Object.fromEntries(frmData);
-        console.log(data);
+        // console.log(data);
+        // console.log(korName);
 
         //없는 값은 data null로 작성
         Object.keys(data).forEach((key) => {
@@ -42,14 +65,43 @@ const AProductRegister = () => {
                 data[key] = null;
             }
         });
+        const koreanRegex = /^[가-힣\s\&]+$/;
+        const englishRegex = /^[a-zA-Z\s\&]+$/; // English letters and spaces only
+
         if (!data.product_name_kor) {
             alert("제품 국문명은 반드시 작성해야 합니다.");
             return;
         }
+
+        if (!koreanRegex.test(data.product_name_kor)) {
+            alert("제품 국문명은 한글만 입력할 수 있습니다.");
+            return;
+        }
+
+        if (korName.includes(data.product_name_kor)) {
+            alert(
+                "제품 국문명이 이미 등록되어 있습니다. 제품명을 확인해주세요."
+            );
+            return;
+        }
+
         if (!data.product_name_eng) {
             alert("제품 영문명은 반드시 작성해야 합니다.");
             return;
         }
+
+        if (!englishRegex.test(data.product_name_eng)) {
+            alert("제품 영문명은 영어만 입력할 수 있습니다.");
+            return;
+        }
+
+        if (engName.includes(data.product_name_eng)) {
+            alert(
+                "제품 영문명이 이미 등록되어 있습니다. 제품명을 확인해주세요."
+            );
+            return;
+        }
+
         if (!data.product_category_id) {
             alert("제품 카테고리는 반드시 선택해야 합니다.");
             return;
@@ -68,7 +120,7 @@ const AProductRegister = () => {
         }
 
         axios
-            .post(`http://localhost:5001/admin/product/register`, data)
+            .post(`${bkURL}/admin/product/register`, data)
             .then((res) => {
                 console.log(
                     "제품 등록 완료했습니다. 해당 제품의 옵션을 등록해주세요.",

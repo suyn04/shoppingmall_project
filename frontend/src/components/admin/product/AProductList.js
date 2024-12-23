@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "../../../scss/admin/AdminList.module.scss";
 import Pagination from "../../dup/Pagination";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const AProductList = () => {
     const [product, setProduct] = useState([]);
     const [text, setText] = useState("");
@@ -18,7 +20,7 @@ const AProductList = () => {
 
     const productListGetAxios = () => {
         axios
-            .get(`http://localhost:5001/admin/product/`)
+            .get(`${bkURL}/admin/product/`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProduct(res.data);
@@ -52,7 +54,7 @@ const AProductList = () => {
         // }
 
         axios
-            .post(`http://localhost:5001/admin/product/search`, data)
+            .post(`${bkURL}/admin/product/search`, data)
             .then((res) => {
                 console.log("검색 완료");
                 setProduct(res.data);

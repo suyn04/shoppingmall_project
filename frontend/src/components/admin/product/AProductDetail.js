@@ -4,13 +4,15 @@ import axios from "axios";
 import AProductDetailOpt from "./AProductDetailOpt";
 import styles from "../../../scss/admin/AdminDetail.module.scss";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const AProductDetail = () => {
     const { product_id } = useParams();
     const [product, setProduct] = useState(null);
 
     const productListGetAxios = () => {
         axios
-            .get(`http://localhost:5001/admin/product/detail/${product_id}`)
+            .get(`${bkURL}/admin/product/detail/${product_id}`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProduct(res.data);

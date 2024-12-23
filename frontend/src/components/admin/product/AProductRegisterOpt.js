@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../../../scss/admin/productOptDetail.module.scss";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const AProductRegisterOpt = () => {
     const navigate = useNavigate();
     const { product_id } = useParams();
@@ -16,9 +18,7 @@ const AProductRegisterOpt = () => {
             return;
         }
         axios
-            .get(
-                `http://localhost:5001/admin/product/register/option/${product_id}`
-            )
+            .get(`${bkURL}/admin/product/register/option/${product_id}`)
             .then((res) => {
                 console.log(res.data);
                 console.log(res.data.option);
@@ -54,7 +54,7 @@ const AProductRegisterOpt = () => {
 
         axios
             .post(
-                `http://localhost:5001/admin/product/register/option/${product_id}`,
+                `${bkURL}/admin/product/register/option/${product_id}`,
                 frmData,
                 {
                     headers: {
@@ -82,7 +82,7 @@ const AProductRegisterOpt = () => {
 
         axios
             .delete(
-                `http://localhost:5001/admin/product/register/option/${product_opt_id}`,
+                `${bkURL}/admin/product/register/option/${product_opt_id}`,
                 {
                     data: { delUPfile: options.upSystem },
                 }
@@ -98,12 +98,7 @@ const AProductRegisterOpt = () => {
     };
     function fileGo(file) {
         if (file) {
-            return (
-                <img
-                    src={`http://localhost:5001/imgs/product/${file}`}
-                    width="100px"
-                />
-            );
+            return <img src={`${bkURL}/imgs/product/${file}`} width="100px" />;
         }
         return null;
     }

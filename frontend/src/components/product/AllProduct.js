@@ -5,6 +5,8 @@ import styles from "../../scss/product/homeTop.module.scss";
 import { Link } from "react-router-dom";
 import Pagination from "../dup/Pagination";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const AllProduct = () => {
     const [product, setProduct] = useState([]);
 
@@ -18,7 +20,7 @@ const AllProduct = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5001/product/`)
+            .get(`${bkURL}/product/`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
 

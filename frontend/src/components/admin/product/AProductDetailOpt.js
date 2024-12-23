@@ -3,15 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "../../../scss/admin/AdminDetailOpt.module.scss";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const AProductDetailOpt = () => {
     const { product_id } = useParams();
     const [productOpt, setProductOpt] = useState([]);
 
     const productListGetAxios = () => {
         axios
-            .get(
-                `http://localhost:5001/admin/product/detail/option/${product_id}`
-            )
+            .get(`${bkURL}/admin/product/detail/option/${product_id}`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 setProductOpt(res.data);
@@ -32,7 +32,7 @@ const AProductDetailOpt = () => {
     }
     function fileGo(file) {
         if (file) {
-            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
+            return <img src={`${bkURL}/imgs/product/${file}`} />;
         }
         return null;
     }

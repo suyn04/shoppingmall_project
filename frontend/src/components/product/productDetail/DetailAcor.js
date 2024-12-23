@@ -3,6 +3,8 @@ import styles from "../../../scss/product/detailAcor.module.scss";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const DetailAcor = () => {
     const { product_opt_id } = useParams();
     const [infoOpen, setInfoOpen] = useState([false, false, false]);
@@ -18,7 +20,7 @@ const DetailAcor = () => {
             return;
         }
         axios
-            .get(`http://localhost:5001/product/detail/${product_opt_id}`)
+            .get(`${bkURL}/product/detail/${product_opt_id}`)
             .then((res) => {
                 console.log(res.data);
                 setProduct(res.data);

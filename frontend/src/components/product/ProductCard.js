@@ -3,6 +3,8 @@ import styles from "../../scss/product/productCard.module.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const [curProduct, setCurProduct] = useState([]);
@@ -33,7 +35,7 @@ const ProductCard = ({ product }) => {
             const params = { bs_email: email, bs_product_id: product_opt_id };
             console.log(params);
             axios
-                .get(`http://localhost:5001/product/basket`, { params })
+                .get(`${bkURL}/product/basket`, { params })
                 .then((res) => {
                     console.log(res.data);
                     const basketItem = res.data.find(
@@ -50,7 +52,7 @@ const ProductCard = ({ product }) => {
                     } else {
                         const data = params;
                         axios
-                            .post(`http://localhost:5001/product/basket`, data)
+                            .post(`${bkURL}/product/basket`, data)
 
                             .then((res) => {
                                 console.log("게시물 등록 완료", res.data);
@@ -72,7 +74,7 @@ const ProductCard = ({ product }) => {
 
     const fileGo = (file) => {
         if (file) {
-            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
+            return <img src={`${bkURL}/imgs/product/${file}`} />;
         }
         return null;
     };

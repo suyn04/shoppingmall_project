@@ -3,10 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../../../scss/admin/AdminDetail.module.scss";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const AProductModify = () => {
     const [noteOptions, setNoteOptions] = useState([]); // Filtered options for Category 3
     const { product_id } = useParams();
     const [product, setProduct] = useState(null);
+
     const navigate = useNavigate();
 
     const productGetAxios = () => {
@@ -15,7 +18,7 @@ const AProductModify = () => {
             return;
         }
         axios
-            .get(`http://localhost:5001/admin/product/modify/${product_id}`)
+            .get(`${bkURL}/admin/product/modify/${product_id}`)
             .then((res) => {
                 const uniqueNote = [
                     ...new Map(
@@ -50,8 +53,54 @@ const AProductModify = () => {
         const data = Object.fromEntries(frmData);
         console.log(data);
 
+        //없는 값은 data null로 작성
+        Object.keys(data).forEach((key) => {
+            if (data[key] === "") {
+                data[key] = null;
+            }
+        });
+        const koreanRegex = /^[가-힣\s\&]+$/;
+        const englishRegex = /^[a-zA-Z\s\&]+$/; // English letters and spaces only
+
+        if (!data.product_name_kor) {
+            alert("제품 국문명은 반드시 작성해야 합니다.");
+            return;
+        }
+
+        if (!koreanRegex.test(data.product_name_kor)) {
+            alert("제품 국문명은 한글만 입력할 수 있습니다.");
+            return;
+        }
+
+        if (!data.product_name_eng) {
+            alert("제품 영문명은 반드시 작성해야 합니다.");
+            return;
+        }
+
+        if (!englishRegex.test(data.product_name_eng)) {
+            alert("제품 영문명은 영어만 입력할 수 있습니다.");
+            return;
+        }
+
+        if (!data.product_category_id) {
+            alert("제품 카테고리는 반드시 선택해야 합니다.");
+            return;
+        }
+        if (!data.product_scent) {
+            alert("제품 향은 반드시 선택해야 합니다.");
+            return;
+        }
+        if (!data.product_ingredient) {
+            alert("제품 성분은 반드시 작성해야 합니다.");
+            return;
+        }
+        if (!data.product_intro) {
+            alert("제품 설명은 반드시 작성해야 합니다.");
+            return;
+        }
+
         axios
-            .put(`http://localhost:5001/admin/product/modify`, data)
+            .put(`${bkURL}/admin/product/modify`, data)
             .then((res) => {
                 // console.log("제품 정보 수정 완료했습니다.");
 

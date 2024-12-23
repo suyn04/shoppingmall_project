@@ -11,6 +11,8 @@ import ProductSwiper from "../ProductSwiper";
 import DiffuserUse from "./DiffuserUse";
 import styles from "../../../scss/product/detailWrap.module.scss";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const DetailWrap = () => {
     const { product_opt_id } = useParams();
     const [comp, setComp] = useState(null);
@@ -24,7 +26,7 @@ const DetailWrap = () => {
         // console.log("product_scent : ", product_scent);
 
         axios
-            .get(`http://localhost:5001/product/detail/${product_opt_id}`)
+            .get(`${bkURL}/product/detail/${product_opt_id}`)
             .then((res) => {
                 if (res.data) {
                     setProduct(res.data);
@@ -38,7 +40,7 @@ const DetailWrap = () => {
     };
     const bestGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/`)
+            .get(`${bkURL}/product/`)
             .then((res) => {
                 console.log("서버 다녀옴", res.data);
                 let curProduct = res.data.filter(

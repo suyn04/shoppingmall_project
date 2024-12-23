@@ -11,9 +11,10 @@ import Fruity from "../Fruity";
 import LightFloral from "../LightFloral";
 import Woody from "../Woody";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const CandleHomeWrap = () => {
     const { product_scent } = useParams();
-    const curPath = window.location.pathname;
 
     const [comp, setComp] = useState(null);
     const [candles, setCandles] = useState([]);
@@ -22,7 +23,7 @@ const CandleHomeWrap = () => {
         console.log("product_scent : ", product_scent);
 
         axios
-            .get(`http://localhost:5001/product/home-scents/candles`)
+            .get(`${bkURL}/product/home-scents/candles`)
             .then((res) => {
                 // console.log("서버 다녀옴", res.data);
                 // console.log(product_scent);

@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import DetailVolume from "./DetailVolume";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const DetailTop = () => {
     const { product_opt_id } = useParams();
     const navigate = useNavigate();
@@ -19,7 +21,7 @@ const DetailTop = () => {
             return;
         }
         axios
-            .get(`http://localhost:5001/product/detail/${product_opt_id}`)
+            .get(`${bkURL}/product/detail/${product_opt_id}`)
             .then((res) => {
                 console.log(res.data);
                 setProduct(res.data);
@@ -41,7 +43,7 @@ const DetailTop = () => {
             const params = { bs_email: email, bs_product_id: product_opt_id };
             console.log(params);
             axios
-                .get(`http://localhost:5001/product/basket`, { params })
+                .get(`${bkURL}/product/basket`, { params })
                 .then((res) => {
                     console.log(res.data);
                     const basketItem = res.data.find(
@@ -58,7 +60,7 @@ const DetailTop = () => {
                     } else {
                         const data = params;
                         axios
-                            .post(`http://localhost:5001/product/basket`, data)
+                            .post(`${bkURL}/product/basket`, data)
 
                             .then((res) => {
                                 console.log("게시물 등록 완료", res.data);
@@ -80,7 +82,7 @@ const DetailTop = () => {
 
     function fileGo(file) {
         if (file) {
-            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
+            return <img src={`${bkURL}/imgs/product/${file}`} />;
         }
         return null;
     }

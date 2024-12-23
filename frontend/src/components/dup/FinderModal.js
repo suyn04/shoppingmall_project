@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "../../scss/dup/finderModal.module.scss";
 import FinderResult from "./FinderResult";
 

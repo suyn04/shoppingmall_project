@@ -9,6 +9,8 @@ import "../../scss/product/swiperStyles.scss";
 import { Pagination, Navigation } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 export default function ProductSwiper({ product }) {
     const [curProduct, setCurProduct] = useState([]);
     const navigate = useNavigate();
@@ -23,7 +25,7 @@ export default function ProductSwiper({ product }) {
     }, [product]);
     const fileGo = (file) => {
         if (file) {
-            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
+            return <img src={`${bkURL}/imgs/product/${file}`} />;
         }
         return null;
     };

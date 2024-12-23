@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import BathBodyHomeTop from "./BathBodyHomeTop";
 import axios from "axios";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const BathBodyTotal = () => {
     const [bathShower, setBathShower] = useState([]);
     const [bodyCare, setBodyCare] = useState([]);
     const candleGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/bath-body/bath-shower`)
+            .get(`${bkURL}/product/bath-body/bath-shower`)
             .then((res) => {
                 let curProduct = res.data;
                 console.log(curProduct);
@@ -23,7 +25,7 @@ const BathBodyTotal = () => {
     };
     const diffuserGetAxios = () => {
         axios
-            .get(`http://localhost:5001/product/bath-body/body-care`)
+            .get(`${bkURL}/product/bath-body/body-care`)
             .then((res) => {
                 let curProduct = res.data;
                 console.log(curProduct);

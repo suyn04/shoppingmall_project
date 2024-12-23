@@ -10,9 +10,10 @@ import BodyHandLotion from "./BodyHandLotion";
 import BodyMist from "./BodyMist";
 import HandCream from "./HandCream";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const BodyCareHomeWrap = () => {
     const { product_category_thr } = useParams();
-    const curPath = window.location.pathname;
 
     const [comp, setComp] = useState(null);
     const [bodyCare, setBdoyCare] = useState([]);
@@ -21,7 +22,7 @@ const BodyCareHomeWrap = () => {
         console.log("product_category_thr : ", product_category_thr);
 
         axios
-            .get(`http://localhost:5001/product/bath-body/body-care`)
+            .get(`${bkURL}/product/bath-body/body-care`)
             .then((res) => {
                 // console.log("서버 다녀옴", res.data);
                 // console.log(product_category_thr);

@@ -3,6 +3,8 @@ import styles from "../../../scss/product/detailTasting.module.scss";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const DetailTasting = () => {
     const { product_opt_id } = useParams();
     const [product, setProduct] = useState(null);
@@ -12,7 +14,7 @@ const DetailTasting = () => {
             return;
         }
         axios
-            .get(`http://localhost:5001/product/detail/${product_opt_id}`)
+            .get(`${bkURL}/product/detail/${product_opt_id}`)
             .then((res) => {
                 console.log(res.data);
                 setProduct(res.data);
@@ -28,7 +30,7 @@ const DetailTasting = () => {
 
     function fileGo(file) {
         if (file) {
-            return <img src={`http://localhost:3000/imgs/product/${file}`} />;
+            return <img src={`/imgs/product/${file}`} />;
         }
         return null;
     }
