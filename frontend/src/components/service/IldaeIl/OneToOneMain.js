@@ -16,7 +16,7 @@ const OneToOneMain = () => {
     // 서버에서 데이터를 가져오는 함수
     const fetchOnetoone = async () => {
         try {
-            const response = await axios.get(`${bkURL}/onetoone`)
+            const response = await axios.get(`${bkURL}/onetoone`);
             console.log('API 응답 데이터:', response.data); // 데이터 구조 확인
 
             console.log(email);
@@ -24,7 +24,7 @@ const OneToOneMain = () => {
             let data = response.data.inquiries;
             console.log(data);
 
-            let filterdata = data.filter((item) => item.email === email);
+            let filterdata = data.filter(item => item.email === email);
             console.log(filterdata);
 
             setOnetoone(filterdata); // 서버에서 받은 데이터를 onetoone에 저장
@@ -32,7 +32,7 @@ const OneToOneMain = () => {
             console.error('Error fetching onetoone:', error);
         }
     };
-    const formatDate = (dateString) => {
+    const formatDate = dateString => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
@@ -54,12 +54,12 @@ const OneToOneMain = () => {
                 </tr>
 
                 {Array.isArray(onetoone) && onetoone.length > 0 ? (
-                    onetoone.map((item) => (
+                    onetoone.map(item => (
                         <tr key={item.post_no}>
-                            <td>{item.post_title}</td>
-                            <td>{item.post_detail}</td>
-                            <td>{formatDate(item.post_date)}</td>
-                            <td>{item.reply_status}</td>
+                            <td className={styles.post1}>{item.post_title}</td>
+                            <td className={styles.post2}>{item.post_detail}</td>
+                            <td className={styles.post3}>{formatDate(item.post_date)}</td>
+                            <td className={styles.post4}>{item.reply_status}</td>
                         </tr>
                     ))
                 ) : (
