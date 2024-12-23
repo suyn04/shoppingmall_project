@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/scss";
-import "swiper/scss/pagination";
-import "swiper/scss/navigation";
-import "../../scss/product/swiperStyles.scss";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/scss';
+import 'swiper/scss/pagination';
+import 'swiper/scss/navigation';
+import '../../scss/product/swiperStyles.scss';
 // import required modules
-import { Pagination, Navigation } from "swiper/modules";
-import { useNavigate } from "react-router-dom";
+import { Pagination, Navigation } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 
 const bkURL = process.env.REACT_APP_BACK_URL;
 
@@ -15,7 +15,7 @@ export default function ProductSwiper({ product }) {
     const [curProduct, setCurProduct] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
-        console.log("ProductSwiper 동작");
+        console.log('ProductSwiper 동작');
         if (!product) {
             console.log(`상품이 없습니다`);
             return;
@@ -60,15 +60,11 @@ export default function ProductSwiper({ product }) {
                                 }}
                             >
                                 {fileGo(prod.product_upSystem)}
-                                <div className="product_special">
-                                    {prod.product_special}
-                                </div>
+                                <div className="product_special">{prod.product_special}</div>
                                 <div>{prod.product_name_eng}</div>
                                 <div>{prod.product_name_kor}</div>
                                 <div>{prod.product_volume}</div>
-                                <div>
-                                    ₩ {prod.product_price.toLocaleString()}
-                                </div>
+                                <div>₩ {prod.product_price.toLocaleString()}</div>
                             </div>
                         </SwiperSlide>
                     );

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from "../../../scss/admin/AdminList.module.scss";
-
+import styles from '../../../scss/admin/AdminList.module.scss';
 
 const ReportList = () => {
     const [reports, setReports] = useState([]); // 신고 목록 상태
-    const navigate = useNavigate(); // 페이지 이동 함수 
+    const navigate = useNavigate(); // 페이지 이동 함수
 
     // 신고 목록 가져오기
     useEffect(() => {
@@ -17,13 +16,12 @@ const ReportList = () => {
             } catch (err) {
                 // console.error('신고 목록 불러오기 실패:', err);
                 // alert('신고 목록을 불러오는 데 실패했습니다.');
-                return <div>신고 목록 불러오기 실패</div>
+                return <div>신고 목록 불러오기 실패</div>;
             }
         };
 
         fetchReports(); // 함수 호출
     }, []); // 컴포넌트가 처음 렌더링될 때 실행
-
 
     // 상세보기로 이동
     const handleDetail = (id) => {
@@ -61,7 +59,9 @@ const ReportList = () => {
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="6" className={styles.noData}>신고 목록이 없습니다!</td>
+                        <td colSpan="6" className={styles.noData}>
+                            신고 목록이 없습니다!
+                        </td>
                     </tr>
                 )}
             </table>

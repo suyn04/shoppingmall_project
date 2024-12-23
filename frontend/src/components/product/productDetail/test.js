@@ -10,14 +10,14 @@
                     type="radio"
                     name="rating"
                     value={value}
-                    style={{ display: "none" }} // 숨김 처리
+                    style={{ display: 'none' }} // 숨김 처리
                 />
                 <span className={styles.checkbox}>
                     <i
                         className={
                             value <= rating
-                                ? `${styles["fa-star"]} ${styles["fa-solid"]}`
-                                : `${styles["fa-star"]} ${styles["fa-regular"]}`
+                                ? `${styles['fa-star']} ${styles['fa-solid']}`
+                                : `${styles['fa-star']} ${styles['fa-regular']}`
                         }
                     ></i>
                 </span>
@@ -27,7 +27,5 @@
 </fieldset>;
 
 {
-    infoOpen[0]
-        ? `${styles.infoContent}`
-        : `${styles.infoContent} ${styles.infoNone}`;
+    infoOpen[0] ? `${styles.infoContent}` : `${styles.infoContent} ${styles.infoNone}`;
 }

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from "../../../scss/admin/AdminList.module.scss";
-
+import styles from '../../../scss/admin/AdminList.module.scss';
 
 const AReviewList = () => {
     const [reviews, setReviews] = useState([]);
@@ -24,7 +23,7 @@ const AReviewList = () => {
 
         fetchReviews();
     }, []);
-    const handleDetailClick = id => {
+    const handleDetailClick = (id) => {
         console.log('전달된 ID:', id); // 클릭한 리뷰의 ID 확인
         navigate(`/admin/areviewdetail/${id}`); // 상세보기 페이지로 이동
     };
@@ -51,7 +50,10 @@ const AReviewList = () => {
                             <td>{review.review_nick}</td>
                             <td>{review.review_title}</td>
                             <td>
-                                <button className={styles.changebutton} onClick={() => handleDetailClick(review.review_no)}>
+                                <button
+                                    className={styles.changebutton}
+                                    onClick={() => handleDetailClick(review.review_no)}
+                                >
                                     상세보기
                                 </button>
                             </td>

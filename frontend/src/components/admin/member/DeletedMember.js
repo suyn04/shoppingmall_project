@@ -10,11 +10,11 @@ function DeletedMember() {
     useEffect(() => {
         axios
             .get('http://localhost:5001/admin/member/deletedmember')
-            .then(res => {
+            .then((res) => {
                 setArr(res.data);
                 setFilteredCustomers(res.data); //전체 탈퇴고객 표시
             })
-            .catch(err => {
+            .catch((err) => {
                 console.error('에러발생 : ', err);
             });
     }, []);

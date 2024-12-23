@@ -1,6 +1,6 @@
 .list {
     margin-top: 20px;
-    .rtitle{
+    .rtitle {
         margin: 29px 0px;
     }
     .title {
@@ -102,13 +102,11 @@
     }
 }
 
-
-
 //일대일문의
 .changebutton {
     margin-left: 10px;
-    background-color: #007bff; 
-    color: white;              
+    background-color: #007bff;
+    color: white;
     padding: 10px 10px;
     font-size: 14px;
     border: none;
@@ -116,7 +114,6 @@
     cursor: pointer;
 
     &:hover {
-        background-color: #0056b3; 
+        background-color: #0056b3;
     }
 }
-

@@ -12,24 +12,31 @@ function UnactiveMember() {
     useEffect(() => {
         axios
             .get('http://localhost:5001/admin/member/unactivemember')
-            .then(res => {
+            .then((res) => {
                 setArr(res.data);
                 console.log(res.data);
                 setFilteredCustomers(res.data); // 처음에는 전체 데이터 표시
             })
-            .catch(err => {
+            .catch((err) => {
                 console.error('에러발생 : ', err);
             });
     }, [selectedCustomers]);
 
     //정상 상태 변경
-    const handleUpdateStatus = async status => {
+    const handleUpdateStatus = async (status) => {
         try {
-            const res = await axios.post('http://localhost:5001/admin/member/updateStatus', { customer_ids: selectedCustomers, status });
+            const res = await axios.post('http://localhost:5001/admin/member/updateStatus', {
+                customer_ids: selectedCustomers,
+                status,
+            });
             alert(`정상 상태로 변경되었습니다.`);
-            setArr(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
+            setArr((prev) =>
+                prev.map((member) => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member))
+            );
 
-            setFilteredCustomers(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
+            setFilteredCustomers((prev) =>
+                prev.map((member) => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member))
+            );
 
             setSelectedCustomers([]); // 선택 초기화
         } catch (error) {
@@ -43,7 +50,7 @@ function UnactiveMember() {
 
         if (!selectAll) {
             // 전체 선택: 모든 고객이 체크가 됨
-            setSelectedCustomers(filteredCustomers.map(member => member.customer_id));
+            setSelectedCustomers(filteredCustomers.map((member) => member.customer_id));
         } else {
             // 전체선택 해제 : 초기화 (아무것도 선택되지 않은 상태)
             setSelectedCustomers([]);
@@ -51,10 +58,10 @@ function UnactiveMember() {
     };
 
     // 개별 체크박스
-    const handleSelectEach = customerId => {
+    const handleSelectEach = (customerId) => {
         if (selectedCustomers.includes(customerId)) {
             // 이미 체크가 된 고객이라면
-            setSelectedCustomers(selectedCustomers.filter(id => id !== customerId));
+            setSelectedCustomers(selectedCustomers.filter((id) => id !== customerId));
             // 체크박스 재클릭 시 체크 해제
         } else {
             // 선택된 고객이 아니면 체크된고객들에다가 해당 고객번호 추가
@@ -65,7 +72,11 @@ function UnactiveMember() {
     return (
         <div className={styles.memberlist}>
             <div className={styles.actionButtons}>
-                <button className={styles.chgstatus} onClick={() => handleUpdateStatus('정상')} disabled={selectedCustomers.length === 0}>
+                <button
+                    className={styles.chgstatus}
+                    onClick={() => handleUpdateStatus('정상')}
+                    disabled={selectedCustomers.length === 0}
+                >
                     선택고객 정상 변경
                 </button>
             </div>
@@ -85,7 +96,7 @@ function UnactiveMember() {
                     <td>이메일</td>
                     <td>상태</td>
                 </tr>
-                {filteredCustomers.map(customer => (
+                {filteredCustomers.map((customer) => (
                     <tr key={customer.customer_id}>
                         <td>
                             <input

@@ -24,11 +24,11 @@ function MemberList(props) {
     useEffect(() => {
         axios
             .get('http://localhost:5001/admin/member')
-            .then(res => {
+            .then((res) => {
                 setArr(res.data);
                 setFilteredCustomers(res.data); // 처음에는 전체 데이터 표시
             })
-            .catch(err => {
+            .catch((err) => {
                 console.error('에러발생 : ', err);
             });
     }, [selectedCustomers]);
@@ -41,13 +41,19 @@ function MemberList(props) {
         }
         try {
             console.log('탈퇴회원 아이디 확인:', selectedCustomers);
-            const res = await axios.post('http://localhost:5001/admin/member/moveToDeleted', { customer_ids: selectedCustomers });
+            const res = await axios.post('http://localhost:5001/admin/member/moveToDeleted', {
+                customer_ids: selectedCustomers,
+            });
             console.log(`탈퇴처리`, res.data);
 
             alert(`탈퇴처리 되었습니다.`, res.data);
-            setArr(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member } : member)));
+            setArr((prev) =>
+                prev.map((member) => (selectedCustomers.includes(member.customer_id) ? { ...member } : member))
+            );
 
-            setFilteredCustomers(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member } : member)));
+            setFilteredCustomers((prev) =>
+                prev.map((member) => (selectedCustomers.includes(member.customer_id) ? { ...member } : member))
+            );
 
             setSelectedCustomers([]); // 선택 초기화
         } catch (error) {
@@ -61,9 +67,9 @@ function MemberList(props) {
 
         // 검색 필터 적용 (검색 조건이 있을 경우)
         if (searchType === 'customer_name') {
-            member = member.filter(member => member.customer_name.includes(searchValue));
+            member = member.filter((member) => member.customer_name.includes(searchValue));
         } else if (searchType === 'contact_number') {
-            member = member.filter(member => member.contact_number.includes(searchValue));
+            member = member.filter((member) => member.contact_number.includes(searchValue));
         }
 
         setFilteredCustomers(member);
@@ -89,7 +95,7 @@ function MemberList(props) {
     };
 
     // 날짜 포맷팅 함수
-    const formatDate = dateString => {
+    const formatDate = (dateString) => {
         if (!dateString) return '-';
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
@@ -101,7 +107,7 @@ function MemberList(props) {
 
         if (!selectAll) {
             // 전체 선택: 모든 고객이 체크가 됨
-            setSelectedCustomers(filteredCustomers.map(member => member.customer_id));
+            setSelectedCustomers(filteredCustomers.map((member) => member.customer_id));
         } else {
             // 전체선택 해제 : 초기화 (아무것도 선택되지 않은 상태)
             setSelectedCustomers([]);
@@ -109,10 +115,10 @@ function MemberList(props) {
     };
 
     // 개별 체크박스
-    const handleSelectEach = customer_id => {
+    const handleSelectEach = (customer_id) => {
         if (selectedCustomers.includes(customer_id)) {
             // 이미 체크가 된 고객이라면
-            setSelectedCustomers(selectedCustomers.filter(id => id !== customer_id));
+            setSelectedCustomers(selectedCustomers.filter((id) => id !== customer_id));
             // 체크박스 재클릭 시 체크 해제
         } else {
             // 선택된 고객이 아니면 체크된고객들에다가 해당 고객번호 추가
@@ -133,7 +139,7 @@ function MemberList(props) {
         <div className={styles.memberlist}>
             {/* 검색 바 */}
             <div className={styles.searchbar}>
-                <select value={searchType} onChange={e => setSearchType(e.target.value)}>
+                <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
                     <option value="">검색 기준 선택</option>
                     <option value="customer_name">이름으로 조회</option>
                     <option value="contact_number">연락처로 조회</option>
@@ -141,11 +147,18 @@ function MemberList(props) {
                 </select>
 
                 {/* 이름/연락처 조회일때는 input 필수 : 검색할 수 있게 */}
-                {searchType !== 'join_date' && <input type="text" placeholder="검색어 입력" value={searchValue} onChange={e => setSearchValue(e.target.value)} />}
+                {searchType !== 'join_date' && (
+                    <input
+                        type="text"
+                        placeholder="검색어 입력"
+                        value={searchValue}
+                        onChange={(e) => setSearchValue(e.target.value)}
+                    />
+                )}
 
                 {/* 가입일로 정렬할 때는 input 없이 정렬만 가능하게 */}
                 {searchType === 'join_date' && (
-                    <select value={sortOrder} onChange={e => setSortOrder(e.target.value)}>
+                    <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
                         <option value="asc">오래된 가입일 순</option>
                         <option value="desc">최근 가입일 순</option>
                     </select>
@@ -158,7 +171,11 @@ function MemberList(props) {
                     <button className={styles.resetbutton} onClick={resetSearch}>
                         초기화
                     </button>
-                    <button className={styles.deletebutton} disabled={selectedCustomers.length === 0} onClick={handleMoveToDeleted}>
+                    <button
+                        className={styles.deletebutton}
+                        disabled={selectedCustomers.length === 0}
+                        onClick={handleMoveToDeleted}
+                    >
                         탈퇴 처리
                     </button>
                 </div>
@@ -182,7 +199,7 @@ function MemberList(props) {
                     <td>마지막 접속일</td>
                     <td>상태</td>
                 </tr>
-                {curfilteredCustomers.map(mm => (
+                {curfilteredCustomers.map((mm) => (
                     <tr key={mm.customer_id}>
                         <td>
                             <input
@@ -205,7 +222,13 @@ function MemberList(props) {
                     </tr>
                 ))}
             </table>
-            <Pagination totalItems={filteredCustomers.length} itemsPerPage={itemsPerPage} pagesPerGroup={5} curPage={curPage} setCurPage={setCurPage} />
+            <Pagination
+                totalItems={filteredCustomers.length}
+                itemsPerPage={itemsPerPage}
+                pagesPerGroup={5}
+                curPage={curPage}
+                setCurPage={setCurPage}
+            />
         </div>
     );
 }
