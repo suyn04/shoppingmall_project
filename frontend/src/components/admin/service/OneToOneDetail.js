@@ -19,7 +19,7 @@ const OneToOneDetail = () => {
             return;
         }
         try {
-            const response = await axios.get(`http://localhost:5001/onetoone/${id}`);
+            const response = await axios.get(`${bkURL}/onetoone/${id}`);
             console.log(response.data);
 
             setOnetoone(response.data); // 서버에서 받은 데이터를 상태에 저장
@@ -48,7 +48,7 @@ const OneToOneDetail = () => {
         console.log('statusChgGo 진입');
         console.log(onetoone);
         axios
-            .put(`http://localhost:5001/onetoone/${id}`, onetoone)
+            .put(`${bkURL}/onetoone/${id}`, onetoone)
             .then((res) => {
                 console.log('제품 정보 수정 완료했습니다.');
 
