@@ -72,7 +72,7 @@ function Header({ ham, setHam }) {
                                 관리자
                             </div>
                         ) : (
-                            <div className={styles.userLink}>{`${userName}님`}</div>
+                            <div className={styles.userLink} onClick={Loginbtn}>{`${userName}님`}</div>
                         )
                     ) : null}
 

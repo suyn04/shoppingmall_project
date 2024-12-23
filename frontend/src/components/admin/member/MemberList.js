@@ -21,9 +21,11 @@ function MemberList(props) {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const curfilteredCustomers = filteredCustomers.slice(indexOfFirstItem, indexOfLastItem);
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     useEffect(() => {
         axios
-            .get('http://localhost:5001/admin/member')
+            .get(`${bkURL}/admin/member`)
             .then(res => {
                 setArr(res.data);
                 setFilteredCustomers(res.data); // 처음에는 전체 데이터 표시
@@ -41,7 +43,7 @@ function MemberList(props) {
         }
         try {
             console.log('탈퇴회원 아이디 확인:', selectedCustomers);
-            const res = await axios.post('http://localhost:5001/admin/member/moveToDeleted', { customer_ids: selectedCustomers });
+            const res = await axios.post(`${bkURL}/admin/member/moveToDeleted`, { customer_ids: selectedCustomers });
             console.log(`탈퇴처리`, res.data);
 
             alert(`탈퇴처리 되었습니다.`, res.data);

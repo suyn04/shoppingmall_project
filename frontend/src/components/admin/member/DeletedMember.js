@@ -5,11 +5,12 @@ import styles from '../../../scss/member/MemberList.module.scss';
 function DeletedMember() {
     const [arr, setArr] = useState([]);
     const [filteredCustomers, setFilteredCustomers] = useState([]); // 필터링된 고객 데이터
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     // 데이터 가져오기
     useEffect(() => {
         axios
-            .get('http://localhost:5001/admin/member/deletedmember')
+            .get(`${bkURL}/admin/member/deletedmember`)
             .then(res => {
                 setArr(res.data);
                 setFilteredCustomers(res.data); //전체 탈퇴고객 표시

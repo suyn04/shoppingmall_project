@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function SignUp() {
     const navigator = useNavigate();
+    const bkURL = process.env.REACT_APP_BACK_URL;
     const [formData, setFormData] = useState({
         //초기 폼데이터 세팅값
         name: '',
@@ -110,7 +111,7 @@ function SignUp() {
             //고객데이터를 저장 : 기존 폼데이터 불러오고 필수동의약관은 항상 1 값으로 저장
 
             // 회원가입 요청을 서버로 전송
-            const res = await axios.post('http://localhost:5001/signUp/', customerData);
+            const res = await axios.post(`${bkURL}/signUp/`, customerData);
 
             // 서버 응답이 성공일 경우
             alert(`${formData.name}님 가입을 환영합니다.`);
@@ -138,7 +139,7 @@ function SignUp() {
         }
 
         try {
-            const res = await axios.get('http://localhost:5001/signUp/checkEmail', {
+            const res = await axios.get(`${bkURL}/signUp/checkEmail`, {
                 params: { email }, // GET 요청에서 데이터를 전달할 때는 params 사용
             });
             console.log('Axios 요청 전송:', { email });

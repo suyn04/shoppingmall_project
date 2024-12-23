@@ -7,6 +7,7 @@ const MyInfo = () => {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState(null); // 사용자 정보
     const [recentOrder, setRecentOrder] = useState(null); // 최신 주문 데이터
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
@@ -18,7 +19,7 @@ const MyInfo = () => {
             // 사용자 정보 가져오기
             axios
                 .post(
-                    'http://localhost:5001/myPage',
+                    `${bkURL}/myPage`,
                     { action: 'getUserInfo', email },
                     {
                         headers: {
@@ -34,7 +35,7 @@ const MyInfo = () => {
 
             // 주문 내역 가져오기
             axios
-                .post('http://localhost:5001/myPage', { action: 'getOrders', email }, { headers: { Authorization: sessionToken } })
+                .post(`${bkURL}/myPage`, { action: 'getOrders', email }, { headers: { Authorization: sessionToken } })
                 .then(response => {
                     const orders = response.data.orders || [];
                     if (orders.length > 0) {
@@ -55,7 +56,7 @@ const MyInfo = () => {
             const email = sessionStorage.getItem('email');
             axios
                 .post(
-                    'http://localhost:5001/myPage',
+                    `${bkURL}/myPage`,
                     { action: 'deleteMember', email },
                     {
                         headers: { Authorization: sessionToken },

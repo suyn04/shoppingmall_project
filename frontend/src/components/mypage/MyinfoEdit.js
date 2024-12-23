@@ -7,6 +7,7 @@ const MyinfoEdit = () => {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState(null); // 사용자 정보
     const [phoneNumber, setPhoneNumber] = useState(''); //사용자 핸드폰번호
+    const bkURL = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
@@ -17,7 +18,7 @@ const MyinfoEdit = () => {
             // Axios로 사용자 정보 가져오기
             axios
                 .post(
-                    'http://localhost:5001/myPage', //index.js의 라우트경로랑 일치시킴
+                    `${bkURL}/myPage`, //index.js의 라우트경로랑 일치시킴
                     { action: 'getUserInfo', email: sessionStorage.getItem('email') }, // 요청 본문
                     {
                         headers: {
@@ -63,7 +64,7 @@ const MyinfoEdit = () => {
         // 서버에 업데이트 요청
         axios
             .post(
-                'http://localhost:5001/myPage', //같은 라우트 경로 사용
+                `${bkURL}/myPage`, //같은 라우트 경로 사용
                 { action: 'updateChkbox', email: userInfo.email, optional_agree: value },
                 { headers: { Authorization: sessionStorage.getItem('sessionToken') } }
             )
@@ -89,7 +90,7 @@ const MyinfoEdit = () => {
         // 서버에 업데이트 요청
         axios
             .post(
-                'http://localhost:5001/myPage', //같은 라우트 경로 사용
+                `${bkURL}/myPage`, //같은 라우트 경로 사용
                 { action: 'updateGender', email: userInfo.email, gender: value },
                 { headers: { Authorization: sessionStorage.getItem('sessionToken') } }
             )
@@ -122,7 +123,7 @@ const MyinfoEdit = () => {
         // 변경된 정보 서버로 전송
         axios
             .post(
-                'http://localhost:5001/myPage',
+                `${bkURL}/myPage`,
                 {
                     action: 'updateUserInfo',
                     email: userInfo.email,

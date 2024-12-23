@@ -13,13 +13,14 @@ function FindPw() {
 
     // 비밀번호 찾기 요청
     const handleFindPassword = async () => {
+        const bkURL = process.env.REACT_APP_BACK_URL;
         if (!email || !contactNumber) {
             alert('이메일과 연락처를 입력해주세요.');
             return;
         }
 
         try {
-            const res = await axios.post('http://localhost:5001/findPw', { email, contact_number: contactNumber });
+            const res = await axios.post(`${bkURL}/findPw`, { email, contact_number: contactNumber });
             if (res.data.success) {
                 alert('정보가 확인되었습니다. 비밀번호를 재설정하세요.');
                 setcontentOpen(true);
@@ -47,7 +48,7 @@ function FindPw() {
             return;
         }
         try {
-            const res = await axios.post('http://localhost:5001/resetPw', { email, newPassword, newPassword2 });
+            const res = await axios.post(`${bkURL}/resetPw`, { email, newPassword, newPassword2 });
             console.log(email, newPassword, newPassword2);
 
             if (res.data.success) {

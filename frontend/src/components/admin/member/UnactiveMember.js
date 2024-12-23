@@ -8,10 +8,12 @@ function UnactiveMember() {
     const [selectAll, setSelectAll] = useState(false); // 전체 선택 체크 여부 (전체 선택 체크박스 false상태)
     const [selectedCustomers, setSelectedCustomers] = useState([]); // 개별 체크박스
 
+    const bkURL = process.env.REACT_APP_BACK_URL;
+
     // 데이터 가져오기
     useEffect(() => {
         axios
-            .get('http://localhost:5001/admin/member/unactivemember')
+            .get(`${bkURL}/admin/member/unactivemember`)
             .then(res => {
                 setArr(res.data);
                 console.log(res.data);
@@ -25,7 +27,7 @@ function UnactiveMember() {
     //정상 상태 변경
     const handleUpdateStatus = async status => {
         try {
-            const res = await axios.post('http://localhost:5001/admin/member/updateStatus', { customer_ids: selectedCustomers, status });
+            const res = await axios.post(`${bkURL}/admin/member/updateStatus`, { customer_ids: selectedCustomers, status });
             alert(`정상 상태로 변경되었습니다.`);
             setArr(prev => prev.map(member => (selectedCustomers.includes(member.customer_id) ? { ...member, status } : member)));
 

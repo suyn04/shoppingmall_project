@@ -12,13 +12,14 @@ function AddressList() {
 
     useEffect(() => {
         const sessionToken = sessionStorage.getItem('sessionToken');
+        const bkURL = process.env.REACT_APP_BACK_URL;
 
         if (!sessionToken) {
             navigate('/signIn'); // 세션 토큰 없으면 로그인 페이지로 이동
         } else {
             axios
                 .post(
-                    'http://localhost:5001/myPage', // 세션 토큰을 확인할 수 있는 경로
+                    `${bkURL}/myPage`, // 세션 토큰을 확인할 수 있는 경로
                     { action: 'getAddressInfo', email: sessionStorage.getItem('email') },
                     {
                         headers: {
@@ -65,17 +66,37 @@ function AddressList() {
     const saveAddress = () => {
         const sessionToken = sessionStorage.getItem('sessionToken');
 
+        //입력값 유효성 검사
+        //값이 입력되어있으면 trim 처리 값이 없으면 '' 공백 처리
+        const trimmedZip = editAddress.zip ? editAddress.zip.trim() : '';
+        const trimmedRoadnameAddress = editAddress.roadname_address ? editAddress.roadname_address.trim() : '';
+        const trimmedBuildingName = editAddress.building_name ? editAddress.building_name.trim() : '';
+        const trimmedDetailAddress = editAddress.detail_address ? editAddress.detail_address.trim() : '';
+
+        if (!trimmedZip || !trimmedRoadnameAddress || !trimmedDetailAddress) {
+            alert('우편번호, 주소를 입력해주세요.');
+            return;
+        }
+
+        //우편번호 유효성검사 (시작과 끝이 모두 숫자 5글자만)
+        const ziptype = /^\d{5}$/;
+
+        if (!ziptype.test(trimmedZip)) {
+            alert('정확한 우편번호를 입력해주세요.');
+            return;
+        }
+
         // 수정된 데이터 서버로 전송
         axios
             .post(
-                'http://localhost:5001/myPage',
+                `${bkURL}/myPage`,
                 {
                     action: 'updateAddressInfo',
                     email: sessionStorage.getItem('email'),
-                    zip: editAddress.zip,
-                    roadname_address: editAddress.roadname_address,
-                    building_name: editAddress.building_name,
-                    detail_address: editAddress.detail_address,
+                    zip: trimmedZip,
+                    roadname_address: trimmedRoadnameAddress,
+                    building_name: trimmedBuildingName,
+                    detail_address: trimmedDetailAddress,
                 },
                 {
                     headers: {

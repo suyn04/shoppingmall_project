@@ -87,7 +87,7 @@ function AdminTemp() {
                 {showTopbar && (
                     <div className={styles.topbar}>
                         {topbarLinks.map((link, index) => (
-                            <Link key={index} to={link.path} className={`${styles.topbarLink} ${location.pathname === location.pathname.startsWith(link.path) ? styles.active : ''}`}>
+                            <Link key={index} to={link.path} className={`${styles.topbarLink} ${location.pathname === link.path ? styles.active : ''}`}>
                                 {/* 현재 클릭한 메뉴만 별도 스타일로 표시 */}
                                 {link.name}
                             </Link>
