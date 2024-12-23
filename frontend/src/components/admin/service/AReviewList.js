@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
+
 const AReviewList = () => {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
@@ -11,7 +14,7 @@ const AReviewList = () => {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/review');
+                const response = await axios.get(`${bkURL}/review`);
                 console.log('응답 데이터:', response.data); // 응답 데이터 확인
                 const reviewData = Array.isArray(response.data) ? response.data : [];
                 setReviews(reviewData); // 상태 업데이트
@@ -31,7 +34,6 @@ const AReviewList = () => {
 
     return (
         <div className={styles.list}>
-            <div className={styles.rtitle}>회원 리뷰 목록</div>
 
             <table>
                 <tr>

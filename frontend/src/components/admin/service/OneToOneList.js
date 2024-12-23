@@ -28,7 +28,6 @@ const OneToOneList = () => {
 
     return (
         <div className={styles.list}>
-            <div className={styles.rtitle}>1:1 문의 목록</div>
 
             <table>
                 <tr>

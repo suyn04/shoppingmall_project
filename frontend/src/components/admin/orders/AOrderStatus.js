@@ -116,6 +116,29 @@ function AOrderStatus(props) {
         setOrder(updatedArr);
     };
 
+    const resetSearch = (e) => {
+        e.preventDefault(); // 기본 동작 방지
+        // 검색 필드 초기화
+        const form = document.myFrm;
+        form.orderCate.value = ''; // 검색 기준 초기화
+        form.text.value = ''; // 검색어 초기화
+
+        // 데이터를 원래 상태로 복원
+        axios
+            .get('http://localhost:5001/admin/order/status')
+            .then((res) => {
+                const updatedData = res.data.map((item) => ({
+                    ...item,
+                    status: item.order_status,
+                    invoice: item.invoice || '',
+                }));
+                setOrder(updatedData); // 초기 상태 데이터로 복원
+            })
+            .catch((err) => {
+                console.error('초기화 중 에러 발생:', err);
+            });
+    };
+
     return (
         <div className={styles.list}>
             <form name="myFrm" className={styles.searchbar}>
@@ -134,6 +157,9 @@ function AOrderStatus(props) {
                     <button className={styles.searchbutton} onClick={searchGo}>
                         검색
                     </button>
+                    <button className={styles.resetbutton} onClick={resetSearch}>
+                        초기화
+                    </button>
                     {!isEditable && (
                         <button className={styles.modifybutton} onClick={() => setIsEditable(true)}>
                             수정하기
@@ -151,12 +177,12 @@ function AOrderStatus(props) {
                     <td>번호</td>
                     <td>주문번호</td>
                     <td>주문일시</td>
-                    <td>취소/반품/환불일시</td>
+                    <td>상태 변경 일시</td>
                     <td>주문상태</td>
                     <td>결제방법</td>
                     <td>수령자</td>
                     <td>총주문액</td>
-                    <td>반품/환불 운송장번호</td>
+                    <td>운송장번호</td>
                 </tr>
                 {curOrders.map((mm, i) => (
                     <tr key={mm.order_id}>
@@ -183,9 +209,10 @@ function AOrderStatus(props) {
                         </td>
                         <td>{mm.pay_to}</td>
                         <td>{mm.order_name}</td>
-                        <td>{mm.order_total}</td>
+                        <td>₩ {mm.order_total.toLocaleString()}</td>
                         <td>
                             <input
+                                className={styles.invoicebar}
                                 type="text"
                                 value={mm.invoice}
                                 readOnly={!isEditable || !(mm.status === '반품접수' || mm.status === '환불완료')}
