@@ -1,19 +1,19 @@
 .search {
     form {
-        text-align: center;
-        display: block;
-        align-items: center;
+        display: flex;
+        align-items: center; /* Center items horizontally */
+        justify-content: center;
+        gap: 10px; /* Space between elements */
         select {
-            height: 25px;
-            margin: 10px;
+            height: 35px;
+            margin: 10px 0;
         }
         input {
-            height: 20px;
+            height: 30px;
             width: 50%;
         }
         button {
-            height: 26px;
-            margin: 10px;
+            height: 35px;
             padding: 5px 20px;
             background-color: #1c1c1c;
             color: #fff;
