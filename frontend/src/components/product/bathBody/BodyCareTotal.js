@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "../../../scss/product/prodTotal.module.scss";
+import React from 'react';
+import styles from '../../../scss/product/prodTotal.module.scss';
 
 const BodyCareTotal = () => {
     return (

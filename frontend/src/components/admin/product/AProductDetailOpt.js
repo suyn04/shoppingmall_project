@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import styles from "../../../scss/admin/AdminDetailOpt.module.scss";
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import styles from '../../../scss/admin/AdminDetailOpt.module.scss';
+
+const bkURL = process.env.REACT_APP_BACK_URL;
 
 const AProductDetailOpt = () => {
     const { product_id } = useParams();
@@ -9,20 +11,18 @@ const AProductDetailOpt = () => {
 
     const productListGetAxios = () => {
         axios
-            .get(
-                `http://localhost:5001/admin/product/detail/option/${product_id}`
-            )
+            .get(`${bkURL}/admin/product/detail/option/${product_id}`)
             .then((res) => {
-                console.log("서버 다녀옴", res.data);
+                console.log('서버 다녀옴', res.data);
                 setProductOpt(res.data);
             })
             .catch((err) => {
-                console.error("에러발생 ; ", err);
+                console.error('에러발생 ; ', err);
             });
     };
     useEffect(() => {
         if (!product_id) {
-            console.log("id 없음");
+            console.log('id 없음');
             return;
         }
         productListGetAxios();
@@ -32,7 +32,7 @@ const AProductDetailOpt = () => {
     }
     function fileGo(file) {
         if (file) {
-            return <img src={`http://localhost:5001/imgs/product/${file}`} />;
+            return <img src={`${bkURL}/imgs/product/${file}`} />;
         }
         return null;
     }
@@ -41,9 +41,7 @@ const AProductDetailOpt = () => {
             <div className={styles.detail}>
                 <div className={styles.title}>
                     제품 옵션
-                    <Link to={`/admin/product/option/${product_id}`}>
-                        수정하기
-                    </Link>
+                    <Link to={`/admin/product/option/${product_id}`}>수정하기</Link>
                 </div>
                 <table>
                     <tr>

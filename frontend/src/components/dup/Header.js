@@ -12,7 +12,7 @@ function Header({ ham, setHam }) {
 
     const Loginbtn = () => {
         if (Loginchk) {
-            console.log(Loginchk);
+            // console.log(Loginchk);
             navigate('/myPage'); // 로그인 상태면 마이페이지로 이동
         } else {
             navigate('/signIn'); // 아니면 로그인 페이지로 이동
@@ -31,7 +31,7 @@ function Header({ ham, setHam }) {
         navigate('/admin'); // 관리자 페이지로 이동
     };
 
-    const showHamMenu = e => {
+    const showHamMenu = (e) => {
         e.stopPropagation();
         setHam(!ham);
     };

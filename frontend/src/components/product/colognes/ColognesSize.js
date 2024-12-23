@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
-import ProductNav from "../ProductNav";
-import ProductCard from "../ProductCard";
-import axios from "axios";
-import ColognesAll from "./ColognesAll";
+import React, { useEffect, useState } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
+import ProductNav from '../ProductNav';
+import ProductCard from '../ProductCard';
+import axios from 'axios';
+import ColognesAll from './ColognesAll';
 
 const bkURL = process.env.REACT_APP_BACK_URL;
 
@@ -30,14 +30,12 @@ const ColognesSize = () => {
                 // );
                 let curProduct = res.data;
                 if (product_volume) {
-                    curProduct = res.data.filter(
-                        (item) => item.product_volume == `${product_volume}`
-                    );
+                    curProduct = res.data.filter((item) => item.product_volume == `${product_volume}`);
                 }
                 setColognes(curProduct);
             })
             .catch((err) => {
-                console.error("에러발생 ; ", err);
+                console.error('에러발생 ; ', err);
             });
     };
     useEffect(() => {
@@ -48,10 +46,10 @@ const ColognesSize = () => {
         <div>
             <ProductNav
                 navInfo={[
-                    { url: "/colognes/size", title: "전체" },
-                    { url: "/colognes/size/100ml", title: "100ml" },
-                    { url: "/colognes/size/50ml", title: "50ml" },
-                    { url: "/colognes/size/30ml", title: "30ml" },
+                    { url: '/colognes/size', title: '전체' },
+                    { url: '/colognes/size/100ml', title: '100ml' },
+                    { url: '/colognes/size/50ml', title: '50ml' },
+                    { url: '/colognes/size/30ml', title: '30ml' },
                 ]}
             />
             <ColognesAll />

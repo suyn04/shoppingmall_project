@@ -13,11 +13,15 @@ const AdminMain = () => {
     const DataCount = async () => {
         try {
             // 신규 주문접수건 가져오기
-            const orderCnt = await axios.post('http://localhost:5001/admin/order', { action: 'orderCount' });
+            const orderCnt = await axios.post('http://localhost:5001/admin/order', {
+                action: 'orderCount',
+            });
             setOrderCount(orderCnt.data);
 
             // 문의접수건 가져오기
-            const askCount = await axios.post('http://localhost:5001/onetoone', { action: 'askCount' });
+            const askCount = await axios.post('http://localhost:5001/onetoone', {
+                action: 'askCount',
+            });
             setaskCount(askCount.data);
 
             // 반품접수건 가져오기
@@ -25,7 +29,9 @@ const AdminMain = () => {
             setrefundCount(refundCount.data);
 
             // 신고접수건 가져오기
-            const reportCount = await axios.post('http://localhost:5001/reports', { action: 'reportCount' });
+            const reportCount = await axios.post('http://localhost:5001/reports', {
+                action: 'reportCount',
+            });
             setreportCount(reportCount.data);
         } catch (error) {
             console.error('데이터 가져오다가 에러남', error.message);

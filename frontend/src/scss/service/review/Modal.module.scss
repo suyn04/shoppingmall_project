@@ -1,23 +1,23 @@
-.modalOverlay{
+.modalOverlay {
     position: fixed;
-    top:   0;
+    top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
-.modalContent{
+.modalContent {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     width: 400px;
     position: relative;
 }
-.closeButton{
+.closeButton {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -26,6 +26,6 @@
     font-size: 1.2rem;
     cursor: pointer;
 }
-.resize{
+.resize {
     resize: none;
 }

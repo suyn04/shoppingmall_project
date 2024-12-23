@@ -19,10 +19,10 @@ function Payment1(props) {
     function pageLoad() {
         axios
             .get(`http://localhost:5001/payment1/${email}`)
-            .then(res => {
+            .then((res) => {
                 setOrder(res.data);
             })
-            .catch(err => {
+            .catch((err) => {
                 console.error('에러발생 : ', err);
             });
     }
@@ -31,33 +31,41 @@ function Payment1(props) {
         pageLoad();
     }, []);
 
-    const handleOpenModal = e => {
+    const handleOpenModal = (e) => {
         e.preventDefault();
         setModal(true);
     };
 
     const handleCloseModal = () => {
-      setModal(false);
+        setModal(false);
     };
 
     // 모달창에 입력한 값 저장해서 화면에 적용
-    const handleSave = updatedData => {
+    const handleSave = (updatedData) => {
         setOrder(updatedData);
     };
 
     function payment2GO() {
+        if (!fullAddress) {
+            alert('배송지를 등록해주세요');
+            return;
+        }
         const myData = Object.fromEntries(new FormData(document.myFrm));
-        navigate('/payment2', { state: { myData: myData, ordersData: ordersData } });
+        navigate('/payment2', {
+            state: { myData: myData, ordersData: ordersData },
+        });
     }
 
     if (!ordersData) {
         return <div>로딩중...</div>;
     }
-    const fullAddress = ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address;
+
+    const fullAddress =
+        ordersData.zip && ordersData.roadname_address && ordersData.building_name && ordersData.detail_address;
 
     return (
         <div className={styles.wrap}>
-            <PayHead />
+            <PayHead activeStep={0} />
             <form name="myFrm" className={styles.frmData}>
                 <div className={styles.shoppingHead}>배송지 정보</div>
                 <div className={styles.orderInfo}>
@@ -78,9 +86,17 @@ function Payment1(props) {
                     <div>연락처 : {ordersData.contact_number}</div>
                 </div>
 
-                <div className={styles.btnGroup}>{fullAddress ? <button onClick={handleOpenModal}>배송지 수정</button> : <button onClick={handleOpenModal}>배송지 추가</button>}</div>
+                <div className={styles.btnGroup}>
+                    {fullAddress ? (
+                        <button onClick={handleOpenModal}>배송지 수정</button>
+                    ) : (
+                        <button onClick={handleOpenModal}>배송지 추가</button>
+                    )}
+                </div>
 
-                {isModal && <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} email={email} />}
+                {isModal && (
+                    <PayModal1 onClose={handleCloseModal} onSave={handleSave} btnData={ordersData} email={email} />
+                )}
 
                 <div className={styles.deliveryRequest}>
                     <label>

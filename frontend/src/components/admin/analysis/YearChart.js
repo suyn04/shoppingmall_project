@@ -23,8 +23,8 @@ const YearChart = () => {
                 const response = await axios.get('http://localhost:5001/analysis/year');
                 const data = response.data;
 
-                const labels = data.map(item => `${new Date(item.order_date).getFullYear()}년`);
-                const amount = data.map(item => Number(item.total_amount)); // 값을 숫자로 변환
+                const labels = data.map((item) => `${new Date(item.order_date).getFullYear()}년`);
+                const amount = data.map((item) => Number(item.total_amount)); // 값을 숫자로 변환
 
                 setChartData({
                     labels, // x축 라벨
@@ -33,13 +33,13 @@ const YearChart = () => {
                             label: 'Orders',
                             data: amount,
                             backgroundColor: amount.map(
-                                value =>
+                                (value) =>
                                     value === Math.max(...amount)
                                         ? '#ffe59b' // 최대값 색상
                                         : '#fff2cd' // 기본 색상
                             ),
                             borderColor: amount.map(
-                                value =>
+                                (value) =>
                                     value === Math.max(...amount)
                                         ? '#ffe59b' // 최대값 색상
                                         : '#fff2cd' // 기본 색상
@@ -70,7 +70,7 @@ const YearChart = () => {
                         datalabels: {
                             anchor: 'end', // 레이블 위치
                             align: 'bottom', // 레이블 정렬
-                            formatter: value => `${Number(value).toLocaleString()} 원`,
+                            formatter: (value) => `${Number(value).toLocaleString()} 원`,
                             font: {
                                 size: 14,
                                 weight: 'bold',

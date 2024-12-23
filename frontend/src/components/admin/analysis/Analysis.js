@@ -40,20 +40,20 @@ const Analysis = () => {
         return '';
     };
 
-    const fetchData = async period => {
+    const fetchData = async (period) => {
         try {
             const response = await axios.get(`http://localhost:5001/analysis/${period}`);
             const data = response.data;
             console.log('data:', data);
-            const dateData = data.map(item => item.order_date);
+            const dateData = data.map((item) => item.order_date);
             console.log('dateData:', dateData);
 
             let labels = [];
             let amount = [];
 
             if (period === 'day') {
-                labels = data.map(item => formatDate(item.order_date, period));
-                amount = data.map(item => item.total_amount);
+                labels = data.map((item) => formatDate(item.order_date, period));
+                amount = data.map((item) => item.total_amount);
             }
 
             // console.log('labels,counts:',labels,counts)
@@ -80,8 +80,8 @@ const Analysis = () => {
     return (
         <div>
             <div className="timePeriodSales" style={{ justifyContent: 'center' }}>
-                <div style={{ margin: '10px', display: 'inline-block'}}>기간별 매출액 조회</div>
-                <select onChange={e => setTimePeriod(e.target.value)} value={timePeriod}>
+                <div style={{ margin: '10px', display: 'inline-block' }}>기간별 매출액 조회</div>
+                <select onChange={(e) => setTimePeriod(e.target.value)} value={timePeriod}>
                     <option value="day">일별</option>
                     <option value="month">월별</option>
                     <option value="year">연별</option>

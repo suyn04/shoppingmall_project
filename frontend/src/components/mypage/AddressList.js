@@ -27,7 +27,7 @@ function AddressList() {
                     }
                 )
 
-                .then(response => {
+                .then((response) => {
                     setUserInfo(response.data); // 사용자 정보 설정
                     // 주소 데이터 설정
                     setAddress([
@@ -42,7 +42,7 @@ function AddressList() {
                         },
                     ]);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('데이터 가져오기 실패:', error);
                     navigate('/signIn'); // 실패 시 로그인 페이지로 이동
                 });
@@ -50,7 +50,7 @@ function AddressList() {
     }, [navigate]);
 
     // 모달 열기 함수 (수정할 데이터를 설정)
-    const openModal = address => {
+    const openModal = (address) => {
         setEditAddress({ ...address }); // 수정할 주소 데이터를 복사하여 상태에 설정
         setModalOpenChk(true); // 모달 열림 상태로 설정
     };
@@ -83,16 +83,16 @@ function AddressList() {
                     },
                 }
             )
-            .then(response => {
+            .then((response) => {
                 if (response.data.success) {
                     alert('주소가 수정되었습니다!');
-                    setAddress(prev => prev.map(addr => (addr.id === editAddress.id ? { ...editAddress } : addr)));
+                    setAddress((prev) => prev.map((addr) => (addr.id === editAddress.id ? { ...editAddress } : addr)));
                     closeModal();
                 } else {
                     alert('수정 실패: ' + response.data.error);
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('주소 수정 실패:', error);
                 alert('서버 오류로 인해 수정할 수 없습니다.');
             });
@@ -106,7 +106,7 @@ function AddressList() {
     return (
         <div className={styles.main}>
             {/* 주소 리스트 표시 */}
-            {address.map(address => (
+            {address.map((address) => (
                 <div className={styles.block} key={address.id}>
                     <div className={styles.headerFont}>기본 배송지</div>
                     <div id={styles.blockBtnList}>
@@ -142,14 +142,52 @@ function AddressList() {
                                 <button className={styles.searchAddress}>주소 검색</button>
                                 {/* 주소록 수정 */}
                                 <div>
-                                    우편번호 <input type="text" placeholder="우편번호" value={editAddress.zip} onChange={e => setEditAddress({ ...editAddress, zip: e.target.value })} />
+                                    우편번호{' '}
+                                    <input
+                                        type="text"
+                                        placeholder="우편번호"
+                                        value={editAddress.zip}
+                                        onChange={(e) => setEditAddress({ ...editAddress, zip: e.target.value })}
+                                    />
                                 </div>
                                 <div>
-                                    도로명주소 <input type="text" placeholder="도로명주소" value={editAddress.roadname_address} onChange={e => setEditAddress({ ...editAddress, roadname_address: e.target.value })} />
-                                    <input type="text" placeholder="건물명" value={editAddress.building_name} onChange={e => setEditAddress({ ...editAddress, building_name: e.target.value })} />
+                                    도로명주소{' '}
+                                    <input
+                                        type="text"
+                                        placeholder="도로명주소"
+                                        value={editAddress.roadname_address}
+                                        onChange={(e) =>
+                                            setEditAddress({
+                                                ...editAddress,
+                                                roadname_address: e.target.value,
+                                            })
+                                        }
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="건물명"
+                                        value={editAddress.building_name}
+                                        onChange={(e) =>
+                                            setEditAddress({
+                                                ...editAddress,
+                                                building_name: e.target.value,
+                                            })
+                                        }
+                                    />
                                 </div>
                                 <div>
-                                    상세 주소 <input type="text" placeholder="상세주소" value={editAddress.detail_address} onChange={e => setEditAddress({ ...editAddress, detail_address: e.target.value })} />
+                                    상세 주소{' '}
+                                    <input
+                                        type="text"
+                                        placeholder="상세주소"
+                                        value={editAddress.detail_address}
+                                        onChange={(e) =>
+                                            setEditAddress({
+                                                ...editAddress,
+                                                detail_address: e.target.value,
+                                            })
+                                        }
+                                    />
                                 </div>
 
                                 <button className={styles.saveAddress} onClick={saveAddress}>
