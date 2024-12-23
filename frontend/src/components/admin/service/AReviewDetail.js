@@ -37,33 +37,46 @@ const ReviewDetail = () => {
     return (
         <div className={styles.list}>
             <h2 className={styles.title}>리뷰 상세 정보</h2>
-            <p>
-                <strong>제목:</strong> {review.review_title}
-            </p>
-            <p>
-                <strong>닉네임:</strong> {review.review_nick}
-            </p>
-            <p>
-                <strong>내용:</strong> {review.review_detail}
-            </p>
-            <p>
-                <strong>작성일:</strong> {new Date(review.review_date).toLocaleDateString()}
-            </p>
-            <p>
-                <strong>별점:</strong> {review.review_rate}
-            </p>
-            <p>
-                <strong>추천 여부:</strong> {review.review_recommend === 1 ? '추천' : '비추천'}
-            </p>
-            <p>
-                <strong>지역:</strong> {review.review_region}
-            </p>
-            <p>
-                <strong>향수 계열:</strong> {review.review_scent}
-            </p>
-            <p>
-                <strong>처리상태:</strong> {review.is_visible === 1 ? '활성화' : '비활성화'}
-            </p>
+            <table className={styles.table}>
+                <tbody>
+                    <tr>
+                        <td><strong>제목</strong></td>
+                        <td>{review.review_title}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>닉네임</strong></td>
+                        <td>{review.review_nick}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>내용</strong></td>
+                        <td>{review.review_detail}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>작성일</strong></td>
+                        <td>{new Date(review.review_date).toLocaleDateString()}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>별점</strong></td>
+                        <td>{review.review_rate}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>추천 여부</strong></td>
+                        <td>{review.review_recommend === 1 ? '추천' : '비추천'}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>지역</strong></td>
+                        <td>{review.review_region}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>향수 계열</strong></td>
+                        <td>{review.review_scent}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>처리상태</strong></td>
+                        <td>{review.is_visible === 1 ? '활성화' : '비활성화'}</td>
+                    </tr>
+                </tbody>
+            </table>
             <button className={styles.changebutton} onClick={handleBack} style={{ marginTop: '20px' }}>
                 뒤로가기
             </button>

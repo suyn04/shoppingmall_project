@@ -40,19 +40,31 @@ const ReportDetail = () => {
     return (
         <div className={styles.list}>
             <h2 className={styles.title}>신고 상세</h2>
-            <p>
-                <strong>번호:</strong> {report.report_no}
-            </p>
-            <p>
-                <strong>신고자:</strong> {report.reporter}
-            </p>
-            <p>
-                <strong>신고 일자:</strong> {new Date(report.report_date).toLocaleDateString()}
-            </p>
-            <p>
-                <strong>내용:</strong> {report.report_detail}
-            </p>
-            <div>
+            <table className={styles.table}>
+                <tbody>
+                    <tr>
+                        <td><strong>구분</strong></td>
+                        <td>내용</td>
+                    </tr>
+                    <tr>
+                        <td><strong>번호</strong></td>
+                        <td>{report.report_no}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>신고자</strong></td>
+                        <td>{report.reporter}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>신고 일자</strong></td>
+                        <td>{new Date(report.report_date).toLocaleDateString()}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>내용</strong></td>
+                        <td>{report.report_detail}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div className={styles.center}>
                 <button
                     className={styles.changebutton}
                     onClick={() => handleHideReview(report.review_no, report.report_no)}

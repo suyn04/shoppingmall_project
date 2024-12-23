@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/service/IldaeIl/OneToOneMain.module.scss';
 
+const bkURL = process.env.REACT_APP_BACK_URL;
+
 const OneToOneMain = () => {
     const [onetoone, setOnetoone] = useState([]);
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ const OneToOneMain = () => {
     // 서버에서 데이터를 가져오는 함수
     const fetchOnetoone = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/onetoone');
+            const response = await axios.get(`${bkURL}/onetoone`)
             console.log('API 응답 데이터:', response.data); // 데이터 구조 확인
 
             console.log(email);

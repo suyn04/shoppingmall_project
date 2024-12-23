@@ -36,6 +36,9 @@ router.post('/', async (req, res) => {
             return res.json({ message: '이메일 또는 비밀번호를 확인해주세요.' });
         }
 
+        // 로그인 시 마지막접속일 업데이트
+        await db.query(`UPDATE customers SET last_login_date = NOW() WHERE email = ?`, [email]);
+
         // 조인한 DB 결과를 보냄 -- 프론트에서 받아서 처리
         res.json({
             sessionToken,
