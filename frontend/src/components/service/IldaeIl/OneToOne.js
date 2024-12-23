@@ -159,9 +159,15 @@ const OneToOne = () => {
                 </div>
 
                 {/* 파일 첨부 */}
-                <div>
-                    <label htmlFor="file">파일 첨부</label>
-                    <input type="file" id="file" name="file" onChange={handleFileChange} />
+                <div className={styles.filewrap}>
+                    <label htmlFor="file" 
+                    className={styles.filefile}>
+                        파일 첨부</label>
+                    <input 
+                    type="file" 
+                    id="file" 
+                    name="file" 
+                    onChange={handleFileChange} />
                 </div>
 
                 {/* 버튼 그룹 */}

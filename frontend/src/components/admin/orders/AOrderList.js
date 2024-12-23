@@ -145,7 +145,7 @@ function OrderList(props) {
 
         // 데이터를 원래 상태로 복원
         axios
-            .get(`${bkURL}/admin/order/status`)
+            .get(`${bkURL}/admin/order/`)
             .then((res) => {
                 const updatedData = res.data.map((item) => ({
                     ...item,

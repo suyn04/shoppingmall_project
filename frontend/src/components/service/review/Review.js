@@ -113,7 +113,7 @@ const Review = () => {
             });
             console.log('리뷰 저장 성공:', response.data);
             alert('리뷰가 성공적으로 저장되었습니다!');
-            navigate('/');
+            navigate(`/product/${product_opt_id}`);
         } catch (err) {
             console.error('리뷰 저장 실패:', err);
             alert('리뷰 저장에 실패했습니다.');
