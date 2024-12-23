@@ -106,7 +106,7 @@ const Review = () => {
         // console.log("data:",data) // 보내는 값 확인
 
         try {
-            const response = await axios.post('${bkURL}/review', data, {
+            const response = await axios.post(`${bkURL}/review`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // 파일업로드를 위해 타입을 이렇게 씀
                 },
