@@ -89,7 +89,7 @@ const OneToOne = () => {
         }
 
         try {
-            const response = await axios.post('${bkURL}/onetoone/register', data);
+            const response = await axios.post(`${bkURL}/onetoone/register`, data);
             if (response.status === 201) {
                 alert('문의가 접수되었습니다!');
                 navigate('/onetoonelist');
