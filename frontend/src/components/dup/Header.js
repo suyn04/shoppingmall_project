@@ -31,7 +31,7 @@ function Header({ ham, setHam }) {
         navigate('/admin'); // 관리자 페이지로 이동
     };
 
-    const showHamMenu = (e) => {
+    const showHamMenu = e => {
         e.stopPropagation();
         setHam(!ham);
     };
@@ -41,7 +41,7 @@ function Header({ ham, setHam }) {
     return (
         <header>
             <div className={styles.wrap}>
-                <div>
+                <div className={styles.lefticonbox}>
                     <div className={styles.hamIcon} onClick={showHamMenu}>
                         <img src={`${url}menuIcon.svg`} alt="" />
                     </div>
@@ -64,7 +64,7 @@ function Header({ ham, setHam }) {
                         <img src={`${url}조말론로고.svg`} alt="" />
                     </Link>
                 </div>
-                <div>
+                <div className={styles.righticonbox}>
                     {/* 이메일이 있거나 없을 때 이메일에 따라서 표기되는 값 변경 */}
                     {email ? (
                         email === 'admin@jomalone.kr' ? (
