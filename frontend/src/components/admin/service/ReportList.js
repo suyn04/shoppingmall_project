@@ -45,7 +45,6 @@ const ReportList = () => {
             <table>
                 <tr className={styles.headerRow}>
                     <td>번호</td>
-                    <td>신고 번호</td>
                     <td>신고자</td>
                     <td>신고 일자</td>
                     <td>처리 상태</td>
