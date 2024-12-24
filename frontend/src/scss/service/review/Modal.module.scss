@@ -10,6 +10,7 @@
     align-items: center;
     z-index: 1000;
 }
+
 .modalContent {
     background-color: #fff;
     padding: 20px;
@@ -17,6 +18,7 @@
     width: 400px;
     position: relative;
 }
+
 .closeButton {
     position: absolute;
     top: 10px;
@@ -26,6 +28,7 @@
     font-size: 1.2rem;
     cursor: pointer;
 }
+
 .resize {
     resize: none;
 }

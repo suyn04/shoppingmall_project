@@ -78,15 +78,19 @@
             cursor: pointer;
             font-size: 16px;
         }
-        .filewrap{
-            input,label{
+
+        .filewrap {
+
+            input,
+            label {
                 display: block;
             }
-            .filefile{
+
+            .filefile {
                 margin-bottom: 5px;
             }
-        
-    }
+
+        }
     }
 
     margin-bottom: 70px;
@@ -114,7 +118,7 @@
 
 
 @media screen and (max-width: 480px) {
-    .onetitle{
+    .onetitle {
         margin-bottom: 15px;
     }
 }

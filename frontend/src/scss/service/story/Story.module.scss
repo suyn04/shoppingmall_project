@@ -368,19 +368,20 @@
 
         .iwrapper {
             width: 100%;
-            // padding-left: 10px;
-            // padding-right: 10px;
         }
     }
-.stitle, .ppp, .more, .pppp, .mmore{
-    margin-left: 20px;
-}
+
+    .stitle,
+    .ppp,
+    .more,
+    .pppp,
+    .mmore {
+        margin-left: 20px;
+    }
 
 
     .charity {
 
-        // padding-left: 10px;
-        //     padding-right: 10px;
         .cbox1,
         .sbox1 {
             flex-direction: column;
@@ -510,8 +511,6 @@
 
     .people {
 
-        // padding-left: 20px;
-        // padding-right: 20px;
         .ibox1 {
             div {
                 width: 100%;

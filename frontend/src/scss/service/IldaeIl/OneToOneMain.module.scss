@@ -1,6 +1,7 @@
 .list {
     margin-top: 20px;
     width: 100%;
+
     .rtitle {
         font-size: 24px;
         font-weight: bold;
@@ -27,16 +28,20 @@
                 padding: 10px;
                 border-bottom: 1px solid #1c1c1c;
             }
+
             .post1 {
                 width: 30%;
             }
+
             .post2 {
                 width: 40%;
                 line-height: 1.6;
             }
+
             .post3 {
                 width: 15%;
             }
+
             .post4 {
                 width: 15%;
             }
@@ -55,6 +60,7 @@
         margin-left: 5%;
         margin-top: 50px;
         margin-bottom: 50px;
+
         &:hover {
             background-color: #ccc;
         }
@@ -66,6 +72,7 @@
         font-size: 14px;
     }
 }
+
 @media (max-width: 480px) {
     .list {
         font-size: 12px;

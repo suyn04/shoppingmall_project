@@ -102,6 +102,7 @@
         text-decoration: underline;
     }
 }
+
 .line {
     line-height: 30px;
     margin-bottom: 20px;
@@ -109,10 +110,14 @@
 }
 
 .buttonGroup {
-    display: flex; /* 버튼을 플렉스로 정렬 */
-    justify-content: center; /* 가운데 정렬 */
-    gap: 10px; /* 버튼 사이 여백 */
+    display: flex;
+    /* 버튼을 플렉스로 정렬 */
+    justify-content: center;
+    /* 가운데 정렬 */
+    gap: 10px;
+    /* 버튼 사이 여백 */
 }
+
 .sc,
 textarea {
     width: 100%;
@@ -123,6 +128,7 @@ textarea {
     font-size: 14px;
     margin-bottom: 20px;
 }
+
 .lineheight {
     line-height: 24px;
 }
@@ -143,6 +149,7 @@ textarea {
         background-color: #a0522d;
     }
 }
-.line1{
+
+.line1 {
     margin-bottom: 20px;
 }
