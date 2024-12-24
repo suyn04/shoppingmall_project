@@ -36,6 +36,9 @@ function OrderDetail(props) {
     if (!order || order.length === 0) {
         return <div className={styles.load}>로딩중...</div>;
     }
+    if (!customer) {
+        return <div className={styles.load}>로딩중...</div>;
+    }
 
     return (
         <div className={styles.detail}>
