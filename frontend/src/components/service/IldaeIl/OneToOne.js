@@ -14,39 +14,40 @@ const OneToOne = () => {
         file: null, // 첨부 파일
     });
 
-    // 에러 상태 관리
+    // 에러 메시지 상태 관리
     const [categoryError, setCategoryError] = useState('');
     const [titleError, setTitleError] = useState('');
     const [contentError, setContentError] = useState('');
 
-    const navigate = useNavigate();
-    const email = sessionStorage.getItem('email');
-    const customerName = sessionStorage.getItem('customerName');
+    const navigate = useNavigate(); // 페이지 이동에 사용
+    const email = sessionStorage.getItem('email');  // 세션에서 이메일 가져오기
+    const customerName = sessionStorage.getItem('customerName');  // 세션에서 작성자 이름 가져오기
 
+    // 이메일이 없으면 로그인 페이지로 이동
     if (!email) {
         navigate('/signIn');
     }
 
-    // 입력값 변경 핸들러
+    // 입력값이 변경될 때 실행 (입력 필드를 업데이트)
     const handleChange = e => {
         const { name, value } = e.target;
         setFormData({
-            ...formData,
-            [name]: value,
+            ...formData,    // 기존 데이터 유지
+            [name]: value,  // 변경된 필드 업데이트
         });
     };
 
-    // 파일 업로드 핸들러
+       // 파일 첨부 시 실행 (첨부 파일을 상태에 저장)
     const handleFileChange = e => {
         setFormData({
             ...formData,
-            file: e.target.files[0],
+            file: e.target.files[0],     // 첫 번째 선택된 파일 저장
         });
     };
 
-    // 폼 제출 핸들러
+    // 폼 제출 시 실행 (문의 접수)
     const handleSubmit = async e => {
-        e.preventDefault();
+        e.preventDefault(); // 폼 기본 동작 막기
 
         let isValid = true;
 
@@ -55,7 +56,7 @@ const OneToOne = () => {
             setCategoryError('문의 유형을 선택해 주세요.');
             isValid = false;
         } else {
-            setCategoryError('');
+            setCategoryError('');   //오류 초기화
         }
 
         // 제목 유효성 검사 (2~50자)
@@ -76,25 +77,27 @@ const OneToOne = () => {
             setContentError('');
         }
 
+        // 유효성 검사 실패 시 제출 중단
         if (!isValid) return;
 
-        // FormData 객체 생성
+        // 서버에 전송할 FormData 생성
         const data = new FormData();
-        data.append('post_category', formData.category);
-        data.append('email', email);
-        data.append('post_title', formData.title);
-        data.append('post_detail', formData.content);
+        data.append('post_category', formData.category);    //문의 유형
+        data.append('email', email);    //작성자 이메일
+        data.append('post_title', formData.title);  //제목
+        data.append('post_detail', formData.content);   //내용
         if (formData.file) {
-            data.append('one_upload_file', formData.file);
+            data.append('one_upload_file', formData.file);  //첨부 파일
         }
 
+        //서버에 데이터 전송
         try {
             const response = await axios.post(`${bkURL}/onetoone/register`, data);
             if (response.status === 201) {
-                alert('문의가 접수되었습니다!');
-                navigate('/onetoonelist');
+                alert('문의가 접수되었습니다!');    //성공 메시지
+                navigate('/onetoonelist');  //문의 목록 페이지로 이동
             } else {
-                alert(`문의 등록 실패: ${response.data.error}`);
+                alert(`문의 등록 실패: ${response.data.error}`);    //서버 오류 메시지 표시
             }
         } catch (err) {
             console.error('서버 오류 발생:', err);
@@ -106,7 +109,7 @@ const OneToOne = () => {
         }
     };
 
-    // 취소 버튼 클릭 핸들러
+    // 취소 버튼 클릭 시 이전 페이지로 이동
     const handleCancel = () => {
         navigate(-1); // 이전 페이지로 이동
     };
