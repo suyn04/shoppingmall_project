@@ -31,7 +31,7 @@ function Header({ ham, setHam }) {
         navigate('/admin'); // 관리자 페이지로 이동
     };
 
-    const showHamMenu = e => {
+    const showHamMenu = (e) => {
         e.stopPropagation();
         setHam(!ham);
     };

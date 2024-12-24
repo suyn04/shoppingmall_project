@@ -45,7 +45,7 @@ function OrderList(props) {
 
     const handleInvoiceChange = (id, newInvoice) => {
         const updatedArr = order.map((item) =>
-            item.order_id === id ? { ...item, invoice: newInvoice || null, status: item.status || '배송중' } : item
+            item.order_id === id ? { ...item, invoice: newInvoice || '', status: item.status || '배송중' } : item
         );
         setOrder(updatedArr);
     };
