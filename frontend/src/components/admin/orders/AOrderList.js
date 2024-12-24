@@ -40,45 +40,39 @@ function OrderList(props) {
         orderListAxios();
     }, []);
 
-    // 상태 변경 핸들러
+    const handleInvoiceChange = (id, newInvoice) => {
+        const updatedArr = order.map((item) =>
+            item.order_id === id ? { ...item, invoice: newInvoice || null, status: item.status || '배송중' } : item
+        );
+        setOrder(updatedArr);
+    };
+
     const handleStatusChange = (id, newStatus) => {
         const updatedArr = order.map((item) => {
             if (item.order_id === id) {
-                // invoice가 null이면서 상태가 '배송 중'일 때, 상태를 '주문 완료'로 되돌림
                 if (!item.invoice && newStatus === '배송중') {
                     alert('운송장번호를 먼저 입력하세요');
-                    return { ...item, status: '주문 완료', invoice: '' };
+                    return { ...item, status: item.status || '주문완료', invoice: item.invoice || null };
                 }
-                return { ...item, status: newStatus, invoice: item.invoice };
+                return { ...item, status: newStatus || item.status, invoice: item.invoice || null };
             }
             return item;
         });
         setOrder(updatedArr);
     };
 
-    // 운송장 번호 변경 핸들러
-    const handleInvoiceChange = (id, newInvoice) => {
-        const updatedArr = order.map((item) =>
-            item.order_id === id ? { ...item, invoice: newInvoice, status: '배송중' } : item
-        );
-        setOrder(updatedArr);
-    };
-
     // 수정 완료 핸들러 (DB에 업데이트)
     const handleSaveChanges = (e) => {
         e.preventDefault();
-        for (const ee of order) {
-            if (!ee['invoice']) {
-                ee['invoice'] = '';
-            }
-            if (!ee['status']) {
-                ee['status'] = order.order_status;
-            }
-            console.log(ee['status'], ee['invoice']);
-        }
+
+        const sanitizedOrder = order.map((item) => ({
+            ...item,
+            invoice: item.invoice || null, // undefined -> null
+            status: item.status || null, // undefined -> null
+        }));
 
         axios
-            .post(`${bkURL}/admin/order/update`, order)
+            .post(`${bkURL}/admin/order/update`, sanitizedOrder)
             .then((res) => {
                 alert('수정이 완료되었습니다.');
                 setIsEditable(false);
@@ -110,7 +104,7 @@ function OrderList(props) {
         const frmData = new FormData(document.myFrm);
         // console.log(frmData)
         const data = Object.fromEntries(frmData);
-        console.log('order 검색:', data);
+        // console.log('order 검색:', data);
 
         Object.keys(data).forEach((key) => {
             if (data[key] === '') {
