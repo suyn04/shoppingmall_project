@@ -57,9 +57,9 @@ const AReviewList = () => {
                 </tr>
 
                 {reviews.length > 0 ? (
-                    curReviewList.map((review) => (
+                    curReviewList.map((review,i) => (
                         <tr key={review.review_no}>
-                            <td>{review.review_no}</td>
+                           <td>{(curPage - 1) * itemsPerPage + (i + 1)}</td>
                             <td>{review.email}</td>
                             <td>{review.review_nick}</td>
                             <td>{review.review_title}</td>

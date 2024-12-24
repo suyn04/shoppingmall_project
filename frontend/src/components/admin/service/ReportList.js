@@ -53,10 +53,9 @@ const ReportList = () => {
                 </tr>
 
                 {reports.length > 0 ? (
-                    curReportList.map((report) => (
+                    curReportList.map((report,i) => (
                         <tr key={report.report_no} className={styles.dataRow}>
-                            <td>{report.report_no}</td>
-                            <td>{report.review_no}</td>
+                            <td>{(curPage - 1) * itemsPerPage + (i + 1)}</td>
                             <td>{report.reporter}</td>
                             <td>{new Date(report.report_date).toLocaleDateString()}</td>
                             <td>{report.check_status ? '처리 완료' : '미처리'}</td>

@@ -54,9 +54,9 @@ const OneToOneList = () => {
                 </tr>
 
                 {Array.isArray(onetoone) && onetoone.length > 0 ? (
-                    curOneToOne.map((item) => (
+                    curOneToOne.map((item,i) => (
                         <tr key={item.post_no}>
-                            <td>{item.post_no}</td>
+                           <td>{(curPage - 1) * itemsPerPage + (i + 1)}</td>
                             <td>{item.post_title}</td>
                             <td>{item.email}</td>
                             <td>{item.reply_status}</td>
