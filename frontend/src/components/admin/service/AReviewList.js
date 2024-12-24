@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
+import Pagination from '../../dup/Pagination';
 
 const bkURL = process.env.REACT_APP_BACK_URL;
 
@@ -10,6 +11,16 @@ const AReviewList = () => {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+
+
+    // pagination 추가
+    const [curPage, setCurPage] = useState(1); // Current page
+    const [itemsPerPage] = useState(10); // Items per page
+    // Calculate the products for the current page
+    const indexOfLastItem = curPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const curReviewList = reviews.slice(indexOfFirstItem, indexOfLastItem);
+
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -26,6 +37,7 @@ const AReviewList = () => {
 
         fetchReviews();
     }, []);
+
     const handleDetailClick = (id) => {
         console.log('전달된 ID:', id); // 클릭한 리뷰의 ID 확인
         navigate(`/admin/areviewdetail/${id}`); // 상세보기 페이지로 이동
@@ -45,7 +57,7 @@ const AReviewList = () => {
                 </tr>
 
                 {reviews.length > 0 ? (
-                    reviews.map((review) => (
+                    curReviewList.map((review) => (
                         <tr key={review.review_no}>
                             <td>{review.review_no}</td>
                             <td>{review.email}</td>
@@ -69,6 +81,13 @@ const AReviewList = () => {
             </table>
 
             {error && <p className={styles.error}>{error}</p>}
+            <Pagination
+                totalItems={reviews.length}
+                itemsPerPage={itemsPerPage}
+                pagesPerGroup={5}
+                curPage={curPage}
+                setCurPage={setCurPage}
+            />
         </div>
     );
 };

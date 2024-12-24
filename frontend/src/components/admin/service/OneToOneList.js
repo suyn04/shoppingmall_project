@@ -2,18 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
+import Pagination from '../../dup/Pagination';
 
 const bkURL = process.env.REACT_APP_BACK_URL;
+
+
+
+
 
 const OneToOneList = () => {
     const [onetoone, setOnetoone] = useState([]);
     const navigate = useNavigate();
 
+    // pagination 추가
+    const [curPage, setCurPage] = useState(1); // Current page
+    const [itemsPerPage] = useState(10); // Items per page
+    // Calculate the products for the current page
+    const indexOfLastItem = curPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const curOneToOne = onetoone.slice(indexOfFirstItem, indexOfLastItem);
+
     // 서버에서 데이터를 가져오는 함수
     const fetchOnetoone = async () => {
         try {
             const response = await axios.get(`${bkURL}/onetoone`);
-            console.log('API 응답 데이터:', response.data); // 데이터 구조 확인
+            console.log('응답 데이터:', response.data); // 데이터 구조 확인
             setOnetoone(response.data.inquiries); // 서버에서 받은 데이터를 onetoone에 저장
         } catch (error) {
             console.error('Error fetching onetoone:', error);
@@ -41,7 +54,7 @@ const OneToOneList = () => {
                 </tr>
 
                 {Array.isArray(onetoone) && onetoone.length > 0 ? (
-                    onetoone.map((item) => (
+                    curOneToOne.map((item) => (
                         <tr key={item.post_no}>
                             <td>{item.post_no}</td>
                             <td>{item.post_title}</td>
@@ -60,6 +73,13 @@ const OneToOneList = () => {
                     </tr>
                 )}
             </table>
+            <Pagination
+                totalItems={onetoone.length}
+                itemsPerPage={itemsPerPage}
+                pagesPerGroup={5}
+                curPage={curPage}
+                setCurPage={setCurPage}
+            />
         </div>
     );
 };
