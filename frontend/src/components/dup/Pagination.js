@@ -4,9 +4,9 @@ import styles from '../../scss/dup/pagination.module.scss';
 const Pagination = ({
     totalItems, //전체 데이터 건수
     itemsPerPage, //1페이지에 보이는 데이터 건수
-    pagesPerGroup, //페이지 수 노출
+    pagesPerGroup, //페이지 수 노출(한번에 보여줄 페이지 버튼 개수)
     curPage, //현재 페이지
-    setCurPage, //현재 페이지 재설정
+    setCurPage, //현재 페이지 재설정(페이지를 바꿔주는 함수)
 }) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     const groupStart = Math.floor((curPage - 1) / pagesPerGroup) * pagesPerGroup + 1; // 그룹의 시작 페이지

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../../scss/service/Accordion.module.scss";
-import { Link, useParams, useNavigate } from "react-router-dom";
+
 
 const Terms = () => {
   return (
