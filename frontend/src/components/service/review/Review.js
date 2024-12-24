@@ -114,10 +114,11 @@ const Review = () => {
 
         console.log('FormData 확인:', Object.fromEntries(formData));
 
-        // // form 데이터를 일반 객체로 변환
+       
         const data = Object.fromEntries(formData);
         // console.log("data:",data) // 보내는 값 확인
 
+        //서버로 데이터 전송
         try {
             const response = await axios.post(`${bkURL}/review`, data, {
                 headers: {
