@@ -3,41 +3,51 @@ import axios from 'axios';
 import styles from '../../../scss/service/review/Review.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const bkURL = process.env.REACT_APP_BACK_URL;
+const bkURL = process.env.REACT_APP_BACK_URL;   // 백엔드 URL
 
 // 이미지 파일 경로를 생성하는 함수
 function fileGo(file) {
     if (file) {
-        return <img src={`${bkURL}/imgs/product/${file}`} alt="Product" />;
+        return <img src={`${bkURL}/imgs/product/${file}`} alt="Product" />; // 이미지가 있으면 해당 경로 반환
     }
     return <img src={`${bkURL}/imgs/product/default.jpg`} alt="Default Product" />;
 }
 
 const Review = () => {
     // 상태 관리: 폼 데이터
-    const { product_opt_id } = useParams();
+    const { product_opt_id } = useParams(); // URL에서 옵션 ID 가져오기
     //유효성 검사
     const [nickname, setNickname] = useState('');
     const [error, setError] = useState('');
-
+    //별점
     const [rating, setRating] = useState(0);
     const [ratingError, setRatingError] = useState('');
+    //제목
     const [title, setTitle] = useState('');
     const [titleError, setTitleError] = useState('');
+    //내용
     const [content, setContent] = useState('');
     const [contentError, setContentError] = useState('');
+    //지역
     const [region, setRegion] = useState('');
+    //향수 계열
     const [fragranceType, setFragranceType] = useState('');
+    //잘어울리는 시간대
     const [timeOfDay, setTimeOfDay] = useState('');
+    //선물여부
     const [gift, setGift] = useState('');
+    //제품 정보 상태 
     const [product, setProduct] = useState('');
 
-    const email = sessionStorage.getItem('email');
+    const email = sessionStorage.getItem('email');  //세션에서 사용자 이메일 가져오기
     const navigate = useNavigate();
-    if (!email) {
-        navigate('/signIn');
-    }
 
+     //이메일이 없으면 로그인 페이지로 이동
+    if (!email) {
+        navigate('/signIn');   
+    }   
+
+    // 제품 데이터 가져오기
     useEffect(() => {
         const fetchReviews = async () => {
             try {
@@ -47,17 +57,19 @@ const Review = () => {
                 console.log(response.data);
                 setProduct(response.data);
             } catch (err) {
-                console.error('API 호출 실패:', err);
+                console.error('호출 실패:', err);
             }
         };
         fetchReviews();
     }, [product_opt_id]);
 
+    //폼 제출 처리
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); //기본 폼 제출 동작 막기
 
         const formData = new FormData(document.myFrm);
 
+        //필수 데이터 추가
         formData.append('product_opt_id', product.product_opt_id);
         formData.append('product_id', product.product_id);
         formData.append('email', email);
@@ -69,8 +81,8 @@ const Review = () => {
             return;
         }
         setRatingError('');
-        //닉네임 유효성 검사
 
+        //닉네임 유효성 검사
         const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,10}$/;
         if (!nicknameRegex.test(nickname)) {
             setError('닉네임은 2~10자의 한글, 영문, 숫자만 허용됩니다.');
@@ -86,7 +98,7 @@ const Review = () => {
         }
         setTitleError('');
 
-        //후기 유효성 검사
+        //후기 내용 유효성 검사
         const contentRegex = /^.{10,500}$/;
         if (!contentRegex.test(content)) {
             setContentError('상품 후기는 10자 이상 500자 이하로 입력해 주세요.');
@@ -94,6 +106,7 @@ const Review = () => {
         }
         setContentError('');
 
+        //파일추가(선택사항)
         const fileInput = document.querySelector('input[name="review_file"]');
         if (fileInput.files.length > 0) {
             formData.append('review_file', fileInput.files[0]);
