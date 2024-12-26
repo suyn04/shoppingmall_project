@@ -32,7 +32,7 @@ const DetailVolume = ({ product_id }) => {
 
     useEffect(() => {
         volumeGetAxios();
-    }, []);
+    }, [product_id]);
 
     const ccc = styles.acitve1;
 
@@ -52,7 +52,7 @@ const DetailVolume = ({ product_id }) => {
 
                 return (
                     <button
-                        key={i}
+                        key={volume.product_opt_id}
                         className={
                             volume.product_opt_id == product_opt_id ? ccc : ""
                         }
