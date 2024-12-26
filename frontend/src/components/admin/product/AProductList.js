@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import styles from '../../../scss/admin/AdminList.module.scss';
-import Pagination from '../../dup/Pagination';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import styles from "../../../scss/admin/AdminList.module.scss";
+import Pagination from "../../dup/Pagination";
 
 const bkURL = process.env.REACT_APP_BACK_URL;
 
 const AProductList = () => {
     const [product, setProduct] = useState([]);
-    const [text, setText] = useState('');
+    const [text, setText] = useState("");
 
     // pagination 추가
     const [curPage, setCurPage] = useState(1); // Current page
@@ -22,11 +22,11 @@ const AProductList = () => {
         axios
             .get(`${bkURL}/admin/product/`)
             .then((res) => {
-                console.log('서버 다녀옴', res.data);
+                console.log("서버 다녀옴", res.data);
                 setProduct(res.data);
             })
             .catch((err) => {
-                console.error('에러발생 ; ', err);
+                console.error("에러발생 ; ", err);
             });
     };
 
@@ -36,14 +36,14 @@ const AProductList = () => {
 
     const searchGo = (me) => {
         me.preventDefault();
-        console.log('submitGo 진입');
+        console.log("submitGo 진입");
         const frmData = new FormData(document.myFrm);
         console.log(frmData);
         const data = Object.fromEntries(frmData);
         console.log(data);
 
         Object.keys(data).forEach((key) => {
-            if (data[key] === '') {
+            if (data[key] === "") {
                 data[key] = null;
             }
         });
@@ -56,12 +56,12 @@ const AProductList = () => {
         axios
             .post(`${bkURL}/admin/product/search`, data)
             .then((res) => {
-                console.log('검색 완료');
+                console.log("검색 완료");
                 setProduct(res.data);
-                setText('해당하는 제품이 존재하지 않습니다.');
+                setText("해당하는 제품이 존재하지 않습니다.");
             })
             .catch((err) => {
-                console.error('에러발생 ; ', err);
+                console.error("에러발생 ; ", err);
             });
     };
 
@@ -97,12 +97,17 @@ const AProductList = () => {
                             <td>{(curPage - 1) * itemsPerPage + (i + 1)}</td>
                             <td>{st.product_category_one}</td>
                             <td>
-                                <Link className={styles.link} to={`/admin/product/detail/${st.product_id}`}>
+                                <Link
+                                    className={styles.link}
+                                    to={`/admin/product/detail/${st.product_id}`}
+                                >
                                     {st.product_name_kor}
                                 </Link>
                             </td>
                             <td>{st.product_scent}</td>
-                            <td>{st.product_status == 1 ? '공개' : '비공개'}</td>
+                            <td>
+                                {st.product_status == 1 ? "공개" : "비공개"}
+                            </td>
                         </tr>
                     );
                 })}

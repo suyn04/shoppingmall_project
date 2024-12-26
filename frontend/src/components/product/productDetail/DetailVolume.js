@@ -1,7 +1,7 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import styles from '../../../scss/product/detailVolume.module.scss';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import styles from "../../../scss/product/detailVolume.module.scss";
 
 const bkURL = process.env.REACT_APP_BACK_URL;
 
@@ -16,7 +16,7 @@ const DetailVolume = ({ product_id }) => {
         // console.log("product_scent : ", product_scent);
 
         if (!product_id) {
-            console.log('데이터 없음');
+            console.log("데이터 없음");
             return;
         }
         axios
@@ -26,7 +26,7 @@ const DetailVolume = ({ product_id }) => {
                 setVolume(res.data);
             })
             .catch((err) => {
-                console.error('에러발생 ; ', err);
+                console.error("에러발생 ; ", err);
             });
     };
 
@@ -52,7 +52,10 @@ const DetailVolume = ({ product_id }) => {
 
                 return (
                     <button
-                        className={volume.product_opt_id == product_opt_id ? ccc : ''}
+                        key={i}
+                        className={
+                            volume.product_opt_id == product_opt_id ? ccc : ""
+                        }
                         onClick={() => {
                             navigate(`/product/${volume.product_opt_id}`);
                         }}

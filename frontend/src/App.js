@@ -63,7 +63,6 @@ function App() {
     return (
         <BrowserRouter>
             <ScrollToTop />
-
             <AppContent />
         </BrowserRouter>
     );

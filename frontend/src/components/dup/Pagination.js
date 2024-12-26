@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../../scss/dup/pagination.module.scss';
+import React from "react";
+import styles from "../../scss/dup/pagination.module.scss";
 
 const Pagination = ({
     totalItems, //전체 데이터 건수
@@ -9,8 +9,10 @@ const Pagination = ({
     setCurPage, //현재 페이지 재설정(페이지를 바꿔주는 함수)
 }) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const groupStart = Math.floor((curPage - 1) / pagesPerGroup) * pagesPerGroup + 1; // 그룹의 시작 페이지
+    const groupStart =
+        Math.floor((curPage - 1) / pagesPerGroup) * pagesPerGroup + 1; // 그룹의 시작 페이지
     const groupEnd = Math.min(groupStart + pagesPerGroup - 1, totalPages); // 그룹의 끝 페이지
+    const hasNextGroup = groupStart + pagesPerGroup <= totalPages;
 
     const pageChange = (page) => {
         setCurPage(page);
@@ -32,7 +34,9 @@ const Pagination = ({
             {Array.from({ length: groupEnd - groupStart + 1 }, (_, index) => (
                 <button
                     key={groupStart + index}
-                    className={`${styles.page} ${curPage === groupStart + index ? styles.active : ''}`}
+                    className={`${styles.page} ${
+                        curPage === groupStart + index ? styles.active : ""
+                    }`}
                     onClick={() => pageChange(groupStart + index)}
                 >
                     {groupStart + index}
@@ -41,7 +45,7 @@ const Pagination = ({
 
             {/* 다음 그룹 버튼 */}
             <button
-                disabled={curPage > pagesPerGroup * (Math.floor(totalPages / pagesPerGroup) - 1)}
+                disabled={!hasNextGroup}
                 className={styles.move}
                 onClick={() => pageChange(groupStart + pagesPerGroup)}
             >
