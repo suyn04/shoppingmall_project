@@ -59,13 +59,31 @@ function PayModal1({ onClose, onSave, btnData, email }) {
             console.log(myData);
 
             // 유효성 검사
+            const trimmedName = myData.customer_name ? myData.customer_name.trim() : '';
             const trimmedZip = myData.zip ? myData.zip.trim() : '';
             const trimmedRoadnameAddress = myData.roadname_address ? myData.roadname_address.trim() : '';
             const trimmedBuildingName = myData.building_name ? myData.building_name.trim() : '';
             const trimmedDetailAddress = myData.detail_address ? myData.detail_address.trim() : '';
+            const trimmedNum = myData.contact_number ? myData.contact_number.trim() : '';
 
             if (!trimmedZip || !trimmedRoadnameAddress || !trimmedBuildingName || !trimmedDetailAddress) {
                 alert('빈칸 없이 주소를 입력해주세요.');
+                return;
+            }
+
+            const nameTest = /^[가-힣]{2,5}$/;
+            const numTest = /^01[0-9]-\d{3,4}-\d{4}$/;
+
+            if (!trimmedName) {
+                alert('수령인을 입력해주세요.');
+                return;
+            }
+            if (!trimmedNum) {
+                alert('수령인 전화번호를 입력해주세요.');
+                return;
+            }
+            if (!nameTest.test(trimmedName) || !numTest.test(trimmedNum)) {
+                alert('정확한 정보를 입력해주세요.');
                 return;
             }
 
