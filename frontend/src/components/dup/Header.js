@@ -65,18 +65,19 @@ function Header({ ham, setHam }) {
                     </Link>
                 </div>
                 <div className={styles.righticonbox}>
+                    {/* 이메일이 있거나 없을 때 이메일에 따라서 표기되는 값 변경 */}
+                    {email ? (
+                        email === 'admin@jomalone.kr' ? (
+                            <div className={styles.userLink} onClick={Adminbtn}>
+                                관리자
+                            </div>
+                        ) : (
+                            <div className={styles.userLink} onClick={Loginbtn}>{`${userName}님`}</div>
+                        )
+                    ) : null}
+
                     {/* 로그인 혹은 마이페이지 버튼 */}
                     <div className={styles.myPageIcon} onClick={Loginbtn}>
-                        {/* 이메일이 있거나 없을 때 이메일에 따라서 표기되는 값 변경 */}
-                        {email ? (
-                            email === 'admin@jomalone.kr' ? (
-                                <div className={styles.userLink} onClick={Adminbtn}>
-                                    관리자
-                                </div>
-                            ) : (
-                                <div className={styles.userLink} onClick={Loginbtn}>{`${userName}님`}</div>
-                            )
-                        ) : null}
                         <img src={`${url}myPageIcon.svg`} alt="" />
                     </div>
                     <div className={styles.basketIcon} onClick={LoginBsk}>
