@@ -6,9 +6,11 @@
 .rwrapper {
     display: flex;
     flex-wrap: wrap;
+
     .rinput {
         width: 80%;
     }
+
     .rseoul,
     .rselect {
         width: 20%;
@@ -19,17 +21,21 @@
     width: 50%;
     margin-top: 100px;
 }
+
 .rimgbox {
     width: 50%;
+
     img {
         width: 100%;
     }
 }
+
 .rtext h2 {
     font-family: 'NanumMyeongjo';
     font-size: 28px;
     margin-bottom: 30px;
 }
+
 .rtext h3 {
     line-height: 24px;
     font-family: 'NotoSansKR';
@@ -37,32 +43,41 @@
     margin-bottom: 30px;
     width: 85%;
 }
+
 .rating .labelbox {
     display: flex;
     gap: 10px;
 }
+
 .rating {
     margin-bottom: 20px;
+
     legend {
         margin-bottom: 10px;
         font-size: 18px;
     }
 }
+
 .checkbox i {
     font-size: 24px;
     cursor: pointer;
 }
+
 .fa-regular {
     color: #ccc;
 }
+
 .fa-solid {
     color: #1c1c1c;
 }
+
 .recommend {
     margin-top: 20px;
 }
+
 .rtitle {
     margin-bottom: 20px;
+
     div {
         margin-bottom: 20px;
     }
@@ -113,6 +128,7 @@
     border-radius: 5px;
     margin-top: 5px;
 }
+
 .law {
     color: #aaa;
     padding: 5px;
@@ -124,9 +140,11 @@
 .plus {
     font-size: 16px;
 }
+
 .seoul {
     margin-top: 20px;
     margin-bottom: 20px;
+
     div {
         margin-bottom: 30px;
     }
@@ -134,9 +152,11 @@
 
 .load {
     margin-bottom: 20px;
+
     div {
         margin-bottom: 20px;
     }
+
     button {
         border: 1px solid #333;
         background: none;
@@ -145,6 +165,7 @@
         font-size: 1em;
     }
 }
+
 .btnsubmit {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -160,14 +181,3 @@
     width: 83%;
 }
 
-// input,
-// .sc,
-// textarea {
-//   width: 80%; // 부모 컨테이너에 맞춤
-//   box-sizing: border-box; // 패딩과 테두리를 포함한 전체 너비
-//   padding: 10px;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-//   font-size: 14px;
-//   margin: 10px 0; // 상하 마진 통일
-// }

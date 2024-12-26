@@ -1,58 +1,19 @@
-/* MemberList.module.scss */
-
 .memberlist {
-    margin-top: 20px;
-    .searchbar {
-        margin: 20px 0px;
+    .searchcontainer {
         display: flex;
         align-items: center;
         gap: 10px;
-
-        select,
-        input {
-            width: 150px;
-            height: 30px;
-            padding: 5px;
-            box-sizing: border-box;
+        .deletebutton {
+            padding: 10px 10px;
             font-size: 14px;
-        }
-        .actionButtons {
-            .searchbutton,
-            .resetbutton,
-            .changebutton,
-            .deletebutton {
-                padding: 10px 10px;
-                font-size: 14px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-
-                &.searchbutton {
-                    margin-left: 20px;
-                    background-color: #007bff;
-                    color: white;
-                }
-
-                &.resetbutton {
-                    margin-left: 10px;
-                    background-color: #6c757d;
-                    color: white;
-                }
-
-                &.changebutton {
-                    margin-left: 500px;
-                    background-color: #007bff;
-                    color: white;
-                }
-
-                &.deletebutton {
-                    margin-left: 10px;
-                    background-color: #6c757d;
-                    color: white;
-                }
-            }
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #6c757d;
+            color: white;
         }
     }
+
     .chgstatus {
         padding: 10px 10px;
         font-size: 14px;

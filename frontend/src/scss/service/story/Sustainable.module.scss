@@ -3,26 +3,31 @@
     width: 95%;
     margin: 0 auto;
     margin-top: 20px;
+
     .stitle {
         font-size: 24px;
         font-family: 'NanumMyeongjo';
         margin-top: 20px;
         margin-bottom: 20px;
     }
+
     .sbox1 {
-        // width: calc(100%/2);
         display: flex;
+
         div {
             width: calc(100% / 2);
+
             img {
                 width: 100%;
             }
         }
+
         .font14 {
             font-size: 15px;
             line-height: 25px;
         }
     }
+
     .tbox7 {
         margin-top: 30px;
         border-top: 1px solid #ccc;
@@ -53,6 +58,7 @@
             list-style: '-';
         }
     }
+
     .ibox1 {
         display: flex;
 
@@ -67,10 +73,12 @@
             padding-bottom: 30px;
         }
     }
+
     .cimg27 {
         margin: 0 auto 50px;
         width: 100%;
     }
+
     .cimg26 {
         margin-left: 38px;
     }
@@ -79,6 +87,7 @@
 /* 태블릿 (800px 이하) */
 @media screen and (max-width: 800px) {
     .sustainable {
+
         // width: 100%;
         .sbox1 {
             flex-direction: column;
@@ -123,6 +132,7 @@
         margin-top: 10px;
         padding-left: 20px;
         padding-right: 20px;
+
         .stitle {
             font-size: 20px;
         }

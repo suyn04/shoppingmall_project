@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from '../../dup/Pagination';
+import SearchBar from './SearchBar';
 import styles from '../../../scss/member/MemberList.module.scss';
 
 function MemberList(props) {
@@ -12,6 +13,13 @@ function MemberList(props) {
     const [sortOrder, setSortOrder] = useState('asc'); // 가입일 오름차순/내림차순 정렬
     const [selectAll, setSelectAll] = useState(false); // 전체 선택 체크 여부 (전체 선택 체크박스 false상태)
     const [selectedCustomers, setSelectedCustomers] = useState([]); // 개별 체크박스
+
+    // searchbar 컴포넌트의 셀렉트 옵션 지정
+    const searchOptions = [
+        { value: 'customer_name', label: '이름으로 조회' },
+        { value: 'contact_number', label: '연락처로 조회' },
+        { value: 'join_date', label: '가입일로 정렬/조회' },
+    ];
 
     // pagination 추가
     const [curPage, setCurPage] = useState(1); // Current page
@@ -133,39 +141,12 @@ function MemberList(props) {
 
     return (
         <div className={styles.memberlist}>
-            {/* 검색 바 */}
-            <div className={styles.searchbar}>
-                <select value={searchType} onChange={e => setSearchType(e.target.value)}>
-                    <option value="">검색 기준 선택</option>
-                    <option value="customer_name">이름으로 조회</option>
-                    <option value="contact_number">연락처로 조회</option>
-                    <option value="join_date">가입일로 정렬/조회</option>
-                </select>
-
-                {/* 이름/연락처 조회일때는 input 필수 : 검색할 수 있게 */}
-                {searchType !== 'join_date' && <input type="text" placeholder="검색어 입력" value={searchValue} onChange={e => setSearchValue(e.target.value)} />}
-
-                {/* 가입일로 정렬할 때는 input 없이 정렬만 가능하게 */}
-                {searchType === 'join_date' && (
-                    <select value={sortOrder} onChange={e => setSortOrder(e.target.value)}>
-                        <option value="asc">오래된 가입일 순</option>
-                        <option value="desc">최근 가입일 순</option>
-                    </select>
-                )}
-
-                <div className={styles.actionButtons}>
-                    <button className={styles.searchbutton} onClick={handleSearch}>
-                        검색
-                    </button>
-                    <button className={styles.resetbutton} onClick={resetSearch}>
-                        초기화
-                    </button>
-                    <button className={styles.deletebutton} disabled={selectedCustomers.length === 0} onClick={handleMoveToDeleted}>
-                        탈퇴 처리
-                    </button>
-                </div>
+            <div className={styles.searchcontainer}>
+                <SearchBar searchType={searchType} setSearchType={setSearchType} searchValue={searchValue} setSearchValue={setSearchValue} sortOrder={sortOrder} setSortOrder={setSortOrder} onSearch={handleSearch} onReset={resetSearch} options={searchOptions} />
+                <button className={styles.deletebutton} disabled={selectedCustomers.length === 0} onClick={handleMoveToDeleted}>
+                    탈퇴 처리
+                </button>
             </div>
-
             <table>
                 <tr>
                     <td>

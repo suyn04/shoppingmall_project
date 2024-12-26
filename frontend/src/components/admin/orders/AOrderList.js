@@ -10,6 +10,8 @@ function OrderList(props) {
     const [isEditable, setIsEditable] = useState(false);
     const navigate = useNavigate();
 
+    const orderStatuses = ['주문완료', '배송중', '배송완료', '반품접수', '환불접수'];
+
     // pagination 추가
     const [curPage, setCurPage] = useState(1); // Current page
     const [itemsPerPage] = useState(10); // Items per page
@@ -20,6 +22,7 @@ function OrderList(props) {
 
     const bkURL = process.env.REACT_APP_BACK_URL;
 
+    // 주문 데이터 가져오는 함수
     const orderListAxios = () => {
         axios
             .get(`${bkURL}/admin/order/`)
@@ -40,56 +43,50 @@ function OrderList(props) {
         orderListAxios();
     }, []);
 
-    // 상태 변경 핸들러
-    const handleStatusChange = (id, newStatus) => {
-        const updatedArr = order.map((item) => {
-            if (item.order_id === id) {
-                // invoice가 null이면서 상태가 '배송 중'일 때, 상태를 '주문 완료'로 되돌림
-                if (!item.invoice && newStatus === '배송중') {
-                    alert('운송장번호를 먼저 입력하세요');
-                    return { ...item, status: '주문 완료', invoice: '' };
-                }
-                return { ...item, status: newStatus, invoice: item.invoice };
-            }
-            return item;
-        });
+    const handleInvoiceChange = (id, newInvoice) => {
+        const updatedArr = order.map((item) =>
+            item.order_id === id ? { ...item, invoice: newInvoice || '', status: item.status || '배송중' } : item
+        );
         setOrder(updatedArr);
     };
 
-    // 운송장 번호 변경 핸들러
-    const handleInvoiceChange = (id, newInvoice) => {
-        const updatedArr = order.map((item) =>
-            item.order_id === id ? { ...item, invoice: newInvoice, status: '배송중' } : item
+    // select로 상태 변경시 동작하는 함수
+    const handleStatusChange = (id, newStatus) => {
+        setOrder((prevOrders) =>
+            prevOrders.map((item) =>
+                item.order_id === id
+                    ? { ...item, order_status: newStatus, status: newStatus } // 상태 값을 일관되게 업데이트
+                    : item
+            )
         );
-        setOrder(updatedArr);
     };
 
     // 수정 완료 핸들러 (DB에 업데이트)
     const handleSaveChanges = (e) => {
         e.preventDefault();
-        for (const ee of order) {
-            if (!ee['invoice']) {
-                ee['invoice'] = '';
-            }
-            if (!ee['status']) {
-                ee['status'] = order.order_status;
-            }
-            console.log(ee['status'], ee['invoice']);
-        }
+
+        const modifyOrder = order.map((item) => ({
+            ...item,
+            invoice: item.invoice || '',
+            status: item.status || item.order_status,
+        }));
 
         axios
-            .post(`${bkURL}/admin/order/update`, order)
+            .post(`${bkURL}/admin/order/update`, modifyOrder)
             .then((res) => {
                 alert('수정이 완료되었습니다.');
-                setIsEditable(false);
+                setIsEditable(false); // 수정하기 버튼 표시
                 navigate('/admin/order');
             })
             .catch((err) => {
                 console.error('수정 실패 :', err);
                 alert('수정에 실패했습니다.');
             });
+
+        resetSearch(e);
     };
 
+    // 일시들 변경
     const formatDate = (dateString) => {
         if (!dateString) return '-';
         const date = new Date(dateString);
@@ -104,11 +101,12 @@ function OrderList(props) {
         }); // 한국 로컬 시간대에 맞게 변환
     };
 
+    // 검색어 검색 함수
     const searchGo = (me) => {
         me.preventDefault();
         console.log('submitGo 진입');
         const frmData = new FormData(document.myFrm);
-        // console.log(frmData)
+        console.log(frmData);
         const data = Object.fromEntries(frmData);
         console.log('order 검색:', data);
 
@@ -118,8 +116,9 @@ function OrderList(props) {
             }
         });
 
-        if (!data.text) {
-            alert('검색할 단어를 입력해 주세요.');
+        // 검색어+검색기준 없으면
+        if (!data.text || !data.orderCate) {
+            alert('정확한 정보를 입력해 주세요.');
             return;
         }
 
@@ -143,9 +142,11 @@ function OrderList(props) {
         form.orderCate.value = ''; // 검색 기준 초기화
         form.text.value = ''; // 검색어 초기화
 
+        console.log('초기화 진입');
+
         // 데이터를 원래 상태로 복원
         axios
-            .get(`${bkURL}/admin/order/status`)
+            .get(`${bkURL}/admin/order/`)
             .then((res) => {
                 const updatedData = res.data.map((item) => ({
                     ...item,
@@ -157,6 +158,8 @@ function OrderList(props) {
             .catch((err) => {
                 console.error('초기화 중 에러 발생:', err);
             });
+
+        orderListAxios();
     };
 
     return (
@@ -214,15 +217,15 @@ function OrderList(props) {
                         <td>{formatDate(mm.order_date)}</td>
                         <td>
                             <select
-                                value={mm.status}
+                                value={mm.order_status}
                                 onChange={(e) => handleStatusChange(mm.order_id, e.target.value)}
                                 disabled={!isEditable}
                             >
-                                <option value="주문완료">주문완료</option>
-                                <option value="배송중">배송중</option>
-                                <option value="배송완료">배송완료</option>
-                                <option value="반품접수">반품접수</option>
-                                <option value="환불접수">환불접수</option>
+                                {orderStatuses.map((status) => (
+                                    <option key={status} value={status}>
+                                        {status}
+                                    </option>
+                                ))}
                             </select>
                         </td>
                         <td>{mm.pay_to}</td>

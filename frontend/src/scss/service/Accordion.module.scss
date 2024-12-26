@@ -28,6 +28,7 @@
         color: #1c1c1c;
         line-height: 1.5;
     }
+
     p {
         line-height: 24px;
     }
@@ -38,6 +39,7 @@
     width: 90%;
     margin: 0 auto;
     margin-bottom: 50px;
+    line-height: 22px;
 
     // margin: 10px 20px;
     .bold {
@@ -47,6 +49,7 @@
 
     .marginbottom {
         margin-bottom: 50px;
+        line-height: 22px;
     }
 
     .faqtitle {
@@ -128,6 +131,10 @@
     }
 }
 
+.p {
+    line-height: 24px;
+}
+
 //////////////반응형////////
 
 /* 태블릿 (800px 이하) */
@@ -171,8 +178,10 @@
         font-size: 16px;
         line-height: 26px;
     }
+
     .marginbottom {
-        line-height: 26px;
+        line-height: 24px;
+
     }
 }
 

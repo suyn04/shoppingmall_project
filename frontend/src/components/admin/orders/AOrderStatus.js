@@ -18,7 +18,7 @@ function AOrderStatus(props) {
 
     const bkURL = process.env.REACT_APP_BACK_URL;
 
-    useEffect(() => {
+    const orderStatusAxios = () => {
         axios
             .get(`${bkURL}/admin/order/status`)
             .then((res) => {
@@ -32,6 +32,9 @@ function AOrderStatus(props) {
             .catch((err) => {
                 console.error('에러발생 : ', err);
             });
+    };
+    useEffect(() => {
+        orderStatusAxios();
     }, []);
 
     // 상태 변경 핸들러

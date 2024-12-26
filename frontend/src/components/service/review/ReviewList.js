@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import Modal from './Modal';
+import Modal from './Modal';    // 모달 컴포넌트 가져오기
 import styles from '../../../scss/service/review/ReviewList.module.scss';
 
-const bkURL = process.env.REACT_APP_BACK_URL;
+const bkURL = process.env.REACT_APP_BACK_URL;    // 백엔드 URL 환경 변수
 
 const ReviewList = ({ product_id }) => {
-    const email = sessionStorage.getItem('email');
+    const email = sessionStorage.getItem('email');   // 세션 스토리지에서 사용자 이메일 가져오기
 
-    const [reviews, setReviews] = useState([]);
-    const [expandedReview, setExpandedReview] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedReview, setSelectedReview] = useState(null);
-    const [reportReason, setReportReason] = useState('');
-    const [reportContent, setReportContent] = useState('');
-    const navigate = useNavigate();
-    const { product_opt_id } = useParams();
+    const [reviews, setReviews] = useState([]); //리뷰 데이터 저장
+    const [expandedReview, setExpandedReview] = useState(null); //리뷰id
+    const [isModalOpen, setIsModalOpen] = useState(false);  //모달 표시여부
+    const [selectedReview, setSelectedReview] = useState(null); //선택된 리뷰 데이터
+    const [reportReason, setReportReason] = useState('');   //신고 사유
+    const [reportContent, setReportContent] = useState(''); // 신고 내용
+
+
+    const navigate = useNavigate();  // 페이지 이동을 위한 훅
+    const { product_opt_id } = useParams(); // URL에서 옵션 ID 가져오기
+
+
     console.log('product_opt_id:', product_opt_id);
     console.log(`product_id : `, product_id);
 
@@ -32,7 +36,7 @@ const ReviewList = ({ product_id }) => {
             }
         };
         fetchReviews();
-    }, [product_opt_id]);
+    }, [product_opt_id]);    // 옵션 ID가 바뀔 때마다 실행
 
     // "더 보기" 토글
     const handleToggle = (reviewId) => {
@@ -41,21 +45,21 @@ const ReviewList = ({ product_id }) => {
 
     // 모달 열기
     const handleOpenModal = (review) => {
-        // 로그인한 사람만 리뷰작성 가능하게 끔
+        // 로그인한 사람만 리뷰작성 가능하게끔
         if (!email) {
             alert('회원만 리뷰작성이 가능합니다.');
-            navigate('/signIn');
+            navigate('/signIn');    //로그인 페이지로 이동
         }
-        setSelectedReview(review);
-        setIsModalOpen(true);
+        setSelectedReview(review);  //리뷰 저장
+        setIsModalOpen(true);   //모달 열기
     };
 
     // 모달 닫기
     const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setSelectedReview(null);
-        setReportReason('');
-        setReportContent('');
+        setIsModalOpen(false);  //모달 닫기
+        setSelectedReview(null);    //리뷰 초기화
+        setReportReason('');    //신고 사유 초기화
+        setReportContent('');   //신고 내용 초기화
     };
 
     // 신고 제출 함수
@@ -73,16 +77,16 @@ const ReviewList = ({ product_id }) => {
         try {
             const reportData = {
                 email,
-                review_no: parseInt(selectedReview.review_no, 10),
-                reason: reportReason,
-                content: reportContent,
+                review_no: parseInt(selectedReview.review_no, 10), // 신고할 리뷰 번호
+                reason: reportReason,   //신고 사유
+                content: reportContent, //신고 내용
             };
 
             console.log('보내는 데이터:', reportData);
 
             await axios.post(`${bkURL}/reports/register`, reportData);
             alert('신고가 접수되었습니다.');
-            handleCloseModal();
+            handleCloseModal(); //신고 후 모달 닫기
         } catch (error) {
             console.error('신고 제출 실패:', error);
             alert('신고 제출에 실패했습니다.');
@@ -95,7 +99,7 @@ const ReviewList = ({ product_id }) => {
             console.error('product_opt_id가 없습니다.');
             return;
         }
-        navigate(`/review/${product_opt_id}`);
+        navigate(`/review/${product_opt_id}`); // 리뷰 작성 페이지로 이동
     };
 
     return (

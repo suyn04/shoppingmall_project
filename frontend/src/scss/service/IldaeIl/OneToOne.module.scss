@@ -5,6 +5,7 @@
     .onetitle {
         font-size: 24px;
     }
+
     .gray {
         color: #aaa;
         text-align: right;
@@ -24,7 +25,7 @@
 
         label {
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
             font-size: 20px;
         }
 
@@ -37,6 +38,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
+
         }
 
         textarea {
@@ -76,6 +78,47 @@
             cursor: pointer;
             font-size: 16px;
         }
+
+        .filewrap {
+
+            input,
+            label {
+                display: block;
+            }
+
+            .filefile {
+                margin-bottom: 5px;
+            }
+
+        }
     }
+
     margin-bottom: 70px;
+}
+
+/* 반응형 디자인 (800px 이하일 때) */
+@media screen and (max-width: 800px) {
+    .onetitle {
+        margin-bottom: 15px;
+    }
+
+    .filewrap {
+
+        input,
+        label {
+            display: block;
+        }
+
+        label {
+            padding-bottom: 20px;
+        }
+
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .onetitle {
+        margin-bottom: 15px;
+    }
 }
