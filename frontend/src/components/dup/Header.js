@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../scss/dup/header.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser as solidUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser as regularUser } from '@fortawesome/free-regular-svg-icons';
 
 function Header({ ham, setHam }) {
     const navigate = useNavigate();
 
-    //세션토큰 사용
+    // 세션토큰 사용
     const Loginchk = sessionStorage.getItem('sessionToken');
     const email = sessionStorage.getItem('email');
-    const userName = sessionStorage.getItem('customerName');
 
     const Loginbtn = () => {
         if (Loginchk) {
-            // console.log(Loginchk);
             navigate('/myPage'); // 로그인 상태면 마이페이지로 이동
         } else {
             navigate('/signIn'); // 아니면 로그인 페이지로 이동
@@ -21,9 +22,9 @@ function Header({ ham, setHam }) {
 
     const LoginBsk = () => {
         if (Loginchk) {
-            navigate('/basket');
+            navigate('/basket'); // 로그인 상태면 장바구니로 이동
         } else {
-            navigate('/signIn');
+            navigate('/signIn'); // 아니면 로그인 페이지로 이동
         }
     };
 
@@ -43,7 +44,7 @@ function Header({ ham, setHam }) {
             <div className={styles.wrap}>
                 <div className={styles.lefticonbox}>
                     <div className={styles.hamIcon} onClick={showHamMenu}>
-                        <img src={`${url}menuIcon.svg`} alt="" />
+                        <img src={`${url}menuIcon.svg`} alt="Menu Icon" />
                     </div>
                     <div
                         className={styles.searchIcon}
@@ -51,37 +52,38 @@ function Header({ ham, setHam }) {
                             navigate('/search');
                         }}
                     >
-                        <img src={`${url}searchIcon.svg`} alt="" />
+                        <img src={`${url}searchIcon.svg`} alt="Search Icon" />
                     </div>
                     <div className={styles.mapIcon}>
                         <Link to="/map">
-                            <img src={`${url}mapIcon.svg`} alt="" />
+                            <img src={`${url}mapIcon.svg`} alt="Map Icon" />
                         </Link>
                     </div>
                 </div>
                 <div className={styles.logo}>
-                    <Link to="">
-                        <img src={`${url}조말론로고.svg`} alt="" />
+                    <Link to="/">
+                        <img src={`${url}조말론로고.svg`} alt="Logo" />
                     </Link>
                 </div>
                 <div className={styles.righticonbox}>
-                    {/* 이메일이 있거나 없을 때 이메일에 따라서 표기되는 값 변경 */}
+                    {/* 로그인 혹은 마이페이지 버튼 */}
                     {email ? (
                         email === 'admin@jomalone.kr' ? (
                             <div className={styles.userLink} onClick={Adminbtn}>
-                                관리자
+                                <i className="fa-solid fa-user"></i>
                             </div>
                         ) : (
-                            <div className={styles.userLink} onClick={Loginbtn}>{`${userName}님`}</div>
+                            <div className={styles.userLink} onClick={Loginbtn}>
+                                <i className="fa-solid fa-user"></i>
+                            </div>
                         )
-                    ) : null}
-
-                    {/* 로그인 혹은 마이페이지 버튼 */}
-                    <div className={styles.myPageIcon} onClick={Loginbtn}>
-                        <img src={`${url}myPageIcon.svg`} alt="" />
-                    </div>
+                    ) : (
+                        <div className={styles.userLink} onClick={Loginbtn}>
+                            <i className="fa-regular fa-user"></i>
+                        </div>
+                    )}
                     <div className={styles.basketIcon} onClick={LoginBsk}>
-                        <img src={`${url}basketIcon.svg`} alt="" />
+                        <img src={`${url}basketIcon.svg`} alt="Basket Icon" />
                     </div>
                 </div>
             </div>
