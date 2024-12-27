@@ -6,7 +6,6 @@ import Pagination from '../../dup/Pagination';
 
 function OrderList(props) {
     const [order, setOrder] = useState([]);
-    const [text, setText] = useState('');
     const [isEditable, setIsEditable] = useState(false);
     const navigate = useNavigate();
 
@@ -127,8 +126,11 @@ function OrderList(props) {
             .then((res) => {
                 console.log('검색 완료', res.data);
 
-                setOrder(res.data);
-                setText('해당하는 주문이 존재하지 않습니다.');
+                const dataText = ['주문완료', '배송중', '배송완료'];
+
+                const validOrders = res.data.filter((od) => od.order_status.includes(dataText));
+
+                setOrder(validOrders);
             })
             .catch((err) => {
                 console.error('에러발생: ', err);
