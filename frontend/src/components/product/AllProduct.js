@@ -1,36 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import ProductCard from './ProductCard';
-import axios from 'axios';
-import styles from '../../scss/product/homeTop.module.scss';
-import { Link } from 'react-router-dom';
-import Pagination from '../dup/Pagination';
+import React, { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
+import styles from "../../scss/product/homeTop.module.scss";
+import { Link } from "react-router-dom";
+import Pagination from "../dup/Pagination";
 
 const bkURL = process.env.REACT_APP_BACK_URL;
 
-const AllProduct = () => {
-    const [product, setProduct] = useState([]);
-
+const AllProduct = ({ prod, getProd }) => {
     // pagination 추가
     const [curPage, setCurPage] = useState(1); // Current page
     const [itemsPerPage] = useState(12); // Items per page
     // Calculate the products for the current page
     const indexOfLastItem = curPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const curProducts = product.slice(indexOfFirstItem, indexOfLastItem);
+    const curProducts = prod.slice(indexOfFirstItem, indexOfLastItem);
 
     useEffect(() => {
-        axios
-            .get(`${bkURL}/product/`)
-            .then((res) => {
-                console.log('서버 다녀옴', res.data);
-
-                console.log(res.data);
-                setProduct(res.data);
-            })
-            .catch((err) => {
-                console.error('에러발생 ; ', err);
-            });
-    }, []);
+        getProd();
+    }, [getProd]);
     return (
         <div>
             <div className={styles.homeTop}>
@@ -48,7 +35,7 @@ const AllProduct = () => {
             </div>
             <ProductCard product={curProducts} />
             <Pagination
-                totalItems={product.length}
+                totalItems={prod.length}
                 itemsPerPage={itemsPerPage}
                 pagesPerGroup={5}
                 curPage={curPage}
