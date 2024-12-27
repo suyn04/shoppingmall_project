@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../scss/admin/AdminList.module.scss';
 import Pagination from '../../dup/Pagination';
@@ -7,7 +7,10 @@ import Pagination from '../../dup/Pagination';
 function AOrderStatus(props) {
     const [isEditable, setIsEditable] = useState(false);
     const [order, setOrder] = useState([]);
-    const [text, setText] = useState('');
+    const navigate = useNavigate();
+
+    const orderStatuses = ['취소', '반품접수', '반품완료', '환불접수', '환불완료'];
+
     // pagination 추가
     const [curPage, setCurPage] = useState(1); // Current page
     const [itemsPerPage] = useState(10); // Items per page
@@ -37,24 +40,46 @@ function AOrderStatus(props) {
         orderStatusAxios();
     }, []);
 
+    const handleInvoiceChange = (id, newInvoice) => {
+        const updatedArr = order.map((item) =>
+            item.order_id === id
+                ? {
+                      ...item,
+                      invoice: newInvoice || '',
+                      status: item.status,
+                  }
+                : item
+        );
+        setOrder(updatedArr);
+    };
+
     // 상태 변경 핸들러
     const handleStatusChange = (id, newStatus) => {
         const updatedArr = order.map((item) => {
-            if (item.order_id === id) {
-                return { ...item, status: newStatus };
-            }
-            return item;
+            item.order_id === id
+                ? { ...item, order_status: newStatus, status: newStatus } // 상태 값을 일관되게 업데이트
+                : item;
         });
+
         setOrder(updatedArr);
     };
 
     // 수정 완료 핸들러 (DB에 업데이트)
-    const handleSaveChanges = () => {
+    const handleSaveChanges = (e) => {
+        e.preventDefault();
+
+        const modifyOrder = order.map((item) => ({
+            ...item,
+            invoice: item.invoice || '',
+            status: item.status || item.order_status,
+        }));
+
         axios
-            .post(`${bkURL}/admin/order/update`, order)
+            .post(`${bkURL}/admin/order/update`, modifyOrder)
             .then((res) => {
                 alert('수정이 완료되었습니다.');
-                setIsEditable(false);
+                setIsEditable(false); // 수정하기 버튼 표시
+                navigate('/admin/orderStatus');
             })
             .catch((err) => {
                 console.error('수정 실패 :', err);
@@ -90,6 +115,7 @@ function AOrderStatus(props) {
             }
         });
 
+        // 검색어+검색기준 없으면
         if (!data.text) {
             alert('검색할 단어를 입력해 주세요.');
             return;
@@ -100,25 +126,15 @@ function AOrderStatus(props) {
             .then((res) => {
                 console.log('검색 완료', res.data);
 
-                setOrder(res.data);
-                setText('해당하는 주문이 존재하지 않습니다.');
+                const dataText = ['취소', '반품접수', '반품완료', '환불접수', '환불완료'];
+
+                const validOrders = res.data.filter((od) => od.order_status.includes(dataText));
+
+                setOrder(validOrders);
             })
             .catch((err) => {
                 console.error('에러발생 ; ', err);
             });
-    };
-
-    const handleInvoiceChange = (id, newInvoice) => {
-        const updatedArr = order.map((item) =>
-            item.order_id === id
-                ? {
-                      ...item,
-                      invoice: newInvoice,
-                      status: item.status === '반품접수' || item.status === '환불접수' ? item.status : '반품접수',
-                  }
-                : item
-        );
-        setOrder(updatedArr);
     };
 
     const resetSearch = (e) => {
@@ -142,6 +158,7 @@ function AOrderStatus(props) {
             .catch((err) => {
                 console.error('초기화 중 에러 발생:', err);
             });
+        orderStatusAxios();
     };
 
     return (
@@ -205,11 +222,11 @@ function AOrderStatus(props) {
                                 onChange={(e) => handleStatusChange(mm.order_id, e.target.value)}
                                 disabled={!isEditable}
                             >
-                                <option value="취소">취소</option>
-                                <option value="반품접수">반품접수</option>
-                                <option value="반품완료">반품완료</option>
-                                <option value="환불접수">환불접수</option>
-                                <option value="환불완료">환불완료</option>
+                                {orderStatuses.map((status) => (
+                                    <option key={status} value={status}>
+                                        {status}
+                                    </option>
+                                ))}
                             </select>
                         </td>
                         <td>{mm.pay_to}</td>
@@ -220,7 +237,7 @@ function AOrderStatus(props) {
                                 className={styles.invoicebar}
                                 type="text"
                                 value={mm.invoice}
-                                readOnly={!isEditable || !(mm.status === '반품접수' || mm.status === '환불완료')}
+                                readOnly={!isEditable}
                                 maxLength={14}
                                 onChange={(e) => handleInvoiceChange(mm.order_id, e.target.value)}
                             />

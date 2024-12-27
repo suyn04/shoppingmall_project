@@ -28,7 +28,7 @@ function OrderList(props) {
             .then((res) => {
                 const updatedData = res.data.map((item) => ({
                     ...item,
-                    status: item.order_status || '주문완료',
+                    status: item.order_status,
                     invoice: item.invoice || '',
                 }));
                 setOrder(updatedData);
@@ -44,20 +44,20 @@ function OrderList(props) {
 
     const handleInvoiceChange = (id, newInvoice) => {
         const updatedArr = order.map((item) =>
-            item.order_id === id ? { ...item, invoice: newInvoice || '', status: item.status || '배송중' } : item
+            item.order_id === id ? { ...item, invoice: newInvoice || '', status: item.status } : item
         );
         setOrder(updatedArr);
     };
 
     // select로 상태 변경시 동작하는 함수
     const handleStatusChange = (id, newStatus) => {
-        setOrder((prevOrders) =>
-            prevOrders.map((item) =>
-                item.order_id === id
-                    ? { ...item, order_status: newStatus, status: newStatus } // 상태 값을 일관되게 업데이트
-                    : item
-            )
-        );
+        const updatedArr = order.map((item) => {
+            item.order_id === id
+                ? { ...item, order_status: newStatus, status: newStatus } // 상태 값을 일관되게 업데이트
+                : item;
+        });
+
+        setOrder(updatedArr);
     };
 
     // 수정 완료 핸들러 (DB에 업데이트)
@@ -144,7 +144,7 @@ function OrderList(props) {
         form.orderCate.value = ''; // 검색 기준 초기화
         form.text.value = ''; // 검색어 초기화
 
-        console.log('초기화 진입');
+        // console.log('초기화 진입');
 
         // 데이터를 원래 상태로 복원
         axios
