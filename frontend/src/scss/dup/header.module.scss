@@ -46,16 +46,12 @@ header {
 .logo {
     position: relative;
     width: 100%;
-    margin-left: 68px;
     display: flex;
     justify-content: center;
     img {
         width: 150px;
         height: 60px;
     }
-}
-.logOn {
-    line-height: 25px;
 }
 /* 검색 */
 .searchBg {
@@ -111,24 +107,24 @@ header {
     margin-top: 20px;
 }
 
-.userLink {
-    display: block;
-    text-align: right;
-    align-items: center;
-    cursor: pointer;
-    color: #1c1c1c;
-    font-size: 14px;
-    margin-top: 5px;
-    white-space: nowrap;
-}
-
-.myPageIcon,
+.userLink,
 .basketIcon {
     width: 24px;
     height: 24px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+.userLink {
+    i {
+        width: 24px;
+        height: 24px;
+        color: #333;
+        font-size: 20px;
+        text-align: center;
+        line-height: 25px;
+    }
 }
 
 /* 반응형 관련 */
