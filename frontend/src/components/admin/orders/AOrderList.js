@@ -52,10 +52,12 @@ function OrderList(props) {
     // select로 상태 변경시 동작하는 함수
     const handleStatusChange = (id, newStatus) => {
         const updatedArr = order.map((item) => {
-            item.order_id === id
+            // console.log('item', item);
+            return item.order_id === id
                 ? { ...item, order_status: newStatus, status: newStatus } // 상태 값을 일관되게 업데이트
                 : item;
         });
+        // console.log('test', updatedArr);
 
         setOrder(updatedArr);
     };
@@ -128,7 +130,10 @@ function OrderList(props) {
 
                 const dataText = ['주문완료', '배송중', '배송완료'];
 
-                const validOrders = res.data.filter((od) => od.order_status.includes(dataText));
+                const validOrders = res.data.filter((od) => dataText.includes(od.order_status));
+                // res.data.filter((od) => console.log('주문관리', dataText.includes(od.order_status)));
+
+                // console.log(validOrders);
 
                 setOrder(validOrders);
             })
@@ -163,6 +168,14 @@ function OrderList(props) {
 
         orderListAxios();
     };
+
+    if (!order || order.length === 0) {
+        return <div>로딩 중...</div>;
+    }
+
+    if (!curOrders || curOrders.length === 0) {
+        return <div>주문 데이터가 없습니다.</div>;
+    }
 
     return (
         <div className={styles.list}>
