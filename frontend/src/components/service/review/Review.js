@@ -142,7 +142,7 @@ const Review = () => {
                 <div className={styles.content}>
                     <div className={styles.rtext}>
                         <h2>{product.product_name_kor}</h2>
-                        <h3>{product.product_intro}</h3>
+                        <div>{product.product_intro}</div>
                     </div>
 
                     <form name="myFrm" onSubmit={handleSubmit}>
