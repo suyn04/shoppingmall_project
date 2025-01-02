@@ -1,14 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const conn = require('../db');
+const conn = require("../db");
 
 module.exports = () => {
-    router.get('/day', async (req, res) => {
-<<<<<<< HEAD
-        console.log(`매출 /day 진입 확인`);
-
-=======
->>>>>>> ssera
+    router.get("/day", async (req, res) => {
         try {
             const [ret] = await conn.execute(
                 `SELECT 
@@ -23,25 +18,13 @@ module.exports = () => {
         ORDER BY 
           order_date`
             );
-<<<<<<< HEAD
-            // console.log(ret)
             res.json(ret);
         } catch (err) {
-            console.error('SQL 실패: ', err.message);
-=======
-            res.json(ret);
-        } catch (err) {
->>>>>>> ssera
-            res.status(500).send('DB 오류');
+            res.status(500).send("DB 오류");
         }
     });
 
-    router.get('/month', async (req, res) => {
-<<<<<<< HEAD
-        console.log(`매출 /month 진입 확인`);
-
-=======
->>>>>>> ssera
+    router.get("/month", async (req, res) => {
         try {
             const [ret] = await conn.execute(
                 `SELECT 
@@ -59,20 +42,11 @@ module.exports = () => {
             );
             res.json(ret);
         } catch (err) {
-<<<<<<< HEAD
-            console.error('SQL 실패: ', err.message);
-=======
->>>>>>> ssera
-            res.status(500).send('DB 오류');
+            res.status(500).send("DB 오류");
         }
     });
 
-    router.get('/year', async (req, res) => {
-<<<<<<< HEAD
-        console.log(`매출 /year 진입 확인`);
-
-=======
->>>>>>> ssera
+    router.get("/year", async (req, res) => {
         try {
             const [ret] = await conn.execute(
                 `SELECT 
@@ -89,11 +63,7 @@ module.exports = () => {
             );
             res.json(ret);
         } catch (err) {
-<<<<<<< HEAD
-            console.error('SQL 실패: ', err.message);
-=======
->>>>>>> ssera
-            res.status(500).send('DB 오류');
+            res.status(500).send("DB 오류");
         }
     });
 
