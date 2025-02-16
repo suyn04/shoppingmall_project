@@ -7,15 +7,19 @@
 
 ## 🌍 배포 링크
 👉 [사이트 바로가기](https://web-jomalone-deploy-frontend-m5gmo1isb2cc7449.sel4.cloudtype.app/)
-!주의!
--  함부로 관리자 페이지 데이터를 변경하지 말 것!
 
-  ### 일반 로그인
-  - 아이디 : yeseul@gmail.com
-  - 비밀번호 : 123123
-  ### 관리자 로그인
-  - 아이디 : admin@jomalone.kr
-  - 비밀번호 : admin2024
+<sub>⚠️ **주의!** 함부로 관리자 페이지 데이터를 변경하지 말 것!</sub>
+
+<details>
+  <summary>✨ 일반 로그인</summary>
+  - **아이디**: `yeseul@gmail.com`  
+  - **비밀번호**: `123123`  
+</details>
+<details>
+  <summary>🔑 관리자 로그인</summary>
+  - **아이디**: `admin@jomalone.kr`  
+  - **비밀번호**: `admin2024`  
+</details>
 
 ## 🛠 기술 스택
 - **Frontend**: React, SCSS, Axios, Router, Redux
