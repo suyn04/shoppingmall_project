@@ -12,13 +12,13 @@
 
 <details>
   <summary>✨ 일반 로그인</summary>
-  - **아이디**: `yeseul@gmail.com`  
-  - **비밀번호**: `123123`  
+  - 아이디: yeseul@gmail.com<br/>
+  - 비밀번호: 123123  
 </details>
 <details>
   <summary>🔑 관리자 로그인</summary>
-  - **아이디**: `admin@jomalone.kr`  
-  - **비밀번호**: `admin2024`  
+  - 아이디: admin@jomalone.kr<br/>
+  - 비밀번호: admin2024
 </details>
 
 ## 🛠 기술 스택
