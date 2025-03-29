@@ -7,7 +7,7 @@ function DefaultMenu() {
 
     return (
         <nav>
-            <div div className={styles.menuBg}></div>
+            <div className={styles.menuBg}></div>
             <ul className={styles.menu}>
                 <li>
                     <Link to="/storymain">브랜드 소개</Link>
