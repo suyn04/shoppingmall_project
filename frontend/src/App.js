@@ -49,13 +49,12 @@ import SignIn from './components/mypage/SignIn';
 import SignUp from './components/mypage/SignUp';
 import FindPw from './components/mypage/FindPw';
 import OrderDetail from './components/mypage/OrderDetail';
-//
+// etc
 import Map from './components/dup/Map';
 import Basket from './components/order/Basket';
 import Payment1 from './components/order/Payment1';
 import Payment2 from './components/order/Payment2';
 import Payment3 from './components/order/Payment3';
-import Mypage from './Mypage';
 import Admin from './components/admin/Admin';
 import ScrollToTop from './components/dup/ScrollToTop';
 
