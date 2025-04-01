@@ -1,32 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../../scss/dup/map.module.scss';
 
 function Map(props) {
-    const [text, setText] = useState('');
-    const [showMap, setShowMap] = useState(false);
+    const mapRef = useRef(null);
+    const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_MAPS_CLIENT_ID; // 환경 변수 불러오기
 
-    const handleCurrentLocation = () => {
-        const location = '서울특별시 강남구';
-        setText(location);
-    };
-
-    const handleSearch = () => {
-        if (text.trim() === '') {
-            alert('검색어를 입력해 주세요!');
-        } else {
-            setShowMap(true);
+    useEffect(() => {
+        // 이미 네이버 지도 API가 로드되었는지 확인
+        if (window.naver) {
+            initializeMap();
+            return;
         }
-    };
 
-    const handleChange = (e) => {
-        setText(e.target.value);
-        setShowMap(false);
-    };
+        // 동적으로 <script> 태그 추가
+        const script = document.createElement('script');
+        script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_CLIENT_ID}`;
+        script.async = true;
+        script.onload = () => initializeMap();
+        document.body.appendChild(script);
 
-    useEffect(() => {}, []);
+        function initializeMap() {
+            if (!window.naver || !mapRef.current) return;
+            const map = new window.naver.maps.Map(mapRef.current, {
+                center: new window.naver.maps.LatLng(37.5665, 126.978),
+                zoom: 15,
+            });
+
+            // 마커 추가
+            new window.naver.maps.Marker({
+                position: new window.naver.maps.LatLng(37.5665, 126.978),
+                map,
+            });
+        }
+    }, [NAVER_CLIENT_ID]);
+
     return (
-        <div className={styles.map}>
+        <div className={styles.mapWrap}>
             <div className={styles.topDir}>
                 <ol>
                     <li>
@@ -38,27 +48,7 @@ function Map(props) {
                     </li>
                 </ol>
             </div>
-            <main>
-                <form onSubmit={(e) => e.preventDefault()}>
-                    <button type="button" className="place" onClick={handleCurrentLocation}>
-                        현재 위치에서 찾기
-                    </button>
-                    <input
-                        type="search"
-                        placeholder="현재 위치에서 찾기 클릭 또는 도로명으로 검색"
-                        value={text}
-                        onChange={handleChange}
-                    />
-                    <button type="button" className={styles.searchBtn} onClick={handleSearch}>
-                        검색
-                    </button>
-                </form>
-                {showMap && (
-                    <div className={styles.mapImg}>
-                        <img src="/imgs/main/map.png" alt="매장 위치 지도" />
-                    </div>
-                )}
-            </main>
+            <div ref={mapRef} style={{ width: '90%', height: '400px', margin: 'auto' }} />
         </div>
     );
 }
